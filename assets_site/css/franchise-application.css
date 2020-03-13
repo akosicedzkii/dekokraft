@@ -1,0 +1,58 @@
+#franchise-form-container {
+	padding: 40px 0 40px;
+	background-color: #ffffff;
+}
+
+#franchise-form-container {
+	font-size: 15px;
+}
+
+#franchise-form-container .form-label {
+    display: block;
+    margin-bottom: 3px;
+    color: #005598;
+    font-size: 14px;
+}
+
+#franchise-form-container input:not(#franchise-submit):not(#franchise-letter) {
+	border: 2px solid #005598;
+}
+
+#franchise-form .franchise-textbox, #franchise-form .franchise-date {
+	width: 100%;
+}
+
+#franchise-form #franchise-submit {
+	margin-top: 30px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	-o-appearance: none;
+	-ms-appearance: none;
+	appearance: none;
+	background-color: rgba(0, 0, 0, 0);
+	border: 2px solid #005598;
+	color: #005598;
+	font-weight: 600;
+	padding: 7px 11px;
+	cursor: pointer;
+	transition: color 300ms, border 300ms, background-color 300ms;
+}
+
+#franchise-form #franchise-submit:hover {
+	color: #ffffff;
+	border: 2px solid #ffffff;
+	background-color: #005598;
+}
+
+#franchise-form .error-msg {
+	min-height: 18px;
+	margin: 1px 0 6px;
+	color: #ff0000;
+	font-size: 12px;
+}
+
+@media (max-width: 575px) {
+	#franchise-form .row:last-child>div {
+		text-align: center;
+	}
+}

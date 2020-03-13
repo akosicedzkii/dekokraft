@@ -1,0 +1,347 @@
+.carousel-indicators li {
+    width: 20px;
+    max-width: 20px;
+    height: 24px;
+    background-color: unset;
+    background: url('./../images/unioil-thumbnail-inactive.png') no-repeat;
+    background-position: 0 0;
+    margin: 0 10px;
+}
+
+.carousel-indicators li:before, .carousel-indicators li:after {
+    content: none;
+}
+
+.carousel-indicators .active {
+    background-color: unset;
+    background: url('./../images/unioil-thumbnail-active.png') no-repeat;
+    background-position: 0 0;
+}
+
+#header-carousel-container #main-carousel #doing-your-part-copy.carousel-content {
+    transform: translate(20%, -50%);
+    width: 50%;
+    top: 50%;
+}
+
+#news-updates-ribbon a .ribbon-container {
+    width: 100%;
+    background-color: #ffffff;
+    -webkit-transition: background-color 500ms ease-out;
+    -moz-transition: background-color 500ms ease-out;
+    -o-transition: background-color 500ms ease-out;
+    -ms-transition: background-color 500ms ease-out;
+    transition: background-color 500ms ease-out;
+}
+
+#news-updates-ribbon a .ribbon-container p {
+    text-align: center;
+    color: #e84b20;
+    margin-bottom: 0;
+    font-size: 20px;
+    line-height: 70px;
+    -webkit-transition: color 200ms ease-out;
+    -moz-transition: color 200ms ease-out;
+    -o-transition: color 200ms ease-out;
+    -ms-transition: color 200ms ease-out;
+    transition: color 200ms ease-out;
+}
+
+#news-updates-ribbon a:hover .ribbon-container {
+    background-color: #e84b20;
+}
+
+#news-updates-ribbon a:hover .ribbon-container p {
+    color: #ffffff;
+}
+
+#unioil-loyalty-cta {
+    background: url("./../images/loyalty.png") center no-repeat;
+    background-size: cover;
+    padding: 100px 0 180px;
+    padding: 100px 0 13vw;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+#unioil-loyalty-cta .row>div {
+    padding: 0 30px;
+}
+
+#unioil-loyalty-cards {
+    font-size: 0;
+    text-align: center;
+    padding-bottom: 60px;
+}
+
+#unioil-loyalty-cards .card-btn-container {
+    padding: 0 80px;
+    margin-top: -100px;
+    margin-top: -8vw;
+}
+
+#unioil-loyalty-cards .card-btn {
+    width: 20%;
+    height: 230px;
+    height: 16.8vw;
+    background-color: #2c5d9c;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+#unioil-loyalty-cards .card-btn:not(:first-child) {
+    margin-left: 39px;
+}
+
+#unioil-loyalty-cards .card-btn:before {
+    content: '';
+    border-top: 115px solid transparent;
+    border-top: 8.4vw solid transparent;
+    border-right: 20px solid #2c5d9c;
+    border-bottom: 115px solid #2c5d9c;
+    border-bottom: 8.4vw solid #2c5d9c;
+    border-left: 20px solid transparent;
+    position: absolute;
+    top: 0;
+    left: -40px;
+}
+
+#unioil-loyalty-cards .card-btn:after {
+    content: '';
+    border-top: 115px solid #2c5d9c;
+    border-top: 8.4vw solid #2c5d9c;
+    border-right: 20px solid transparent;
+    border-bottom: 115px solid transparent;
+    border-bottom: 8.4vw solid transparent;
+    border-left: 20px solid #2c5d9c;
+    position: absolute;
+    top: 0;
+    left: 100%;
+}
+
+#unioil-loyalty-cards .card-btn:nth-child(even) {
+    background-color: #214775;
+}
+
+#unioil-loyalty-cards .card-btn:nth-child(even):before {
+    border-right-color: #214775;
+    border-bottom-color: #214775;
+}
+
+#unioil-loyalty-cards .card-btn:nth-child(even):after {
+    border-top-color: #214775;
+    border-left-color: #214775;
+}
+
+#unioil-loyalty-cards .card-btn.active {
+    background-color: #677a87;
+}
+
+#unioil-loyalty-cards .card-btn.active:before {
+    border-right-color: #677a87;
+    border-bottom-color: #677a87;
+}
+
+#unioil-loyalty-cards .card-btn.active:after {
+    border-top-color: #677a87;
+    border-left-color: #677a87;
+}
+
+#unioil-loyalty-cards .card-btn .card-name {
+    font-size: 23px;
+    font-size: 1.5vw;
+    color: #ffffff;
+    line-height: 21px;
+    line-height: 1.6vw;
+    text-align: left;
+    position: absolute;
+    bottom: 0;
+    margin-left: -5px;
+    z-index: 2;
+    -webkit-transition: color 300ms ease-out;
+    -moz-transition: color 300ms ease-out;
+    -o-transition: color 300ms ease-out;
+    -ms-transition: color 300ms ease-out;
+    transition: color 300ms ease-out;
+}
+
+#unioil-loyalty-cards .card-btn.active .card-name {
+    color: #7b8b97
+}
+
+#unioil-loyalty-cards .card-btn .card-name .emphasis {
+    font-size: 32px;
+    font-size: 1.95vw;
+    font-weight: 800;
+}
+
+#unioil-loyalty-cards .card-btn .card-hover-container {
+    opacity: 0;
+    -webkit-transition: opacity 300ms ease-out;
+    -moz-transition: opacity 300ms ease-out;
+    -o-transition: opacity 300ms ease-out;
+    -ms-transition: opacity 300ms ease-out;
+    transition: opacity 300ms ease-out;
+}
+
+#unioil-loyalty-cards .card-btn.active .card-hover-container {
+    opacity: 100;
+}
+
+#unioil-loyalty-cards .card-btn .card-desc {
+    font-size: 12px;
+    margin-left: 15px;
+    font-size: .9vw;
+    color: #ffffff;
+    text-align: left;
+    position: absolute;
+    top: 20px;
+    z-index: 2;
+}
+
+#unioil-loyalty-cards .card-btn .hover-line {
+    position: absolute;
+    top: 20px;
+    left: 8px;
+    width: 2px;
+    height: 50%;
+    background-color: #e84b1c;
+}
+
+#promo-carousel-container .carousel-content-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50%;
+    box-sizing: border-box;
+    right: 0;
+    text-align: center;
+}
+
+#promo-carousel-container .carousel-content-container h3 {
+    font-size: 1.75rem;
+    font-size: 2.5vw;
+    color: #005598;
+    font-weight: 600;
+}
+
+.fb-img-btn {
+    max-width: 250px;
+    padding: 0 10px;
+    margin-top: 20px;
+}
+
+@media (max-width: 767px) {
+    #unioil-loyalty-cards .card-btn:not(:first-child) {
+        margin-left: unset;
+    }
+
+    #unioil-loyalty-cards .card-btn-container {
+        margin-top: 0;
+        margin-top: 0;
+    }
+
+    #unioil-loyalty-cards .card-btn-container {
+        padding: 0 20px;
+    }
+
+    #unioil-loyalty-cards .card-btn {
+        min-height: 180px;
+    }
+
+    #unioil-loyalty-cards .card-btn:before {
+        border-top: 90px solid transparent;
+        border-right: 20px solid #2c5d9c;
+        border-bottom: 90px solid #2c5d9c;
+        border-left: 20px solid transparent;
+    }
+
+    #unioil-loyalty-cards .card-btn:after {
+        border-top: 90px solid #2c5d9c;
+        border-right: 20px solid transparent;
+        border-bottom: 90px solid transparent;
+        border-left: 20px solid #2c5d9c;
+    }
+
+    #unioil-loyalty-cards .card-btn .card-hover-container {
+        opacity: 100;
+    }
+}
+
+@media (max-width: 575px) {
+    #unioil-loyalty-cards .card-btn {
+        width: 70%;
+        margin: 20px auto 0;
+    }
+
+    #unioil-loyalty-cards .card-btn .card-name {
+        font-size: 3vw;
+        line-height: 3.2vw;
+    }
+
+    #unioil-loyalty-cards .card-btn .card-name .emphasis {
+        font-size: 4.45vw;
+    }
+
+    #unioil-loyalty-cards .card-btn .card-desc {
+        font-size: 2.25vw;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    #unioil-loyalty-cards .card-btn {
+        width: 40%;
+        margin: 15px auto 0;
+    }
+
+    #unioil-loyalty-cards .card-btn:nth-child(even) {
+        margin-left: 39px;
+    }
+
+    #unioil-loyalty-cards .card-btn .card-name {
+        font-size: 2vw;
+        line-height: 2.1vw;
+    }
+
+    #unioil-loyalty-cards .card-btn .card-name .emphasis {
+    	font-size: 3.05vw;
+    }
+
+    #unioil-loyalty-cards .card-btn .card-desc {
+        font-size: 1.5vw;
+    }
+}
+
+#header-slideshow-container {
+    position: relative;
+}
+
+#header-slideshow-container #main-slideshow .slideshow-bg {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    opacity: 0;
+    -webkit-transition: opacity 500ms ease-out;
+    -moz-transition: opacity 500ms ease-out;
+    -o-transition: opacity 500ms ease-out;
+    -ms-transition: opacity 500ms ease-out;
+    transition: opacity 500ms ease-out;
+}
+
+#header-slideshow-container #main-slideshow .slideshow-bg.active {
+    position: relative;
+    opacity: 100;
+    -webkit-transition: opacity 500ms ease-out;
+    -moz-transition: opacity 500ms ease-out;
+    -o-transition: opacity 500ms ease-out;
+    -ms-transition: opacity 500ms ease-out;
+    transition: opacity 500ms ease-out;
+}
+
+#header-slideshow-container #main-slideshow #doing-your-part-copy {
+    position: absolute;
+    top: 50%;
+    transform: translate(20%, -50%);
+    width: 50%;
+}

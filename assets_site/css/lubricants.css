@@ -1,0 +1,161 @@
+a.ghost-btn.blue {
+	font-weight: bold;
+}
+
+#lubricants-container {
+	padding: 100px 0;
+}
+
+#lubricants-container .lubricant-item p {
+	text-align: center;
+	margin: 40px 0 20px;
+	font-size: 14px;
+}
+
+.modal-header {
+	border-bottom: 0;
+	position: relative;
+}
+
+.modal-header .modal-title {
+	color: #ea4415;
+	text-align: center;
+	width: 100%;
+	margin: 20px 0 20px;
+}
+
+.modal-header button.close {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	color: #ffffff;
+}
+
+.modal-content {
+	border-radius: 0;
+	background-color: rgba(0, 0, 0, .8);
+	color: #ffffff;
+	padding-bottom: 60px;
+}
+
+.modal-content .row>div:first-child {
+	text-align: center;
+}
+
+.modal-content .row>div:last-child p {
+	padding-left: 15px;
+	font-size: 13px;
+}
+
+.modal-content h4 {
+	font-weight: bold;
+}
+
+.modal-content h5 {
+	font-size: 16px;
+	text-align: left;
+}
+
+.modal-content p {
+	text-align: left;
+}
+
+.modal-content p.product-description {
+	margin-top: 30px;
+	text-align: justify;
+}
+
+.product-logo {
+	margin: 0 auto;
+}
+
+.modal-divider {
+	width: 25%;
+	height: 2px;
+	background-color: #ea4415;
+	margin: 12px 0 12px;
+}
+
+.carousel-control-next-icon, .carousel-control-prev-icon {
+	opacity: .4;
+}
+
+.carousel-indicators .active {
+	background-color: unset;
+	opacity: .4;
+}
+
+.carousel-indicators {
+	margin-bottom: 0rem;
+}
+
+.carousel-indicators li {
+	height: unset;
+	max-width: 60px;
+}
+
+.carousel-indicators li::before, .carousel-indicators li::after {
+	content: unset;
+}
+
+.description-emphasized {
+	font-weight: bold;
+}
+
+#product-carousel {
+	padding-bottom: 20px;
+}
+
+#product-carousel .product-thumbnail {
+	max-width: 30px;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+@media (max-width: 575px) {
+	#lubricants-container {
+		padding: 40px 0 50px;
+	}
+
+	#lubricants-container .lubricant-item p {
+		margin: 20px 0;
+	}
+
+	#lubricants-container .lubricant-item {
+		padding: 30px;
+	}
+}
+
+@media (min-width: 576px) {
+	#lubricants-container .lubricant-item {
+		padding-bottom: 40px;
+	}
+
+	#lubricants-container .lubricant-item .btn-spacer {
+		width: 100%;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+	}
+
+	.modal-dialog {
+		max-width: 90%;
+	}
+}
+
+@media (max-width: 767px) {
+	.carousel .carousel-item img {
+		max-width: 325px;
+	}
+}
+
+@media (min-width: 768px) {
+	.modal-content {
+		min-height: 575px;
+	}
+
+	#product-carousel {
+		min-height: 380px;
+	}
+}

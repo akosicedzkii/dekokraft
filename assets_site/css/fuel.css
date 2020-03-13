@@ -1,0 +1,140 @@
+.partial-border-container {
+    height: 2px;
+    text-align: center;
+    margin: 30px 0 15px;
+}
+
+.partial-border-container .partial-border {
+    width: 40%;
+    margin: 0 auto;
+    height: 100%;
+    background-color: #038811;
+}
+
+#euro-5-content p {
+	font-size: 15px;
+	text-align: center;
+}
+
+#euro-5-content .custom-column:first-child {
+	text-align: center;
+}
+
+.modal-header {
+	border-bottom: 0;
+	position: relative;
+}
+
+.modal-header button.close {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	color: #ffffff;
+}
+
+.modal-content {
+	border-radius: 0;
+	background-color: rgba(0, 0, 0, .8);
+	color: #ffffff;
+	padding-bottom: 25px;
+}
+
+.modal-content .row>div:first-child {
+	text-align: center;
+}
+
+.modal-content .row>div:first-child {
+	font-size: 14px;
+}
+
+.modal-content .row>div:last-child p {
+	padding-left: 15px;
+	font-size: 13px;
+}
+
+.modal-content h4 {
+	font-weight: bold;
+}
+
+.modal-content p {
+	text-align: left;
+}
+
+.modal-content p.product-description {
+	margin-top: 30px;
+	text-align: justify;
+}
+
+.product-logo {
+	margin: 0 auto;
+}
+
+.modal-divider {
+	width: 25%;
+	height: 2px;
+	background-color: #ea4415;
+	margin: 12px 0 12px;
+}
+
+@media (max-width: 575px) {
+	#euro-5-content {
+		padding: 40px 0 50px;
+	}
+
+	#euro-5-content .custom-column:first-child {
+		padding: 0 20px;
+	}
+
+	#euro-5-content .custom-column:last-child {
+		padding-left: 20px;
+	}
+
+	#euro-5-content .custom-column:last-child img {
+		margin: 10px 0;
+	}
+
+	.modal-divider {
+		width: 100%;
+	}
+}
+
+@media (min-width: 576px) {
+	#euro-5-content {
+		padding: 100px 0;
+		display: table;
+	}
+
+	#euro-5-content .custom-column {
+		display: table-cell;
+		width: 50%;
+		vertical-align: middle;
+	}
+
+	#euro-5-content .custom-column:first-child {
+		padding: 0 6%;
+	}
+
+	#euro-5-content .custom-column:first-child p {
+		font-size: 14px;
+	}
+
+	#euro-5-content .custom-column:last-child {
+		text-align: right;
+	}
+
+	#euro-5-content .custom-column:last-child img {
+		width: 100%;
+		max-width: 500px;
+		margin: 20px 0;
+		padding-left: 20px;
+		transition: padding-left 150ms ease-out;
+	}
+
+	#euro-5-content .custom-column:last-child img:hover {
+		padding-left: 10px;
+	}
+
+	.modal-dialog {
+		max-width: 90%;
+	}
+}

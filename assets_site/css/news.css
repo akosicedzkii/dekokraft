@@ -1,0 +1,191 @@
+.modal-header {
+	justify-content: unset;
+	border-bottom: unset;
+	display: block;
+	text-align: center;
+}
+
+.modal-header .modal-title {
+	width: 100%;
+	text-align: center;
+    color: #f66a40;
+}
+
+.modal-header p {
+	margin-bottom: 0;
+	font-size: 13px;
+}
+
+.modal-title {
+	color: #f66a40;
+	justify-content: center;
+}
+
+.article-title {
+	margin: 40px 0 15px;
+	display: inline-block;
+	padding: 10px;
+	background-color: #005598;
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 25px;
+}
+
+#article-content {
+	padding: 25px 10% 40px;
+}
+
+.modal-content {
+	background-color: rgba(255, 255, 255, .9);
+}
+
+button.close {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+}
+
+.close {
+	float: none;
+}
+
+.modal-dialog {
+    max-width: 500px;
+}
+
+.modal-footer {
+	justify-content: center;
+	border-top: unset;
+	padding: 15px 15px 60px;
+}
+
+.modal-footer a {
+	font-weight: bold;
+}
+
+.modal-footer>:not(:last-child) {
+    margin-right: 1rem;
+}
+
+.modal-footer>:not(:first-child) {
+    margin-left: 1rem;
+}
+
+#news-preview-container {
+	padding: 50px 0 0;
+}
+
+#news-preview-container img {
+	display: block;
+	width: 100%;
+}
+
+#news-preview-container .news-preview.reco {
+	text-align: center;
+	margin-bottom: 50px;
+	padding: 10px;
+	background-color: #ffffff;
+	-webkit-transition: background-color 300ms ease-out;
+	-moz-transition: background-color 300ms ease-out;
+	-o-transition: background-color 300ms ease-out;
+	-ms-transition: background-color 300ms ease-out;
+	transition: background-color 300ms ease-out;
+}
+
+#news-preview-container .news-preview.reco .preview-title {
+	color: #005598;
+	font-size: 1.5rem;
+	// max-height: 80px;
+	margin: 5px 0 18px;
+	font-weight: 600;
+	-webkit-transition: color 300ms ease-out;
+	-moz-transition: color 300ms ease-out;
+	-o-transition: color 300ms ease-out;
+	-ms-transition: color 300ms ease-out;
+	transition: color 300ms ease-out;
+}
+
+#news-preview-container .news-preview.reco .preview-content {
+	color: #000000;
+	font-size: .75rem;
+	height: 75px;
+	margin-bottom: 0;
+	-webkit-transition: color 300ms ease-out;
+	-moz-transition: color 300ms ease-out;
+	-o-transition: color 300ms ease-out;
+	-ms-transition: color 300ms ease-out;
+	transition: color 300ms ease-out;
+}
+
+#news-preview-container .preview-anchor:hover .news-preview.reco {
+	background-color: #005598
+}
+
+#news-preview-container .preview-anchor:hover .news-preview.reco .preview-title, #news-preview-container .preview-anchor:hover .news-preview.reco .preview-content {
+	color: #ffffff
+}
+
+#news-preview-container .news-preview.appr {
+	text-align: center;
+	margin-bottom: 50px;
+	padding: 10px;
+	background-color: #ffffff;
+}
+
+#news-preview-container .news-preview.appr .preview-title-container {
+	background-color: #005598;
+    width: 80%;
+    margin: 0 auto -1rem;
+    height: 4.5rem;
+    display: table;
+    transform: translateY(-2.25rem);
+}
+
+#news-preview-container .news-preview.appr .preview-title-container .preview-title {
+	color: #fff;
+    background-color: #005598;
+    font-size: .9rem;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#news-preview-container .news-preview.appr .preview-title-container:before {
+	content: "";
+	border-top: 2.25rem solid transparent;
+	border-left: 15px solid transparent;
+	border-bottom: 2.25rem solid #005598;
+	border-right: 15px solid #005598;
+	position: absolute;
+	top: 0;
+	left: -30px;
+}
+
+#news-preview-container .news-preview.appr .preview-title-container:after {
+	content: "";
+	border-top: 2.25rem solid #005598;
+	border-left: 15px solid #005598;
+	border-bottom: 2.25rem solid transparent;
+	border-right: 15px solid transparent;
+	position: absolute;
+	top: 0;
+	left: 100%;
+}
+
+#news-preview-container .news-preview.appr .preview-content {
+	color: #000000;
+	font-size: .75rem;
+	height: 5.75rem;
+	margin-bottom: 0;
+}
+
+@media (min-width: 576px) {
+	.modal-dialog {
+		max-width: 80%;
+	}
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+	#news-preview-container .news-preview.appr {
+		padding: 0;
+	}
+}
