@@ -29,13 +29,12 @@ $config['modules_locations'] = array(
 $ip_server = $_SERVER['SERVER_ADDR']; 
 if($ip_server == "localhost" || $ip_server == "::1"){
 
-$config['base_url'] = 'http://009e9208.ngrok.io/dekokraft';
+$config['base_url'] = 'http://192.168.100.100/dekokraft/';
 }else{
     
-    $config['base_url'] = 'http://192.168.1.2/dekokraft';
-    //$config['base_url'] = 'http://009e9208.ngrok.io/dekokraft';
+    //$config['base_url'] = 'http://192.168.1.2/dekokraft';
+    $config['base_url'] = 'http://192.168.100.100/dekokraft/';
 }
-
 /*
 |--------------------------------------------------------------------------
 | Index File
