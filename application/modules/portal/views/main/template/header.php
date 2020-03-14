@@ -355,9 +355,23 @@
           } 
         ?>
         <?php 
-          if (in_array("colors", $menu)) {
+         if (in_array("product_variants", $menu)) {
+            ?>
+             <li <?php if($module_name == "product_variants"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/product_variants"?>"><i class="fa fa-list-alt"></i><span>Product Variants</span></a></li>
+            <?php
+         } 
+       ?>
+        <?php 
+         if (in_array("colors", $menu)) {
+            ?>
+             <li <?php if($module_name == "colors"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/colors"?>"><i class="fa fa-list-alt"></i><span>Colors</span></a></li>
+            <?php
+         } 
+       ?>
+      <?php 
+          if (in_array("materials", $menu)) {
              ?>
-              <li <?php if($module_name == "colors"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/colors"?>"><i class="fa fa-list-alt"></i><span>Colors</span></a></li>
+              <li <?php if($module_name == "materials"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/materials"?>"><i class="fa fa-list"></i><span>Materials</span></a></li>
              <?php
           } 
         ?>

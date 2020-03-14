@@ -22,9 +22,9 @@ class Products extends CI_Controller {
         $this->products_model->status = $this->input->post("status");
         $this->products_model->class = $this->input->post("class");
         $this->products_model->code = $this->input->post("code");
-        $this->products_model->cover_image = $this->input->post("cover_image");
-        $this->products_model->color = $this->input->post("color");
-        $this->products_model->color_abb = $this->input->post("color_abb");
+        //$this->products_model->cover_image = $this->input->post("cover_image");
+        //$this->products_model->color = $this->input->post("color");
+        //$this->products_model->color_abb = $this->input->post("color_abb");
         $this->products_model->inner_carton = $this->input->post("inner_carton");
         $this->products_model->master_carton = $this->input->post("master_carton");
         $this->products_model->weight_of_box = $this->input->post("weight_of_box");
@@ -33,7 +33,7 @@ class Products extends CI_Controller {
         $this->products_model->best_price = $this->input->post("best_price");
         $this->products_model->product_year = $this->input->post("product_year");
         $this->products_model->product_month = $this->input->post("product_month");
-        $this->products_model->location = $this->input->post("location");
+        //$this->products_model->location = $this->input->post("location");
 
         echo $this->products_model->insert_products();
         
@@ -47,18 +47,19 @@ class Products extends CI_Controller {
         $this->products_model->status = $this->input->post("status");
         $this->products_model->class = $this->input->post("class");
         $this->products_model->code = $this->input->post("code");
-        $this->products_model->cover_image = $this->input->post("cover_image");
-        $this->products_model->color = $this->input->post("color");
-        $this->products_model->color_abb = $this->input->post("color_abb");
+        //$this->products_model->cover_image = $this->input->post("cover_image");
+        //$this->products_model->color = $this->input->post("color");
+        //$this->products_model->color_abb = $this->input->post("color_abb");
         $this->products_model->inner_carton = $this->input->post("inner_carton");
         $this->products_model->master_carton = $this->input->post("master_carton");
         $this->products_model->weight_of_box = $this->input->post("weight_of_box");
         $this->products_model->minimum_of_quantity = $this->input->post("minimum_of_quantity");
         $this->products_model->lowest_cost = $this->input->post("lowest_cost");
         $this->products_model->best_price = $this->input->post("best_price");
+        $this->products_model->old_price = $this->input->post("old_price");
         $this->products_model->product_year = $this->input->post("product_year");
         $this->products_model->product_month = $this->input->post("product_month");
-        $this->products_model->location = $this->input->post("location");
+        //$this->products_model->location = $this->input->post("location");
         echo $this->products_model->update_products();
 	}
 
@@ -69,7 +70,8 @@ class Products extends CI_Controller {
         
         $data_products = $this->db->get("products");
         $this->db->where("id",$id);
-        echo $result = $this->db->delete("products");
+        $data["status"] = 3; 
+        echo $result = $this->db->update("products",$data);
         unlink($upload_path = './uploads/products/'.$data_products->row()->cover_image);
         $data = json_encode($data_products->row());
         $this->logs->log = "Deleted Product - ID:". $data_products->row()->id .", Product Title: ".$data_products->row()->title ;
@@ -97,15 +99,33 @@ class Products extends CI_Controller {
         $return["products"] = $products;
         echo json_encode($return); 
     }
+    public function get_products_selection()
+    {
+        
+        $search = $this->input->get("term[term]");
+        $this->db->like("title",$search);  
+        $this->db->or_like("code",$search);  
+        $this->db->or_like("class",$search);  
+        $this->db->select("title as text"); 
+        $this->db->select("class"); 
+        $this->db->select("code"); 
+        $this->db->select("id");
+        $this->db->limit(10);
+        $filteredValues=$this->db->get("products")->result_array();
 
+        echo json_encode(array(
+            'items' => $filteredValues
+        ));
+    }
     public function get_products_list()
     {
         $this->load->model("portal/data_table_model","dt_model");  
-        $this->dt_model->select_columns = array("t1.id","t1.cover_image","t1.location","t1.class","t1.code","t1.description","t1.color","t1.master_carton","t1.weight_of_box","t1.minimum_of_quantity","t1.lowest_cost","t1.best_price","IF(t1.status=1,'Active','Inactive') as status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
-        $this->dt_model->where  = array("t1.id","t1.cover_image","t1.location","t1.class","t1.code","t1.description","t1.color","t1.master_carton","t1.weight_of_box","t1.minimum_of_quantity","t1.lowest_cost","t1.best_price","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");  
-        $select_columns = array("id","cover_image","location","class","code","description","color","master_carton","weight_of_box","minimum_of_quantity","lowest_cost","best_price","status","date_created","created_by","date_modified","modified_by");  
+        $this->dt_model->select_columns = array("t1.id","t1.description","t1.class","t1.code","t1.master_carton","t1.weight_of_box","t1.minimum_of_quantity","t1.lowest_cost","t1.best_price","IF(t1.status=1,'Active','Inactive') as status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
+        $this->dt_model->where  = array("t1.id","t1.description","t1.class","t1.code","t1.master_carton","t1.weight_of_box","t1.minimum_of_quantity","t1.lowest_cost","t1.best_price","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");  
+        $select_columns = array("id","description","class","code","master_carton","weight_of_box","minimum_of_quantity","lowest_cost","best_price","status","date_created","created_by","date_modified","modified_by");  
         $this->dt_model->table = "products AS t1 LEFT JOIN user_accounts AS t2 ON t2.id = t1.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t1.modified_by";  
         $this->dt_model->index_column = "t1.id";
+        $this->dt_model->staticWhere = "t1.status != 3"; 
         $result = $this->dt_model->get_table_list();
         $output = $result["output"];
         $rResult = $result["rResult"];
@@ -149,7 +169,7 @@ class Products extends CI_Controller {
                     }
             }
             
-            $btns = '<!--<a href="#" onclick="_view('.$aRow['id'].');return false;" class="glyphicon glyphicon-search text-orange" data-toggle="tooltip" title="View Details"></a>-->
+            $btns = '<a href="#" onclick="_view('.$aRow['id'].');return false;" class="glyphicon glyphicon-search text-orange" data-toggle="tooltip" title="View Details"></a>
             <a href="#" onclick="_edit('.$aRow['id'].');return false;" class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" title="Edit"></a>
             <a href="#" onclick="_delete('.$aRow['id'].',\''.$aRow["description"].'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" title="Delete"></a>';
             array_push($row,$btns);

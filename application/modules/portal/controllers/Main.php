@@ -103,6 +103,19 @@ class Main extends CI_Controller {
 	}
 
 	
+	public function product_variants()
+    {
+		if (!in_array($this->router->fetch_method(), $this->user_access)) 
+		{
+			redirect(base_url()."portal/main/".$this->default_page);
+		}
+		$module["module_name"] = $this->router->fetch_method();
+		$module["menu"] = $this->user_access;
+		$this->load->view('main/template/header',$module);
+		$this->load->view('main/product_variants_view',$module);
+		$this->load->view('main/template/footer');
+    }
+    
 	public function logs()
     {
 		$module["module_name"] = $this->router->fetch_method();
@@ -119,7 +132,14 @@ class Main extends CI_Controller {
 		$this->load->view('main/colors_view',$module);
 		$this->load->view('main/template/footer');
 	}
-	
+	public function materials()
+    {
+		$module["module_name"] = $this->router->fetch_method();
+		$module["menu"] = $this->user_access;
+		$this->load->view('main/template/header',$module);
+		$this->load->view('main/materials_view',$module);
+		$this->load->view('main/template/footer');
+	}
 	public function site_settings()
     {
 		if (!in_array($this->router->fetch_method(), $this->user_access)) 

@@ -39,7 +39,8 @@ class Colors extends CI_Controller {
         $this->db->where("id",$id);
         $data_colors = $this->db->get("colors");
         $this->db->where("id",$id);
-        echo $result = $this->db->delete("colors");
+        $data["status"] = 3;
+        echo $result = $this->db->update("colors",$data);
         $data = json_encode($data_colors->row());
         $this->logs->log = "Deleted colors - ID:". $data_colors->row()->id .", colors Title: ".$data_colors->row()->name ;
         $this->logs->details = json_encode($data);
@@ -63,8 +64,8 @@ class Colors extends CI_Controller {
     {
         
         $search = $this->input->get("term[term]");
-        $this->db->like("code",$search);
-        $this->db->like("name",$search);
+        $this->db->like("name",$search);  
+        $this->db->where("status",1);  
         $this->db->select("name as text"); 
         $this->db->select("code as id");
         $this->db->limit(10);
@@ -82,6 +83,7 @@ class Colors extends CI_Controller {
         $select_columns = array("id","name","code","status","date_created","created_by","date_modified","modified_by");  
         $this->dt_model->table = "colors AS t1 LEFT JOIN user_accounts AS t2 ON t2.id = t1.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t1.modified_by ";  
         $this->dt_model->index_column = "t1.id";
+        $this->dt_model->staticWhere = "t1.status != 3"; 
         $result = $this->dt_model->get_table_list();
         $output = $result["output"];
         $rResult = $result["rResult"];

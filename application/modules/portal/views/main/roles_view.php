@@ -98,8 +98,20 @@
                                     </div>
                                     <div class="checkbox">
                                         <label>
+                                        <input type="checkbox" id="modules" value="product_variants">
+                                        Product Variants
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
                                         <input type="checkbox" id="modules" value="colors">
                                         Colors
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                        <input type="checkbox" id="modules" value="materials">
+                                        Materials
                                         </label>
                                     </div>
 
@@ -182,6 +194,8 @@
                             <select id="inputDefaultPage">
                                 <option value="dashboard">Dashboard</option>
                                 <option value="products">Products</option>
+                                <option value="colors">Colors</option>
+                                <option value="materials">Materials</option>
                                 <option value="roles">Roles</option>
                                 <option value="users">Users</option>
                                 <option value="achievements">Achievements</option>
