@@ -742,12 +742,12 @@ $('.actionDone').on('click', function(){
                     $("#inputDescription").val(data.product_variants.description);
                     $("#inputStatus").val(data.product_variants.status).trigger('change');
                     
-                    $("#class").val(data.product_variants.class);
-                    $("#code").val(data.product_variants.code);
                     //$("#color").select2('data', { id:data.product_variants.color_abb, label: data.product_variants.color});
                     $("#color").append(new Option(data.product_variants.color,data.product_variants.color_abb,  true, true)).trigger('change');
-                    $("#product").append(new Option(data.product_variants.color,data.product_variants.color_abb,  true, true)).trigger('change');
+                    $("#product").append(new Option(data.products.title,data.products.id,  true, true)).trigger('change');
                     
+                    $("#class").val(data.products.class);
+                    $("#code").val(data.products.code);
                     $("#color_abb").val(data.product_variants.color_abb);
                     $("#inner_carton").val(data.product_variants.inner_carton);
                     $("#master_carton").val(data.product_variants.master_carton);

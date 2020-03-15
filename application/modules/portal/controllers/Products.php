@@ -33,6 +33,8 @@ class Products extends CI_Controller {
         $this->products_model->best_price = $this->input->post("best_price");
         $this->products_model->product_year = $this->input->post("product_year");
         $this->products_model->product_month = $this->input->post("product_month");
+        $this->products_model->proto = $this->input->post("proto");
+        $this->products_model->molds = $this->input->post("molds");
         //$this->products_model->location = $this->input->post("location");
 
         echo $this->products_model->insert_products();
@@ -59,6 +61,8 @@ class Products extends CI_Controller {
         $this->products_model->old_price = $this->input->post("old_price");
         $this->products_model->product_year = $this->input->post("product_year");
         $this->products_model->product_month = $this->input->post("product_month");
+        $this->products_model->proto = $this->input->post("proto");
+        $this->products_model->molds = $this->input->post("molds");
         //$this->products_model->location = $this->input->post("location");
         echo $this->products_model->update_products();
 	}
@@ -120,7 +124,7 @@ class Products extends CI_Controller {
     public function get_products_list()
     {
         $this->load->model("portal/data_table_model","dt_model");  
-        $this->dt_model->select_columns = array("t1.id","t1.description","t1.class","t1.code","t1.master_carton","t1.weight_of_box","t1.minimum_of_quantity","t1.lowest_cost","t1.best_price","IF(t1.status=1,'Active','Inactive') as status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
+        $this->dt_model->select_columns = array("t1.id","t1.description","t1.class","t1.code","t1.master_carton","t1.weight_of_box","t1.minimum_of_quantity","t1.lowest_cost","t1.best_price","t1.status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
         $this->dt_model->where  = array("t1.id","t1.description","t1.class","t1.code","t1.master_carton","t1.weight_of_box","t1.minimum_of_quantity","t1.lowest_cost","t1.best_price","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");  
         $select_columns = array("id","description","class","code","master_carton","weight_of_box","minimum_of_quantity","lowest_cost","best_price","status","date_created","created_by","date_modified","modified_by");  
         $this->dt_model->table = "products AS t1 LEFT JOIN user_accounts AS t2 ON t2.id = t1.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t1.modified_by";  
@@ -143,13 +147,15 @@ class Products extends CI_Controller {
                     }
                     else if($col == "status")
                     {
-                        if($aRow[$col] == "Inactive")
+                        if($aRow[$col] == "0")
                         {
-                            $row[] = '<center><small class="label bg-gray">'.$aRow[$col].'</small></center>';
+                            $row[] = '<center><small class="label bg-gray">Inactive</small></center>';
                         }
-                        else if($aRow[$col] == "Active")
+                        else if($aRow[$col] == "1")
                         {
-                            $row[] = '<center><small class="label bg-green">'.$aRow[$col].'</small></center>';
+                            $row[] = '<center><small class="label bg-green">Active</small></center>';
+                        }else if($aRow[$col] == "4"){
+                            $row[] = '<center><small class="label bg-orange">Pending</small></center>';
                         }
                     }
                     else if($col == "cover_image")

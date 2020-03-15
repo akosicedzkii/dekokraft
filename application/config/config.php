@@ -32,8 +32,8 @@ if($ip_server == "localhost" || $ip_server == "::1"){
 $config['base_url'] = 'http://192.168.100.100/dekokraft/';
 }else{
     
-    //$config['base_url'] = 'http://192.168.1.2/dekokraft';
-    $config['base_url'] = 'http://192.168.100.100/dekokraft/';
+    $config['base_url'] = 'http://192.168.1.2/dekokraft';
+    //$config['base_url'] = 'http://192.168.100.100/dekokraft/';
 }
 /*
 |--------------------------------------------------------------------------

@@ -71,6 +71,10 @@ class Product_variants extends CI_Controller {
         $this->db->where("id",$id);
         $result = $this->db->get("product_variants");
         $product_variants = $result->row();
+        $prod_id = $result->row()->product_id;
+        $this->db->where("id",$prod_id);
+        $result2 = $this->db->get("products");
+        $products = $result2->row();
         if($product_variants->cover_image != null)
         {
             if(is_numeric( $product_variants->cover_image ))
@@ -80,13 +84,14 @@ class Product_variants extends CI_Controller {
             }
         }
         $return["product_variants"] = $product_variants;
+        $return["products"]= $products;
         echo json_encode($return); 
     }
 
     public function get_product_variants_list()
     {
         $this->load->model("portal/data_table_model","dt_model");  
-        $this->dt_model->select_columns = array("t1.id","t1.cover_image","t1.location","t4.class","t4.code","t1.description","t1.color","t1.count","IF(t1.status=1,'Active','Inactive') as status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
+        $this->dt_model->select_columns = array("t1.id","t1.cover_image","t1.location","t4.class","t4.code","t1.description","t1.color","t1.count","t1.status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
         $this->dt_model->where  = array("t1.id","t1.cover_image","t1.location","t4.class","t4.code","t1.description","t1.color","t1.count","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");  
         $select_columns = array("id","cover_image","location","class","code","description","color","count","status","date_created","created_by","date_modified","modified_by");  
         $this->dt_model->table = "product_variants AS t1 LEFT JOIN user_accounts AS t2 ON t2.id = t1.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t1.modified_by LEFT JOIN products AS t4 ON t4.id = t1.product_id";  
@@ -107,15 +112,18 @@ class Product_variants extends CI_Controller {
                     {
                         $row[] = "$ ". $aRow[$col] ;
                     }
+                    
                     else if($col == "status")
                     {
-                        if($aRow[$col] == "Inactive")
+                        if($aRow[$col] == "0")
                         {
-                            $row[] = '<center><small class="label bg-gray">'.$aRow[$col].'</small></center>';
+                            $row[] = '<center><small class="label bg-gray">Inactive</small></center>';
                         }
-                        else if($aRow[$col] == "Active")
+                        else if($aRow[$col] == "1")
                         {
-                            $row[] = '<center><small class="label bg-green">'.$aRow[$col].'</small></center>';
+                            $row[] = '<center><small class="label bg-green">Active</small></center>';
+                        }else if($aRow[$col] == "4"){
+                            $row[] = '<center><small class="label bg-orange">Pending</small></center>';
                         }
                     }
                     else if($col == "cover_image")

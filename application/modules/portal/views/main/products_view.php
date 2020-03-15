@@ -162,7 +162,23 @@ td { font-size: 11px; }
                                     </div>
                                 </div>
                                 <div class="col-md-6 ml-auto">
-                                
+                                <div class="form-group">
+                                        <label for="proto" class="col-sm-2 control-label">Proto</label>
+
+                                        <div class="col-sm-10">
+                                        <input type="text" min="1" class="form-control" id="proto" placeholder="Proto" required>
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="molds" class="col-sm-2 control-label">Molds</label>
+
+                                        <div class="col-sm-10">
+                                        <input type="text" min="1" class="form-control" id="molds" placeholder="Molds" required>
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
 
                                     <div class="form-group">
                                         <label for="weight_of_box" class="col-sm-2 control-label">Weight of Box</label>
@@ -523,10 +539,9 @@ $('.actionDone').on('click', function(){
             }
             ,"columnDefs": [
             { "visible": false,  "targets": [ 0 ] },
-            { "width": "20%",  "targets": [ 5 ] },
             { "width": "20%",  "targets": [ 1 ] }
         ], "order": [[ 11, 'desc' ]]
-        });
+        }); 
         $("#addBtn").click(function(){
             $("#productsModal .modal-title").html("Add <?php echo ucfirst($module_name);?>");
             $("#action").val("add");
@@ -591,9 +606,13 @@ $('.actionDone').on('click', function(){
                 var best_price = $("#best_price").val();
                 var old_price = $("#old_price").val(); 
                 var location = $("#location").val();
+                var proto = $("#proto").val();
+                var molds = $("#molds").val();
 
                 var formData = new FormData();
                 formData.append('id', products_id);
+                formData.append('molds', molds);
+                formData.append('proto', proto);
                 formData.append('title', title);
                 formData.append('description', description);
                 formData.append('status', status);
@@ -741,6 +760,8 @@ $('.actionDone').on('click', function(){
             $("#saveProducts").html("Save Product").show();
             $("#add_color").removeAttr("disabled");
             $("#edit_image").removeAttr("disabled");
+            $("#proto").removeAttr("disabled");
+            $("#molds").removeAttr("disabled");
         });
 
         $('#inputStatus').select2(inputRoleConfig);
@@ -789,6 +810,8 @@ $('.actionDone').on('click', function(){
                     $("#old_price").val(data.products.best_price);
                     $("#location").val(data.products.location);
                     $("#inputProductsEmailAddress").val(data.products.email_address);
+                    $("#proto").val(data.products.proto);
+                    $("#molds").val(data.products.molds);
 
                     $("#coverImgPrev").show();
                     $("#coverImgPrev").attr("src","<?php echo base_url()."/uploads/products/"; ?>" + data.products.cover_image);
@@ -843,6 +866,8 @@ $('.actionDone').on('click', function(){
                     $("#best_price").val(data.products.best_price).attr("disabled","disabled");
                     $("#old_price").val(data.products.best_price);
                     $("#location").val(data.products.location).attr("disabled","disabled");
+                    $("#proto").val(data.products.proto).attr("disabled","disabled");
+                    $("#molds").val(data.products.molds).attr("disabled","disabled");
                     $("#inputProductsEmailAddress").val(data.products.email_address).attr("disabled","disabled");
 
                     $("#coverImgPrev").show();

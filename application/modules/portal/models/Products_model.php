@@ -24,6 +24,8 @@ class Products_model extends CI_Model {
         public $product_year;
         public $product_month;
         public $location;
+        public $proto;
+        public $mold;
 
         public function insert_products()
         {
@@ -42,6 +44,8 @@ class Products_model extends CI_Model {
                 $data["minimum_of_quantity"] = $this->minimum_of_quantity;
                 $data["lowest_cost"] = $this->lowest_cost;
                 $data["best_price"] = $this->best_price;
+                $data["proto"] = $this->proto;
+                $data["molds"] = $this->molds;
                 //$data["location"] = $this->location;
                 $data["product_year"] =  date("Y");
                 $data["product_month"] =  date("m");
@@ -97,6 +101,8 @@ class Products_model extends CI_Model {
                 $data["minimum_of_quantity"] = $this->minimum_of_quantity;
                 $data["lowest_cost"] = $this->lowest_cost;
                 $data["best_price"] = $this->best_price;
+                $data["proto"] = $this->proto;
+                $data["molds"] = $this->molds;
                 //$data["location"] = $this->location;
                 if($this->best_price != $this->old_price)
                 {
