@@ -40,11 +40,14 @@ td { font-size: 11px; }
             <th>MOQ</th>
             <th>LC</th>
             <th>FOB</th>
+            <th>Inner Carton</th>
+            <th>Molds</th>
+            <th>Proto</th>
             <th>Status</th>
-            <th>Date Created</th>
+            <!--<th>Date Created</th>
             <?php if($this->session->userdata("USERTYPE") !=0){ ?><th>Created By</th><?php }?>
             <th>Date Modified</th>
-            <?php if($this->session->userdata("USERTYPE") !=0){ ?><th>Modified By</th><?php }?>
+            <?php if($this->session->userdata("USERTYPE") !=0){ ?><th>Modified By</th><?php }?>-->
             <th>Actions</th>
         </tr>
         </thead>
@@ -540,7 +543,7 @@ $('.actionDone').on('click', function(){
             ,"columnDefs": [
             { "visible": false,  "targets": [ 0 ] },
             { "width": "20%",  "targets": [ 1 ] }
-        ], "order": [[ 11, 'desc' ]]
+        ], "order": [[ 0, 'desc' ]]
         }); 
         $("#addBtn").click(function(){
             $("#productsModal .modal-title").html("Add <?php echo ucfirst($module_name);?>");
