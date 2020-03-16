@@ -543,7 +543,7 @@ $('.actionDone').on('click', function(){
             }
             ,"columnDefs": [
             { "visible": false,  "targets": [ 0 ] },
-            { "width": "20%",  "targets": [ 2 ] }
+            { "width": "20%",  "targets": [ 3 ] }
         ], "order": [[ 0, 'desc' ]]
         }); 
         $("#addBtn").click(function(){

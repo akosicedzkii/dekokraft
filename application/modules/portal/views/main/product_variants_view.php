@@ -35,8 +35,8 @@ td { font-size: 11px; }
             <th>IMAGE</th>
             <th>CLASS</th>
             <th>CODE</th>
-            <th>LOCATION</th>
             <th>DESCRIPTION</th>
+            <th>LOCATION</th>
             <th>COLOR</th>
             <th>MOLD</th>
             <th>PROTO</th>
@@ -531,6 +531,7 @@ $('.actionDone').on('click', function(){
         $("#addBtn").click(function(){
             $("#product_variantsModal .modal-title").html("Add <?php echo ucfirst($module_name);?>");
             $("#action").val("add");
+            $("#product").val("");
             $("#upload").attr("required","required");
             $('#product_variantsForm').validator();
             $("#product_variantsModal").modal("show");
