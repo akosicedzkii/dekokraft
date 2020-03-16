@@ -32,7 +32,7 @@ td { font-size: 11px; }
         <thead>
         <tr>
             <th>ID</th>
-            <th>Description</th> 
+            <th>Description</th>  
             <th>Class</th>
             <th>Code</th>
             <th>M</th>
