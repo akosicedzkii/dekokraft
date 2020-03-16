@@ -32,18 +32,20 @@ td { font-size: 11px; }
         <thead>
         <tr>
             <th>ID</th>
-            <th>Image</th>
-            <th>Location</th>
-            <th>Class</th>
-            <th>Code</th>
-            <th>Description</th>
-            <th>Color</th>
-            <th>Count</th>
+            <th>IMAGE</th>
+            <th>CLASS</th>
+            <th>CODE</th>
+            <th>LOCATION</th>
+            <th>DESCRIPTION</th>
+            <th>COLOR</th>
+            <th>MOLD</th>
+            <th>PROTO</th>
+            <th>PCS</th>
             <th>Status</th>
-            <th>Date Created</th>
-            <?php if($this->session->userdata("USERTYPE") !=0){ ?><th>Created By</th><?php }?>
+            <?php if($this->session->userdata("USERTYPE") ==1){ ?><th>Date Created</th>
+            <th>Created By</th>
             <th>Date Modified</th>
-            <?php if($this->session->userdata("USERTYPE") !=0){ ?><th>Modified By</th><?php }?>
+            <th>Modified By</th><?php }?>
             <th>Actions</th>
         </tr>
         </thead>
@@ -114,10 +116,27 @@ td { font-size: 11px; }
                                 </div>
                                 <div class="col-md-6 ml-auto">
                                     <div class="form-group">
-                                        <label for="product" class="col-sm-2 control-label">Product</label>
+                                        <label for="product" class="col-sm-2 control-label">Category</label>
 
                                         <div class="col-sm-10">
                                         <select style="width:100%;" class="form-control" id="product" placeholder="Product" required></select>
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                   
+                                    <div class="form-group">
+                                        <label for="Code" class="col-sm-2 control-label">Product Code</label>
+
+                                        <div class="col-sm-10">
+                                        <input type="text" class="form-control" disabled id="code" placeholder="Code" required>
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputDescription" class="col-sm-2 control-label">Description</label>
+
+                                        <div class="col-sm-10">
+                                        <textarea class="form-control" disabled id="inputDescription" placeholder="Description" style="resize:none" required></textarea>
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
@@ -130,24 +149,7 @@ td { font-size: 11px; }
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="Code" class="col-sm-2 control-label">Code</label>
-
-                                        <div class="col-sm-10">
-                                        <input type="text" class="form-control" disabled id="code" placeholder="Code" required>
-                                        <div class="help-block with-errors"></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputDescription" class="col-sm-2 control-label">Description</label>
-
-                                        <div class="col-sm-10">
-                                        <textarea class="form-control" id="inputDescription" placeholder="Description" style="resize:none" required></textarea>
-                                        <div class="help-block with-errors"></div>
-                                        </div>
-                                    </div>
-                                   
-                                    <div class="form-group">
-                                        <label for="count" class="col-sm-2 control-label">Count</label>
+                                        <label for="count" class="col-sm-2 control-label">PCS</label>
 
                                         <div class="col-sm-10">
                                         <input  class="form-control" id="count" placeholder="Count" type="number" min="1" step="any" required>
@@ -164,6 +166,23 @@ td { font-size: 11px; }
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="proto" class="col-sm-2 control-label">Proto</label>
+
+                                        <div class="col-sm-10">
+                                        <input type="text" min="1" class="form-control" id="proto" placeholder="Proto" required>
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="molds" class="col-sm-2 control-label">Molds</label>
+
+                                        <div class="col-sm-10">
+                                        <input type="text" min="1" class="form-control" id="molds" placeholder="Molds" required>
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
                                     <div class="form-group">
                                         <label for="inputStatus" class="col-sm-2 control-label">Status</label>
 
@@ -453,6 +472,7 @@ $('#product').on('select2:select', function (e) {
     var data = $('#product').select2('data');
     $("#class").val(data[0].class);
     $("#code").val(data[0].code);
+    $("#inputDescription").val(data[0].description);
 });
 
 function readFile(input) {
@@ -517,7 +537,6 @@ $('.actionDone').on('click', function(){
             $("#main-cropper , .actionUpload").show();
             $("#edit_image , #cancel_edit, #coverImgPrev").hide();
             
-            $("#code").removeAttr("disabled");
             is_edit = 1;
             $uploadCrop.croppie('bind', {
                 url :  '<?php echo base_url()."assets/images/img_bg.png";?>',
@@ -692,8 +711,6 @@ $('.actionDone').on('click', function(){
             $("#inputProduct_variantsTitle").removeAttr("disabled");
             $("#inputDescription").removeAttr("disabled");
             $("#inputStatus").removeAttr("disabled");
-            $("#class").removeAttr("disabled");
-            $("#code").removeAttr("disabled");
             //$("#color").select2('data', { id:data.product_variants.color_abb, label: data.product_variants.color});
             $("#color").removeAttr("disabled");
             $("#inner_carton").removeAttr("disabled");
@@ -704,8 +721,10 @@ $('.actionDone').on('click', function(){
             $("#best_price").removeAttr("disabled");
             $("#old_price").removeAttr("disabled");
             $("#location").removeAttr("disabled");
+            $("#count").removeAttr("disabled");
+            $("#proto").removeAttr("disabled");
+            $("#molds").removeAttr("disabled");
 
-            $("#code").removeAttr("disabled");
             $("#saveProduct_variants").html("Save Product").show();
             $("#add_color").removeAttr("disabled");
             $("#edit_image").removeAttr("disabled");
@@ -799,8 +818,9 @@ $('.actionDone').on('click', function(){
                     $("#inputProduct_variantsTitle").val(data.product_variants.title).attr("disabled","disabled");
                     $("#inputDescription").val(data.product_variants.description).attr("disabled","disabled");
                     $("#inputStatus").val(data.product_variants.status).trigger('change').attr("disabled","disabled");
-                    $("#class").val(data.product_variants.class).attr("disabled","disabled");
-                    $("#code").val(data.product_variants.code).attr("disabled","disabled");
+                    $("#product").append(new Option(data.products.title,data.products.id,  true, true)).trigger('change').attr("disabled","disabled");
+                    $("#class").val(data.products.class).attr("disabled","disabled");
+                    $("#code").val(data.products.code).attr("disabled","disabled");
                     //$("#color").select2('data', { id:data.product_variants.color_abb, label: data.product_variants.color});
                     $("#color").append(new Option(data.product_variants.color,data.product_variants.color_abb,  true, true)).trigger('change').attr("disabled","disabled");
                     $("#color_abb").val(data.product_variants.color_abb).attr("disabled","disabled");
@@ -818,7 +838,9 @@ $('.actionDone').on('click', function(){
                     $("#coverImgPrev").attr("src","<?php echo base_url()."/uploads/product_variants/"; ?>" + data.product_variants.cover_image);
                     $("#main-cropper , .actionUpload, #cancel_edit").hide();
                     $("#edit_image").show();
-                    $("#code").attr("disabled","disabled");
+                    $("#count").val(data.product_variants.count).attr("disabled","disabled");
+                    $("#proto").val(data.product_variants.proto).attr("disabled","disabled");
+                    $("#molds").val(data.product_variants.molds).attr("disabled","disabled");
                     $("#product_variantsID").val(data.product_variants.id);
                     $("#product_variantsModal").modal("show");
                     $("#saveProduct_variants").html("Save Product").hide();

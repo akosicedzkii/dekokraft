@@ -350,7 +350,7 @@
          <?php 
           if (in_array("products", $menu)) {
              ?>
-              <li <?php if($module_name == "products"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/products"?>"><i class="fa fa-list-alt"></i><span>Products</span></a></li>
+              <li <?php if($module_name == "products"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/products"?>"><i class="fa fa-list-alt"></i><span>Product Category</span></a></li>
              <?php
           } 
         ?>

@@ -6,7 +6,9 @@ td { font-size: 11px; }
 </style>
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
-<?php $module_name = rtrim($module_name,"s");?>
+<?php 
+$module_name = "Product Category";
+$module_name = rtrim($module_name,"s");?>
 <section class="content-header">
     <h1>
     <?php echo ucfirst($module_name);?>
@@ -32,22 +34,21 @@ td { font-size: 11px; }
         <thead>
         <tr>
             <th>ID</th>
-            <th>Description</th>  
-            <th>Class</th>
-            <th>Code</th>
-            <th>M</th>
+            <th>CLASS</th>
+            <th>CODE</th>
+            <th>DESCRIPTION</th>  
+            <th>I(INNER)</th>
+            <th>M(MASTER)</th>
             <th>CBM</th>
             <th>MOQ</th>
-            <th>LC</th>
+            <th>LC(LOWEST COST)</th>
             <th>FOB</th>
-            <th>Inner Carton</th>
-            <th>Molds</th>
-            <th>Proto</th>
-            <th>Status</th>
-            <!--<th>Date Created</th>
-            <?php if($this->session->userdata("USERTYPE") !=0){ ?><th>Created By</th><?php }?>
+            <th>QUANTITY</th>
+             <th>STATUS</th>
+            <?php if($this->session->userdata("USERTYPE") ==1){ ?><th>Date Created</th>
+            <th>Created By</th>
             <th>Date Modified</th>
-            <?php if($this->session->userdata("USERTYPE") !=0){ ?><th>Modified By</th><?php }?>-->
+            <th>Modified By</th><?php }?>
             <th>Actions</th>
         </tr>
         </thead>
@@ -165,19 +166,19 @@ td { font-size: 11px; }
                                     </div>
                                 </div>
                                 <div class="col-md-6 ml-auto">
-                                <div class="form-group">
+                                <!--<div class="form-group">
                                         <label for="proto" class="col-sm-2 control-label">Proto</label>
 
                                         <div class="col-sm-10">
                                         <input type="text" min="1" class="form-control" id="proto" placeholder="Proto" required>
                                         <div class="help-block with-errors"></div>
                                         </div>
-                                    </div>
+                                    </div>-->
                                     <div class="form-group">
-                                        <label for="molds" class="col-sm-2 control-label">Molds</label>
+                                        <label for="fob" class="col-sm-2 control-label">FOB</label>
 
                                         <div class="col-sm-10">
-                                        <input type="text" min="1" class="form-control" id="molds" placeholder="Molds" required>
+                                        <input type="text" min="1" class="form-control" id="fob" placeholder="FOB" required>
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
@@ -542,7 +543,7 @@ $('.actionDone').on('click', function(){
             }
             ,"columnDefs": [
             { "visible": false,  "targets": [ 0 ] },
-            { "width": "20%",  "targets": [ 1 ] }
+            { "width": "20%",  "targets": [ 2 ] }
         ], "order": [[ 0, 'desc' ]]
         }); 
         $("#addBtn").click(function(){
@@ -609,13 +610,13 @@ $('.actionDone').on('click', function(){
                 var best_price = $("#best_price").val();
                 var old_price = $("#old_price").val(); 
                 var location = $("#location").val();
-                var proto = $("#proto").val();
-                var molds = $("#molds").val();
+                //var proto = $("#proto").val();
+                var fob = $("#fob").val();
 
                 var formData = new FormData();
                 formData.append('id', products_id);
-                formData.append('molds', molds);
-                formData.append('proto', proto);
+                //formData.append('molds', molds);
+                formData.append('fob', fob);
                 formData.append('title', title);
                 formData.append('description', description);
                 formData.append('status', status);
@@ -763,8 +764,8 @@ $('.actionDone').on('click', function(){
             $("#saveProducts").html("Save Product").show();
             $("#add_color").removeAttr("disabled");
             $("#edit_image").removeAttr("disabled");
-            $("#proto").removeAttr("disabled");
-            $("#molds").removeAttr("disabled");
+            //$("#proto").removeAttr("disabled");
+            $("#fob").removeAttr("disabled");
         });
 
         $('#inputStatus').select2(inputRoleConfig);
@@ -813,8 +814,8 @@ $('.actionDone').on('click', function(){
                     $("#old_price").val(data.products.best_price);
                     $("#location").val(data.products.location);
                     $("#inputProductsEmailAddress").val(data.products.email_address);
-                    $("#proto").val(data.products.proto);
-                    $("#molds").val(data.products.molds);
+                    //$("#proto").val(data.products.proto);
+                    $("#fob").val(data.products.molds);
 
                     $("#coverImgPrev").show();
                     $("#coverImgPrev").attr("src","<?php echo base_url()."/uploads/products/"; ?>" + data.products.cover_image);

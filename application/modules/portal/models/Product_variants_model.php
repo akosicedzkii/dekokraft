@@ -24,6 +24,8 @@ class Product_variants_model extends CI_Model {
         public $product_year;
         public $product_month;
         public $location;
+        public $proto;
+        public $mold;
 
         public function insert_product_variants()
         {
@@ -38,6 +40,8 @@ class Product_variants_model extends CI_Model {
                 $data["location"] = $this->location;
                 $data["product_year"] =  date("Y");
                 $data["product_month"] =  date("m");
+                $data["proto"] = $this->proto;
+                $data["molds"] = $this->molds;
                 $upload_path = './uploads/product_variants/';  
                 if (!is_dir($upload_path)) 
                 {
@@ -78,6 +82,8 @@ class Product_variants_model extends CI_Model {
                 $data["color_abb"] = $this->color_abb;
                 $data["count"] = $this->count;
                 $data["location"] = $this->location;
+                $data["proto"] = $this->proto;
+                $data["molds"] = $this->molds;
          
                 if( $cover_image != null)
                 {

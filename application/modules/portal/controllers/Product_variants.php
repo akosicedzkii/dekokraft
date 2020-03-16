@@ -27,6 +27,8 @@ class Product_variants extends CI_Controller {
         $this->product_variants_model->count = $this->input->post("count");
         $this->product_variants_model->location = $this->input->post("location");
         $this->product_variants_model->code = $this->input->post("code");
+        $this->product_variants_model->proto = $this->input->post("proto");
+        $this->product_variants_model->molds = $this->input->post("molds");
         echo $this->product_variants_model->insert_product_variants();
         
 	}
@@ -42,6 +44,8 @@ class Product_variants extends CI_Controller {
         $this->product_variants_model->count = $this->input->post("count");
         $this->product_variants_model->product_id  = $this->input->post("product_id");
         $this->product_variants_model->location = $this->input->post("location");
+        $this->product_variants_model->proto = $this->input->post("proto");
+        $this->product_variants_model->molds = $this->input->post("molds");
         $this->product_variants_model->code = $this->input->post("code");
         echo $this->product_variants_model->update_product_variants();
 	}
@@ -91,10 +95,22 @@ class Product_variants extends CI_Controller {
     public function get_product_variants_list()
     {
         $this->load->model("portal/data_table_model","dt_model");  
-        $this->dt_model->select_columns = array("t1.id","t1.cover_image","t1.location","t4.class","t4.code","t1.description","t1.color","t1.count","t1.status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
-        $this->dt_model->where  = array("t1.id","t1.cover_image","t1.location","t4.class","t4.code","t1.description","t1.color","t1.count","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");  
-        $select_columns = array("id","cover_image","location","class","code","description","color","count","status","date_created","created_by","date_modified","modified_by");  
-        $this->dt_model->table = "product_variants AS t1 LEFT JOIN user_accounts AS t2 ON t2.id = t1.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t1.modified_by LEFT JOIN products AS t4 ON t4.id = t1.product_id";  
+        $this->dt_model->select_columns = array("t1.id","t1.cover_image","t4.class","t4.code","t4.description","t1.location","CONCAT(t1.color,' (',t1.color_abb,')') as color","t1.proto","t1.molds","t1.count","t1.status");  
+        if($this->session->userdata("USERTYPE") ==1)
+        {
+            $this->dt_model->select_columns = array("t1.id","t1.cover_image","t4.class","t4.code","t1.description","t1.location","CONCAT(t1.color,' (',t1.color_abb,')') as color","t1.proto","t1.molds","t1.count","t1.status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
+        }
+        $this->dt_model->where  = array("t1.id","t4.class","t4.code","t4.description","t1.location","t1.color","t1.proto","t1.molds","t1.count","t1.status");  
+        if($this->session->userdata("USERTYPE") ==1)
+        {
+            $this->dt_model->where  = array("t1.id","t4.class","t4.code","t4.description","t1.location","t1.color","t1.proto","t1.molds","t1.count","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");  
+        }
+        $select_columns = array("id","cover_image","class","code","location","description","color","proto","molds","count","status");  
+        if($this->session->userdata("USERTYPE") ==1)
+        {
+            $select_columns = array("id","cover_image","class","code","location","description","color","proto","molds","count","status","date_created","created_by","date_modified","modified_by");
+        }  
+        $this->dt_model->table = "product_variants AS t1 LEFT JOIN user_accounts AS t2 ON t2.id = t1.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t1.modified_by LEFT JOIN products AS t4 ON t4.id = t1.product_id"; 
         $this->dt_model->index_column = "t1.id"; 
         $this->dt_model->staticWhere = "t1.status != 3";  
         $result = $this->dt_model->get_table_list();
