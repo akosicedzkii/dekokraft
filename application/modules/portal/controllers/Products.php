@@ -154,7 +154,7 @@ class Products extends CI_Controller {
                     {
                         $row[] = $aRow[$col];
                     }
-                    else if($col == "best_price")
+                    else if($col == "fob")
                     {
                         $row[] = "$ ". $aRow[$col] ;
                     }else if($col == "quantity")

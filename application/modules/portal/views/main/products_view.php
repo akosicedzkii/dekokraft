@@ -836,7 +836,7 @@ $('.actionDone').on('click', function(){
 
     function _view(id)
     {
-        $("#productsModal .modal-title").html("Edit <?php echo ucfirst($module_name);?>");
+        $("#productsModal .modal-title").html("View <?php echo ucfirst($module_name);?>");
         $(".add").hide();    
         $('#productsForm').validator();    
         $("#action").val("edit");
@@ -870,8 +870,7 @@ $('.actionDone').on('click', function(){
                     $("#best_price").val(data.products.best_price).attr("disabled","disabled");
                     $("#old_price").val(data.products.best_price);
                     $("#location").val(data.products.location).attr("disabled","disabled");
-                    $("#proto").val(data.products.proto).attr("disabled","disabled");
-                    $("#molds").val(data.products.molds).attr("disabled","disabled");
+                    $("#fob").val(data.products.molds).attr("disabled","disabled");
                     $("#inputProductsEmailAddress").val(data.products.email_address).attr("disabled","disabled");
 
                     $("#coverImgPrev").show();

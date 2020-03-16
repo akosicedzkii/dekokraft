@@ -526,7 +526,7 @@ $('.actionDone').on('click', function(){
             { "visible": false,  "targets": [ 0 ] },
             { "width": "20%",  "targets": [ 5 ] },
             { "width": "20%",  "targets": [ 1 ] }
-        ], "order": [[ 8, 'desc' ]]
+        ], "order": [[ 0, 'desc' ]]
         });
         $("#addBtn").click(function(){
             $("#product_variantsModal .modal-title").html("Add <?php echo ucfirst($module_name);?>");
