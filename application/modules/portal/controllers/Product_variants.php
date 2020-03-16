@@ -91,7 +91,28 @@ class Product_variants extends CI_Controller {
         $return["products"]= $products;
         echo json_encode($return); 
     }
+    public function get_product_variants_selection()
+    {
+        
+        $search = $this->input->get("term[term]");
+        $this->db->like("t1.title",$search);  
+        $this->db->or_like("t1.code",$search);  
+        $this->db->or_like("t1.class",$search);  
+        $this->db->select("CONCAT(t1.title,' - ',T2.color) as text"); 
+        $this->db->select("t1.class"); 
+        $this->db->select("t1.code"); 
+        $this->db->select("t1.description"); 
+        $this->db->select("t1.fob"); 
+        $this->db->select("t2.color"); 
+        $this->db->select("t2.id");
+        $this->db->limit(10);
+        $this->db->join('product_variants as t2', 't2.product_id = t1.id');
+        $filteredValues=$this->db->get("products as t1")->result_array();
 
+        echo json_encode(array(
+            'items' => $filteredValues
+        ));
+    }
     public function get_product_variants_list()
     {
         $this->load->model("portal/data_table_model","dt_model");  

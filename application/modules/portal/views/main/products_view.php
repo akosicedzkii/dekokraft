@@ -29,7 +29,7 @@ $module_name = rtrim($module_name,"s");?>
         <h3 class="box-title"><?php echo ucfirst($module_name);?> List</h3>
     </div>
     <!-- /.box-header -->
-    <div class="box-body">
+    <div class="box-body table-responsive">
         <table id="productsList" class="table table-bordered table-striped">
         <thead>
         <tr>

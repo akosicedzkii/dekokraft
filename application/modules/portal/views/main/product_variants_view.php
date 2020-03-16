@@ -27,7 +27,7 @@ td { font-size: 11px; }
         <h3 class="box-title"><?php echo ucfirst($module_name);?> List</h3>
     </div>
     <!-- /.box-header -->
-    <div class="box-body">
+    <div class="box-body table-responsive">
         <table id="product_variantsList" class="table table-bordered table-striped">
         <thead>
         <tr>

@@ -116,6 +116,49 @@ class Main extends CI_Controller {
 		$this->load->view('main/template/footer');
     }
     
+   
+
+    public function invoices()
+    {
+        
+        $page = $this->uri->segment(4, 0); 
+       
+        if (!in_array($this->router->fetch_method(), $this->user_access)) 
+        {
+            redirect(base_url()."portal/main/".$this->default_page);
+        }
+        if($page == "new")
+        {
+            $module["module_name"] = $this->router->fetch_method();
+            $module["menu"] = $this->user_access;
+            $this->load->view('main/template/header',$module);
+            $this->load->view('main/invoices_create_view',$module);
+            $this->load->view('main/template/footer');
+        }
+        else if($page == "print")
+        {
+            $this->load->view('main/invoice_print_view');
+        }
+        else if($page == "view")
+        {
+            $module["module_name"] = $this->router->fetch_method();
+            $module["menu"] = $this->user_access;
+            $this->load->view('main/template/header',$module);
+            $this->load->view('main/invoice_solo_view',$module);
+            $this->load->view('main/template/footer');
+        }
+        else if($page == "list")
+        {
+            $module["module_name"] = $this->router->fetch_method();
+            $module["menu"] = $this->user_access;
+            $this->load->view('main/template/header',$module);
+            $this->load->view('main/invoices_view',$module);
+            $this->load->view('main/template/footer');
+        }
+
+    }
+
+    
 	public function logs()
     {
 		$module["module_name"] = $this->router->fetch_method();

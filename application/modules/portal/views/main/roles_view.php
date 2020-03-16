@@ -114,44 +114,12 @@
                                         Materials
                                         </label>
                                     </div>
-
-
-                                    <!--<b>Loyalty</b>
                                     <div class="checkbox">
                                         <label>
-                                        <input type="checkbox" id="modules" value="loyalty_banners">
-                                        Promotional Banners
+                                        <input type="checkbox" id="modules" value="invoices">
+                                        Invoices
                                         </label>
                                     </div>
-
-                                    <div class="checkbox">
-                                        <label>
-                                        <input type="checkbox" id="modules" value="loyalty_contents">
-                                        Loyalty Page Contents
-                                        </label>
-                                    </div>
-
-                                    <div class="checkbox">
-                                        <label>
-                                        <input type="checkbox" id="modules" value="loyalty_privacy_policy">
-                                        Loyalty Privacy Policy
-                                        </label>
-                                    </div>
-
-                                    <div class="checkbox">
-                                        <label>
-                                        <input type="checkbox" id="modules" value="loyalty_terms_and_conditions">
-                                        Loyalty Terms and Condition
-                                        </label>
-                                    </div>
-
-                                    
-                                    <div class="checkbox">
-                                        <label>
-                                        <input type="checkbox" id="modules" value="loyalty_logs">
-                                        Loyalty Logs
-                                        </label>
-                                    </div>-->
 
                                     <b>System Administrator</b>
                                     <div class="checkbox">
@@ -193,7 +161,9 @@
                             <div class="col-sm-8">
                             <select id="inputDefaultPage">
                                 <option value="dashboard">Dashboard</option>
-                                <option value="products">Products</option>
+                                <option value="products">Product Categories</option>
+                                <option value="product_variants">Product Variants</option>
+                                <option value="invoices">Invoices</option>
                                 <option value="colors">Colors</option>
                                 <option value="materials">Materials</option>
                                 <option value="roles">Roles</option>

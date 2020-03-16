@@ -377,45 +377,14 @@
         ?>
 
         <?php 
-          if (in_array("rsvp", $menu)) {
+          if (in_array("invoices", $menu)) {
              ?>
-              <li <?php if($module_name == "rsvp"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/rsvp"?>"><i class="fa fa-list-alt"></i><span>View RSVP</span></a></li>
+              <li <?php if($module_name == "invoices"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/invoices/list"?>"><i class="fa fa-barcode"></i><span>Invoices</span></a></li>
              <?php
           } 
         ?>
 
 
-        <?php 
-          if (in_array("blogs", $menu)) {
-             ?>
-              <li <?php if($module_name == "blogs"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/blogs"?>"><i class="fa fa-list-alt"></i><span>Blogs</span></a></li>
-             <?php
-          } 
-        ?>
-     
-        <?php  if ( in_array("careers", $menu) ||  in_array("opportunities_careers", $menu)  ||  in_array("opportunities_franchise", $menu)) {?>
-        <?php }?>
-      <?php 
-          if (in_array("charities", $menu)) {
-             ?>
-              <li <?php if($module_name == "charities"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/charities"?>"><i class="fa fa-suitcase"></i><span>Charities</span></a></li>
-            <?php
-          } 
-        ?> 
-
-       <?php 
-        if (in_array("about_us", $menu)) {
-           ?>
-            <li <?php if($module_name == "about_us"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/about_us"?>"><i class="fa fa-star"></i><span>About Us</span></a></li>
-          <?php
-        } 
-      ?>
-        <?php if (in_array("faqs", $menu)) {
-                  ?>
-                     <li <?php if($module_name == "faqs"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/faqs"?>"><i class="fa fa-gear"></i> FAQs</a></li>
-                    <?php
-                    } 
-                  ?>
         <?php 
           if ( in_array("roles", $menu) ||  in_array("users", $menu) ||  in_array("site_settings", $menu) ||  in_array("logs", $menu) ) {
              ?>
