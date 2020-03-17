@@ -531,12 +531,16 @@ $('.actionDone').on('click', function(){
         $("#addBtn").click(function(){
             $("#product_variantsModal .modal-title").html("Add <?php echo ucfirst($module_name);?>");
             $("#action").val("add");
-            $("#product").val("");
+            $("#product").val(null).trigger("change"); 
+            $("#color").val(null).trigger("change"); 
             $("#upload").attr("required","required");
+            $("#color").removeAttr("disabled");
+            $("#product").removeAttr("disabled");
             $('#product_variantsForm').validator();
             $("#product_variantsModal").modal("show");
             $("#main-cropper , .actionUpload").show();
             $("#edit_image , #cancel_edit, #coverImgPrev").hide();
+            
             
             is_edit = 1;
             $uploadCrop.croppie('bind', {
@@ -710,7 +714,7 @@ $('.actionDone').on('click', function(){
             $("#uploadBoxMain").hide();
             $("#inputStatus").val('').trigger('change');
             $("#inputProduct_variantsTitle").removeAttr("disabled");
-            $("#inputDescription").removeAttr("disabled");
+            //$("#inputDescription").removeAttr("disabled");
             $("#inputStatus").removeAttr("disabled");
             //$("#color").select2('data', { id:data.product_variants.color_abb, label: data.product_variants.color});
             $("#color").removeAttr("disabled");

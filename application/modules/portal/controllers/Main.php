@@ -39,7 +39,7 @@ class Main extends CI_Controller {
 		$this->db->distinct();
 		$this->db->select("ip_address");
 		$module["unique_visitors"] = $this->db->get("visit_counts")->num_rows();
-		$query = "SELECT t1.title,t1.description,t2.file_name as cover_image,t1.content_type FROM products as t1 LEFT JOIN media as t2 ON t2.id = t1.cover_image ORDER BY t1.date_created DESC LIMIT 4";
+		$query = "SELECT t1.title,t1.description,t2.file_name as cover_image FROM products as t1 LEFT JOIN media as t2 ON t2.id = t1.cover_image ORDER BY t1.date_created DESC LIMIT 4";
 		$module["blogs"] = $this->db->query($query)->result();
 
 		$this->db->order_by("user_accounts.id","desc");
