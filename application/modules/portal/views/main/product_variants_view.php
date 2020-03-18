@@ -344,7 +344,7 @@ $("#add_color").click(function(){
     $("#colorsModal").modal("show");
 });
 $("#saveColors").click(function(){
-    alert("yeah");
+    //alert("yeah");
     $("#colorsForm").submit();
 });
 $("#colorsForm").validator().on('submit', function (e) {
