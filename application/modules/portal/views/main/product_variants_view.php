@@ -785,6 +785,7 @@ $('.actionDone').on('click', function(){
                     $("#best_price").val(data.product_variants.best_price);
                     $("#old_price").val(data.product_variants.best_price);
                     $("#location").val(data.product_variants.location);
+                    $("#count").val(data.product_variants.count);
                     $("#inputProduct_variantsEmailAddress").val(data.product_variants.email_address);
 
                     $("#coverImgPrev").show();
@@ -855,6 +856,7 @@ $('.actionDone').on('click', function(){
                     $("#saveProduct_variants").html("Save Product").hide();
                     $("#add_color").attr("disabled","disabled");
                     $("#edit_image").attr("disabled","disabled");
+                    $("#count").val(data.product_variants.count);
 
                 },
                 error: function (request, status, error) {
