@@ -632,6 +632,7 @@ $('.actionDone').on('click', function(){
                 formData.append('old_price', old_price);
                 //formData.append('location', location);
                 formData.append('code', code);
+                formData.append('fob', fob);
                 
                 if(is_edit==1)
                 {
@@ -815,7 +816,7 @@ $('.actionDone').on('click', function(){
                     $("#location").val(data.products.location);
                     $("#inputProductsEmailAddress").val(data.products.email_address);
                     //$("#proto").val(data.products.proto);
-                    $("#fob").val(data.products.molds);
+                    $("#fob").val(data.products.fob);
 
                     $("#coverImgPrev").show();
                     $("#coverImgPrev").attr("src","<?php echo base_url()."/uploads/products/"; ?>" + data.products.cover_image);
@@ -870,7 +871,7 @@ $('.actionDone').on('click', function(){
                     $("#best_price").val(data.products.best_price).attr("disabled","disabled");
                     $("#old_price").val(data.products.best_price);
                     $("#location").val(data.products.location).attr("disabled","disabled");
-                    $("#fob").val(data.products.molds).attr("disabled","disabled");
+                    $("#fob").val(data.products.fob).attr("disabled","disabled");
                     $("#inputProductsEmailAddress").val(data.products.email_address).attr("disabled","disabled");
 
                     $("#coverImgPrev").show();
