@@ -172,7 +172,7 @@
             }
             ,"columnDefs": [
             { "visible": false,  "targets": [ 0 ] },
-            { "width": "20%",  "targets": [ 1 ] }
+            { "width": "20%",  "targets": [ 3 ] }
         ], "order": [[ 4, 'desc' ]]
         });
         $("#addBtn").click(function(){
