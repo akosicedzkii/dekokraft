@@ -84,21 +84,11 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="bank_details" class="col-sm-2 control-label">Details</label>
+                                <label for="details" class="col-sm-2 control-label">Details</label>
 
                                 <div class="col-sm-10">
                                 
-                                <textarea type="text" class="form-control" id="bank_details" placeholder="Details" required></textarea>
-                                <div class="help-block with-errors"></div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="bank_address" class="col-sm-2 control-label">Address</label>
-
-                                <div class="col-sm-10">
-                                
-                                <textarea type="text" class="form-control" id="bank_address" placeholder="Address" required></textarea>
+                                <textarea type="text" class="form-control" id="details" placeholder="Details" required></textarea>
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
@@ -212,8 +202,7 @@
                 var code = $("#code").val();
                 var status = $("#inputStatus").val();
                 var payment_terms_id = $("#payment_termsID").val();
-                var bank_details  = $("#bank_details").val();
-                var bank_address  = $("#bank_address").val();
+                var details  = $("#details").val();
                 if(name == "" || code == "")
                 {
                     btn.button("reset"); 
@@ -224,8 +213,7 @@
                 formData.append('id', payment_terms_id);
                 formData.append('name', name);
                 formData.append('code', code);
-                formData.append('bank_details', bank_details);
-                formData.append('address', bank_address);
+                formData.append('details', details);
                 formData.append('status', status);
                 // Attach file
                  //fromthis    
@@ -358,8 +346,7 @@
                     $("#code").val(data.payment_terms.code);
                     $("#inputStatus").val(data.payment_terms.status).trigger('change');
                     $("#payment_termsID").val(data.payment_terms.id);
-                    $("#bank_details").val(data.payment_terms.bank_details);
-                    $("#bank_address").val(data.payment_terms.address);
+                    $("#details").val(data.payment_terms.details);
                     $("#payment_termsModal").modal("show");
                 },
                 error: function (request, status, error) {
