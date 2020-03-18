@@ -20,7 +20,7 @@ class Main extends CI_Controller {
 
 	public function index()
 	{
-		redirect(base_url()."portal/main/pages/".$this->default_page);
+		redirect(base_url()."portal/main/page/".$this->default_page);
     }
 
    
