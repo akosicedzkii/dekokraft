@@ -104,15 +104,7 @@ $module_name = rtrim($module_name,"s");?>
                                         <input type="text" class="form-control" onkeyup="this.value = this.value.toUpperCase();" id="inputProductsTitle" placeholder="Product Name" required>
                                         <div class="help-block with-errors"></div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="inputDescription" class="col-sm-2 control-label">Description</label>
-
-                                        <div class="col-sm-10">
-                                        <textarea class="form-control" id="inputDescription" placeholder="Description" style="resize:none" required></textarea>
-                                        <div class="help-block with-errors"></div>
-                                        </div>
-                                    </div>
+                                    </div> 
                                     <div class="form-group">
                                         <label for="class" class="col-sm-2 control-label">Class</label>
 
@@ -129,6 +121,15 @@ $module_name = rtrim($module_name,"s");?>
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="inputDescription" class="col-sm-2 control-label">Description</label>
+
+                                        <div class="col-sm-10">
+                                        <textarea class="form-control" id="inputDescription" placeholder="Description" style="resize:none" required></textarea>
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                   
                                     <!--<div class="form-group">
                                         <label for="color" class="col-sm-2 control-label">Color</label>
 

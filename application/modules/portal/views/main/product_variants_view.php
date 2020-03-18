@@ -123,7 +123,14 @@ td { font-size: 11px; }
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
-                                   
+                                    <div class="form-group">
+                                        <label for="class" class="col-sm-2 control-label">Class</label>
+
+                                        <div class="col-sm-10">
+                                        <input type="text" class="form-control" disabled id="class" placeholder="Class" required>
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label for="Code" class="col-sm-2 control-label">Product Code</label>
 
@@ -140,11 +147,11 @@ td { font-size: 11px; }
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="class" class="col-sm-2 control-label">Class</label>
+                                   <div class="form-group">
+                                        <label for="location" class="col-sm-2 control-label">Location</label>
 
                                         <div class="col-sm-10">
-                                        <input type="text" class="form-control" disabled id="class" placeholder="Class" required>
+                                        <textarea class="form-control" id="location" placeholder="Location" required></textarea>
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
@@ -158,14 +165,7 @@ td { font-size: 11px; }
                                     </div>
                                     
                                     
-                                    <div class="form-group">
-                                        <label for="location" class="col-sm-2 control-label">Location</label>
-
-                                        <div class="col-sm-10">
-                                        <textarea class="form-control" id="location" placeholder="Location" required></textarea>
-                                        <div class="help-block with-errors"></div>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="form-group">
                                         <label for="proto" class="col-sm-2 control-label">Proto</label>
 
