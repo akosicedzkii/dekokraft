@@ -107,8 +107,8 @@
                 <td>$ <label id="mega_total"></label></td>
               </tr>
               <tr>
-                <th>Tax (9.3%)</th>
-                <td>$10.34</td>
+                <th>Tax (9.3%)</th> 
+                <td><input type="number" min="1" step="any" class="form-control"></td>
               </tr>
               <tr>
                 <th>Shipping:</th>

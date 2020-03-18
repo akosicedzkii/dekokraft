@@ -15,28 +15,29 @@ class Invoices extends CI_Controller {
         }
     }
 
-	public function add_invoices()
+	public function insert_invoices()
 	{
-		$this->invoices_model->username = $this->input->post("username");
-		$this->invoices_model->password = $this->input->post("password");
-        $this->invoices_model->first_name = $this->input->post("first_name");
-        $this->invoices_model->middle_name = $this->input->post("middle_name");
-        $this->invoices_model->last_name = $this->input->post("last_name");
-        $this->invoices_model->contact_number = $this->input->post("contact_number");
-        $this->invoices_model->address = $this->input->post("address");
-        $this->invoices_model->role = $this->input->post("role");
-        $this->invoices_model->status = $this->input->post("status");
-        $this->invoices_model->email_address = $this->input->post("email_address");
-        $this->invoices_model->birthday = $this->input->post("birthday");
-		$existing =  $this->invoices_model->check_invoicesname_exist("add");
-		if(!$existing)
-		{
-			echo $this->invoices_model->insert_invoices();
-		}
-		else
-		{
-			echo "username is existing";
-		}
+        $params = array(
+            'invoice_date' => $this->input->post('invoice_date'),
+            'to' => $this->input->post('to'),
+            'invoice_number' => $this->input->post('invoice_number'),
+            'mo_number' => $this->input->post('mo_number'),
+            'iq' => $this->input->post('iq'),
+            'remarks' => $this->input->post('remarks'),
+            'packing_instruction' => $this->input->post('packing_instruction'),
+            'invoice_type' => $this->input->post('invoice_type'),
+            'bank' => $this->input->post('bank'),
+            'payment_terms' => $this->input->post('payment_terms'),
+            'delivery_time' => $this->input->post('delivery_time'),
+            'shipping_instruction' => $this->input->post('shipping_instruction'),
+            'markings' => $this->input->post('markings'),
+            'date_created' => $this->input->post('date_created'),
+            'created_by' => $this->input->post('created_by'),
+            'date_modified' => $this->input->post('date_modified'),
+            'modified_by' => $this->input->post('modified_by'),
+        );
+            
+        $invoice_id = $this->invoices_model->add_invoice($params);
 	}
 
 	public function edit_invoices()
@@ -131,10 +132,10 @@ class Invoices extends CI_Controller {
     public function get_invoices_list()
     {
         $this->load->model("portal/data_table_model","dt_model");  
-        $this->dt_model->select_columns = array("t1.id","t1.username","t2.first_name","t2.middle_name","t2.last_name","t3.role_name","t1.date_created","t4.username as created_by","t1.date_modified","t5.username as modified_by","t1.status as status");  
-        $this->dt_model->where  = array("t1.id","t1.username","t2.first_name","t2.middle_name","t2.last_name","t3.role_name","t1.date_created","t4.username","t1.date_modified","t5.username","t1.status");  
-        $select_columns = array("id","username","first_name","middle_name","last_name","role_name","date_created","created_by","date_modified","modified_by","status");  
-        $this->dt_model->table = "user_accounts AS t1 LEFT JOIN user_profiles AS t2 ON t2.user_id = t1.id  LEFT JOIN roles AS t3 ON t3.id = t1.role_id LEFT JOIN user_accounts AS t4 ON t4.id = t1.created_by LEFT JOIN user_accounts AS t5 ON t5.id = t1.modified_by";  
+        $this->dt_model->select_columns = array("t1.id","t1.invoice_number","t1.customer_name","t1.total_amount","t1.invoice_type","t1.remarks","t1.date_created","t4.username as created_by","t1.date_modified","t5.username as modified_by","t1.status as status");  
+        $this->dt_model->where  = array("t1.id","t1.invoice_number","t1.customer_name","t1.total_amount","t1.invoice_type","t1.remarks","t1.date_created","t4.username","t1.date_modified","t5.username","t1.status");  
+        $select_columns = array("id","invoice_number","customer_name","total_amount","invoice_type","remarks","date_created","created_by","date_modified","modified_by","status");  
+        $this->dt_model->table = "invoices AS t1 LEFT JOIN user_profiles AS t2 ON t2.user_id = t1.id LEFT JOIN user_accounts AS t4 ON t4.id = t1.created_by LEFT JOIN user_accounts AS t5 ON t5.id = t1.modified_by";  
         $this->dt_model->index_column = "t1.id";
         $result = $this->dt_model->get_table_list();
         $output = $result["output"];

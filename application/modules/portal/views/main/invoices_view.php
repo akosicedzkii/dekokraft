@@ -23,18 +23,20 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
-        <table id="logsList" class="table table-bordered table-striped">
+        <table id="invoicesList" class="table table-bordered table-striped">
         <thead>
         <tr>
             <th>ID</th>
             <th>INVOICE ID</th>
             <th>CUSTOMER NAME</th>
-            <th>DATE CREATED</th>
             <th>TOTAL AMOUNT</th>
-            <th>ID</th>
             <th>INVOICE TYPE</th>
             <th>REMARKS</th>
-            <th>Actions</th>
+            <th>DATE CREATED</th>
+            <th>CREATED BY</th>
+            <th>DATE MODIFIED</th>
+            <th>MODIFIED BY</th>
+            <th>ACTIONS</th>
         </tr>
         </thead>
         <tbody>
@@ -73,7 +75,7 @@
 <!-- /.modal -->
 
 <!-- /.modal -->
-<div class="modal fade" id="logsDetailsModal">
+<div class="modal fade" id="invoicesDetailsModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -195,12 +197,12 @@
         $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
       }
     );
-    var table = $('#logsList').DataTable({ 
-        "order": [[ 2, "desc" ]] ,
+    var table = $('#invoicesList').DataTable({ 
+        "order": [[ 0, "desc" ]] ,
         'autoWidth'   : true,
         "processing" : true,
         "serverSide" : true, 
-        "ajax" : "<?php echo base_url()."portal/logs/get_logs_list";?>",
+        "ajax" : "<?php echo base_url()."portal/invoices/get_invoices_list";?>",
         "initComplete": function(settings,json){
             $('[data-toggle="tooltip"]').tooltip()
         }
@@ -221,11 +223,11 @@
             $("#deleteLogs").button("loading");
             var values = {"action" : "delete"}
             $.ajax({
-                url: "<?php echo base_url();?>portal/logs/delete_all_logs",
+                url: "<?php echo base_url();?>portal/invoices/delete_all_invoices",
                 type: "post",
                 data: values ,
                 success: function (response) {
-                    toastr.success("All logs successfully deleted");
+                    toastr.success("All invoices successfully deleted");
                     $("#deleteLogsModal").modal("hide");
                     table.draw();
                     $("#deleteLogs").button("reset");
@@ -243,7 +245,7 @@
             $("#downloadLogsModal").modal("show");
         });
         $("#downloadBtn").click(function(){
-            window.open ("<?php echo base_url()."portal/logs/download?fromDate="?>" + startDateDownload + "&toDate=" + endDateDownload,"_blank") ;
+            window.open ("<?php echo base_url()."portal/invoices/download?fromDate="?>" + startDateDownload + "&toDate=" + endDateDownload,"_blank") ;
         });
     }
 
@@ -251,7 +253,7 @@
     {
         var values = { "id": id };
         $.ajax({
-            url: "<?php echo base_url();?>portal/logs/get_log_details",
+            url: "<?php echo base_url();?>portal/invoices/get_log_details",
             type: "post",
             data: values ,
             success: function (response) {
@@ -261,7 +263,7 @@
                 $("#date_created").html(data.log.date_created);
                 $("#created_by").html(data.log.created_by);
                 $("#module").html(data.log.module);
-                $("#logsDetailsModal").modal("show");
+                $("#invoicesDetailsModal").modal("show");
             },
             error: function(jqXHR, textStatus, errorThrown) {
             console.log(textStatus, errorThrown);

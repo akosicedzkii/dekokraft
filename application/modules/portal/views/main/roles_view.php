@@ -120,7 +120,18 @@
                                         Invoices
                                         </label>
                                     </div>
-
+                                    <div class="checkbox">
+                                        <label>
+                                        <input type="checkbox" id="modules" value="banks">
+                                        Banks
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                        <input type="checkbox" id="modules" value="payment_terms">
+                                        Payment Terms
+                                        </label>
+                                    </div>
                                     <b>System Administrator</b>
                                     <div class="checkbox">
                                         <label>

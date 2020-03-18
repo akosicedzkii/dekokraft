@@ -317,22 +317,8 @@
       </div>
     </nav>
   </header>
-  <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
-    <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-      <!-- search form -->
-      <!--<form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>-->
-      <!-- /.search form -->
-      <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <?php 
           if (in_array("dashboard", $menu) ) {
@@ -350,28 +336,28 @@
          <?php 
           if (in_array("products", $menu)) {
              ?>
-              <li <?php if($module_name == "products"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/products"?>"><i class="fa fa-list-alt"></i><span>Product Category</span></a></li>
+              <li <?php if($module_name == "products"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/products"?>"><i class="fa fa-list-alt"></i><span>Product Category</span></a></li>
              <?php
           } 
         ?>
         <?php 
          if (in_array("product_variants", $menu)) {
             ?>
-             <li <?php if($module_name == "product_variants"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/product_variants"?>"><i class="fa fa-list-alt"></i><span>Product Variants</span></a></li>
+             <li <?php if($module_name == "product_variants"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/product_variants"?>"><i class="fa fa-list-alt"></i><span>Product Variants</span></a></li>
             <?php
          } 
        ?>
         <?php 
          if (in_array("colors", $menu)) {
             ?>
-             <li <?php if($module_name == "colors"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/colors"?>"><i class="fa fa-list-alt"></i><span>Colors</span></a></li>
+             <li <?php if($module_name == "colors"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/colors"?>"><i class="fa fa-list-alt"></i><span>Colors</span></a></li>
             <?php
          } 
        ?>
       <?php 
           if (in_array("materials", $menu)) {
              ?>
-              <li <?php if($module_name == "materials"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/materials"?>"><i class="fa fa-list"></i><span>Materials</span></a></li>
+              <li <?php if($module_name == "materials"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/materials"?>"><i class="fa fa-list"></i><span>Materials</span></a></li>
              <?php
           } 
         ?>
@@ -380,6 +366,24 @@
           if (in_array("invoices", $menu)) {
              ?>
               <li <?php if($module_name == "invoices"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/invoices/list"?>"><i class="fa fa-barcode"></i><span>Invoices</span></a></li>
+             <?php
+          } 
+        ?>
+
+
+    <?php 
+          if (in_array("banks", $menu)) {
+             ?>
+              <li <?php if($module_name == "banks"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/banks"?>"><i class="fa fa-bank"></i><span>Banks</span></a></li>
+             <?php
+          } 
+        ?>
+
+
+    <?php 
+          if (in_array("payment_terms", $menu)) {
+             ?>
+              <li <?php if($module_name == "payment_terms"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/payment_terms"?>"><i class="fa fa-money"></i><span>Payment Terms</span></a></li>
              <?php
           } 
         ?>
@@ -400,28 +404,28 @@
                   <?php 
                     if (in_array("roles", $menu)) {
                      ?>
-                        <li <?php if($module_name == "roles"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/roles"?>"><i class="fa fa-user"></i> Roles</a></li>
+                        <li <?php if($module_name == "roles"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/roles"?>"><i class="fa fa-user"></i> Roles</a></li>
                      <?php
                      } 
                   ?>
                   <?php 
                     if (in_array("users", $menu)) {
                      ?>
-                        <li <?php if($module_name == "users"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/users"?>"><i class="fa fa-users"></i> Users</a></li>
+                        <li <?php if($module_name == "users"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/users"?>"><i class="fa fa-users"></i> Users</a></li>
                      <?php
                      } 
                   ?>
                   <?php 
                     if (in_array("site_settings", $menu)) {
                      ?>
-                        <li <?php if($module_name == "site_settings"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/site_settings"?>"><i class="fa fa-gear"></i> Site Settings</a></li>
+                        <li <?php if($module_name == "site_settings"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/site_settings"?>"><i class="fa fa-gear"></i> Site Settings</a></li>
                      <?php
                      } 
                   ?>
                   <?php 
                     if (in_array("logs", $menu)) {
                      ?>
-                         <li <?php if($module_name == "logs"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/logs"?>"><i class="fa fa-gear"></i> Logs</a></li>
+                         <li <?php if($module_name == "logs"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/logs"?>"><i class="fa fa-gear"></i> Logs</a></li>
                      <?php
                      } 
                   ?>

@@ -20,14 +20,10 @@ class Main extends CI_Controller {
 
 	public function index()
 	{
-		if($this->default_page == "opportunities_careers"){
-			$this->default_page = "opportunities/careers";
-		}
-		if($this->default_page == "opportunities_franchise"){
-			$this->default_page = "opportunities/franchise";
-		}
 		redirect(base_url()."portal/main/".$this->default_page);
     }
+
+   
 	public function dashboard()
 	{
 		if (!in_array($this->router->fetch_method(), $this->user_access)) 
@@ -62,60 +58,24 @@ class Main extends CI_Controller {
 		$this->load->view('main/main_view',$module);
 		$this->load->view('main/template/footer');
 	}
-    public function users()
-    {
-		if (!in_array($this->router->fetch_method(), $this->user_access)) 
-		{
-			redirect(base_url()."portal/main/".$this->default_page);
-		}
-		$module["module_name"] = $this->router->fetch_method();
-		$module["menu"] = $this->user_access;
-		$module["roles"] = $this->db->get("roles")->result();
-		$this->load->view('main/template/header',$module);
-		$this->load->view('main/users_view',$module);
-		$this->load->view('main/template/footer');
-	}
+  
 
-	public function roles()
+    public function page()
     {
-		if (!in_array($this->router->fetch_method(), $this->user_access)) 
+        $_view = $this->uri->segment(4, 0); 
+        if (!in_array($_view, $this->user_access)) 
 		{
 			redirect(base_url()."portal/main/".$this->default_page);
 		}
-		$module["module_name"] = $this->router->fetch_method();
-		$module["menu"] = $this->user_access;
+		$module["module_name"] = $_view;
+        $module["menu"] = $this->user_access;
+        $module["site_settings"] = $this->db->get("site_settings")->row();
 		$this->load->view('main/template/header',$module);
-		$this->load->view('main/roles_view',$module);
-		$this->load->view('main/template/footer');
-	}
-
-	public function products()
-    {
-		if (!in_array($this->router->fetch_method(), $this->user_access)) 
-		{
-			redirect(base_url()."portal/main/".$this->default_page);
-		}
-		$module["module_name"] = $this->router->fetch_method();
-		$module["menu"] = $this->user_access;
-		$this->load->view('main/template/header',$module);
-		$this->load->view('main/products_view',$module);
-		$this->load->view('main/template/footer');
-	}
-
-	
-	public function product_variants()
-    {
-		if (!in_array($this->router->fetch_method(), $this->user_access)) 
-		{
-			redirect(base_url()."portal/main/".$this->default_page);
-		}
-		$module["module_name"] = $this->router->fetch_method();
-		$module["menu"] = $this->user_access;
-		$this->load->view('main/template/header',$module);
-		$this->load->view('main/product_variants_view',$module);
+		$this->load->view("main/$_view"."_view",$module);
 		$this->load->view('main/template/footer');
     }
-    
+	
+	
    
 
     public function invoices()
@@ -159,44 +119,7 @@ class Main extends CI_Controller {
     }
 
     
-	public function logs()
-    {
-		$module["module_name"] = $this->router->fetch_method();
-		$module["menu"] = $this->user_access;
-		$this->load->view('main/template/header',$module);
-		$this->load->view('main/logs_view',$module);
-		$this->load->view('main/template/footer');
-	}
-	public function colors()
-    {
-		$module["module_name"] = $this->router->fetch_method();
-		$module["menu"] = $this->user_access;
-		$this->load->view('main/template/header',$module);
-		$this->load->view('main/colors_view',$module);
-		$this->load->view('main/template/footer');
-	}
-	public function materials()
-    {
-		$module["module_name"] = $this->router->fetch_method();
-		$module["menu"] = $this->user_access;
-		$this->load->view('main/template/header',$module);
-		$this->load->view('main/materials_view',$module);
-		$this->load->view('main/template/footer');
-	}
-	public function site_settings()
-    {
-		if (!in_array($this->router->fetch_method(), $this->user_access)) 
-		{
-			redirect(base_url()."portal/main/".$this->default_page);
-		}
-		$module["module_name"] = $this->router->fetch_method();
-		$module["menu"] = $this->user_access;
-		$module["site_settings"] = $this->db->get("site_settings")->row();
-		$this->load->view('main/template/header',$module);
-		$this->load->view('main/site_settings_view',$module);
-		$this->load->view('main/template/footer');
-	}
-
+	
 
 	public function get_profile_data()
     {

@@ -1,80 +1,17 @@
 <?php
 
 class Invoices_model extends CI_Model {
-    
-        public $username;
-        public $password;
-        public $email_address;
-        public $salt;
-        public $last_name;
-        public $first_name;
-        public $middle_name;
-        public $contact_number;
-        public $address;
-        public $role;
-        public $user_id;
-        public $old_password;
-        public $profile_image;
-        public $birthday;
-        public $status;
 
-        public function insert_invoices()
+        function add_invoice($params)
         {
-                $data["username"] = $this->username ; 
-                $this->salt = hash ( "sha256", $this->username ); 
-                $data["salt"] = $this->salt;
-                $data["password"] =  hash ( "sha256",  $this->salt.$this->password );
-                $data["date_created"] = date("Y-m-d H:i:s A");
-                $data["role_id"] = $this->role;
-                $data["status"] = $this->status;
-                if($this->session->userdata("USERID") != "")
-                {
-                        $data["created_by"] =  $this->session->userdata("USERID");
-                }
-                else
-                {
-                        $data["created_by"] = 0;
-                }
-                $result = $this->db->insert('user_accounts', $data);
+                echo $this->db->insert('invoice',$params);
+                $id =  $this->db->insert_id();
 
-                $this->db->where("username",$this->username);
-                $result = $this->db->get("user_accounts");
-
-                $data_profile["user_id"] =   $result->row()->id;
-                $data_profile["last_name"] = $this->last_name; 
-                $data_profile["first_name"] = $this->first_name;
-                $data_profile["middle_name"] = $this->middle_name; 
-                $data_profile["contact_number"] = $this->contact_number;
-                $data_profile["email_address"] = $this->email_address;
-                $data_profile["birthday"] = $this->birthday;
-                $data_profile["profile_image"] = "default_dp.png";
-                $data_profile["address"] = $this->address; 
-                if($this->session->userdata("USERID") != "")
-                {
-                        $data_profile["created_by"] =  $this->session->userdata("USERID");
-                }
-                else
-                {
-                        $data_profile["created_by"] = 0;
-                }
-                $data_profile["date_created"] = date("Y-m-d H:i:s A");
-                echo $result = $this->db->insert('user_profiles', $data_profile);
-                
-                $data = json_encode($data_profile);
-               
-                $this->db->select("id,username,role_id,date_created,date_modified,created_by,modified_by");
-                $this->db->where("id",$this->user_id);
-                $data_account = $this->db->get("user_accounts");
-                //$this->db->where("user_id",$this->user_id);
-                //echo $result = $this->db->update('user_profiles', $data_profile);
-                $data = json_encode($data_profile);
-                $this->logs->log = "Created User - ID: ". $this->user_id .", Username: ".$this->username ;
-                $this->logs->details = json_encode($data) . " User Details: ".json_encode( $data_account->row() );
+                $this->logs->log = "Created Invoice - ID: ". $id  ;
+                $this->logs->details =  " Invoice Details: ".json_encode( $params );
                 $this->logs->module = "invoices";
-
                 $this->logs->created_by = $this->session->userdata("USERID");
                 $this->logs->insert_log();
-
         }
 
         public function update_invoices()
