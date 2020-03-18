@@ -589,6 +589,8 @@ $('.actionDone').on('click', function(){
                 var count = $("#count").val();
                 var location = $("#location").val();
                 var code = $("#code").val();
+                var molds = $("#molds").val();
+                var proto = $("#proto").val();
 
                 var formData = new FormData();
                 formData.append('id', product_variants_id);
@@ -601,6 +603,8 @@ $('.actionDone').on('click', function(){
                 formData.append('count', count);
                 formData.append('location', location);
                 formData.append('code', code);
+                formData.append('molds', molds);
+                formData.append('proto', proto);
                 
                 if(is_edit==1)
                 {
