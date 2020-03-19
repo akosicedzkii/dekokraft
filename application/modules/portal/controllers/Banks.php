@@ -36,6 +36,8 @@ class Banks extends CI_Controller {
         $this->banks_model->address = $this->input->post("address");
         $this->banks_model->bank_details = $this->input->post("bank_details");
         $this->banks_model->status = $this->input->post("status");
+        $this->banks_model->date_modified = date("Y-m-d H:i:s A");
+        $this->banks_model->modified_by =  $this->session->userdata("USERID");
         $this->banks_model->id = $banks_id;
         echo $this->banks_model->update_banks();
 	}

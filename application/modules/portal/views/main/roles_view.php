@@ -132,6 +132,15 @@
                                         Payment Terms
                                         </label>
                                     </div>
+
+                                    <div class="checkbox">
+                                        <label>
+                                        <input type="checkbox" id="modules" value="customers">
+                                        Customers
+                                        </label>
+                                    </div>
+
+
                                     <b>System Administrator</b>
                                     <div class="checkbox">
                                         <label>

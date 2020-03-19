@@ -387,6 +387,13 @@
              <?php
           } 
         ?>
+    <?php 
+        if (in_array("customers", $menu)) {
+            ?>
+            <li <?php if($module_name == "customers"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/customers"?>"><i class="fa fa-group"></i><span>Customers</span></a></li>
+            <?php
+        } 
+    ?>
 
 
         <?php 
