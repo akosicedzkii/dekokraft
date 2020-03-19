@@ -4,7 +4,7 @@ class Invoices_model extends CI_Model {
 
         function add_invoice($params)
         {
-                echo $this->db->insert('invoice',$params);
+                echo $this->db->insert('invoices',$params);
                 $id =  $this->db->insert_id();
 
                 $this->logs->log = "Created Invoice - ID: ". $id  ;

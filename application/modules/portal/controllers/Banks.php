@@ -76,7 +76,7 @@ class Banks extends CI_Controller {
         $this->db->like("name",$search);  
         $this->db->where("status",1);  
         $this->db->select("name as text"); 
-        $this->db->select("code as id");
+        $this->db->select("id as id");
         $this->db->limit(10);
         $filteredValues=$this->db->get("banks")->result_array();
 

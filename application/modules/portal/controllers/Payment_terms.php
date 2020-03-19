@@ -34,6 +34,8 @@ class Payment_terms extends CI_Controller {
         $this->payment_terms_model->code = $this->input->post("code");
         $this->payment_terms_model->details = $this->input->post("details");
         $this->payment_terms_model->status = $this->input->post("status");
+        $this->banks_model->date_modified = date("Y-m-d H:i:s A");
+        $this->banks_model->modified_by =  $this->session->userdata("USERID");
         $this->payment_terms_model->id = $payment_terms_id;
         echo $this->payment_terms_model->update_payment_terms();
 	}
@@ -72,7 +74,7 @@ class Payment_terms extends CI_Controller {
         $this->db->like("name",$search);  
         $this->db->where("status",1);  
         $this->db->select("name as text"); 
-        $this->db->select("code as id");
+        $this->db->select("id as id");
         $this->db->limit(10);
         $filteredValues=$this->db->get("payment_terms")->result_array();
 

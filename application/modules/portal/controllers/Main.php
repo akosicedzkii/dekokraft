@@ -20,7 +20,14 @@ class Main extends CI_Controller {
 
 	public function index()
 	{
-		redirect(base_url()."portal/main/page/".$this->default_page);
+        if($this->default_page == "dashboard")
+        {
+            redirect(base_url()."portal/main/".$this->default_page);
+        }
+        else
+        {
+		    redirect(base_url()."portal/main/page/".$this->default_page);
+        }
     }
 
    
@@ -35,8 +42,8 @@ class Main extends CI_Controller {
 		$this->db->distinct();
 		$this->db->select("ip_address");
 		$module["unique_visitors"] = $this->db->get("visit_counts")->num_rows();
-		$query = "SELECT t1.title,t1.description,t2.file_name as cover_image FROM products as t1 LEFT JOIN media as t2 ON t2.id = t1.cover_image ORDER BY t1.date_created DESC LIMIT 4";
-		$module["blogs"] = $this->db->query($query)->result();
+		$query = "SELECT t2.code,t2.description,CONCAT(t1.color,' (',t1.color_abb,')') as color,t1.cover_image FROM product_variants as t1 LEFT JOIN products as t2 ON t2.id = t1.product_id ORDER BY t1.date_created DESC LIMIT 4";
+		$module["product_variants"] = $this->db->query($query)->result();
 
 		$this->db->order_by("user_accounts.id","desc");
 		$this->db->select('*');
@@ -44,15 +51,19 @@ class Main extends CI_Controller {
 		$this->db->join('user_profiles', 'user_profiles.user_id = user_accounts.id');
 		$module["users"]= $this->db->get()->result();
 
-		$module["month_visitors"] = $this->db->where("month(date_created)",date("m"))->where("year(date_created)",date("Y"))->get("visit_counts")->num_rows();
+		$module["month_products"] = $this->db->where("month(date_created)",date("m"))->where("year(date_created)",date("Y"))->get("product_variants")->num_rows();
 		
-		$module["blogs_count"] = $this->db->order_by("id","desc")->get("products")->num_rows();
 		
-		$module["submissions_counter"] = $this->db->get("submissions_counter")->row();
 
 		$module["today_visitors"] = $this->db->where("day(date_created)",date("d"))->where("month(date_created)",date("m"))->where("year(date_created)",date("Y"))->get("visit_counts")->num_rows();
 		
-		$module["all_visitors"] = $this->db->get("visit_counts")->num_rows();
+		$module["all_products"] = $this->db->get("product_variants")->num_rows();
+		$module["total_invoice"] = $this->db->get("invoices")->num_rows();
+		$module["total_invoice_this_month"] = $this->db->where("month(date_created)",date("m"))->where("year(date_created)",date("Y"))->get("invoices")->num_rows();
+		$module["pending_invoice"] = $this->db->where("status",0)->get("invoices")->num_rows();
+		$module["pending_products"] = $this->db->where("status",4)->get("products")->num_rows();
+		$module["total_customers"] = $this->db->get("customers")->num_rows();
+		$module["user_counts"] = $this->db->get("user_accounts")->num_rows();
 		
 		$this->load->view('main/template/header',$module);
 		$this->load->view('main/main_view',$module);

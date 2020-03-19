@@ -55,12 +55,18 @@
             <!-- /.col -->
             <div class="col-sm-4 invoice-col">
             <!-- <b>Invoice #007612</b><br> -->
+            Bank Account:
+            <br>
+            <select class="form-control" style="width:70%;" required type="text" placeholder="Bank" id="bank"/></select>
+            <br>
             <br>
             <!-- <b>Order ID:</b> 4F3S8J<br>
             <b>Payment Due:</b> 2/22/2014<br>
             <b>Account:</b> 968-34567 -->
             
             <textarea class="form-control" style="width:70%;" placeholder="Remarks" id="invoice_remarks"/></textarea>
+
+
             </div>
             <!-- /.col -->
         </div>
@@ -117,7 +123,7 @@
             <textarea class="form-control" style="width:70%;" placeholder="Remarks" id="invoice_remarks"/></textarea>
             <br>
             <br>
-            <textarea class="form-control" style="width:70%;" placeholder="Packing Instructions" id="packing_instructions"/></textarea>
+            <textarea class="form-control" style="width:70%;" placeholder="Packing Instructions" id="packing_instruction"/></textarea>
             <br>
             <br>
             <textarea class="form-control" style="width:70%;" placeholder="Label Instructions" id="label_instructions"/></textarea>
@@ -146,6 +152,14 @@
                     <td><input type="date" class="form-control" id="delivery_time"></td>
                 </tr>
                 <tr>
+                    <th>IQ:</th>
+                    <td><input type="text" class="form-control" id="iq"></td>
+                </tr>
+                <tr>
+                    <th>MO Number:</th>
+                    <td><input type="text" class="form-control" id="mo_number"></td>
+                </tr>
+                <tr>
                     <th>Shipping Instruction:</th>
                     <td><textarea class="form-control" style="width:100%;" placeholder="Shipping Instruction" id="shipping_instruction"/></textarea></td>
                 </tr>
@@ -159,6 +173,8 @@
         <!-- this row will not appear when printing -->
         <div class="row no-print">
             <div class="col-xs-12">
+            <div id="uploadBoxMain" class="col-md-12">
+                                </div>
             <a href="<?php echo base_url();?>portal/main/page/invoice_print?invoice_id=" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
             <button type="submit" id="save_invoice" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Save Invoice</button>
             <!-- <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
@@ -282,7 +298,7 @@
                 $(this).closest("tr").remove();
             });
             $("#customer_name").select2({
-                minimumInputLength: 2,
+                minimumInputLength: 1,
                 ajax: {
                     url: "<?php echo base_url()."portal/customers/get_customers_selection";?>",
                     dataType: 'json',
@@ -300,13 +316,31 @@
 
                 }
             });
+            $("#bank").select2({
+                minimumInputLength: 1,
+                ajax: {
+                    url: "<?php echo base_url()."portal/banks/get_banks_selection";?>",
+                    dataType: 'json',
+                    type: "GET",
+                    data: function (term) {
+                        return {
+                            term: term
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data.items
+                        };
+                    }
 
+                }
+            });
             $('#customer_name').on('select2:select', function (e) {
                 var data = $('#customer_name').select2('data');
                 $("#customer_address").val(data[0].address);
             });
             $("#payment_terms").select2({
-                minimumInputLength: 2,
+                minimumInputLength:1,
                 ajax: {
                     url: "<?php echo base_url()."portal/payment_terms/get_payment_terms_selection";?>",
                     dataType: 'json',
@@ -329,6 +363,76 @@
                 console.log( $('input[name="product_selected[]"]').val())
                 console.log( $('input[name="total_quantity[]"]').val())
                 console.log( $('input[name="total_amount[]"]').val())
+                if( $("#mega_total").html() == "")
+                {  
+                    toastr.error("Please add a product");
+                    e.preventDefault();
+                    return false;
+                }
+                $('#uploadBoxMain').html('<div class="progress"><div class="progress-bar progress-bar-aqua" id = "progressBarMain" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 0%"><span class="sr-only">20% Complete</span></div></div>');
+
+                var url = "<?php echo base_url()."portal/invoices/insert_invoices";?>";
+                var message = "New invoice successfully added";
+                var formData = new FormData();
+                formData.append('id',$("#id").val());
+                formData.append('customer_name',$("#customer_name").val());
+                formData.append('invoice_number',$("#invoice_number").val());
+                formData.append('mo_number',$("#mo_number").val());
+                formData.append('iq',$("#iq").val());
+                formData.append('remarks',$("#invoice_remarks").val());
+                formData.append('packing_instruction',$("#packing_instruction").val());
+                formData.append('invoice_type',$("#invoice_type").val());
+                formData.append('bank',$("#bank").val());
+                formData.append('payment_terms',$("#payment_terms").val());
+                formData.append('delivery_time',$("#delivery_time").val());
+                formData.append('shipping_instruction',$("#shipping_instruction").val());
+                formData.append('markings',$("#markings").val());
+                formData.append('date_created',$("#date_created").val());
+                formData.append('created_by',$("#created_by").val());
+                formData.append('date_modified',$("#date_modified").val());
+                formData.append('modified_by',$("#modified_by").val());
+                formData.append('total_amount',$("#total_amount").val());
+                formData.append('status',$("#status").val());
+                $.ajax({
+                    data: formData,
+                    type: "post",
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    url: url ,
+                    xhr: function(){
+                        //upload Progress
+                        var xhr = $.ajaxSettings.xhr();
+                        if (xhr.upload) {
+                            xhr.upload.addEventListener('progress', function(event) {
+                                var percent = 0;
+                                var position = event.loaded || event.position;
+                                var total = event.total;
+                                if (event.lengthComputable) {
+                                    percent = Math.ceil(position / total * 100);
+                                }
+                                //update progressbar
+                                
+                                $('#progressBarMain').css('width',percent+'%').html(percent+'%');
+                                                                
+                            }, true);
+                        }
+                        return xhr;
+                    },
+                    mimeType:"multipart/form-data"
+                }).done(function(data){ 
+                    if(!data)
+                    {
+                        btn.button("reset");
+                        toastr.error(data);
+                    }
+                    else
+                    {
+                        
+                         toastr.success(message);
+                         $('#uploadBoxMain').html('');          
+                    }
+                });
                 e.preventDefault();
                 $('input[name="product_selected[]"]').each(function (index, member) {
                     var value = $(member).val();

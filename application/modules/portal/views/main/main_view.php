@@ -22,8 +22,8 @@
             <span class="info-box-icon bg-aqua"><i class="ion ion-ios-star"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Total Site Views</span>
-              <span class="info-box-number"><?php echo $all_visitors;?></span>
+              <span class="info-box-text">Total Products</span>
+              <span class="info-box-number"><?php echo $all_products;?></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -35,8 +35,8 @@
             <span class="info-box-icon bg-red"><i class="fa fa-user"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Views this Month</span>
-              <span class="info-box-number"><?php echo $month_visitors;?></span>
+              <span class="info-box-text">Products This Month</span>
+              <span class="info-box-number"><?php echo $month_products;?></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -52,8 +52,8 @@
             <span class="info-box-icon bg-green"><i class="ion ion-ios-eye-outline"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Unique views</span>
-              <span class="info-box-number"><?php echo $unique_visitors?></span>
+              <span class="info-box-text">Pending Products</span>
+              <span class="info-box-number"><?php echo $pending_products?></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -65,8 +65,8 @@
             <span class="info-box-icon bg-yellow"><i class="ion ion-ios-glasses-outline"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Views Today</span>
-              <span class="info-box-number"><?php echo $today_visitors?></span>
+              <span class="info-box-text">Total Users</span>
+              <span class="info-box-number"><?php echo $user_counts?></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -83,7 +83,7 @@
           <!-- MAP & BOX PANE -->
           <div class="box box-success">
             <div class="box-header with-border">
-              <h3 class="box-title">Visitors Map
+              <h3 class="box-title">Invoices
                 <select id="filter">
                   <option value="today">Today</option>
                   <option value="this_month">This month</option>
@@ -125,8 +125,8 @@
             <span class="info-box-icon"><i class="ion ion-ios-people-outline"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Contact Us Response</span>
-              <span class="info-box-number"><?php if($submissions_counter != null){ echo $submissions_counter->contact_us; }else{ echo "0";}?></span>
+              <span class="info-box-text">Total Invoices</span>
+              <span class="info-box-number"><?php echo $total_invoice;?></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -135,8 +135,8 @@
             <span class="info-box-icon"><i class="ion ion-ios-people-outline"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Franchise Request Submissions</span>
-              <span class="info-box-number"><?php if($submissions_counter != null){ echo $submissions_counter->franchise; }else{ echo "0";}?></span>
+              <span class="info-box-text">Total Invoice This Month</span>
+              <span class="info-box-number"><?php echo $total_invoice_this_month;?></span>
             </div>
             <!-- /.info-box-content -->
           </div>
@@ -145,8 +145,8 @@
             <span class="info-box-icon"><i class="ion ion-ios-people-outline"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Careers Submissions</span>
-              <span class="info-box-number"><?php if($submissions_counter != null){ echo $submissions_counter->careers; }else{ echo "0";}?></span>
+              <span class="info-box-text">Pending Invoices</span>
+              <span class="info-box-number"><?php echo $pending_invoice;?></span>
 
             </div>
             <!-- /.info-box-content -->
@@ -156,8 +156,8 @@
             <span class="info-box-icon"><i class="ion-android-bus"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Number of Stations</span>
-              <span class="info-box-number"><?php echo $blogs_count;?></span>
+              <span class="info-box-text">Total Customers</span>
+              <span class="info-box-number"><?php echo $total_customers;?></span>
 
             </div>
             <!-- /.info-box-content -->
@@ -175,7 +175,7 @@
           <!-- PRODUCT LIST -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Recently Added Blog</h3>
+              <h3 class="box-title">Recently Added Products</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -187,10 +187,10 @@
             <div class="box-body">
               <ul class="products-list product-list-in-box">
               <?php 
-                      if($blogs != null)
+                      if($product_variants != null)
                       {
                         $count = 0;
-                        foreach($blogs as $row)
+                        foreach($product_variants as $row)
                         {
                           if($count==4)
                           {
@@ -199,10 +199,10 @@
                             ?>
                                <li class="item" data-toggle="tooltip"  title="<?php echo ucfirst($row->description);?>">
                                 <div class="product-img">
-                                  <img src="<?php echo base_url("uploads/".$row->content_type."/".$row->cover_image);?>" alt="Cover Image">
+                                  <img onerror="this.onerror=null;this.src='<?php echo base_url("uploads/profile_image/default_dp.png");?>';" src="<?php echo base_url("uploads/product_variants/".$row->cover_image);?>" alt="Cover Image">
                                 </div>
                                 <div class="product-info">
-                                  <a href="javascript:void(0)"  class="product-title"><?php echo ucfirst($row->title);?>
+                                  <a href="javascript:void(0)"  class="product-title"><?php echo ucfirst($row->description)." ".$row->color;?>
                                    
                                   <span class="product-description">
                                         <?php echo substr(ucfirst($row->description),0,80);?>
@@ -222,7 +222,7 @@
             <?php 
               if (in_array("products", $menu)) {
               ?>
-                  <a href="<?php echo base_url("portal/main/products");?>" class="uppercase">View All Blogs</a>
+                  <a href="<?php echo base_url("portal/main/product_variants");?>" class="uppercase">View All Products</a>
               <?php }?>
             </div>
             <!-- /.box-footer -->
@@ -399,7 +399,7 @@
       });
     });
     
-    $("#filter").change();
+    //$("#filter").change();
    }
    $(document).ready(main);
 </script>

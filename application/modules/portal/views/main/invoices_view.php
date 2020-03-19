@@ -36,6 +36,7 @@
             <th>CREATED BY</th>
             <th>DATE MODIFIED</th>
             <th>MODIFIED BY</th>
+            <th>STATUS</th>
             <th>ACTIONS</th>
         </tr>
         </thead>

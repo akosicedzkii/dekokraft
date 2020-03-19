@@ -18,8 +18,8 @@ class Invoices extends CI_Controller {
 	public function insert_invoices()
 	{
         $params = array(
-            'invoice_date' => $this->input->post('invoice_date'),
-            'to' => $this->input->post('to'),
+            'invoice_date' => date("Y-m-d h:i:s a"),
+            'customer_id' => $this->input->post('customer_name'),
             'invoice_number' => $this->input->post('invoice_number'),
             'mo_number' => $this->input->post('mo_number'),
             'iq' => $this->input->post('iq'),
@@ -31,10 +31,10 @@ class Invoices extends CI_Controller {
             'delivery_time' => $this->input->post('delivery_time'),
             'shipping_instruction' => $this->input->post('shipping_instruction'),
             'markings' => $this->input->post('markings'),
-            'date_created' => $this->input->post('date_created'),
-            'created_by' => $this->input->post('created_by'),
-            'date_modified' => $this->input->post('date_modified'),
-            'modified_by' => $this->input->post('modified_by'),
+            'date_created' => date("Y-m-d h:i:s a"),
+            'created_by' => $this->session->userdata("USERID"),
+            'status' => 0,
+            
         );
             
         $invoice_id = $this->invoices_model->add_invoice($params);
@@ -132,10 +132,10 @@ class Invoices extends CI_Controller {
     public function get_invoices_list()
     {
         $this->load->model("portal/data_table_model","dt_model");  
-        $this->dt_model->select_columns = array("t1.id","t1.invoice_number","t1.customer_name","t1.total_amount","t1.invoice_type","t1.remarks","t1.date_created","t4.username as created_by","t1.date_modified","t5.username as modified_by","t1.status as status");  
-        $this->dt_model->where  = array("t1.id","t1.invoice_number","t1.customer_name","t1.total_amount","t1.invoice_type","t1.remarks","t1.date_created","t4.username","t1.date_modified","t5.username","t1.status");  
+        $this->dt_model->select_columns = array("t1.id","t1.invoice_number","t6.customer_name","t1.total_amount","t1.invoice_type","t1.remarks","t1.date_created","t4.username as created_by","t1.date_modified","t5.username as modified_by","t1.status as status");  
+        $this->dt_model->where  = array("t1.id","t1.invoice_number","t6.customer_name","t1.total_amount","t1.invoice_type","t1.remarks","t1.date_created","t4.username","t1.date_modified","t5.username","t1.status");  
         $select_columns = array("id","invoice_number","customer_name","total_amount","invoice_type","remarks","date_created","created_by","date_modified","modified_by","status");  
-        $this->dt_model->table = "invoices AS t1 LEFT JOIN user_profiles AS t2 ON t2.user_id = t1.id LEFT JOIN user_accounts AS t4 ON t4.id = t1.created_by LEFT JOIN user_accounts AS t5 ON t5.id = t1.modified_by";  
+        $this->dt_model->table = "invoices AS t1 LEFT JOIN user_profiles AS t2 ON t2.user_id = t1.id LEFT JOIN user_accounts AS t4 ON t4.id = t1.created_by LEFT JOIN user_accounts AS t5 ON t5.id = t1.modified_by LEFT JOIN customers as t6 ON t6.id = t1.customer_id";  
         $this->dt_model->index_column = "t1.id";
         $result = $this->dt_model->get_table_list();
         $output = $result["output"];
@@ -150,17 +150,21 @@ class Invoices extends CI_Controller {
                     }
                     else if($col == "status")
                     {
-                        if($aRow[$col] == 0)
+                        if($aRow[$col] == "0")
                         {
-                            $row[] = "Disabled";
+                            $row[] = '<center><small class="label bg-gray">Inactive</small></center>';
                         }
-                        else if($aRow[$col] == 1)
+                        else if($aRow[$col] == "1")
                         {
-                            $row[] = "Enabled";
+                            $row[] = '<center><small class="label bg-green">Active</small></center>';
                         }
-                        else if($aRow[$col] == 2)
+                        else if($aRow[$col] == "4")
                         {
-                            $row[] = "Unverified";
+                            $row[] = '<center><small class="label bg-orange">Pending</small></center>';
+                        }
+                        else
+                        {
+                            $row[] = '<center><small class="label bg-red">Error</small></center>';
                         }
                     }
                     else
@@ -170,20 +174,14 @@ class Invoices extends CI_Controller {
             }
             
             $btns = '';
-            if($aRow['username'] != "portal")
-            {
-                if($aRow['username'] != $this->session->userdata("USERNM"))
-                {  
-                    $btns = '<!--<a href="#" onclick="_view('.$aRow['id'].');return false;" class="glyphicon glyphicon-search text-orange" data-toggle="tooltip" title="View Details"></a>-->
-                    <a href="#" onclick="_edit('.$aRow['id'].');return false;" class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" title="Edit"></a>
-                    <a href="#" onclick="_delete('.$aRow['id'].',\''.$aRow['username'].'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" title="Delete"></a>';
-                    
-                }
-            }
+            $btns = '<!--<a href="#" onclick="_view('.$aRow['id'].');return false;" class="glyphicon glyphicon-search text-orange" data-toggle="tooltip" title="View Details"></a>-->
+            <a href="#" onclick="_edit('.$aRow['id'].');return false;" class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" title="Edit"></a>
+            <a href="#" onclick="_delete('.$aRow['id'].',\''.$aRow['invoice_number'].'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" title="Delete"></a>';
+        
             array_push($row,$btns);
             $output['data'][] = $row;
         }
-        echo json_encode( $output );
+        echo json_encode( $output ); 
     }
 
     
