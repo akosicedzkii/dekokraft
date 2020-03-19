@@ -663,7 +663,15 @@ $('.actionDone').on('click', function(){
                          btn.button("reset");
                          if(action == "edit")
                          {
-                            window.location = "";
+                            console.log(table.page.info().page);
+                            if(table.page.info().page == 0)
+                            {
+                             table.draw();
+                            }
+                            else
+                            {
+                                table.draw("page");
+                            }
                          }
                          else
                          {

@@ -692,7 +692,8 @@ $('.actionDone').on('click', function(){
                          btn.button("reset");
                          if(action == "edit")
                          {
-                            window.location = "";
+                            table.draw("page");
+                            table.draw("page");
                          }
                          else
                          {
