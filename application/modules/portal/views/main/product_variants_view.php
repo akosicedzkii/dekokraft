@@ -151,7 +151,7 @@ td { font-size: 11px; }
                                         <label for="location" class="col-sm-2 control-label">Location</label>
 
                                         <div class="col-sm-10">
-                                        <textarea class="form-control" id="location" placeholder="Location"></textarea>
+                                        <input  class="form-control" maxlength="9" id="location" placeholder="Location" type="text">
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>

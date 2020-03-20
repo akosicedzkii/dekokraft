@@ -46,10 +46,10 @@
             <div class="col-sm-4 invoice-col">
             Customer:
             <address>
-                <select class="form-control" style="width:70%;" required type="text" placeholder="Customer Name" id="customer_name"/></select>
+                <select class="form-control" style="width:70%;"  type="text" placeholder="Customer Name" id="customer_name"/></select>
                 <br>
                 <br>
-                <textarea class="form-control" style="width:70%;"  required placeholder="Customer Address" id="customer_address"/></textarea>
+                <textarea class="form-control" style="width:70%;"   placeholder="Customer Address" id="customer_address"/></textarea>
             </address>
             </div>
             <!-- /.col -->
@@ -57,7 +57,7 @@
             <!-- <b>Invoice #007612</b><br> -->
             Bank Account:
             <br>
-            <select class="form-control" style="width:70%;" required type="text" placeholder="Bank" id="bank"/></select>
+            <select class="form-control" style="width:70%;"  type="text" placeholder="Bank" id="bank"/></select>
             <br>
             <br>
             <!-- <b>Order ID:</b> 4F3S8J<br>
@@ -191,8 +191,9 @@
   <script> 
         let lineNo = 1; 
         $(document).ready(function () { 
+            
             $("#add_new_product").click(function () { 
-                markup =  "<tr><td><input type='hidden' name='base_amount[]'><input type='hidden' name='total_discount[]'><input type='hidden' name='total_amount[]'><input type='hidden' name='total_quantity[]'><input type='hidden' name='product_selected[]'><input required value=1 type='number' min=0 class='form-control quantity' style='width:100px;' ></td><td><select type='text' style='width:300px;' required id='product"+ lineNo+"'></select></td><td><label class='product_code'></label></td><td><label class='product_color'></label></td><td><label class='product_desc'></label></td><td><label class='product_price'></td><td><input required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'></td><td><label class='discounted_price'></td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>"; 
+                markup =  "<tr><td><input type='hidden' name='total_discount_percentage[]'><input type='hidden' name='base_amount[]'><input type='hidden' name='total_discount[]'><input type='hidden' name='total_amount[]'><input type='hidden' name='total_quantity[]'><input type='hidden' name='product_selected[]'><input required value=1 type='number' min=0 class='form-control quantity' style='width:100px;' ></td><td><select type='text' style='width:300px;' required id='product"+ lineNo+"'></select></td><td><label class='product_code'></label></td><td><label class='product_color'></label></td><td><label class='product_desc'></label></td><td><label class='product_price'></td><td><input required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'></td><td><label class='discounted_price'></td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>"; 
                 tableBody = $("#product_table tbody"); 
                 tableBody.append(markup); 
                 $("#product"+lineNo).select2({
@@ -237,6 +238,7 @@
                         var $row = $(this).closest("tr");
                         $row.find('input[name="total_amount[]"]').val($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val())
                         $row.find('input[name="total_quantity[]"]').val($row.find(".quantity").val())
+                        $row.find('input[name="total_discount[]"]').val($row.find(".discount").val())
                         $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(2))
                         $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
                         get_total(total)
@@ -246,7 +248,7 @@
                     
                     $row.find(".discount").on('input',function (e) {
                         var $row = $(this).closest("tr");
-                        $row.find('input[name="total_discount[]"]').val($row.find('input[name="base_amount[]"]').val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val()))
+                        $row.find('input[name="total_discount[]"]').val($row.find(".discount").val())
                         $row.find('input[name="total_quantity[]"]').val($row.find(".quantity").val())
                         $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(2))
                         $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
@@ -257,7 +259,7 @@
 
                     $row.find('input[name="total_amount[]"]').val($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val())
                     $row.find('input[name="total_quantity[]"]').val($row.find(".quantity").val())
-                    $row.find('input[name="total_discount[]"]').val($row.find('input[name="base_amount[]"]').val() - (($row.find(".discounted_price").val()/100)*$row.find('input[name="base_amount[]"]').val()))
+                    $row.find('input[name="total_discount[]"]').val($row.find(".discount").val())
                     // or $( 'input[name^="ingredient"]' )
                     get_total(total)
                     get_total_quantity(total_quantity)
@@ -287,8 +289,8 @@
                 $("#mega_quantity").html(total_quantity);
             }
             function get_total_discount(total_discount){
-            $( 'input[name^="total_discount"]' ).each( function( i , e ) {
-                var v = parseInt( $( e ).val() );
+            $(".discounted_price").each( function( i , e ) {
+                var v = parseInt( $( e ).html() );
                     if ( !isNaN( v ) )
                     total_discount += v;
                 } );
@@ -360,21 +362,17 @@
             });
            
             $("#invoice_form").submit(function(e){
-                console.log( $('input[name="product_selected[]"]').val())
-                console.log( $('input[name="total_quantity[]"]').val())
-                console.log( $('input[name="total_amount[]"]').val())
                 var values = [];
                 $("input[name='product_selected[]']").each(function( index, currentElement  ) {
                     console.log(index);
                     prod_selected = $('input[name="product_selected[]"]')[index].value;
                     total_quan =  $('input[name="total_quantity[]"]')[index].value;
                     total_am =  $('input[name="total_amount[]"]')[index].value;
-                    arr_val[,]
-                    values.push($(this).val());
+                    total_dis =  $('input[name="total_discount[]"]')[index].value;
+                    var arr_val = []
+                    arr_val.push(prod_selected,total_quan,total_am,total_dis)
+                    values.push(arr_val);
                 });
-                
-                e.preventDefault();
-                return false;
                 if( $("#mega_total").html() == "")
                 {  
                     toastr.error("Please add a product");
@@ -405,6 +403,9 @@
                 formData.append('modified_by',$("#modified_by").val());
                 formData.append('total_amount',$("#total_amount").val());
                 formData.append('status',$("#status").val());
+                formData.append('label_instructions',$("#label_instructions").val());
+                formData.append('invoice_remarks',$("#invoice_remarks").val());
+                formData.append('invoice_items',JSON.stringify(values));
                 $.ajax({
                     data: formData,
                     type: "post",

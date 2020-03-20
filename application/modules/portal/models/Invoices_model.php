@@ -2,11 +2,20 @@
 
 class Invoices_model extends CI_Model {
 
-        function add_invoice($params)
+        function add_invoice($params,$invoice_items)
         {
                 echo $this->db->insert('invoices',$params);
                 $id =  $this->db->insert_id();
+                foreach($invoice_items as $a){
 
+                    $data["product_id"] = $a[0];
+                    $data["invoice_id"] =  $id;
+                    $data["discount"] = $a[3];
+                    $data["quantity"] = $a[1];
+                    //$price_id = $this->db->where('product_id',$a[0])->order_by("id", "desc")->get("product_price_history")->row()->id;
+                    $data["product_price"] = $a[2];
+                    $this->db->insert('invoice_lines',$data);
+                }
                 $this->logs->log = "Created Invoice - ID: ". $id  ;
                 $this->logs->details =  " Invoice Details: ".json_encode( $params );
                 $this->logs->module = "invoices";
