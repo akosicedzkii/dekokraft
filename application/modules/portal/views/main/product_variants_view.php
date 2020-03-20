@@ -666,7 +666,7 @@ $('.actionDone').on('click', function(){
                             console.log(table.page.info().page);
                             if(table.page.info().page == 0)
                             {
-                                window.location="";
+                                table.draw("page");
                             }
                             else
                             {

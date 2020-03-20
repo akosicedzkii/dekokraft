@@ -364,9 +364,12 @@
                 console.log( $('input[name="total_quantity[]"]').val())
                 console.log( $('input[name="total_amount[]"]').val())
                 var values = [];
-                console.log($('input[name="product_selected[]"]')[0].val());
                 $("input[name='product_selected[]']").each(function( index, currentElement  ) {
                     console.log(index);
+                    prod_selected = $('input[name="product_selected[]"]')[index].value;
+                    total_quan =  $('input[name="total_quantity[]"]')[index].value;
+                    total_am =  $('input[name="total_amount[]"]')[index].value;
+                    arr_val[,]
                     values.push($(this).val());
                 });
                 
