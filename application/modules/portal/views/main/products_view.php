@@ -152,7 +152,7 @@ $module_name = rtrim($module_name,"s");?>
                                         <label for="inner_carton" class="col-sm-2 control-label">Inner Carton</label>
 
                                         <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inner_carton" placeholder="Inner Carton" required>
+                                        <input type="text" class="form-control" id="inner_carton" placeholder="Inner Carton" >
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
@@ -161,7 +161,7 @@ $module_name = rtrim($module_name,"s");?>
                                         <label for="master_carton" class="col-sm-2 control-label">Master Carton</label>
 
                                         <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="master_carton" placeholder="Master Carton" required>
+                                        <input type="text" class="form-control" id="master_carton" placeholder="Master Carton" >
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
@@ -179,7 +179,7 @@ $module_name = rtrim($module_name,"s");?>
                                         <label for="fob" class="col-sm-2 control-label">FOB</label>
 
                                         <div class="col-sm-10">
-                                        <input type="text" min="1" class="form-control" id="fob" placeholder="FOB" required>
+                                        <input type="text" min="1" class="form-control" id="fob" placeholder="FOB" >
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
@@ -189,7 +189,7 @@ $module_name = rtrim($module_name,"s");?>
                                         <label for="weight_of_box" class="col-sm-2 control-label">Weight of Box</label>
 
                                         <div class="col-sm-10">
-                                        <input type="number" min="1" class="form-control" id="weight_of_box" placeholder="Weight of Box" required>
+                                        <input type="number" min="1" class="form-control" id="weight_of_box" placeholder="Weight of Box" >
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
@@ -198,7 +198,7 @@ $module_name = rtrim($module_name,"s");?>
                                         <label for="minimum_of_quantity" class="col-sm-2 control-label">Minimum of Quantity</label>
 
                                         <div class="col-sm-10">
-                                        <input type="number" class="form-control" id="minimum_of_quantity" placeholder="Minimum of Quantity" required>
+                                        <input type="number" class="form-control" id="minimum_of_quantity" placeholder="Minimum of Quantity" >
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
@@ -207,7 +207,7 @@ $module_name = rtrim($module_name,"s");?>
                                         <label for="lowest_cost" class="col-sm-2 control-label">Lowest Cost</label>
 
                                         <div class="col-sm-10">
-                                        <input  class="form-control" id="lowest_cost" placeholder="Lowest Cost(In Dollars)" type="number" min="1" step="any" required>
+                                        <input  class="form-control" id="lowest_cost" placeholder="Lowest Cost(In Dollars)" type="number" min="1" step="any">
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>

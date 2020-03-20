@@ -132,9 +132,9 @@ class Invoices extends CI_Controller {
     public function get_invoices_list()
     {
         $this->load->model("portal/data_table_model","dt_model");  
-        $this->dt_model->select_columns = array("t1.id","t1.invoice_number","t6.customer_name","t1.total_amount","t1.invoice_type","t1.remarks","t1.date_created","t4.username as created_by","t1.date_modified","t5.username as modified_by","t1.status as status");  
-        $this->dt_model->where  = array("t1.id","t1.invoice_number","t6.customer_name","t1.total_amount","t1.invoice_type","t1.remarks","t1.date_created","t4.username","t1.date_modified","t5.username","t1.status");  
-        $select_columns = array("id","invoice_number","customer_name","total_amount","invoice_type","remarks","date_created","created_by","date_modified","modified_by","status");  
+        $this->dt_model->select_columns = array("t1.id","t1.id","t6.customer_name","t1.total_amount","t1.invoice_type","t1.remarks","t1.date_created","t4.username as created_by","t1.date_modified","t5.username as modified_by","t1.status as status");  
+        $this->dt_model->where  = array("t1.id","t1.id","t6.customer_name","t1.total_amount","t1.invoice_type","t1.remarks","t1.date_created","t4.username","t1.date_modified","t5.username","t1.status");  
+        $select_columns = array("id","id","customer_name","total_amount","invoice_type","remarks","date_created","created_by","date_modified","modified_by","status");  
         $this->dt_model->table = "invoices AS t1 LEFT JOIN user_profiles AS t2 ON t2.user_id = t1.id LEFT JOIN user_accounts AS t4 ON t4.id = t1.created_by LEFT JOIN user_accounts AS t5 ON t5.id = t1.modified_by LEFT JOIN customers as t6 ON t6.id = t1.customer_id";  
         $this->dt_model->index_column = "t1.id";
         $result = $this->dt_model->get_table_list();
@@ -176,7 +176,7 @@ class Invoices extends CI_Controller {
             $btns = '';
             $btns = '<!--<a href="#" onclick="_view('.$aRow['id'].');return false;" class="glyphicon glyphicon-search text-orange" data-toggle="tooltip" title="View Details"></a>-->
             <a href="#" onclick="_edit('.$aRow['id'].');return false;" class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" title="Edit"></a>
-            <a href="#" onclick="_delete('.$aRow['id'].',\''.$aRow['invoice_number'].'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" title="Delete"></a>';
+            <a href="#" onclick="_delete('.$aRow['id'].',\''.$aRow['id'].'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" title="Delete"></a>';
         
             array_push($row,$btns);
             $output['data'][] = $row;

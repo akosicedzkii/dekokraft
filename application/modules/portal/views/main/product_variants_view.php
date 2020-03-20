@@ -151,7 +151,7 @@ td { font-size: 11px; }
                                         <label for="location" class="col-sm-2 control-label">Location</label>
 
                                         <div class="col-sm-10">
-                                        <textarea class="form-control" id="location" placeholder="Location" required></textarea>
+                                        <textarea class="form-control" id="location" placeholder="Location"></textarea>
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
@@ -159,7 +159,7 @@ td { font-size: 11px; }
                                         <label for="count" class="col-sm-2 control-label">PCS</label>
 
                                         <div class="col-sm-10">
-                                        <input  class="form-control" id="count" placeholder="Count" type="number" min="1" step="any" required>
+                                        <input  class="form-control" id="count" placeholder="Count" type="number" min="1" step="any">
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
@@ -170,7 +170,7 @@ td { font-size: 11px; }
                                         <label for="proto" class="col-sm-2 control-label">Proto</label>
 
                                         <div class="col-sm-10">
-                                        <input type="text" min="1" class="form-control" id="proto" placeholder="Proto" required>
+                                        <input type="text" min="1" class="form-control" id="proto" placeholder="Proto">
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
@@ -178,7 +178,7 @@ td { font-size: 11px; }
                                         <label for="molds" class="col-sm-2 control-label">Molds</label>
 
                                         <div class="col-sm-10">
-                                        <input type="text" min="1" class="form-control" id="molds" placeholder="Molds" required>
+                                        <input type="text" min="1" class="form-control" id="molds" placeholder="Molds">
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>

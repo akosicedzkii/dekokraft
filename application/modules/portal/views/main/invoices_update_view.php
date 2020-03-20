@@ -46,10 +46,10 @@
             <div class="col-sm-4 invoice-col">
             Customer:
             <address>
-                <select class="form-control" style="width:70%;" required type="text" placeholder="Customer Name" id="customer_name"/></select>
+                <select class="form-control" value="<?php echo $customer_name;?>" style="width:70%;" required type="text" placeholder="Customer Name" id="customer_name"/></select>
                 <br>
                 <br>
-                <textarea class="form-control" style="width:70%;"  required placeholder="Customer Address" id="customer_address"/></textarea>
+                <textarea class="form-control"  value="<?php echo $customer_address;?>" style="width:70%;"  required placeholder="Customer Address" id="customer_address"/></textarea>
             </address>
             </div>
             <!-- /.col -->
@@ -57,7 +57,7 @@
             <!-- <b>Invoice #007612</b><br> -->
             Bank Account:
             <br>
-            <select class="form-control" style="width:70%;" required type="text" placeholder="Bank" id="bank"/></select>
+            <select class="form-control" style="width:70%;"  value="<?php echo $bank;?>" required type="text" placeholder="Bank" id="bank"/></select>
             <br>
             <br>
             <!-- <b>Order ID:</b> 4F3S8J<br>
@@ -149,19 +149,19 @@
                 </tr>
                 <tr>
                     <th>Delivery Time:</th>
-                    <td><input type="date" class="form-control" id="delivery_time"></td>
+                    <td><input type="date" class="form-control" value="<?php echo $delivery_time;?>" id="delivery_time"></td>
                 </tr>
                 <tr>
                     <th>IQ:</th>
-                    <td><input type="text" class="form-control" id="iq"></td>
+                    <td><input type="text" class="form-control" value="<?php echo $iq;?>" id="iq"></td>
                 </tr>
                 <tr>
                     <th>MO Number:</th>
-                    <td><input type="text" class="form-control" id="mo_number"></td>
+                    <td><input type="text" class="form-control" value="<?php echo $mo_number;?>" id="mo_number"></td>
                 </tr>
                 <tr>
                     <th>Shipping Instruction:</th>
-                    <td><textarea class="form-control" style="width:100%;" placeholder="Shipping Instruction" id="shipping_instruction"/></textarea></td>
+                    <td><textarea class="form-control" style="width:100%;" value="<?php echo $shipping_instruction;?>" placeholder="Shipping Instruction" id="shipping_instruction"/></textarea></td>
                 </tr>
                 </tbody></table>
             </div>
@@ -363,23 +363,6 @@
                 console.log( $('input[name="product_selected[]"]').val())
                 console.log( $('input[name="total_quantity[]"]').val())
                 console.log( $('input[name="total_amount[]"]').val())
-
-                var myRows = [];
-                var $headers = $("#product_table th");
-                var $rows = $("#product_table tbody tr").each(function(index) {
-                $cells = $(this).find("td");
-                myRows[index] = {};
-                $cells.each(function(cellIndex) {
-                    myRows[index][$($headers[cellIndex]).html()] = $(this).html();
-                });    
-                });
-
-                // Let's put this in the object like you want and convert to JSON (Note: jQuery will also do this for you on the Ajax request)
-                var myObj = {};
-                myObj.myrows = myRows;
-                console.log(myObj);
-                e.preventDefault();
-                return false;
                 if( $("#mega_total").html() == "")
                 {  
                     toastr.error("Please add a product");
@@ -448,9 +431,7 @@
                         
                          toastr.success(message);
                          $('#uploadBoxMain').html('');  
-                         setTimeout(function(){
-                            window.location = "<?php echo base_url()."portal/main/invoices/list";?>";
-                         }, 1000);        
+                         window.location = "<?php echo base_url()."portal/main/invoices";?>"        
                     }
                 });
                 e.preventDefault();
