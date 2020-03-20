@@ -20,6 +20,7 @@
             <div class="col-xs-12">
             <h2 class="page-header">
                 <!-- <i class="fa fa-globe"></i>--> <?php echo SITE_NAME;?> 
+                <input type="hidden" value="<?php echo $invoice->id;?>" id="id  ">
                 <small class="pull-right"> <b>Invoice #<?php echo $invoice->id;?></b>&emsp;Invoice Date: <?php echo date("m/d/Y",strtotime($invoice->invoice_date));?></small>
                 
             
@@ -120,7 +121,7 @@
                 </select>
                 <br>
                 <br>
-            <textarea class="form-control" style="width:70%;" placeholder="Remarks" id="invoice_remarks"/><?php echo $invoice->invoice_remarks;?></textarea>
+            <textarea class="form-control" style="width:70%;" placeholder="Remarks" id="remarks"/><?php echo $invoice->remarks;?></textarea>
             <br>
             <br>
             <textarea class="form-control" style="width:70%;" placeholder="Packing Instructions" id="packing_instruction"/><?php echo $invoice->packing_instruction;?></textarea>
@@ -149,7 +150,7 @@
                 </tr>
                 <tr>
                     <th>Delivery Time:</th>
-                    <td><input type="date" class="form-control" value="<?php echo $invoice->delivery_time;?>" id="delivery_time"></td>
+                    <td><input type="date" class="form-control" value="<?php echo date("Y-m-d",strtotime($invoice->delivery_time));?>" id="delivery_time"></td>
                 </tr>
                 <tr>
                     <th>IQ:</th>
@@ -202,7 +203,7 @@
                     for (var i = 0; i < arrayLength; i++) {
                         console.log(res[i]);
                        
-                        markup =  "<tr><td><input type='hidden' value='" + res[i]["product_price"] + "' name='base_amount[]'><input type='hidden'  value='" + res[i]["discount"] + "' name='total_discount[]'><input type='hidden'  value='" +(res[i]["product_price"]*res[i]["quantity"])  + "'name='total_amount[]'><input type='hidden' name='total_quantity[]'><input type='hidden' name='product_selected[]'><input required value=1 type='number' min=0 class='form-control quantity' style='width:100px;' ></td><td><select type='text' style='width:300px;' required id='product"+ lineNo+"'></select></td><td><label class='product_code'></label></td><td><label class='product_color'>"+res[i]["color"]+"</label></td><td><label class='product_desc'>"+res[i]["description"]+"</label></td><td><label class='product_price'>"+res[i]["product_price"]+"</td><td><input value='"+res[i]["discount"]+"' required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'>" + (res[i]["product_price"]*res[i]["quantity"]).toFixed(2)+ "</td><td><label class='discounted_price'>" + ((res[i]["quantity"]*res[i]["product_price"]) - (res[i]["discount"]/100)*(res[i]["quantity"]*res[i]["product_price"])).toFixed(2)+ "</td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>"; 
+                        markup =  "<tr><td><input type='hidden' value='" + res[i]["product_price"] + "' name='base_amount[]'><input type='hidden'  value='" + res[i]["discount"] + "' name='total_discount[]'><input type='hidden'  value='" +(res[i]["product_price"]*res[i]["quantity"])  + "'name='total_amount[]'><input type='hidden' value='" + res[i]["quantity"] + "'name='total_quantity[]'><input type='hidden' name='product_selected[]' value='" + res[i]["product_id"] + "'><input required value=1 type='number' min=0 class='form-control quantity' style='width:100px;' value='" + res[i]["quantity"] + "'></td><td><select type='text' style='width:300px;' required id='product"+ lineNo+"'></select></td><td><label class='product_code'>"+res[i]["code"]+"</label></td><td><label class='product_color'>"+res[i]["color"]+"</label></td><td><label class='product_desc'>"+res[i]["description"]+"</label></td><td><label class='product_price'>"+res[i]["product_price"]+"</td><td><input value='"+res[i]["discount"]+"' required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'>" + (res[i]["product_price"]*res[i]["quantity"]).toFixed(2)+ "</td><td><label class='discounted_price'>" + ((res[i]["quantity"]*res[i]["product_price"]) - (res[i]["discount"]/100)*(res[i]["quantity"]*res[i]["product_price"])).toFixed(2)+ "</td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>"; 
                             tableBody = $("#product_table tbody"); 
                             tableBody.append(markup); 
                             $("#product"+lineNo).select2({
@@ -224,14 +225,11 @@
 
                                 }
                             });
-                            
                             var total = 0;
                             var total_quantity = 0;
                             var total_discount = 0;
                             $('#product'+ lineNo).on('select2:select', function (e) {
                                 var data = e.params.data;
-                    
-                            
                                 var $row = $(this).closest("tr");
                                 console.log($row)
                                 $row.find('input[name="product_selected[]"]').val(data.id);
@@ -274,6 +272,8 @@
                                 get_total_quantity(total_quantity)
                                 get_total_discount(total_discount)
                             });
+                            
+                            $('#product'+ lineNo).append(new Option(res[i]["description"] +" - " +res[i]["color"],res[i]["product_id"],  true, true)).trigger('change');
                             /*$('#quantity').on('input',function (e) {
                                 var $row = $(this).closest("tr");
                                 alert($row.find("#base_amount").val())
@@ -472,7 +472,7 @@
                 }
                 $('#uploadBoxMain').html('<div class="progress"><div class="progress-bar progress-bar-aqua" id = "progressBarMain" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 0%"><span class="sr-only">20% Complete</span></div></div>');
 
-                var url = "<?php echo base_url()."portal/invoices/insert_invoices";?>";
+                var url = "<?php echo base_url()."portal/invoices/update_invoices";?>";
                 var message = "New invoice successfully added";
                 var formData = new FormData();
                 formData.append('id',$("#id").val());

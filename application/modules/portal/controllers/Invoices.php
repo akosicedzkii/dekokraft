@@ -133,7 +133,7 @@ class Invoices extends CI_Controller {
     public function get_invoice_list()
     {
         $invoice_id = $this->input->get("invoice_id");
-        $this->db->select("product_variants.color,invoice_lines.*,products.description");
+        $this->db->select("product_variants.color,invoice_lines.*,products.description,products.code");
         $this->db->join("product_variants"," product_variants.id=invoice_lines.product_id");
         $this->db->join("products"," products.id=product_variants.product_id");
         $result = $this->db->get("invoice_lines")->result();
