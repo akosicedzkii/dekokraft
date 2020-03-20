@@ -192,7 +192,7 @@
         let lineNo = 1; 
         $(document).ready(function () { 
             $("#add_new_product").click(function () { 
-                markup =  "<tr><td><input type='hidden' name='total_discount[]'><input type='hidden' name='total_amount[]'><input type='hidden' name='total_quantity[]'><input type='hidden' name='product_selected[]'><input required value=1 type='number' min=0 class='form-control quantity' style='width:100px;' ></td><td><input type='hidden' name='base_amount'><select type='text' style='width:300px;' required id='product"+ lineNo+"'></select></td><td><label class='product_code'></label></td><td><label class='product_color'></label></td><td><label class='product_desc'></label></td><td><label class='product_price'></td><td><input required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'></td><td><label class='discounted_price'></td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>"; 
+                markup =  "<tr><td><input type='hidden' name='base_amount[]'><input type='hidden' name='total_discount[]'><input type='hidden' name='total_amount[]'><input type='hidden' name='total_quantity[]'><input type='hidden' name='product_selected[]'><input required value=1 type='number' min=0 class='form-control quantity' style='width:100px;' ></td><td><select type='text' style='width:300px;' required id='product"+ lineNo+"'></select></td><td><label class='product_code'></label></td><td><label class='product_color'></label></td><td><label class='product_desc'></label></td><td><label class='product_price'></td><td><input required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'></td><td><label class='discounted_price'></td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>"; 
                 tableBody = $("#product_table tbody"); 
                 tableBody.append(markup); 
                 $("#product"+lineNo).select2({
@@ -229,16 +229,16 @@
                     $row.find(".product_desc").html(data.description);
                     $row.find(".product_color").html(data.color);
                     $row.find(".product_price").html(data.fob);
-                    $row.find("[name=base_amount]").val(data.fob);
+                    $row.find('input[name="base_amount[]"]').val(data.fob);
                     //alert( $row.find("#quantity").val()*$row.find("#base_amount").val())
-                    $row.find(".total_price").html(($row.find(".quantity").val()*$row.find("[name=base_amount]").val()).toFixed(2))
-                    $row.find(".discounted_price").html(($row.find("[name=base_amount]").val() - (($row.find(".discount").val()/100)*$row.find("[name=base_amount]").val())).toFixed(2))
+                    $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(2))
+                    $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
                     $row.find(".quantity").on('input',function (e) {
                         var $row = $(this).closest("tr");
-                        $row.find('input[name="total_amount[]"]').val($row.find(".quantity").val()*$row.find("[name=base_amount]").val())
+                        $row.find('input[name="total_amount[]"]').val($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val())
                         $row.find('input[name="total_quantity[]"]').val($row.find(".quantity").val())
-                        $row.find(".total_price").html(($row.find(".quantity").val()*$row.find("[name=base_amount]").val()).toFixed(2))
-                        $row.find(".discounted_price").html(($row.find("[name=base_amount]").val() - (($row.find(".discount").val()/100)*$row.find("[name=base_amount]").val())).toFixed(2))
+                        $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(2))
+                        $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
                         get_total(total)
                         get_total_quantity(total_quantity)
                         get_total_discount(total_discount)
@@ -246,18 +246,18 @@
                     
                     $row.find(".discount").on('input',function (e) {
                         var $row = $(this).closest("tr");
-                        $row.find('input[name="total_discount[]"]').val($row.find("[name=base_amount]").val() - (($row.find(".discount").val()/100)*$row.find("[name=base_amount]").val()))
+                        $row.find('input[name="total_discount[]"]').val($row.find('input[name="base_amount[]"]').val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val()))
                         $row.find('input[name="total_quantity[]"]').val($row.find(".quantity").val())
-                        $row.find(".total_price").html(($row.find(".quantity").val()*$row.find("[name=base_amount]").val()).toFixed(2))
-                        $row.find(".discounted_price").html(($row.find("[name=base_amount]").val() - (($row.find(".discount").val()/100)*$row.find("[name=base_amount]").val())).toFixed(2))
+                        $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(2))
+                        $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
                         get_total(total)
                         get_total_quantity(total_quantity)
                         get_total_discount(total_discount)
                     });
 
-                    $row.find('input[name="total_amount[]"]').val($row.find(".quantity").val()*$row.find("[name=base_amount]").val())
+                    $row.find('input[name="total_amount[]"]').val($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val())
                     $row.find('input[name="total_quantity[]"]').val($row.find(".quantity").val())
-                    $row.find('input[name="total_discount[]"]').val($row.find("[name=base_amount]").val() - (($row.find(".discounted_price").val()/100)*$row.find("[name=base_amount]").val()))
+                    $row.find('input[name="total_discount[]"]').val($row.find('input[name="base_amount[]"]').val() - (($row.find(".discounted_price").val()/100)*$row.find('input[name="base_amount[]"]').val()))
                     // or $( 'input[name^="ingredient"]' )
                     get_total(total)
                     get_total_quantity(total_quantity)
@@ -363,21 +363,13 @@
                 console.log( $('input[name="product_selected[]"]').val())
                 console.log( $('input[name="total_quantity[]"]').val())
                 console.log( $('input[name="total_amount[]"]').val())
-
-                var myRows = [];
-                var $headers = $("#product_table th");
-                var $rows = $("#product_table tbody tr").each(function(index) {
-                $cells = $(this).find("td");
-                myRows[index] = {};
-                $cells.each(function(cellIndex) {
-                    myRows[index][$($headers[cellIndex]).html()] = $(this).html();
-                });    
+                var values = [];
+                console.log($('input[name="product_selected[]"]')[0].val());
+                $("input[name='product_selected[]']").each(function( index, currentElement  ) {
+                    console.log(index);
+                    values.push($(this).val());
                 });
-
-                // Let's put this in the object like you want and convert to JSON (Note: jQuery will also do this for you on the Ajax request)
-                var myObj = {};
-                myObj.myrows = myRows;
-                console.log(myObj);
+                
                 e.preventDefault();
                 return false;
                 if( $("#mega_total").html() == "")

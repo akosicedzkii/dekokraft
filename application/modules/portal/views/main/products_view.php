@@ -692,8 +692,14 @@ $('.actionDone').on('click', function(){
                          btn.button("reset");
                          if(action == "edit")
                          {
-                            table.draw("page");
-                            table.draw("page");
+                            if(table.page.info().page == 0)
+                            {
+                                window.location="";
+                            }
+                            else
+                            {
+                                table.draw("page");
+                            }
                          }
                          else
                          {
