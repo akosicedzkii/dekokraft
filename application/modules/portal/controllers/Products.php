@@ -106,11 +106,11 @@ class Products extends CI_Controller {
         
         $search = $this->input->get("term[term]");
         $this->db->like("title",$search);  
-        $this->db->where("status",1);
+        //$this->db->where("status",1);
         $this->db->or_like("code",$search); 
-        $this->db->where("status",1); 
+        //$this->db->where("status",1); 
         $this->db->or_like("class",$search);  
-        $this->db->where("status",1);
+        //$this->db->where("status",1);
         $this->db->select("title as text"); 
         $this->db->select("class"); 
         $this->db->select("code"); 
