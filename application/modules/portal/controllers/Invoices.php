@@ -32,6 +32,8 @@ class Invoices extends CI_Controller {
             'delivery_time' => $this->input->post('delivery_time'),
             'shipping_instruction' => $this->input->post('shipping_instruction'),
             'markings' => $this->input->post('markings'),
+            'label_instructions' => $this->input->post('label_instructions'),
+            'invoice_remarks' => $this->input->post('invoice_remarks'),
             'date_created' => date("Y-m-d h:i:s a"),
             'created_by' => $this->session->userdata("USERID"),
             'status' => 0,
@@ -41,53 +43,49 @@ class Invoices extends CI_Controller {
         $invoice_id = $this->invoices_model->add_invoice($params,$invoice_items);
 	}
 
-	public function edit_invoices()
+	public function update_invoices()
 	{
-        $this->invoices_model->username = $this->input->post("username");
-        $this->invoices_model->first_name = $this->input->post("first_name");
-        $this->invoices_model->middle_name = $this->input->post("middle_name");
-        $this->invoices_model->last_name = $this->input->post("last_name");
-        $this->invoices_model->contact_number = $this->input->post("contact_number");
-        $this->invoices_model->address = $this->input->post("address");
-        $this->invoices_model->role = $this->input->post("role");
-        $this->invoices_model->status = $this->input->post("status");
-        $this->invoices_model->email_address = $this->input->post("email_address");
-        $this->invoices_model->birthday = $this->input->post("birthday");
-        $this->invoices_model->user_id = $this->input->post("user_id");
-        $existing =  $this->invoices_model->check_invoicesname_exist("edit");
-		if(!$existing)
-		{
-			echo $this->invoices_model->update_invoices();
-		}
-		else
-		{
-			echo "username is existing";
-		}
+        $params = array(
+            'invoice_date' => date("Y-m-d h:i:s a"),
+            'customer_id' => $this->input->post('customer_name'),
+            'invoice_number' => $this->input->post('invoice_number'),
+            'mo_number' => $this->input->post('mo_number'),
+            'iq' => $this->input->post('iq'),
+            'remarks' => $this->input->post('remarks'),
+            'packing_instruction' => $this->input->post('packing_instruction'),
+            'invoice_type' => $this->input->post('invoice_type'),
+            'bank' => $this->input->post('bank'),
+            'payment_terms' => $this->input->post('payment_terms'),
+            'delivery_time' => $this->input->post('delivery_time'),
+            'shipping_instruction' => $this->input->post('shipping_instruction'),
+            'markings' => $this->input->post('markings'),
+            'date_created' => date("Y-m-d h:i:s a"),
+            'created_by' => $this->session->userdata("USERID"),
+            'invoice_remarks' => $this->input->post('invoice_remarks'),
+            'label_instructions' => $this->input->post('label_instructions'),
+            'id' =>$this->input->post("id")
+            
+        );
+        $invoice_items = json_decode($this->input->post("invoice_items"));    
+        $invoice_id = $this->invoices_model->update_invoices($params,$invoice_items);
 	}
 
-	public function delete_invoices()
+	public function delete_invoice()
 	{
         
         $id = $this->input->post("id");
-        $this->db->where("user_id",$id);
-        $data_profile = $this->db->get("user_profiles");
-        $this->db->where("user_id",$id);
-        $result = $this->db->delete("user_profiles");
-        if($result)
-        {
-            $this->db->select("id,username,role_id,date_created,date_modified,created_by,modified_by");
-            $this->db->where("id",$id);
-            $data_account = $this->db->get("user_accounts");
-
-            $this->db->where("id",$id);
-            echo $result = $this->db->delete("user_accounts");
-            $data = json_encode($data_profile->row());
-            $this->logs->log = "Deleted User - ID: ". $data_account->row()->id .", Username: ".$data_account->row()->username ;
-            $this->logs->details = json_encode($data) . " User Details: ".json_encode( $data_account->row() );
-            $this->logs->module = "invoices";
-            $this->logs->created_by = $this->session->userdata("USERID");
-            $this->logs->insert_log();
-        }
+        $this->db->where("id",$id);
+        $data_invoice = $this->db->get("invoices");
+        $this->db->where("id",$id);
+        $data["status"] = 3;
+        echo $result = $this->db->update("invoices",$data);
+        $nvoice_lines = $this->db->where("invoice_id",$id)->get("invoice_lines")->result();
+        $data = json_encode($data_invoice->row());
+        $this->logs->log = "Deleted invoice - ID:". $data_invoice->row()->id  ;
+        $this->logs->details = json_encode($data) . " Lines: ". json_encode($nvoice_lines);
+        $this->logs->module = "invoices";
+        $this->logs->created_by = $this->session->userdata("USERID");
+        $this->logs->insert_log();
 	}
 
     public function get_invoices_data()
@@ -133,9 +131,10 @@ class Invoices extends CI_Controller {
     public function get_invoice_list()
     {
         $invoice_id = $this->input->get("invoice_id");
-        $this->db->select("product_variants.color,invoice_lines.*,products.description,products.code");
+        $this->db->select("product_variants.color,invoice_lines.*,products.description,products.code,products.fob");
         $this->db->join("product_variants"," product_variants.id=invoice_lines.product_id");
         $this->db->join("products"," products.id=product_variants.product_id");
+        $this->db->where("invoice_id",$invoice_id);
         $result = $this->db->get("invoice_lines")->result();
         echo json_encode($result);
     }
@@ -147,6 +146,7 @@ class Invoices extends CI_Controller {
         $select_columns = array("id","id","customer_name","total_amount","invoice_type","remarks","date_created","created_by","date_modified","modified_by","status");  
         $this->dt_model->table = "invoices AS t1 LEFT JOIN user_profiles AS t2 ON t2.user_id = t1.id LEFT JOIN user_accounts AS t4 ON t4.id = t1.created_by LEFT JOIN user_accounts AS t5 ON t5.id = t1.modified_by LEFT JOIN customers as t6 ON t6.id = t1.customer_id";  
         $this->dt_model->index_column = "t1.id";
+        $this->dt_model->staticWhere ="t1.status = 0 OR t1.status = 1";
         $result = $this->dt_model->get_table_list();
         $output = $result["output"];
         $rResult = $result["rResult"];

@@ -51,22 +51,24 @@
 </section>
 <!-- /.content -->
 </div>
+
 <!-- /.modal -->
-<div class="modal fade" id="deleteLogsModal">
+<div class="modal fade" id="deleteInvoiceModal"  role="dialog"  data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
            
-             <h3 class="modal-title">Delete All Logs</h3>
+             <h3 class="modal-title">Delete Invoice</h3>
             </div>
             <div class="modal-body">
-                <center><h4>Are you sure to delete all Logs?</h4></center>
+                <input type="hidden" id="deleteKey">
+                <center><h4>Are you sure to delete <label id="deleteItem"></label></h4></center>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-danger" id="deleteLogs">Delete</button>
+            <button type="button" class="btn btn-danger" id="deleteInvoice">Delete</button>
             </div>
         </div>
     <!-- /.modal-content -->
@@ -75,105 +77,6 @@
 </div>
 <!-- /.modal -->
 
-<!-- /.modal -->
-<div class="modal fade" id="invoicesDetailsModal">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-           
-             <h3 class="modal-title">Log Details</h3>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-2">
-                        <label>Date Created:</label>
-                    </div>
-                    <div class="col-md-10">
-                        <p id="date_created"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <label>Module:</label>
-                    </div>
-                    <div class="col-md-10">
-                        <p id="module"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <label>Log:</label>
-                    </div>
-                    <div class="col-md-10">
-                        <p id="log"></p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <label>Details:</label>
-                    </div>
-                    <div class="col-md-10">
-                        <pre id="details" style=" white-space: pre-wrap;  white-space: -moz-pre-wrap; white-space: -pre-wrap; white-space: -o-pre-wrap;word-wrap: break-word;"></pre>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <label>Created By:</label>
-                    </div>
-                    <div class="col-md-10">
-                        <p id="created_by"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    <!-- /.modal-content -->
-    </div>
-<!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-
-
-<!-- /.modal -->
-<div class="modal fade" id="downloadLogsModal" role="dialog"  data-backdrop="static">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-           
-             <h3 class="modal-title">Download Logs</h3>
-            </div>
-            <div class="modal-body">
-                <center>
-                        <div class="form-group">
-                            <label>Date range:</label>
-
-                            <div class="input-group">
-                                <button type="button" class="btn btn-default pull-right" id="daterange-btn">
-                                    <span>
-                                    <i class="fa fa-calendar"></i> Date range picker
-                                    </span>
-                                    <i class="fa fa-caret-down"></i>
-                                </button>
-                            </div>
-                        </div>
-                </center>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="downloadBtn">Download Logs</button>
-            </div>
-        </div>
-    <!-- /.modal-content -->
-    </div>
-<!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
 <script>
     var startDateDownload;
     var endDateDownload;
@@ -273,7 +176,39 @@
 
 
         });
+       
+
     }
     $(document).ready(main);
+    $("#deleteInvoice").click(function(){
+            var btn = $(this);
+            alert("hello")
+            var id = $("#deleteKey").val();
+            var deleteItem = $("#deleteItem").html();
+            var data = { "id" : id };
+            btn.button("loading");
 
+            $.ajax({
+                        data: data,
+                        type: "post",
+                        url: "<?php echo base_url()."portal/invoices/delete_invoice";?>",
+                        success: function(data){
+                            //alert("Data Save: " + data);
+                            btn.button("reset");
+                            table.draw("page");
+                            $("#deleteInvoiceModal").modal("hide");
+                            toastr.error('Blogs ' + deleteItem + ' successfully deleted');
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                        }
+                });
+        });
+    function _delete(id,item)
+    {
+        $("#deleteInvoiceModal .modal-title").html("Delete <?php echo rtrim(ucfirst($module_name),"s");?>");
+        $("#deleteItem").html(" invoice#: "+ item);
+        $("#deleteKey").val(id);
+        $("#deleteInvoiceModal").modal("show");
+    }
 </script>

@@ -120,7 +120,7 @@
                 </select>
                 <br>
                 <br>
-            <textarea class="form-control" style="width:70%;" placeholder="Remarks" id="invoice_remarks"/></textarea>
+            <textarea class="form-control" style="width:70%;" placeholder="Remarks" id="remarks"/></textarea>
             <br>
             <br>
             <textarea class="form-control" style="width:70%;" placeholder="Packing Instructions" id="packing_instruction"/></textarea>
@@ -157,7 +157,7 @@
                 </tr>
                 <tr>
                     <th>MO Number:</th>
-                    <td><input type="text" class="form-control" id="mo_number"></td>
+                    <td><input type="number" class="form-control" id="mo_number"></td>
                 </tr>
                 <tr>
                     <th>Shipping Instruction:</th>
@@ -233,14 +233,14 @@
                     $row.find('input[name="base_amount[]"]').val(data.fob);
                     //alert( $row.find("#quantity").val()*$row.find("#base_amount").val())
                     $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(2))
-                    $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
+                    $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
                     $row.find(".quantity").on('input',function (e) {
                         var $row = $(this).closest("tr");
                         $row.find('input[name="total_amount[]"]').val($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val())
                         $row.find('input[name="total_quantity[]"]').val($row.find(".quantity").val())
                         $row.find('input[name="total_discount[]"]').val($row.find(".discount").val())
                         $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(2))
-                        $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
+                        $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
                         get_total(total)
                         get_total_quantity(total_quantity)
                         get_total_discount(total_discount)
@@ -251,7 +251,7 @@
                         $row.find('input[name="total_discount[]"]').val($row.find(".discount").val())
                         $row.find('input[name="total_quantity[]"]').val($row.find(".quantity").val())
                         $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(2))
-                        $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
+                        $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
                         get_total(total)
                         get_total_quantity(total_quantity)
                         get_total_discount(total_discount)
@@ -367,7 +367,7 @@
                     console.log(index);
                     prod_selected = $('input[name="product_selected[]"]')[index].value;
                     total_quan =  $('input[name="total_quantity[]"]')[index].value;
-                    total_am =  $('input[name="total_amount[]"]')[index].value;
+                    total_am =  $('input[name="base_amount[]"]')[index].value;
                     total_dis =  $('input[name="total_discount[]"]')[index].value;
                     var arr_val = []
                     arr_val.push(prod_selected,total_quan,total_am,total_dis)

@@ -20,7 +20,7 @@
             <div class="col-xs-12">
             <h2 class="page-header">
                 <!-- <i class="fa fa-globe"></i>--> <?php echo SITE_NAME;?> 
-                <input type="hidden" value="<?php echo $invoice->id;?>" id="id  ">
+                <input type="hidden" value="<?php echo $invoice->id;?>" id="id">
                 <small class="pull-right"> <b>Invoice #<?php echo $invoice->id;?></b>&emsp;Invoice Date: <?php echo date("m/d/Y",strtotime($invoice->invoice_date));?></small>
                 
             
@@ -65,7 +65,7 @@
             <b>Payment Due:</b> 2/22/2014<br>
             <b>Account:</b> 968-34567 -->
             
-            <textarea class="form-control" style="width:70%;"  value="<?php echo $invoice->remarks;?>" placeholder="Remarks" id="invoice_remarks"/></textarea>
+            <textarea class="form-control" style="width:70%;"  value="<?php echo $invoice->invoice_remarks;?>" placeholder="Remarks" id="invoice_remarks"/></textarea>
 
 
             </div>
@@ -158,7 +158,7 @@
                 </tr>
                 <tr>
                     <th>MO Number:</th>
-                    <td><input type="text" class="form-control" value="<?php echo $invoice->mo_number;?>" id="mo_number"></td>
+                    <td><input type="number" class="form-control" value="<?php echo $invoice->mo_number;?>" id="mo_number"></td>
                 </tr>
                 <tr>
                     <th>Shipping Instruction:</th>
@@ -198,12 +198,10 @@
                 type: 'GET',
                 dataType: 'json', // added data type
                 success: function(res) {
-                    console.log(res);
                     var arrayLength = res.length;
                     for (var i = 0; i < arrayLength; i++) {
-                        console.log(res[i]);
                        
-                        markup =  "<tr><td><input type='hidden' value='" + res[i]["product_price"] + "' name='base_amount[]'><input type='hidden'  value='" + res[i]["discount"] + "' name='total_discount[]'><input type='hidden'  value='" +(res[i]["product_price"]*res[i]["quantity"])  + "'name='total_amount[]'><input type='hidden' value='" + res[i]["quantity"] + "'name='total_quantity[]'><input type='hidden' name='product_selected[]' value='" + res[i]["product_id"] + "'><input required value=1 type='number' min=0 class='form-control quantity' style='width:100px;' value='" + res[i]["quantity"] + "'></td><td><select type='text' style='width:300px;' required id='product"+ lineNo+"'></select></td><td><label class='product_code'>"+res[i]["code"]+"</label></td><td><label class='product_color'>"+res[i]["color"]+"</label></td><td><label class='product_desc'>"+res[i]["description"]+"</label></td><td><label class='product_price'>"+res[i]["product_price"]+"</td><td><input value='"+res[i]["discount"]+"' required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'>" + (res[i]["product_price"]*res[i]["quantity"]).toFixed(2)+ "</td><td><label class='discounted_price'>" + ((res[i]["quantity"]*res[i]["product_price"]) - (res[i]["discount"]/100)*(res[i]["quantity"]*res[i]["product_price"])).toFixed(2)+ "</td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>"; 
+                        markup =  "<tr><td><input type='hidden' value='" + res[i]["product_price"] + "' name='base_amount[]'><input type='hidden'  value='" + res[i]["discount"] + "' name='total_discount[]'><input type='hidden'  value='" +(res[i]["product_price"]*res[i]["quantity"])  + "'name='total_amount[]'><input type='hidden' value='" + res[i]["quantity"] + "'name='total_quantity[]'><input type='hidden' name='product_selected[]' value='" + res[i]["product_id"] + "'><input required type='number' min=0 class='form-control quantity' style='width:100px;' value='" + res[i]["quantity"] + "'></td><td><select type='text' style='width:300px;' required id='product"+ lineNo+"'></select></td><td><label class='product_code'>"+res[i]["code"]+"</label></td><td><label class='product_color'>"+res[i]["color"]+"</label></td><td><label class='product_desc'>"+res[i]["description"]+"</label></td><td><label class='product_price'>"+res[i]["product_price"]+"</td><td><input value='"+res[i]["discount"]+"' required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'>" + (res[i]["product_price"]*res[i]["quantity"]).toFixed(2)+ "</td><td><label class='discounted_price'>" + ((res[i]["quantity"]*res[i]["product_price"]) - (res[i]["discount"]/100)*(res[i]["quantity"]*res[i]["product_price"])).toFixed(2)+ "</td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>"; 
                             tableBody = $("#product_table tbody"); 
                             tableBody.append(markup); 
                             $("#product"+lineNo).select2({
@@ -231,7 +229,6 @@
                             $('#product'+ lineNo).on('select2:select', function (e) {
                                 var data = e.params.data;
                                 var $row = $(this).closest("tr");
-                                console.log($row)
                                 $row.find('input[name="product_selected[]"]').val(data.id);
                                 $row.find(".product_code").html(data.code);
                                 $row.find(".product_desc").html(data.description);
@@ -240,14 +237,14 @@
                                 $row.find('input[name="base_amount[]"]').val(data.fob);
                                 //alert( $row.find("#quantity").val()*$row.find("#base_amount").val())
                                 $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(2))
-                                $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
+                                $row.find(".discounted_price").html((($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val()) - (($row.find(".discount").val()/100)*($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val()))).toFixed(2))
                                 $row.find(".quantity").on('input',function (e) {
                                     var $row = $(this).closest("tr");
                                     $row.find('input[name="total_amount[]"]').val($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val())
                                     $row.find('input[name="total_quantity[]"]').val($row.find(".quantity").val())
                                     $row.find('input[name="total_discount[]"]').val($row.find(".discount").val())
                                     $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(2))
-                                    $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
+                                    $row.find(".discounted_price").html((($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val()) - (($row.find(".discount").val()/100)*($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val()))).toFixed(2))
                                     get_total(total)
                                     get_total_quantity(total_quantity)
                                     get_total_discount(total_discount)
@@ -258,7 +255,7 @@
                                     $row.find('input[name="total_discount[]"]').val($row.find(".discount").val())
                                     $row.find('input[name="total_quantity[]"]').val($row.find(".quantity").val())
                                     $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(2))
-                                    $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
+                                    $row.find(".discounted_price").html((($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val()) - (($row.find(".discount").val()/100)*($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val()))).toFixed(2))
                                     get_total(total)
                                     get_total_quantity(total_quantity)
                                     get_total_discount(total_discount)
@@ -279,7 +276,33 @@
                                 alert($row.find("#base_amount").val())
                                 ;
                             });*/
+                            tableBody.find(".discount").on('input',function (e) {
+                                var $row = $(this).closest("tr");
+                                $row.find('input[name="total_discount[]"]').val($row.find(".discount").val())
+                                $row.find('input[name="total_quantity[]"]').val($row.find(".quantity").val())
+                                $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(2))
+                                $row.find(".discounted_price").html((($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val()) - (($row.find(".discount").val()/100)*($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val()))).toFixed(2))
+                                get_total(total)
+                                get_total_quantity(total_quantity)
+                                get_total_discount(total_discount)
+                            });
+                            tableBody.find(".quantity").on('input',function (e) {
+                                    var $row = $(this).closest("tr");
+                                    $row.find('input[name="total_amount[]"]').val($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val())
+                                    $row.find('input[name="total_quantity[]"]').val($row.find(".quantity").val())
+                                    $row.find('input[name="total_discount[]"]').val($row.find(".discount").val())
+                                    $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(2))
+                                    $row.find(".discounted_price").html((($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val()) - (($row.find(".discount").val()/100)*($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val()))).toFixed(2))
+                                    get_total(total)
+                                    get_total_quantity(total_quantity)
+                                    get_total_discount(total_discount)
+                                });
+                                
+                            get_total(total)
+                            get_total_quantity(total_quantity)
+                            get_total_discount(total_discount)
                             lineNo++; 
+                            
                     }
                 }
             });
@@ -324,14 +347,14 @@
                     $row.find('input[name="base_amount[]"]').val(data.fob);
                     //alert( $row.find("#quantity").val()*$row.find("#base_amount").val())
                     $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(2))
-                    $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
+                    $row.find(".discounted_price").html((($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val()) - (($row.find(".discount").val()/100)*($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val()))).toFixed(2))
                     $row.find(".quantity").on('input',function (e) {
                         var $row = $(this).closest("tr");
                         $row.find('input[name="total_amount[]"]').val($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val())
                         $row.find('input[name="total_quantity[]"]').val($row.find(".quantity").val())
                         $row.find('input[name="total_discount[]"]').val($row.find(".discount").val())
                         $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(2))
-                        $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
+                        $row.find(".discounted_price").html((($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val()) - (($row.find(".discount").val()/100)*($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val()))).toFixed(2))
                         get_total(total)
                         get_total_quantity(total_quantity)
                         get_total_discount(total_discount)
@@ -342,7 +365,7 @@
                         $row.find('input[name="total_discount[]"]').val($row.find(".discount").val())
                         $row.find('input[name="total_quantity[]"]').val($row.find(".quantity").val())
                         $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(2))
-                        $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
+                        $row.find(".discounted_price").html((($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val()) - (($row.find(".discount").val()/100)*($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val()))).toFixed(2))
                         get_total(total)
                         get_total_quantity(total_quantity)
                         get_total_discount(total_discount)
@@ -458,7 +481,7 @@
                     console.log(index);
                     prod_selected = $('input[name="product_selected[]"]')[index].value;
                     total_quan =  $('input[name="total_quantity[]"]')[index].value;
-                    total_am =  $('input[name="total_amount[]"]')[index].value;
+                    total_am =  $('input[name="base_amount[]"]')[index].value;
                     total_dis =  $('input[name="total_discount[]"]')[index].value;
                     var arr_val = []
                     arr_val.push(prod_selected,total_quan,total_am,total_dis)
@@ -494,6 +517,8 @@
                 formData.append('modified_by',$("#modified_by").val());
                 formData.append('total_amount',$("#total_amount").val());
                 formData.append('status',$("#status").val());
+                formData.append('label_instructions',$("#label_instructions").val());
+                formData.append('invoice_remarks',$("#invoice_remarks").val());
                 formData.append('invoice_items',JSON.stringify(values));
                 $.ajax({
                     data: formData,
@@ -534,7 +559,7 @@
                          toastr.success(message);
                          $('#uploadBoxMain').html('');  
                          setTimeout(function(){
-                            window.location = "<?php echo base_url()."portal/main/invoices/list";?>";
+                            //window.location = "<?php echo base_url()."portal/main/invoices/list";?>";
                          }, 1000);        
                     }
                 });

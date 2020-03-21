@@ -23,11 +23,11 @@ class Invoices_model extends CI_Model {
                 $this->logs->insert_log();
         }
 
-        public function update_invoices($params)
+        public function update_invoices($params,$invoice_items)
         {
             $this->db->where("invoice_id",$params["id"]);
             $this->db->delete("invoice_lines");
-
+            $id = $params["id"];
             $this->db->where("id",$params["id"]);
             echo $this->db->update('invoices',$params);
             foreach($invoice_items as $a){
