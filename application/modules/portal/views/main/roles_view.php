@@ -139,8 +139,19 @@
                                         Customers
                                         </label>
                                     </div>
+                                    <div class="checkbox">
+                                        <label>
+                                        <input type="checkbox" id="modules" value="subcon">
+                                        Subcon
+                                        </label>
+                                    </div>
 
-
+                                    <div class="checkbox">
+                                        <label>
+                                        <input type="checkbox" id="modules" value="marketing_order">
+                                        Marketing Order
+                                        </label>
+                                    </div>
                                     <b>System Administrator</b>
                                     <div class="checkbox">
                                         <label>

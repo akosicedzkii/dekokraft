@@ -122,6 +122,7 @@ class Main extends CI_Controller {
         {
             $invoice_id = $this->input->get("invoice_id");
             $module["invoice"] = $this->db->where("id",$invoice_id)->get("invoices")->row();
+            $module["mo"] = $this->db->where("invoice_id",$invoice_id)->get("marketing_order")->row();
             $module["customer_address"] = $this->db->where("id",$module["invoice"]->customer_id)->get("customers")->row();
             $module["bank"] = $this->db->where("id",$module["invoice"]->bank)->get("banks")->row();
             $module["payment_terms"] = $this->db->where("id",$module["invoice"]->payment_terms)->get("payment_terms")->row();

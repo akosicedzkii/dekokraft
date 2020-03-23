@@ -155,10 +155,10 @@
                     <th>IQ:</th>
                     <td><input type="text" class="form-control" id="iq"></td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <th>MO Number:</th>
                     <td><input type="number" class="form-control" id="mo_number"></td>
-                </tr>
+                </tr>-->
                 <tr>
                     <th>Shipping Instruction:</th>
                     <td><textarea class="form-control" style="width:100%;" placeholder="Shipping Instruction" id="shipping_instruction"/></textarea></td>

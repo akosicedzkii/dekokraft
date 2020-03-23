@@ -182,7 +182,6 @@
     $(document).ready(main);
     $("#deleteInvoice").click(function(){
             var btn = $(this);
-            alert("hello")
             var id = $("#deleteKey").val();
             var deleteItem = $("#deleteItem").html();
             var data = { "id" : id };

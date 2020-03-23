@@ -22,7 +22,6 @@ class Invoices extends CI_Controller {
             'invoice_date' => date("Y-m-d h:i:s a"),
             'customer_id' => $this->input->post('customer_name'),
             'invoice_number' => $this->input->post('invoice_number'),
-            'mo_number' => $this->input->post('mo_number'),
             'iq' => $this->input->post('iq'),
             'remarks' => $this->input->post('remarks'),
             'packing_instruction' => $this->input->post('packing_instruction'),
@@ -59,8 +58,8 @@ class Invoices extends CI_Controller {
             'delivery_time' => $this->input->post('delivery_time'),
             'shipping_instruction' => $this->input->post('shipping_instruction'),
             'markings' => $this->input->post('markings'),
-            'date_created' => date("Y-m-d h:i:s a"),
-            'created_by' => $this->session->userdata("USERID"),
+            'date_modified' => date("Y-m-d h:i:s a"),
+            'modified_by' => $this->session->userdata("USERID"),
             'invoice_remarks' => $this->input->post('invoice_remarks'),
             'label_instructions' => $this->input->post('label_instructions'),
             'id' =>$this->input->post("id")

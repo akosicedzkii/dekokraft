@@ -395,7 +395,20 @@
         } 
     ?>
 
-
+<?php 
+          if (in_array("subcon", $menu)) {
+             ?>
+              <li <?php if($module_name == "subcon"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/subcon"?>"><i class="fa fa-bank"></i><span>Subcon</span></a></li>
+             <?php
+          } 
+        ?>
+<?php 
+          if (in_array("marketing_order", $menu)) {
+             ?>
+              <li <?php if($module_name == "marketing_order"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/marketing_order"?>"><i class="fa fa-bank"></i><span>Marketing Order</span></a></li>
+             <?php
+          } 
+        ?>
         <?php 
           if ( in_array("roles", $menu) ||  in_array("users", $menu) ||  in_array("site_settings", $menu) ||  in_array("logs", $menu) ) {
              ?>

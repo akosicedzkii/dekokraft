@@ -21,7 +21,7 @@
             <h2 class="page-header">
                 <!-- <i class="fa fa-globe"></i>--> <?php echo SITE_NAME;?> 
                 <input type="hidden" value="<?php echo $invoice->id;?>" id="id">
-                <small class="pull-right"> <b>Invoice #<?php echo $invoice->id;?></b>&emsp;Invoice Date: <?php echo date("m/d/Y",strtotime($invoice->invoice_date));?></small>
+                <small class="pull-right"> <b>Invoice #<?php echo $invoice->id;?><b>&emsp;MO #<?php echo $mo->id;?></b>&emsp;Invoice Date: <?php echo date("m/d/Y",strtotime($invoice->invoice_date));?></small>
                 
             
             </h2>
@@ -156,10 +156,10 @@
                     <th>IQ:</th>
                     <td><input type="text" class="form-control" value="<?php echo $invoice->iq;?>" id="iq"></td>
                 </tr>
-                <tr>
+                <!--<tr>
                     <th>MO Number:</th>
                     <td><input type="number" class="form-control" value="<?php echo $invoice->mo_number;?>" id="mo_number"></td>
-                </tr>
+                </tr>-->
                 <tr>
                     <th>Shipping Instruction:</th>
                     <td><textarea class="form-control" style="width:100%;" value="" placeholder="Shipping Instruction" id="shipping_instruction"/><?php echo $invoice->shipping_instruction;?></textarea></td>
@@ -559,7 +559,7 @@
                          toastr.success(message);
                          $('#uploadBoxMain').html('');  
                          setTimeout(function(){
-                            //window.location = "<?php echo base_url()."portal/main/invoices/list";?>";
+                            window.location = "<?php echo base_url()."portal/main/invoices/list";?>";
                          }, 1000);        
                     }
                 });
