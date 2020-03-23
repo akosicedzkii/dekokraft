@@ -27,7 +27,7 @@
         <tr>
             <th>ID</th>
             <th>MO #</th>
-            <th>Customer Name</th>
+            <th>INVOICE #</th>
             <th>Customer Name</th>
             <th>Status</th>
             <th>Date Created</th>
