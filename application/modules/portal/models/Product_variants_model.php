@@ -36,7 +36,7 @@ class Product_variants_model extends CI_Model {
                 $data["product_id"] =  $this->product_id;
                 $data["color"] = $this->color;
                 $data["color_abb"] = $this->color_abb;
-                $data["count"] = $this->count;
+                //$data["count"] = $this->count;
                 $data["location"] = $this->location;
                 $data["product_year"] =  date("Y");
                 $data["product_month"] =  date("m");
@@ -60,6 +60,8 @@ class Product_variants_model extends CI_Model {
                 {
                         file_put_contents($path, $datas);                        
                         $insertId = $this->db->insert_id();
+                        $this->load->model("stocks_model");
+                        $this->stocks_model->add_stock($this->count,$insertId);
                         $this->logs->log = "Created Product_variants - ID:". $insertId .", Product_variants Name: ".$this->title ;
                         $this->logs->details = json_encode($data);
                         $this->logs->module = "product_variants";
@@ -80,7 +82,7 @@ class Product_variants_model extends CI_Model {
                 $data["product_id"] =  $this->product_id;
                 $data["color"] = $this->color;
                 $data["color_abb"] = $this->color_abb;
-                $data["count"] = $this->count;
+                //$data["count"] = $this->count;
                 $data["location"] = $this->location;
                 $data["proto"] = $this->proto;
                 $data["molds"] = $this->molds;

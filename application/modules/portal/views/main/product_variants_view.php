@@ -600,7 +600,9 @@ $('.actionDone').on('click', function(){
                 formData.append('color', color);
                 formData.append('color_abb', color_abb);
                 formData.append('product_id', product);
-                formData.append('count', count);
+                if(action != "edit"){
+                    formData.append('count', count);
+                }
                 formData.append('location', location);
                 formData.append('code', code);
                 formData.append('molds', molds);

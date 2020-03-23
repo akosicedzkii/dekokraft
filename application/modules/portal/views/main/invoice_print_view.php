@@ -1,7 +1,7 @@
 <html><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>AdminLTE 2 | Invoice</title>
+  <title><?php echo SITE_NAME;?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -31,44 +31,49 @@
     <div class="row">
       <div class="col-xs-12">
         <h2 class="page-header">
-          <i class="fa fa-globe"></i> AdminLTE, Inc.
-          <small class="pull-right">Date: 2/10/2014</small>
+           <!-- <i class="fa fa-globe"></i>--> <?php echo SITE_NAME;?> 
+           <input type="hidden" value="<?php echo $invoice->id;?>" id="id">
+           <small class="pull-right"> <b>Invoice #<?php echo $invoice->id;?><b>&emsp;MO #<?php echo $mo->id;?></b>&emsp;Invoice Date: <?php echo date("m/d/Y",strtotime($invoice->invoice_date));?></small>
         </h2>
       </div>
       <!-- /.col -->
     </div>
     <!-- info row -->
     <div class="row invoice-info">
-      <div class="col-sm-4 invoice-col">
+        
+        <div class="col-sm-4 invoice-col">
         From
         <address>
-          <strong>Admin, Inc.</strong><br>
-          795 Folsom Ave, Suite 600<br>
-          San Francisco, CA 94107<br>
-          Phone: (804) 123-5432<br>
-          Email: info@almasaeedstudio.com
+            <strong><?php echo SITE_NAME;?></strong><br>
+            <?php echo nl2br(COMPANY_ADDRESS);?>
         </address>
-      </div>
-      <!-- /.col -->
-      <div class="col-sm-4 invoice-col">
-        To
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-4 invoice-col">
+        Customer:
         <address>
-          <strong>John Doe</strong><br>
-          795 Folsom Ave, Suite 600<br>
-          San Francisco, CA 94107<br>
-          Phone: (555) 539-1037<br>
-          Email: john.doe@example.com
+            <?php echo $customer_address->customer_name;?>
+            <br>
+            <br>
+            <?php echo $customer_address->customer_address;?>
         </address>
-      </div>
-      <!-- /.col -->
-      <div class="col-sm-4 invoice-col">
-        <b>Invoice #007612</b><br>
+        </div>
+        <!-- /.col -->
+        <div class="col-sm-4 invoice-col">
+        Bank Account:
         <br>
-        <b>Order ID:</b> 4F3S8J<br>
+       <?php echo $invoice->bank;?>
+        <br>
+        <br>
+        <!-- <b>Order ID:</b> 4F3S8J<br>
         <b>Payment Due:</b> 2/22/2014<br>
-        <b>Account:</b> 968-34567
-      </div>
-      <!-- /.col -->
+        <b>Account:</b> 968-34567 -->
+        
+        <?php echo $invoice->invoice_remarks;?>
+
+
+        </div>
+        <!-- /.col -->
     </div>
     <!-- /.row -->
 
@@ -76,44 +81,33 @@
     <div class="row">
       <div class="col-xs-12 table-responsive">
         <table class="table table-striped">
-          <thead>
-          <tr>
-            <th>Qty</th>
-            <th>Product</th>
-            <th>Serial #</th>
-            <th>Description</th>
-            <th>Subtotal</th>
-          </tr>
-          </thead>
+        <thead>
+                <tr>
+                <th>QTY</th>
+                <th>PRODUCT</th>
+                <th>PRODUCT CODE</th>
+                <th>COLOR</th>
+                <th>DESCRIPTION</th>
+                <th>U. PRICE</th>
+                <th>DISCOUNT(%)</th>
+                <th>TOTAL</th>
+                <th>DISCOUNTED PRICE</th>
+                </tr>
+                </thead>
           <tbody>
+          <?php foreach($invoice_lines as $line){?>
           <tr>
-            <td>1</td>
-            <td>Call of Duty</td>
-            <td>455-981-221</td>
-            <td>El snort testosterone trophy driving gloves handsome</td>
-            <td>$64.50</td>
+            <td><?php echo  $line->quantity;?></td>
+            <td><?php echo  $line->description. " - " . $line->color;?></td>
+            <td><?php echo  $line->code;?></td>
+            <td><?php echo  $line->color;?></td>
+            <td><?php echo  $line->description;?></td>
+            <td><?php echo  $line->product_price;?></td>
+            <td><?php echo  number_format((float)$line->discount, 2, '.', '');?></td>
+            <td><?php echo  number_format((float)($line->quantity * $line->product_price), 2, '.', '') ;?></td>
+            <td><?php echo  number_format((float)(($line->quantity * $line->product_price) - (($line->quantity * $line->product_price)*($line->discount/100))), 2, '.', '');?></td>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>Need for Speed IV</td>
-            <td>247-925-726</td>
-            <td>Wes Anderson umami biodiesel</td>
-            <td>$50.00</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Monsters DVD</td>
-            <td>735-845-642</td>
-            <td>Terry Richardson helvetica tousled street art master</td>
-            <td>$10.70</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Grown Ups Blue Ray</td>
-            <td>422-568-642</td>
-            <td>Tousled lomo letterpress</td>
-            <td>$25.99</td>
-          </tr>
+          <?php }?>
           </tbody>
         </table>
       </div>

@@ -108,7 +108,24 @@ class Main extends CI_Controller {
         }
         else if($page == "print")
         {
-            $this->load->view('main/invoice_print_view');
+            $invoice_id = $this->input->get("invoice_id");
+            $module["invoice"] = $this->db->where("id",$invoice_id)->get("invoices")->row();
+            $module["mo"] = $this->db->where("invoice_id",$invoice_id)->get("marketing_order")->row();
+            $module["customer_address"] = $this->db->where("id",$module["invoice"]->customer_id)->get("customers")->row();
+            $module["bank"] = $this->db->where("id",$module["invoice"]->bank)->get("banks")->row();
+            $module["payment_terms"] = $this->db->where("id",$module["invoice"]->payment_terms)->get("payment_terms")->row();
+            if( $module["invoice"] == null)
+            {
+                echo "invoice not found";
+            }
+            $this->db->select("product_variants.color,invoice_lines.*,products.description,products.code,products.fob");
+            $this->db->join("product_variants"," product_variants.id=invoice_lines.product_id");
+            $this->db->join("products"," products.id=product_variants.product_id");
+            $this->db->where("invoice_id",$invoice_id);
+            $module["invoice_lines"]= $this->db->get("invoice_lines")->result();
+            $module["module_name"] = $this->router->fetch_method();
+            $module["menu"] = $this->user_access;
+            $this->load->view('main/invoice_print_view',$module);
         }
         else if($page == "view")
         {

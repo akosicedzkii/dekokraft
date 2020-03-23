@@ -186,16 +186,16 @@ class Invoices extends CI_Controller {
                     }
             }
             
-            $btns = '';
-            $btns = '<!--<a href="#" onclick="_view('.$aRow['id'].');return false;" class="glyphicon glyphicon-search text-orange" data-toggle="tooltip" title="View Details"></a>-->
+            $btns = ''; 
+            $btns = '<a href="'.base_url("portal/main/invoices/print?invoice_id=".$aRow['id']).'" target=_blank class="glyphicon glyphicon-print text-orange" data-toggle="tooltip" title="Print Invoice"></a>
             <a href="'.base_url("portal/main/invoices/edit?invoice_id=".$aRow['id']).'"  class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" title="Edit"></a>
             <a href="#" onclick="_delete('.$aRow['id'].',\''.$aRow['id'].'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" title="Delete"></a>';
-        
+         
             array_push($row,$btns);
             $output['data'][] = $row;
         }
         echo json_encode( $output ); 
-    }
+    } 
 
     
 }
