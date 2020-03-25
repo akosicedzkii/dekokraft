@@ -347,6 +347,13 @@
             <?php
          } 
        ?>
+       <?php 
+         if (in_array("product_profile", $menu)) {
+            ?>
+             <li <?php if($module_name == "product_profile"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/product_profile"?>"><i class="fa fa-list-alt"></i><span>Product Profile</span></a></li>
+            <?php
+         } 
+       ?>
         <?php 
          if (in_array("colors", $menu)) {
             ?>
@@ -402,10 +409,24 @@
              <?php
           } 
         ?>
-<?php 
+        <?php 
           if (in_array("marketing_order", $menu)) {
              ?>
               <li <?php if($module_name == "marketing_order"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/marketing_order"?>"><i class="fa fa-bank"></i><span>Marketing Order</span></a></li>
+             <?php
+          } 
+        ?>
+         <?php 
+          if (in_array("purchase_orders", $menu)) {
+             ?>
+              <li <?php if($module_name == "purchase_orders"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/purchase_orders"?>"><i class="fa fa-bank"></i><span>Purchase Order</span></a></li>
+             <?php
+          } 
+        ?> 
+         <?php 
+          if (in_array("job_orders", $menu)) {
+             ?>
+              <li <?php if($module_name == "job_orders"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/job_orders"?>"><i class="fa fa-bank"></i><span>Job Order</span></a></li>
              <?php
           } 
         ?>

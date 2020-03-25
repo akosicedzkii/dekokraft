@@ -104,6 +104,12 @@
                                     </div>
                                     <div class="checkbox">
                                         <label>
+                                        <input type="checkbox" id="modules" value="product_profiles">
+                                        Product Profiles
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
                                         <input type="checkbox" id="modules" value="colors">
                                         Colors
                                         </label>
@@ -150,6 +156,20 @@
                                         <label>
                                         <input type="checkbox" id="modules" value="marketing_order">
                                         Marketing Order
+                                        </label>
+                                    </div>
+
+                                    <div class="checkbox">
+                                        <label>
+                                        <input type="checkbox" id="modules" value="purchase_orders">
+                                        Purchase Order
+                                        </label>
+                                    </div>
+
+                                    <div class="checkbox">
+                                        <label>
+                                        <input type="checkbox" id="modules" value="job_orders">
+                                        Job Order
                                         </label>
                                     </div>
                                     <b>System Administrator</b>
