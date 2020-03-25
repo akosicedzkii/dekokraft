@@ -120,6 +120,7 @@ td { font-size: 11px; }
 
                                         <div class="col-sm-10">
                                         <select style="width:100%;" class="form-control" id="product" placeholder="Product" required></select>
+                                        <a class="btn btn-success" id="add_product" href="#">+</a>
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
@@ -327,6 +328,204 @@ td { font-size: 11px; }
 <!-- /.modal-dialog -->
 </div>
 
+<div class="modal fade" id="productsModal" role="dialog"  data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+           
+             <h3 class="modal-title">Add Products</h3>
+             <input type="hidden" id="action">
+             <input type="hidden" id="productsID">
+            </div>
+            <div class="modal-body">
+                <div>
+                    <form class="form-horizontal" id="productsForm" data-toggle="validator">
+                        <div class="box-body">
+                            <div class="row">
+                                <div class="col-md-6 ml-auto">
+                                <!--<div class="form-group">
+                                <label for="inputCoverImage" class="col-sm-2 control-label">Product Image </label>
+
+                                <div class="col-sm-10">
+                                    <center><img id="coverImgPrev" src="#" class='img-thumbnail' onerror="this.src='<?php echo base_url()."assets/images/img_bg.png";?>'"></center>
+                                        <div id="main-cropper"></div>
+                                        <a class="button actionUpload">
+                                            <input type="file" required id="upload" value="Choose Image" accept="image/*">
+                                        </a>
+                                        <center><a class='btn btn-success' id="edit_image">Update</a>
+                                        <a class='btn btn-warning' id="cancel_edit">Cancel</a></center>
+                                    <center><div class="help-block with-errors" id="coverError"></div></center>
+                                </div>
+                                
+                                <input type="hidden" id="imagebase64">
+                            </div>-->
+                            <div class="form-group">
+                                        <label for="inputProductsTitle"  class="col-sm-2 control-label">Product Name</label>
+
+                                        <div class="col-sm-10">
+                                        <input type="text" class="form-control" onkeyup="this.value = this.value.toUpperCase();" id="inputProductsTitle" placeholder="Product Name" required>
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div> 
+                                    <div class="form-group">
+                                        <label for="class" class="col-sm-2 control-label">Class</label>
+
+                                        <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="class" placeholder="Class" required>
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="Code" class="col-sm-2 control-label">Code</label>
+
+                                        <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="code" placeholder="Code" required>
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputDescription" class="col-sm-2 control-label">Description</label>
+
+                                        <div class="col-sm-10">
+                                        <textarea class="form-control" id="inputDescription" placeholder="Description" style="resize:none" required></textarea>
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                   
+                                    <!--<div class="form-group">
+                                        <label for="color" class="col-sm-2 control-label">Color</label>
+
+                                        <div class="col-sm-10">
+                                        <select  class="form-control" id="color" placeholder="Color" required></select>
+                                        <a class="btn btn-info" id="add_color">+</a>
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="color_abb" class="col-sm-2 control-label">Color Abbrieviation</label>
+
+                                        <div class="col-sm-10">
+                                        <input type="text" disabled class="form-control" id="color_abb" placeholder="Color Abbrieviation" required>
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>-->
+                                    
+                                    <div class="form-group">
+                                        <label for="inner_carton" class="col-sm-2 control-label">Inner Carton</label>
+
+                                        <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="inner_carton" placeholder="Inner Carton" >
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="master_carton" class="col-sm-2 control-label">Master Carton</label>
+
+                                        <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="master_carton" placeholder="Master Carton" >
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 ml-auto">
+                                <!--<div class="form-group">
+                                        <label for="proto" class="col-sm-2 control-label">Proto</label>
+
+                                        <div class="col-sm-10">
+                                        <input type="text" min="1" class="form-control" id="proto" placeholder="Proto" required>
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>-->
+                                    <div class="form-group">
+                                        <label for="fob" class="col-sm-2 control-label">FOB</label>
+
+                                        <div class="col-sm-10">
+                                        <input type="text" min="1" class="form-control" id="fob" placeholder="FOB" >
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="weight_of_box" class="col-sm-2 control-label">Weight of Box</label>
+
+                                        <div class="col-sm-10">
+                                        <input type="number" min="1" class="form-control" id="weight_of_box" placeholder="Weight of Box" >
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="minimum_of_quantity" class="col-sm-2 control-label">Minimum of Quantity</label>
+
+                                        <div class="col-sm-10">
+                                        <input type="number" class="form-control" id="minimum_of_quantity" placeholder="Minimum of Quantity" >
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="lowest_cost" class="col-sm-2 control-label">Lowest Cost</label>
+
+                                        <div class="col-sm-10">
+                                        <input  class="form-control" id="lowest_cost" placeholder="Lowest Cost(In Dollars)" type="number" min="1" step="any">
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="best_price" class="col-sm-2 control-label">Best Price</label>
+
+                                        <div class="col-sm-10">
+                                        <input type="hidden" id="old_price">
+                                        <input  type="number" min="1" step="any" class="form-control" id="best_price" placeholder="Best Price(In Dollars)">
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                    <!--<div class="form-group">
+                                        <label for="location" class="col-sm-2 control-label">Location</label>
+
+                                        <div class="col-sm-10">
+                                        <textarea class="form-control" id="location" placeholder="Location" required></textarea>
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>-->
+                                    <div class="form-group">
+                                        <label for="inputStatus" class="col-sm-2 control-label">Status</label>
+
+                                        <div class="col-sm-10">
+                                        <select class="form-control" id="inputStatus" placeholder="Content" style="resize:none" required>
+                                            <option value="1">Enable</option>
+                                            <option value="0">Disable</option>
+                                        </select>
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            
+                           
+                            <div class="form-group">
+                                <div id="uploadBoxMain" class="col-md-12">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="saveProducts"></button>
+            </div>
+        </div>
+    <!-- /.modal-content -->
+    </div>
+<!-- /.modal-dialog -->
+</div>
 <script>
 $uploadCrop = $('#main-cropper');
 $uploadCrop .croppie({
@@ -338,6 +537,171 @@ $uploadCrop .croppie({
     enableOrientation: true,
     mouseWheelZoom: 'ctrl'
 });
+
+$("#add_product").click(function(){
+    $("#action").val("add");
+    $("#upload").attr("required","required");
+    $('#productsForm').validator();
+    $("#productsModal").modal("show");
+    $("#main-cropper , .actionUpload").show();
+    $("#edit_image , #cancel_edit, #coverImgPrev").hide();
+    
+    $("#code").removeAttr("disabled");
+    is_edit = 1;
+    /*$uploadCrop.croppie('bind', {
+        url :  '<?php echo base_url()."assets/images/img_bg.png";?>',
+    }).then(function () {
+        console.log('reset complete');
+    });*/
+    $("#saveProducts").html("Save Product");
+});
+$("#saveProducts").click(function(){
+            if(is_edit==1)
+            {
+                  /*$('#main-cropper').croppie('result', {
+                    type: 'canvas',
+                    size: 'original'
+                }).then(function (resp) {
+                    $('#imagebase64').val(resp);
+                    $("#productsForm").submit();
+                });*/
+                $("#productsForm").submit();
+            }else{
+                $("#productsForm").submit();
+            }
+          
+        });
+var image_correct = true;
+        var image_error = "";
+        $("#productsForm").validator().on('submit', function (e) {
+            var btn = $("#saveProducts");
+            var action = $("#action").val();
+            btn.button("loading");
+            if (e.isDefaultPrevented()) {
+                btn.button("reset"); 
+            } else {
+                e.preventDefault();
+                var title = $("#inputProductsTitle").val();
+                var description = $("#inputDescription").val();
+                var status = $("#inputStatus").val();
+                var products_id = $("#productsID").val();
+                var cover_image = $("#cover_image").val();
+                var classs = $("#class").val();
+                //var data = $('#color').select2('data');
+                //var color  = data[0].text;
+                var code = $("#code").val();
+                //var color_abb = $("#color_abb").val();
+                var inner_carton = $("#inner_carton").val();
+                var master_carton = $("#master_carton").val();
+                var weight_of_box = $("#weight_of_box").val();
+                var minimum_of_quantity = $("#minimum_of_quantity").val();
+                var lowest_cost = $("#lowest_cost").val();
+                var best_price = $("#best_price").val();
+                var old_price = $("#old_price").val(); 
+                var location = $("#location").val();
+                //var proto = $("#proto").val();
+                var fob = $("#fob").val();
+
+                var formData = new FormData();
+                formData.append('id', products_id);
+                //formData.append('molds', molds);
+                formData.append('fob', fob);
+                formData.append('title', title);
+                formData.append('description', description);
+                formData.append('status', status);
+                formData.append('class', classs);
+                //formData.append('color', color);
+                //formData.append('color_abb', color_abb);
+                formData.append('inner_carton', inner_carton);
+                formData.append('master_carton', master_carton);
+                formData.append('weight_of_box', weight_of_box);
+                formData.append('minimum_of_quantity', minimum_of_quantity);
+                formData.append('lowest_cost', lowest_cost);
+                formData.append('best_price', best_price);
+                formData.append('old_price', old_price);
+                //formData.append('location', location);
+                formData.append('code', code);
+                formData.append('fob', fob);
+                
+                if(is_edit==1)
+                {
+                    formData.append('cover_image', $('#imagebase64').val());
+                }
+                var url = "<?php echo base_url()."portal/products/add_products";?>";
+                var message = "New product successfully added";
+                if(action == "edit")
+                {
+                    url =  "<?php echo base_url()."portal/products/edit_products";?>";
+                    message = "Product successfully updated";
+                
+                }
+               
+               
+                $('#uploadBoxMain').html('<div class="progress"><div class="progress-bar progress-bar-aqua" id = "progressBarMain" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 0%"><span class="sr-only">20% Complete</span></div></div>');
+                $.ajax({
+                    data: formData,
+                    type: "post",
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    url: url ,
+                    xhr: function(){
+                        //upload Progress
+                        var xhr = $.ajaxSettings.xhr();
+                        if (xhr.upload) {
+                            xhr.upload.addEventListener('progress', function(event) {
+                                var percent = 0;
+                                var position = event.loaded || event.position;
+                                var total = event.total;
+                                if (event.lengthComputable) {
+                                    percent = Math.ceil(position / total * 100);
+                                }
+                                //update progressbar
+                                
+                                $('#progressBarMain').css('width',percent+'%').html(percent+'%');
+                                                                
+                            }, true);
+                        }
+                        return xhr;
+                    },
+                    mimeType:"multipart/form-data"
+                }).done(function(data){ 
+                    console.log(data)
+                    if(data!=true)
+                    {
+                        btn.button("reset");
+                        toastr.error(data);
+                         $("#productsForm").validator('destroy');
+                         $("#productsModal").modal("hide"); 
+                    }
+                    else
+                    {
+                         //alert("Data Save: " + data);
+                         btn.button("reset");
+                         if(action == "edit")
+                         {
+                            if(table.page.info().page == 0)
+                            {
+                                window.location="";
+                            }
+                            else
+                            {
+                                table.draw("page");
+                            }
+                         }
+                         else
+                         {
+                             table.draw();
+                         }
+                         toastr.success(message);
+                         $("#productsForm").validator('destroy');
+                         $("#productsModal").modal("hide"); 
+                    }
+                });
+
+            }
+               return false;
+        });
 $("#add_color").click(function(){
     $("#colorsModal .modal-title").html("Add New Color");
     $('#colorsForm').validator();

@@ -1,7 +1,7 @@
 <html><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?php echo SITE_NAME;?></title>
+  <title><?php echo "INVOINCE:#".$invoice->id;?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -80,7 +80,7 @@
     <!-- Table row -->
     <div class="row">
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped">
+        <table class="table table-striped" style="font-size:10px;">
         <thead>
                 <tr>
                 <th>QTY</th>
@@ -95,7 +95,14 @@
                 </tr>
                 </thead>
           <tbody>
-          <?php foreach($invoice_lines as $line){?>
+          <?php 
+            $total_price = 0;
+            $total_discounted = 0;
+          ?>
+          <?php foreach($invoice_lines as $line){
+              $total_price = $total_price + ( $line->quantity* $line->product_price);
+              $total_discounted = $total_discounted + (($line->quantity*$line->product_price)-($line->quantity*$line->product_price)*($line->discount/100));
+            ?>
           <tr>
             <td><?php echo  $line->quantity;?></td>
             <td><?php echo  $line->description. " - " . $line->color;?></td>
@@ -115,48 +122,59 @@
     </div>
     <!-- /.row -->
 
+    
     <div class="row">
-      <!-- accepted payments column -->
-      <div class="col-xs-6">
-        <p class="lead">Payment Methods:</p>
-        <img src="<?php echo base_url();?>/assets/dist/img/credit/visa.png" alt="Visa">
-        <img src="<?php echo base_url();?>/assets/dist/img/credit/mastercard.png" alt="Mastercard">
-        <img src="<?php echo base_url();?>/assets/dist/img/credit/american-express.png" alt="American Express">
-        <img src="<?php echo base_url();?>/assets/dist/img/credit/paypal2.png" alt="Paypal">
+            <!-- accepted payments column -->
+            <div class="col-xs-6">
+            <p class="lead">Payment Terms: <?php echo $payment_terms->code;?></p>
+                <br>
+                <br>
+                Remarks: <?php echo $invoice->remarks;?>
+            <br>
+            <br>
+            Packing Instruction: <?php echo $invoice->packing_instruction;?>
+            <br>
+            <br>
+            Label Instructions: <?php echo $invoice->label_instructions;?>
+            <br>
+            <br>
+            Markings: <?php echo $invoice->markings;?>
+            <br>
+            <br>
+            </div>
+            <!-- /.col -->
+            <div class="col-xs-6">
+            <!-- <p class="lead">Amount Due 2/22/2014</p> -->
 
-        <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
-          Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem plugg dopplr
-          jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.
-        </p>
-      </div>
-      <!-- /.col -->
-      <div class="col-xs-6">
-        <p class="lead">Amount Due 2/22/2014</p>
-
-        <div class="table-responsive">
-          <table class="table">
-            <tbody><tr>
-              <th style="width:50%">Subtotal:</th>
-              <td>$250.30</td>
-            </tr>
-            <tr>
-              <th>Tax (9.3%)</th>
-              <td>$10.34</td>
-            </tr>
-            <tr>
-              <th>Shipping:</th>
-              <td>$5.80</td>
-            </tr>
-            <tr>
-              <th>Total:</th>
-              <td>$265.24</td>
-            </tr>
-          </tbody></table>
+            <div class="table-responsive">
+                <table class="table">
+                <tbody><tr>
+                    <th style="width:50%">Total:</th>
+                    <td>$ <?php echo  number_format((float)$total_price, 2, '.', '');?></td>
+                </tr>
+                <tr>
+                    <th style="width:50%">Total Discounted Price:</th>
+                    <td>$ <?php echo  number_format((float)$total_discounted, 2, '.', '');?></td>
+                </tr>
+                <tr>
+                    <th>Delivery Time:</th>
+                    <td><?php echo date("Y-m-d",strtotime($invoice->delivery_time));?></td>
+                </tr>
+                <tr>
+                    <th>IQ:</th>
+                    <td><?php echo $invoice->iq;?></td>
+                </tr>
+                <tr>
+                    <th>Shipping Instruction:</th>
+                    <td><?php echo $invoice->shipping_instruction;?></td>
+                </tr>
+                </tbody></table>
+            </div>
+            </div>
+            <!-- /.col -->
         </div>
-      </div>
-      <!-- /.col -->
-    </div>
-    <!-- /.row -->
+        <!-- /.row -->
+            
   </section>
   <!-- /.content -->
 </div>
