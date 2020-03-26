@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Logs extends CI_Controller {
+class Stocks extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
@@ -18,8 +18,8 @@ class Logs extends CI_Controller {
     {
         $product_variant_id = $this->input->post("product_variant_id");
         $count = $this->input->post("count");
-        $this->load->model("stock_model");
-        $this->stock_model->add_stock($count,$product_variant_id);
+        $this->load->model("stocks_model");
+        $this->stocks_model->add_stock($count,$product_variant_id);
         $this->logs->log = "Created New Stock - ID:". $product_variant_id. " Count: ".$count ;
         $this->logs->details = "Created New Stock - ID:". $product_variant_id. " Count: ".$count ;
         $this->logs->module = "stocks";

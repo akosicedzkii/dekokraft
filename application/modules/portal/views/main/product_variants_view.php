@@ -244,19 +244,25 @@ td { font-size: 11px; }
 <!-- /.modal -->
 
 <!-- /.modal -->
-<div class="modal fade" id="imgPreviewModal"  role="dialog"  data-backdrop="static">
-    <div class="modal-dialog modal-lg">
+<div class="modal fade" id="reflenishProduct"  role="dialog"  data-backdrop="static">
+    <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
            
-             <h3 class="modal-title">Cover Image Preview</h3>
+             <h3 class="modal-title">Reflenish Product: <label id="reflenish_name"></label></h3>
             </div>
             <div class="modal-body">
-                <center><img src="" id="imgPreview" style="width:100%;"></center>
+                <div class="box-body">
+                    <div class="form-group">
+                        <input type="hidden" id="reflenish_id">
+                        <center>Count: <input  class="form-control" type="number" id="reflenish_count" placeholder="Product Count"></center>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="saveReflenish">Reflenish</button>
             <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -1052,7 +1058,30 @@ $('.actionDone').on('click', function(){
             }
                return false;
         });
+        $("#saveReflenish").click(function(){
+            var btn = $(this);
+            var id = $("#reflenish_id").val();
+            var count = $("#reflenish_count").val();
+            var reflenish_name = $("#reflenish_name").html();
+            var data = { "product_variant_id" : id , "count" : count};
+            btn.button("loading");
 
+            $.ajax({
+                        data: data,
+                        type: "post",
+                        url: "<?php echo base_url()."portal/stocks/reflenish";?>",
+                        success: function(data){
+                            //alert("Data Save: " + data);
+                            btn.button("reset");
+                            table.draw("page");
+                            $("#reflenishProduct").modal("hide");
+                            toastr.success('Product Variant ' + reflenish_name + ' successfully reflenished');
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                        }
+                });
+        });
         $("#deleteProduct_variants").click(function(){
             var btn = $(this);
             var id = $("#deleteKey").val();
@@ -1277,6 +1306,13 @@ $('.actionDone').on('click', function(){
         $("#mediaGalleryModal").modal("show");
     }
 
+    function _reflenish(id,description)
+    {
+        $("#reflenish_id").val(id);
+        $("#reflenish_name").html(description);
+        $("#reflenishProduct").modal("show");
+
+    }
 
     $(document).ready(main);
 

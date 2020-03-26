@@ -182,6 +182,7 @@ class Product_variants extends CI_Controller {
             
             $btns = '<a href="#" onclick="_view('.$aRow['id'].');return false;" class="glyphicon glyphicon-search text-orange" data-toggle="tooltip" title="View Details"></a>
             <a href="#" onclick="_edit('.$aRow['id'].');return false;" class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" title="Edit"></a>
+            <a href="#" onclick="_reflenish('.$aRow['id'].',\''.htmlentities ($aRow["description"]).'\');return false;" class="glyphicon glyphicon-plus text-blue" data-toggle="tooltip" title="Reflenish"></a>
             <a href="#" onclick="_delete('.$aRow['id'].',\''.htmlentities ($aRow["description"]).'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" title="Delete"></a>';
             array_push($row,$btns);
             $output['data'][] = $row;
