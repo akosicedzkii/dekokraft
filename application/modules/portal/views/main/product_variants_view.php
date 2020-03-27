@@ -270,6 +270,26 @@ td { font-size: 11px; }
     </div>
 <!-- /.modal-dialog -->
 </div>
+<div class="modal fade" id="imgPreviewModal"  role="dialog"  data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+           
+             <h3 class="modal-title">Cover Image Preview</h3>
+            </div>
+            <div class="modal-body">
+                <center><img src="" id="imgPreview" style="width:100%;"></center>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    <!-- /.modal-content -->
+    </div>
+<!-- /.modal-dialog -->
+</div>
 <!-- /.modal -->
 <div class="modal fade" id="colorsModal" role="dialog"  data-backdrop="static">
     <div class="modal-dialog modal-lg">
