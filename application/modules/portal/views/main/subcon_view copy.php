@@ -3,7 +3,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-    <?php $module_name = str_replace("_"," ",$module_name);echo ucfirst($module_name);?>
+    <?php echo ucfirst($module_name);?>
     <small>Management</small>
     </h1>
     <ol class="breadcrumb">
@@ -22,13 +22,13 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
-        <table id="marketing_orderList" class="table table-bordered table-striped">
+        <table id="subconList" class="table table-bordered table-striped">
         <thead>
         <tr>
             <th>ID</th>
-            <th>MO #</th>
-            <th>INVOICE #</th>
-            <th>Customer Name</th>
+            <th>Subcon Name</th>
+            <th>Subcon Code</th>
+            <th>Subcon Location</th>
             <th>Status</th>
             <th>Date Created</th>
             <th>Created By</th>
@@ -49,55 +49,55 @@
 <!-- /.content -->
 </div>
 
-<div class="modal fade" id="marketing_orderModal" role="dialog"  data-backdrop="static">
+<div class="modal fade" id="subconModal" role="dialog"  data-backdrop="static">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
            
-             <h3 class="modal-title">Add Marketing_order</h3>
+             <h3 class="modal-title">Add Subcon</h3>
              <input type="hidden" id="action">
-             <input type="hidden" id="marketing_orderID">
+             <input type="hidden" id="subconID">
             </div>
             <div class="modal-body">
                 <div>
-                    <form class="form-horizontal" id="marketing_orderForm" data-toggle="validator">
+                    <form class="form-horizontal" id="subconForm" data-toggle="validator">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="name" class="col-sm-2 control-label">Marketing_order Name</label>
+                                <label for="name" class="col-sm-2 control-label">Subcon Name</label>
 
                                 <div class="col-sm-10">
-                                <input type="text" class="form-control" id="name" placeholder="Marketing_order Name" required>
+                                <input type="text" class="form-control" id="name" placeholder="Subcon Name" required>
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="code" class="col-sm-2 control-label">Marketing_order Code</label>
+                                <label for="code" class="col-sm-2 control-label">Subcon Code</label>
 
                                 <div class="col-sm-10">
                                 
-                                <input type="text" class="form-control" id="code" placeholder="Marketing_order Code" required>
-                                <div class="help-block with-errors"></div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="marketing_order_details" class="col-sm-2 control-label">Marketing_order Details</label>
-
-                                <div class="col-sm-10">
-                                
-                                <textarea type="text" class="form-control" id="marketing_order_details" placeholder="Marketing_order Details" required></textarea>
+                                <input type="text" class="form-control" id="code" placeholder="Subcon Code" required>
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="bank_address" class="col-sm-2 control-label">Marketing_order Address</label>
+                                <label for="subcon_details" class="col-sm-2 control-label">Subcon Details</label>
 
                                 <div class="col-sm-10">
                                 
-                                <textarea type="text" class="form-control" id="bank_address" placeholder="Marketing_order Address" required></textarea>
+                                <textarea type="text" class="form-control" id="subcon_details" placeholder="Subcon Details" required></textarea>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bank_address" class="col-sm-2 control-label">Subcon Address</label>
+
+                                <div class="col-sm-10">
+                                
+                                <textarea type="text" class="form-control" id="bank_address" placeholder="Subcon Address" required></textarea>
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
@@ -123,7 +123,7 @@
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="saveMarketing_order">Save Marketing_order</button>
+            <button type="button" class="btn btn-primary" id="saveSubcon">Save Subcon</button>
             </div>
         </div>
     <!-- /.modal-content -->
@@ -132,14 +132,14 @@
 </div>
 
 <!-- /.modal -->
-<div class="modal fade" id="deleteMarketing_orderModal"  role="dialog"  data-backdrop="static">
+<div class="modal fade" id="deleteSubconModal"  role="dialog"  data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
            
-             <h3 class="modal-title">Delete Marketing_order</h3>
+             <h3 class="modal-title">Delete Subcon</h3>
             </div>
             <div class="modal-body">
                 <input type="hidden" id="deleteKey">
@@ -147,7 +147,7 @@
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-danger" id="deleteMarketing_order">Delete</button>
+            <button type="button" class="btn btn-danger" id="deleteSubcon">Delete</button>
             </div>
         </div>
     <!-- /.modal-content -->
@@ -168,14 +168,14 @@
 
 
     var main = function(){
-        var table = $('#marketing_orderList').DataTable({
+        var table = $('#subconList').DataTable({
             "language": {                
                 "infoFiltered": ""
             },  
             'autoWidth'   : true,
             "processing" : true,
             "serverSide" : true, 
-            "ajax" : "<?php echo base_url()."portal/marketing_order/get_marketing_order_list";?>",
+            "ajax" : "<?php echo base_url()."portal/subcon/get_subcon_list";?>",
             "initComplete": function(settings,json){
                 $('[data-toggle="tooltip"]').tooltip()
             }
@@ -185,22 +185,22 @@
         ], "order": [[ 4, 'desc' ]]
         });
         $("#addBtn").click(function(){
-            $("#marketing_orderModal .modal-title").html("Add <?php echo ucfirst($module_name);?>");
+            $("#subconModal .modal-title").html("Add <?php echo ucfirst($module_name);?>");
             $("#action").val("add");
             $("#inputCoverImage").attr("required","required");
-            $('#marketing_orderForm').validator();
-            $("#marketing_orderModal").modal("show");
+            $('#subconForm').validator();
+            $("#subconModal").modal("show");
         });
 
-        $("#saveMarketing_order").click(function(){
-            $("#marketing_orderForm").submit();
+        $("#saveSubcon").click(function(){
+            $("#subconForm").submit();
         });
 
         var image_correct = true;
         var image_error = "";
-        $("#marketing_orderForm").validator().on('submit', function (e) {
+        $("#subconForm").validator().on('submit', function (e) {
            
-            var btn = $("#saveMarketing_order");
+            var btn = $("#saveSubcon");
             var action = $("#action").val();
             btn.button("loading");
             if (e.isDefaultPrevented()) {
@@ -210,8 +210,8 @@
                 var name = $("#name").val();
                 var code = $("#code").val();
                 var status = $("#inputStatus").val();
-                var marketing_order_id = $("#marketing_orderID").val();
-                var marketing_order_details  = $("#marketing_order_details").val();
+                var subcon_id = $("#subconID").val();
+                var subcon_details  = $("#subcon_details").val();
                 var bank_address  = $("#bank_address").val();
                 if(name == "" || code == "")
                 {
@@ -220,20 +220,20 @@
                 }
 
                 var formData = new FormData();
-                formData.append('id', marketing_order_id);
+                formData.append('id', subcon_id);
                 formData.append('name', name);
                 formData.append('code', code);
-                formData.append('marketing_order_details', marketing_order_details);
+                formData.append('subcon_details', subcon_details);
                 formData.append('address', bank_address);
                 formData.append('status', status);
                 // Attach file
                  //fromthis    
-                 var url = "<?php echo base_url()."portal/marketing_order/add_marketing_order";?>";
-                var message = "New marketing_order successfully added";
+                 var url = "<?php echo base_url()."portal/subcon/add_subcon";?>";
+                var message = "New subcon successfully added";
                 if(action == "edit")
                 {
-                    url =  "<?php echo base_url()."portal/marketing_order/edit_marketing_order";?>";
-                    message = "Marketing_order successfully updated";
+                    url =  "<?php echo base_url()."portal/subcon/edit_subcon";?>";
+                    message = "Subcon successfully updated";
                 }
 
 
@@ -284,8 +284,8 @@
                              table.draw();
                          }
                          toastr.success(message);
-                         $("#marketing_orderForm").validator('destroy');
-                         $("#marketing_orderModal").modal("hide"); 
+                         $("#subconForm").validator('destroy');
+                         $("#subconModal").modal("hide"); 
                          $('#uploadBoxMain').html('');          
                     }
                 });
@@ -293,7 +293,7 @@
                return false;
         });
 
-        $("#deleteMarketing_order").click(function(){
+        $("#deleteSubcon").click(function(){
             var btn = $(this);
             var id = $("#deleteKey").val();
             var deleteItem = $("#deleteItem").html();
@@ -303,13 +303,13 @@
             $.ajax({
                         data: data,
                         type: "post",
-                        url: "<?php echo base_url()."portal/marketing_order/delete_marketing_order";?>",
+                        url: "<?php echo base_url()."portal/subcon/delete_subcon";?>",
                         success: function(data){
                             //alert("Data Save: " + data);
                             btn.button("reset");
                             table.draw("page");
-                            $("#deleteMarketing_orderModal").modal("hide");
-                            toastr.error('Marketing_order ' + deleteItem + ' successfully deleted');
+                            $("#deleteSubconModal").modal("hide");
+                            toastr.error('Subcon ' + deleteItem + ' successfully deleted');
                         },
                         error: function (request, status, error) {
                             alert(request.responseText);
@@ -317,7 +317,7 @@
                 });
         });
 
-        $('#marketing_orderModal').on('hidden.bs.modal', function (e) {
+        $('#subconModal').on('hidden.bs.modal', function (e) {
             $(this)
                 .find("input,textarea,select")
                 .val('')
@@ -328,7 +328,7 @@
             $("#inputStatus").val('1').trigger('change');
             $('#inputCoverImage').val("");
             $('#coverImgPrev').attr("src","");
-            $("#marketing_orderForm").validator('destroy');
+            $("#subconForm").validator('destroy');
         });
 
         $('#inputStatus').select2(inputRoleConfig);
@@ -341,25 +341,25 @@
     };
     function _edit(id)
     {
-        $("#marketing_orderModal .modal-title").html("Edit <?php echo ucfirst($module_name);?>");
+        $("#subconModal .modal-title").html("Edit <?php echo ucfirst($module_name);?>");
         $(".add").hide();    
-        $('#marketing_orderForm').validator();    
+        $('#subconForm').validator();    
         $("#action").val("edit");
         $("#inputCoverImage").removeAttr("required");
         var data = { "id" : id }
         $.ajax({
                 data: data,
                 type: "post",
-                url: "<?php echo base_url()."portal/marketing_order/get_marketing_order_data";?>",
+                url: "<?php echo base_url()."portal/subcon/get_subcon_data";?>",
                 success: function(data){
                     data = JSON.parse(data);
-                    $("#name").val(data.marketing_order.name);
-                    $("#code").val(data.marketing_order.code);
-                    $("#inputStatus").val(data.marketing_order.status).trigger('change');
-                    $("#marketing_orderID").val(data.marketing_order.id);
-                    $("#marketing_order_details").val(data.marketing_order.marketing_order_details);
-                    $("#bank_address").val(data.marketing_order.address);
-                    $("#marketing_orderModal").modal("show");
+                    $("#name").val(data.subcon.name);
+                    $("#code").val(data.subcon.code);
+                    $("#inputStatus").val(data.subcon.status).trigger('change');
+                    $("#subconID").val(data.subcon.id);
+                    $("#subcon_details").val(data.subcon.subcon_details);
+                    $("#bank_address").val(data.subcon.address);
+                    $("#subconModal").modal("show");
                 },
                 error: function (request, status, error) {
                     alert(request.responseText);
@@ -368,15 +368,15 @@
     }
     function _delete(id,item)
     {
-        $("#deleteMarketing_orderModal .modal-title").html("Delete Marketing_order");
+        $("#deleteSubconModal .modal-title").html("Delete Subcon");
         $("#deleteItem").html(item);
         $("#deleteKey").val(id);
-        $("#deleteMarketing_orderModal").modal("show");
+        $("#deleteSubconModal").modal("show");
     }
     
     function img_preview(img_src)
     {
-        $("#imgPreview").attr("src","<?php echo base_url()."uploads/marketing_order/"?>"+img_src);
+        $("#imgPreview").attr("src","<?php echo base_url()."uploads/subcon/"?>"+img_src);
         $("#imgPreviewModal").modal("show");
     }
 
@@ -397,7 +397,7 @@
             "serverSide" : true,
             "searching" : false,
             "pageLength": 10, "bLengthChange": false,
-            "ajax" : "<?php echo base_url()."portal/media/get_media_list?module=marketing_order";?>",
+            "ajax" : "<?php echo base_url()."portal/media/get_media_list?module=subcon";?>",
             "initComplete": function(settings,json){
                 $('[data-toggle="tooltip"]').tooltip()
             }

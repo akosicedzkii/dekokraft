@@ -3,7 +3,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-    <?php $module_name = str_replace("_"," ",$module_name);echo ucfirst($module_name);?>
+    <?php $module_name = str_replace("_"," ",$module_name);echo ucfirst(str_replace("_"," ",$module_name));?>
     <small>Management</small>
     </h1>
     <ol class="breadcrumb">
@@ -22,13 +22,13 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
-        <table id="marketing_orderList" class="table table-bordered table-striped">
+        <table id="job_ordersList" class="table table-bordered table-striped">
         <thead>
         <tr>
             <th>ID</th>
-            <th>MO #</th>
-            <th>INVOICE #</th>
-            <th>Customer Name</th>
+            <th>Job Order Number</th>
+            <th>Subcon</th>
+            <th>MO#</th>
             <th>Status</th>
             <th>Date Created</th>
             <th>Created By</th>
@@ -49,55 +49,55 @@
 <!-- /.content -->
 </div>
 
-<div class="modal fade" id="marketing_orderModal" role="dialog"  data-backdrop="static">
+<div class="modal fade" id="job_ordersModal" role="dialog"  data-backdrop="static">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
            
-             <h3 class="modal-title">Add Marketing_order</h3>
+             <h3 class="modal-title">Add Subcon</h3>
              <input type="hidden" id="action">
-             <input type="hidden" id="marketing_orderID">
+             <input type="hidden" id="job_ordersID">
             </div>
             <div class="modal-body">
                 <div>
-                    <form class="form-horizontal" id="marketing_orderForm" data-toggle="validator">
+                    <form class="form-horizontal" id="job_ordersForm" data-toggle="validator">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="name" class="col-sm-2 control-label">Marketing_order Name</label>
+                                <label for="name" class="col-sm-2 control-label">Job Order Name</label>
 
                                 <div class="col-sm-10">
-                                <input type="text" class="form-control" id="name" placeholder="Marketing_order Name" required>
+                                <input type="text" class="form-control" id="name" placeholder="Job Order Name" required>
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="code" class="col-sm-2 control-label">Marketing_order Code</label>
+                                <label for="code" class="col-sm-2 control-label">Job Order Code</label>
 
                                 <div class="col-sm-10">
                                 
-                                <input type="text" class="form-control" id="code" placeholder="Marketing_order Code" required>
-                                <div class="help-block with-errors"></div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="marketing_order_details" class="col-sm-2 control-label">Marketing_order Details</label>
-
-                                <div class="col-sm-10">
-                                
-                                <textarea type="text" class="form-control" id="marketing_order_details" placeholder="Marketing_order Details" required></textarea>
+                                <input type="text" class="form-control" id="code" placeholder="Job Order Code" required>
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label for="bank_address" class="col-sm-2 control-label">Marketing_order Address</label>
+                                <label for="job_orders_details" class="col-sm-2 control-label">Job Order Details</label>
 
                                 <div class="col-sm-10">
                                 
-                                <textarea type="text" class="form-control" id="bank_address" placeholder="Marketing_order Address" required></textarea>
+                                <textarea type="text" class="form-control" id="job_orders_details" placeholder="Job Order Details" required></textarea>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bank_address" class="col-sm-2 control-label">Job Order Address</label>
+
+                                <div class="col-sm-10">
+                                
+                                <textarea type="text" class="form-control" id="bank_address" placeholder="Job Order Address" required></textarea>
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
@@ -123,7 +123,7 @@
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="saveMarketing_order">Save Marketing_order</button>
+            <button type="button" class="btn btn-primary" id="saveSubcon">Save Subcon</button>
             </div>
         </div>
     <!-- /.modal-content -->
@@ -132,14 +132,14 @@
 </div>
 
 <!-- /.modal -->
-<div class="modal fade" id="deleteMarketing_orderModal"  role="dialog"  data-backdrop="static">
+<div class="modal fade" id="deleteSubconModal"  role="dialog"  data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
            
-             <h3 class="modal-title">Delete Marketing_order</h3>
+             <h3 class="modal-title">Delete Subcon</h3>
             </div>
             <div class="modal-body">
                 <input type="hidden" id="deleteKey">
@@ -147,7 +147,7 @@
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-danger" id="deleteMarketing_order">Delete</button>
+            <button type="button" class="btn btn-danger" id="deleteSubcon">Delete</button>
             </div>
         </div>
     <!-- /.modal-content -->
@@ -168,14 +168,14 @@
 
 
     var main = function(){
-        var table = $('#marketing_orderList').DataTable({
+        var table = $('#job_ordersList').DataTable({
             "language": {                
                 "infoFiltered": ""
             },  
             'autoWidth'   : true,
             "processing" : true,
             "serverSide" : true, 
-            "ajax" : "<?php echo base_url()."portal/marketing_order/get_marketing_order_list";?>",
+            "ajax" : "<?php echo base_url()."portal/job_orders/get_job_orders_list";?>",
             "initComplete": function(settings,json){
                 $('[data-toggle="tooltip"]').tooltip()
             }
@@ -185,22 +185,22 @@
         ], "order": [[ 4, 'desc' ]]
         });
         $("#addBtn").click(function(){
-            $("#marketing_orderModal .modal-title").html("Add <?php echo ucfirst($module_name);?>");
+            $("#job_ordersModal .modal-title").html("Add <?php echo ucfirst($module_name);?>");
             $("#action").val("add");
             $("#inputCoverImage").attr("required","required");
-            $('#marketing_orderForm').validator();
-            $("#marketing_orderModal").modal("show");
+            $('#job_ordersForm').validator();
+            $("#job_ordersModal").modal("show");
         });
 
-        $("#saveMarketing_order").click(function(){
-            $("#marketing_orderForm").submit();
+        $("#saveSubcon").click(function(){
+            $("#job_ordersForm").submit();
         });
 
         var image_correct = true;
         var image_error = "";
-        $("#marketing_orderForm").validator().on('submit', function (e) {
+        $("#job_ordersForm").validator().on('submit', function (e) {
            
-            var btn = $("#saveMarketing_order");
+            var btn = $("#saveSubcon");
             var action = $("#action").val();
             btn.button("loading");
             if (e.isDefaultPrevented()) {
@@ -210,8 +210,8 @@
                 var name = $("#name").val();
                 var code = $("#code").val();
                 var status = $("#inputStatus").val();
-                var marketing_order_id = $("#marketing_orderID").val();
-                var marketing_order_details  = $("#marketing_order_details").val();
+                var job_orders_id = $("#job_ordersID").val();
+                var job_orders_details  = $("#job_orders_details").val();
                 var bank_address  = $("#bank_address").val();
                 if(name == "" || code == "")
                 {
@@ -220,20 +220,20 @@
                 }
 
                 var formData = new FormData();
-                formData.append('id', marketing_order_id);
+                formData.append('id', job_orders_id);
                 formData.append('name', name);
                 formData.append('code', code);
-                formData.append('marketing_order_details', marketing_order_details);
+                formData.append('job_orders_details', job_orders_details);
                 formData.append('address', bank_address);
                 formData.append('status', status);
                 // Attach file
                  //fromthis    
-                 var url = "<?php echo base_url()."portal/marketing_order/add_marketing_order";?>";
-                var message = "New marketing_order successfully added";
+                 var url = "<?php echo base_url()."portal/job_orders/add_job_orders";?>";
+                var message = "New job order successfully added";
                 if(action == "edit")
                 {
-                    url =  "<?php echo base_url()."portal/marketing_order/edit_marketing_order";?>";
-                    message = "Marketing_order successfully updated";
+                    url =  "<?php echo base_url()."portal/job_orders/edit_job_orders";?>";
+                    message = "Job Order successfully updated";
                 }
 
 
@@ -284,8 +284,8 @@
                              table.draw();
                          }
                          toastr.success(message);
-                         $("#marketing_orderForm").validator('destroy');
-                         $("#marketing_orderModal").modal("hide"); 
+                         $("#job_ordersForm").validator('destroy');
+                         $("#job_ordersModal").modal("hide"); 
                          $('#uploadBoxMain').html('');          
                     }
                 });
@@ -293,7 +293,7 @@
                return false;
         });
 
-        $("#deleteMarketing_order").click(function(){
+        $("#deleteSubcon").click(function(){
             var btn = $(this);
             var id = $("#deleteKey").val();
             var deleteItem = $("#deleteItem").html();
@@ -303,13 +303,13 @@
             $.ajax({
                         data: data,
                         type: "post",
-                        url: "<?php echo base_url()."portal/marketing_order/delete_marketing_order";?>",
+                        url: "<?php echo base_url()."portal/job_orders/delete_job_orders";?>",
                         success: function(data){
                             //alert("Data Save: " + data);
                             btn.button("reset");
                             table.draw("page");
-                            $("#deleteMarketing_orderModal").modal("hide");
-                            toastr.error('Marketing_order ' + deleteItem + ' successfully deleted');
+                            $("#deleteSubconModal").modal("hide");
+                            toastr.error('Job Order ' + deleteItem + ' successfully deleted');
                         },
                         error: function (request, status, error) {
                             alert(request.responseText);
@@ -317,7 +317,7 @@
                 });
         });
 
-        $('#marketing_orderModal').on('hidden.bs.modal', function (e) {
+        $('#job_ordersModal').on('hidden.bs.modal', function (e) {
             $(this)
                 .find("input,textarea,select")
                 .val('')
@@ -328,7 +328,7 @@
             $("#inputStatus").val('1').trigger('change');
             $('#inputCoverImage').val("");
             $('#coverImgPrev').attr("src","");
-            $("#marketing_orderForm").validator('destroy');
+            $("#job_ordersForm").validator('destroy');
         });
 
         $('#inputStatus').select2(inputRoleConfig);
@@ -341,25 +341,25 @@
     };
     function _edit(id)
     {
-        $("#marketing_orderModal .modal-title").html("Edit <?php echo ucfirst($module_name);?>");
+        $("#job_ordersModal .modal-title").html("Edit <?php echo ucfirst($module_name);?>");
         $(".add").hide();    
-        $('#marketing_orderForm').validator();    
+        $('#job_ordersForm').validator();    
         $("#action").val("edit");
         $("#inputCoverImage").removeAttr("required");
         var data = { "id" : id }
         $.ajax({
                 data: data,
                 type: "post",
-                url: "<?php echo base_url()."portal/marketing_order/get_marketing_order_data";?>",
+                url: "<?php echo base_url()."portal/job_orders/get_job_orders_data";?>",
                 success: function(data){
                     data = JSON.parse(data);
-                    $("#name").val(data.marketing_order.name);
-                    $("#code").val(data.marketing_order.code);
-                    $("#inputStatus").val(data.marketing_order.status).trigger('change');
-                    $("#marketing_orderID").val(data.marketing_order.id);
-                    $("#marketing_order_details").val(data.marketing_order.marketing_order_details);
-                    $("#bank_address").val(data.marketing_order.address);
-                    $("#marketing_orderModal").modal("show");
+                    $("#name").val(data.job_orders.name);
+                    $("#code").val(data.job_orders.code);
+                    $("#inputStatus").val(data.job_orders.status).trigger('change');
+                    $("#job_ordersID").val(data.job_orders.id);
+                    $("#job_orders_details").val(data.job_orders.job_orders_details);
+                    $("#bank_address").val(data.job_orders.address);
+                    $("#job_ordersModal").modal("show");
                 },
                 error: function (request, status, error) {
                     alert(request.responseText);
@@ -368,15 +368,15 @@
     }
     function _delete(id,item)
     {
-        $("#deleteMarketing_orderModal .modal-title").html("Delete Marketing_order");
+        $("#deleteSubconModal .modal-title").html("Delete Subcon");
         $("#deleteItem").html(item);
         $("#deleteKey").val(id);
-        $("#deleteMarketing_orderModal").modal("show");
+        $("#deleteSubconModal").modal("show");
     }
     
     function img_preview(img_src)
     {
-        $("#imgPreview").attr("src","<?php echo base_url()."uploads/marketing_order/"?>"+img_src);
+        $("#imgPreview").attr("src","<?php echo base_url()."uploads/job_orders/"?>"+img_src);
         $("#imgPreviewModal").modal("show");
     }
 
@@ -397,7 +397,7 @@
             "serverSide" : true,
             "searching" : false,
             "pageLength": 10, "bLengthChange": false,
-            "ajax" : "<?php echo base_url()."portal/media/get_media_list?module=marketing_order";?>",
+            "ajax" : "<?php echo base_url()."portal/media/get_media_list?module=job_orders";?>",
             "initComplete": function(settings,json){
                 $('[data-toggle="tooltip"]').tooltip()
             }
