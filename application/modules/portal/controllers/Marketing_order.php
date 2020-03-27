@@ -132,8 +132,8 @@ class Marketing_order extends CI_Controller {
                     }
             }
             
-            $btns = '<!--<a href="#" onclick="_view('.$aRow['id'].');return false;" class="glyphicon glyphicon-search text-orange" data-toggle="tooltip" name="View Details"></a>-->
-            <a href="#" onclick="_edit('.$aRow['id'].');return false;" class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" name="Edit"></a>
+            $btns = '<a href="'.base_url("portal/main/marketing_order/print?invoice_id=".$aRow['invoice_id']).'" target=_blank class="glyphicon glyphicon-print text-orange" data-toggle="tooltip" title="Print Marketing Order"></a>
+            <a href="'.base_url("portal/main/marketing_order/edit?invoice_id=".$aRow['id']).'"  class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" title="Edit"></a>
             <a href="#" onclick="_delete('.$aRow['id'].',\''.$aRow["customer_name"].'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" name="Delete"></a>';
             array_push($row,$btns);
             $output['data'][] = $row;

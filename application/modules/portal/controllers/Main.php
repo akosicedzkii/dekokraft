@@ -165,7 +165,81 @@ class Main extends CI_Controller {
 
     }
 
-    
+    public function marketing_order()
+    {
+        
+        $page = $this->uri->segment(4, 0); 
+       
+        if (!in_array($this->router->fetch_method(), $this->user_access)) 
+        {
+            redirect(base_url()."portal/main/".$this->default_page);
+        }
+        if($page == "new")
+        {
+            $module["module_name"] = $this->router->fetch_method();
+            $module["menu"] = $this->user_access;
+            $this->load->view('main/template/header',$module);
+            $this->load->view('main/invoices_create_view',$module);
+            $this->load->view('main/template/footer');
+        }
+        else if($page == "print")
+        {
+            $invoice_id = $this->input->get("invoice_id");
+            $module["invoice"] = $this->db->where("id",$invoice_id)->get("invoices")->row();
+            $module["mo"] = $this->db->where("invoice_id",$invoice_id)->get("marketing_order")->row();
+            $module["customer_address"] = $this->db->where("id",$module["invoice"]->customer_id)->get("customers")->row();
+            $module["bank"] = $this->db->where("id",$module["invoice"]->bank)->get("banks")->row();
+            $module["payment_terms"] = $this->db->where("id",$module["invoice"]->payment_terms)->get("payment_terms")->row();
+            if( $module["invoice"] == null)
+            {
+                echo "invoice not found";
+            }
+            $this->db->select("product_variants.color,invoice_lines.*,products.description,products.code,products.fob");
+            $this->db->join("product_variants"," product_variants.id=invoice_lines.product_id");
+            $this->db->join("products"," products.id=product_variants.product_id");
+            $this->db->where("invoice_id",$invoice_id);
+            $module["invoice_lines"]= $this->db->get("invoice_lines")->result();
+            $module["module_name"] = $this->router->fetch_method();
+            $module["menu"] = $this->user_access;
+            $this->load->view('main/marketing_order_print_view',$module);
+        }
+        else if($page == "view")
+        {
+            $module["module_name"] = $this->router->fetch_method();
+            $module["menu"] = $this->user_access;
+            $this->load->view('main/template/header',$module);
+            $this->load->view('main/invoice_solo_view',$module);
+            $this->load->view('main/template/footer');
+        }
+        else if($page == "edit")
+        {
+            $invoice_id = $this->input->get("invoice_id");
+            $module["invoice"] = $this->db->where("id",$invoice_id)->get("invoices")->row();
+            $module["mo"] = $this->db->where("invoice_id",$invoice_id)->get("marketing_order")->row();
+            $module["customer_address"] = $this->db->where("id",$module["invoice"]->customer_id)->get("customers")->row();
+            $module["bank"] = $this->db->where("id",$module["invoice"]->bank)->get("banks")->row();
+            $module["payment_terms"] = $this->db->where("id",$module["invoice"]->payment_terms)->get("payment_terms")->row();
+            if( $module["invoice"] == null)
+            {
+                echo "invoice not found";
+            }
+            $module["invoice_lines"] = $this->db->where("invoice_id",$invoice_id)->get("invoice_lines");
+            $module["module_name"] = $this->router->fetch_method();
+            $module["menu"] = $this->user_access;
+            $this->load->view('main/template/header',$module);
+            $this->load->view('main/marketing_order_create_view',$module);
+            $this->load->view('main/template/footer');
+        }
+        else if($page == "list")
+        {
+            $module["module_name"] = $this->router->fetch_method();
+            $module["menu"] = $this->user_access;
+            $this->load->view('main/template/header',$module);
+            $this->load->view('main/invoices_view',$module);
+            $this->load->view('main/template/footer');
+        }
+
+    }
 	
 
 	public function get_profile_data()
