@@ -152,9 +152,9 @@ class Job_orders extends CI_Controller {
     public function get_job_orders_list()
     {
         $this->load->model("portal/data_table_model","dt_model");  
-        $this->dt_model->select_columns = array("t1.id","t1.id","(SELECT name from subcon WHERE ID = t1.subcon_id) as subcon_id","t1.mo_id","t1.remarks","IF(t1.status=1,'Active','Inactive') as status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
-        $this->dt_model->where  = array("t1.id","t1.id","t1.subcon_id","t1.mo_id","t1.remarks","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");  
-        $select_columns = array("id","id","subcon_id","mo_id","remarks","status","date_created","created_by","date_modified","modified_by");  
+        $this->dt_model->select_columns = array("t1.id","t1.id","(SELECT name from subcon WHERE ID = t1.subcon_id) as subcon_id","t1.mo_id","t1.remarks","t1.job_type","IF(t1.status=1,'Active','Inactive') as status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
+        $this->dt_model->where  = array("t1.id","t1.id","t1.subcon_id","t1.mo_id","t1.remarks","t1.job_type","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");  
+        $select_columns = array("id","id","subcon_id","mo_id","remarks","job_type","status","date_created","created_by","date_modified","modified_by");  
         $this->dt_model->table = "job_orders AS t1 LEFT JOIN user_accounts AS t2 ON t2.id = t1.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t1.modified_by ";  
         $this->dt_model->index_column = "t1.id";
         $this->dt_model->staticWhere = "t1.status != 3"; 

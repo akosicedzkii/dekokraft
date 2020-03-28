@@ -30,6 +30,7 @@
             <th>Subcon</th>
             <th>MO#</th>
             <th>Remarks</th>
+            <th>Job Type</th>
             <th>Status</th>
             <th>Date Created</th>
             <th>Created By</th>
@@ -197,7 +198,7 @@
             }
             ,"columnDefs": [
             { "visible": false,  "targets": [ 0 ] },
-            { "width": "20%",  "targets": [ 1 ] }
+            { "width": "20%",  "targets": [ 4 ] }
         ], "order": [[ 4, 'desc' ]]
         });
         $("#addBtn").click(function(){
