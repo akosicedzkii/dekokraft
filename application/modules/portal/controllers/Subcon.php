@@ -84,6 +84,7 @@ class Subcon extends CI_Controller {
             'items' => $filteredValues
         )); 
     }
+    
     public function get_subcon_list()
     {
         $this->load->model("portal/data_table_model","dt_model");  

@@ -25,7 +25,6 @@
             </h2>
             <select id="invoice_type" style="width:200px;" class="form-control pull-left">
                     <option value="proforma">Proforma Invoice</option>
-                    <option value="marketing">Marketing Invoice</option>
                     <option value="sample">Sample Invoice</option>
                 </select>
             </div>

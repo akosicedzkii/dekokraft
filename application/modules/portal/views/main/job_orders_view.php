@@ -27,7 +27,7 @@
         <tr>
             <th>ID</th>
             <th>Job Order Number</th>
-            <th>Subcon</th>
+            <th>Job_order</th>
             <th>MO#</th>
             <th>Status</th>
             <th>Date Created</th>
@@ -56,7 +56,7 @@
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
            
-             <h3 class="modal-title">Add Subcon</h3>
+             <h3 class="modal-title">Add Job_order</h3>
              <input type="hidden" id="action">
              <input type="hidden" id="job_ordersID">
             </div>
@@ -65,29 +65,39 @@
                     <form class="form-horizontal" id="job_ordersForm" data-toggle="validator">
                         <div class="box-body">
                             <div class="form-group">
-                                <label for="name" class="col-sm-2 control-label">Job Order Name</label>
+                                <label for="marketing_order" class="col-sm-2 control-label">Marketing Order</label>
 
                                 <div class="col-sm-10">
-                                <input type="text" class="form-control" id="name" placeholder="Job Order Name" required>
+                                <select type="text" class="form-control" id="marketing_order" placeholder="Marketing Order" required></select>
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="code" class="col-sm-2 control-label">Job Order Code</label>
+                                <label for="subcon" class="col-sm-2 control-label">Job Order Code</label>
 
                                 <div class="col-sm-10">
                                 
-                                <input type="text" class="form-control" id="code" placeholder="Job Order Code" required>
+                                <select type="text" class="form-control" id="subcon" placeholder="Subcon" required></select>
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
-
                             <div class="form-group">
-                                <label for="job_orders_details" class="col-sm-2 control-label">Job Order Details</label>
+                                <label for="option" class="col-sm-2 control-label">Job Type</label>
+
+                                <div class="col-sm-10">
+                                <select class="form-control" id="job_type" placeholder="Job Type" style="resize:none" required>
+                                    <option value="spray">Spray</option>
+                                    <option value="finishing">Finishing</option>
+                                </select>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="job_orders_details" class="col-sm-2 control-label">Job Order Remarks</label>
 
                                 <div class="col-sm-10">
                                 
-                                <textarea type="text" class="form-control" id="job_orders_details" placeholder="Job Order Details" required></textarea>
+                                <textarea type="text" class="form-control" id="job_orders_details" placeholder="Job Order Remarks" required></textarea>
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
@@ -96,20 +106,16 @@
                                 <label for="bank_address" class="col-sm-2 control-label">Job Order Address</label>
 
                                 <div class="col-sm-10">
-                                
-                                <textarea type="text" class="form-control" id="bank_address" placeholder="Job Order Address" required></textarea>
-                                <div class="help-block with-errors"></div>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="inputStatus" class="col-sm-2 control-label">Status</label>
-
-                                <div class="col-sm-10">
-                                <select class="form-control" id="inputStatus" placeholder="Content" style="resize:none" required>
-                                    <option value="1">Enable</option>
-                                    <option value="0">Disable</option>
-                                </select>
+                                <table class="table responsive">
+                                    <thead>
+                                        <th>Select</th>
+                                        <th>Quantity</th>
+                                        <th>Product Name</th>
+                                        <th>Product Color</th>
+                                    </thead>
+                                    <tbody id="table_body">
+                                    </tbody>
+                                </table>
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
@@ -123,7 +129,7 @@
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="saveSubcon">Save Subcon</button>
+            <button type="button" class="btn btn-primary" id="saveJob_order">Save Job_order</button>
             </div>
         </div>
     <!-- /.modal-content -->
@@ -132,14 +138,14 @@
 </div>
 
 <!-- /.modal -->
-<div class="modal fade" id="deleteSubconModal"  role="dialog"  data-backdrop="static">
+<div class="modal fade" id="deleteJob_orderModal"  role="dialog"  data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
            
-             <h3 class="modal-title">Delete Subcon</h3>
+             <h3 class="modal-title">Delete Job_order</h3>
             </div>
             <div class="modal-body">
                 <input type="hidden" id="deleteKey">
@@ -147,7 +153,7 @@
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-danger" id="deleteSubcon">Delete</button>
+            <button type="button" class="btn btn-danger" id="deleteJob_order">Delete</button>
             </div>
         </div>
     <!-- /.modal-content -->
@@ -192,7 +198,7 @@
             $("#job_ordersModal").modal("show");
         });
 
-        $("#saveSubcon").click(function(){
+        $("#saveJob_order").click(function(){
             $("#job_ordersForm").submit();
         });
 
@@ -200,7 +206,7 @@
         var image_error = "";
         $("#job_ordersForm").validator().on('submit', function (e) {
            
-            var btn = $("#saveSubcon");
+            var btn = $("#saveJob_order");
             var action = $("#action").val();
             btn.button("loading");
             if (e.isDefaultPrevented()) {
@@ -292,8 +298,70 @@
             }
                return false;
         });
+        $("#marketing_order").select2({
+            minimumInputLength: 1,
+            ajax: {
+                url: "<?php echo base_url()."portal/marketing_order/get_marketing_order_selection";?>",
+                dataType: 'json',
+                type: "GET",
+                data: function (term) {
+                    return {
+                        term: term
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data.items
+                    };
+                }
 
-        $("#deleteSubcon").click(function(){
+            }
+        });
+        $("#subcon").select2({
+            minimumInputLength: 1,
+            ajax: {
+                url: "<?php echo base_url()."portal/subcon/get_subcon_selection";?>",
+                dataType: 'json',
+                type: "GET",
+                data: function (term) {
+                    return {
+                        term: term
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data.items
+                    };
+                }
+
+            }
+        });
+        $('#marketing_order').on('select2:select', function (e) {
+            var data = $('#marketing_order').select2('data');
+            data = { "invoice_id": data[0].invoice_id }
+            $.ajax({
+                    data: data,
+                    type: "get",
+                    url: "<?php echo base_url()."portal/invoices/get_invoice_list";?>",
+                    success: function(data){
+                        $("#table_body").html("");
+                        if(!data)
+                        {   
+                            return false;
+                        }
+                        data = JSON.parse(data);
+                        data.forEach(function(e){
+                            console.log(e["color"])
+                            $("#table_body").append("<tr><td><input type=checkbox name='jo_item[]' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td></tr>");
+                        });
+                        
+                    },
+                    error: function (request, status, error) {
+                        alert(request.responseText);
+                    }
+            });
+        });
+        $("#deleteJob_order").click(function(){
             var btn = $(this);
             var id = $("#deleteKey").val();
             var deleteItem = $("#deleteItem").html();
@@ -308,7 +376,7 @@
                             //alert("Data Save: " + data);
                             btn.button("reset");
                             table.draw("page");
-                            $("#deleteSubconModal").modal("hide");
+                            $("#deleteJob_orderModal").modal("hide");
                             toastr.error('Job Order ' + deleteItem + ' successfully deleted');
                         },
                         error: function (request, status, error) {
@@ -332,6 +400,7 @@
         });
 
         $('#inputStatus').select2(inputRoleConfig);
+        $('#job_type').select2(inputRoleConfig);
         function resetForm($form) {
             $form.find('input:text, input:password, input:file, textarea').val('');
             $form.find('input:radio, input:checkbox')
@@ -368,117 +437,14 @@
     }
     function _delete(id,item)
     {
-        $("#deleteSubconModal .modal-title").html("Delete Subcon");
+        $("#deleteJob_orderModal .modal-title").html("Delete Job_order");
         $("#deleteItem").html(item);
         $("#deleteKey").val(id);
-        $("#deleteSubconModal").modal("show");
+        $("#deleteJob_orderModal").modal("show");
     }
     
-    function img_preview(img_src)
-    {
-        $("#imgPreview").attr("src","<?php echo base_url()."uploads/job_orders/"?>"+img_src);
-        $("#imgPreviewModal").modal("show");
-    }
-
-    
-    
-    function set_image_loader(var_holder,file_holder)
-    {
-        $("#var_holder").val(var_holder);
-        $("#file_holder").val(file_holder);
-        $("#mediaGalleryModal").modal("show");
-    }
-
-    var new_table = $('#imageGalleryTable').DataTable({  
-            "language": {                
-                "infoFiltered": ""
-            },
-            "processing" : true,
-            "serverSide" : true,
-            "searching" : false,
-            "pageLength": 10, "bLengthChange": false,
-            "ajax" : "<?php echo base_url()."portal/media/get_media_list?module=job_orders";?>",
-            "initComplete": function(settings,json){
-                $('[data-toggle="tooltip"]').tooltip()
-            }
-            ,"columnDefs": [
-            { "visible": false,  "targets": [ 1 ] }
-        ], "order": [[ 0, 'desc' ]]
-        });
-
-    $('#galleryFormUpload').ajaxForm( {
-            dataType : 'json',
-            beforeSubmit: function() {
-                $("#startUpload").button("loading");
-                $('#uploadBox').html('<div class="progress"><div class="progress-bar progress-bar-aqua" id = "progressBar" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 0%"><span class="sr-only">20% Complete</span></div></div>');
-            },
-            uploadProgress: function ( event, position, total, percentComplete ) {
-                if (percentComplete == 100) {
-                    $('#progressBar').css('width',percentComplete+'%').html('Processing...');
-                } else {
-                    $('#progressBar').css('width',percentComplete+'%').html(percentComplete+'%');
-                }
-            },
-            success: function(data){
-                
-                if(!data)
-                {
-                    $("#startUpload").button("reset");
-                    toastr.error(data);
-                }
-                else
-                {   
-                    $("#startUpload").button("reset");
-                    new_table.draw();
-                    toastr.success("Upload Complete");
-                    $('#uploadBox').html('<div id="progressOverlay"><div class="progress progress-striped"><div class="bar" id="progressBar" style="width: 0%;">0%</div></div></div>');       
-                    $("#media_file").val('');     
-                    $('#uploadBox').html("");
-                }
-            
-            },
-            error: function (request, status, error) {
-                $("#startUpload").button("reset");
-                toastr.error(request.responseText);
-            }
-    });
-
-    $("#selectImage").click(function(){
-        $("#"+$("#var_holder").val()).val($('input[name=selected_image]:checked').val());
-        $("#"+$("#file_holder").val()).attr("src",$('input[name=selected_image]:checked').attr("data"));
-        $("#mediaGalleryModal").modal("hide"); 
-        new_table.draw();
-    });
-
-    function _delete_media(id,file_name)
-    {
-        $("#imgPreviewDel").attr("src",file_name);
-        $("#deleteImage").val(id);
-        $("#deleteImageModal").modal("show");
-    }
-
-    $("#deleteImageBtn").click(function(){
-        var btn = $(this);
-        var id = $("#deleteImage").val();
-        var data = { "id" : id };
-        btn.button("loading");
-
-        $.ajax({
-                data: data,
-                type: "post",
-                url: "<?php echo base_url()."portal/media/delete_media";?>",
-                success: function(data){
-                    //alert("Data Save: " + data);
-                    btn.button("reset");
-                    new_table.draw('page');
-                    $("#deleteImageModal").modal("hide");
-                    toastr.error('Image successfully deleted');
-                },
-                error: function (request, status, error) {
-                    alert(request.responseText);
-                }
-        });
-    });
+  
+  
 
     $(document).ready(main);
 </script>

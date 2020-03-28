@@ -129,7 +129,7 @@
 </div>
 <script>
 
-    $("body").removeClass("skin-blue").addClass("skin-purple-light ");
+    $("body").removeClass("skin-blue").addClass("skin-green-light");
     $("#inputProfileBirthday").datepicker({
             format: 'yyyy-mm-dd'
             });

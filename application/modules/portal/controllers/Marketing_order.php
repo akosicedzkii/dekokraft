@@ -73,10 +73,11 @@ class Marketing_order extends CI_Controller {
     {
         
         $search = $this->input->get("term[term]");
-        $this->db->like("name",$search);  
-        $this->db->where("status",1);  
-        $this->db->select("name as text"); 
+        $this->db->like("id",$search);  
+        $this->db->where("status",0);  
+        $this->db->select("id as text"); 
         $this->db->select("id as id");
+        $this->db->select("invoice_id");
         $this->db->limit(10);
         $filteredValues=$this->db->get("marketing_order")->result_array();
 
@@ -84,6 +85,18 @@ class Marketing_order extends CI_Controller {
             'items' => $filteredValues
         )); 
     }
+    
+    public function get_invoice_list()
+    {
+        $invoice_id = $this->input->get("invoice_id");
+        $this->db->select("product_variants.color,invoice_lines.*,products.description,products.code,products.fob");
+        $this->db->join("product_variants"," product_variants.id=invoice_lines.product_id");
+        $this->db->join("products"," products.id=product_variants.product_id");
+        $this->db->where("invoice_id",$invoice_id);
+        $result = $this->db->get("invoice_lines")->result();
+        echo json_encode($result);
+    }
+    
     public function get_marketing_order_list()
     {
         $this->load->model("portal/data_table_model","dt_model");  
