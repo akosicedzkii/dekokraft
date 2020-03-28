@@ -280,7 +280,7 @@ td { font-size: 11px; }
              <h3 class="modal-title">Cover Image Preview</h3>
             </div>
             <div class="modal-body">
-                <center><img src="" id="imgPreview" style="width:100%;"></center>
+                <center><img src="" id="imgPreview" style="width:50%;"></center>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
