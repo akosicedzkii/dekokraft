@@ -27,8 +27,9 @@
         <tr>
             <th>ID</th>
             <th>Job Order Number</th>
-            <th>Job_order</th>
+            <th>Subcon</th>
             <th>MO#</th>
+            <th>Remarks</th>
             <th>Status</th>
             <th>Date Created</th>
             <th>Created By</th>
@@ -64,48 +65,48 @@
                 <div>
                     <form class="form-horizontal" id="job_ordersForm" data-toggle="validator">
                         <div class="box-body">
-                            <div class="form-group">
-                                <label for="marketing_order" class="col-sm-2 control-label">Marketing Order</label>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="marketing_order" class="col-sm-6 control-label">Marketing Order</label>
 
-                                <div class="col-sm-10">
-                                <select type="text" class="form-control" id="marketing_order" placeholder="Marketing Order" required></select>
-                                <div class="help-block with-errors"></div>
+                                        <div class="col-sm-6">
+                                        <select type="text" style="width:150px;" class="form-control" id="marketing_order" placeholder="Marketing Order" required><option value="">Select Marketing Order</option></select>
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="subcon" class="col-sm-2 control-label">Job Order Code</label>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="subcon" class="col-sm-6 control-label">Subcon</label>
 
-                                <div class="col-sm-10">
-                                
-                                <select type="text" class="form-control" id="subcon" placeholder="Subcon" required></select>
-                                <div class="help-block with-errors"></div>
+                                        <div class="col-sm-6">
+                                        
+                                        <select type="text"  style="width:150px;" class="form-control" id="subcon" placeholder="Subcon" required><option value="">Select Subcon</option></select>
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="option" class="col-sm-2 control-label">Job Type</label>
+                                <div class="col-md-4">
+                                <div class="form-group">
+                                <label for="option" class="col-sm-6 control-label">Job Type</label>
 
-                                <div class="col-sm-10">
+                                <div class="col-sm-6">
                                 <select class="form-control" id="job_type" placeholder="Job Type" style="resize:none" required>
+                                    
                                     <option value="spray">Spray</option>
                                     <option value="finishing">Finishing</option>
                                 </select>
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="job_orders_details" class="col-sm-2 control-label">Job Order Remarks</label>
-
-                                <div class="col-sm-10">
-                                
-                                <textarea type="text" class="form-control" id="job_orders_details" placeholder="Job Order Remarks" required></textarea>
-                                <div class="help-block with-errors"></div>
                                 </div>
                             </div>
+                           
 
                             <div class="form-group">
-                                <label for="bank_address" class="col-sm-2 control-label">Job Order Address</label>
 
-                                <div class="col-sm-10">
+                                <div class="col-sm-12"> 
                                 <table class="table responsive">
                                     <thead>
                                         <th>Select</th>
@@ -116,6 +117,15 @@
                                     <tbody id="table_body">
                                     </tbody>
                                 </table>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="remarks" class="col-sm-2 control-label">Job Order Remarks</label>
+
+                                <div class="col-sm-10">
+                                
+                                <textarea type="text" class="form-control" id="remarks" placeholder="Job Order Remarks" required></textarea>
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
@@ -205,7 +215,10 @@
         var image_correct = true;
         var image_error = "";
         $("#job_ordersForm").validator().on('submit', function (e) {
-           
+            var selected = [];
+            $.each($("input[name='jo_item']:checked"), function(){            
+                selected.push($(this).val());
+            });
             var btn = $("#saveJob_order");
             var action = $("#action").val();
             btn.button("loading");
@@ -213,25 +226,17 @@
                 btn.button("reset"); 
             } else {
                 e.preventDefault();
-                var name = $("#name").val();
-                var code = $("#code").val();
-                var status = $("#inputStatus").val();
+               
                 var job_orders_id = $("#job_ordersID").val();
-                var job_orders_details  = $("#job_orders_details").val();
-                var bank_address  = $("#bank_address").val();
-                if(name == "" || code == "")
-                {
-                    btn.button("reset"); 
-                    return false;
-                }
+                
 
                 var formData = new FormData();
                 formData.append('id', job_orders_id);
-                formData.append('name', name);
-                formData.append('code', code);
-                formData.append('job_orders_details', job_orders_details);
-                formData.append('address', bank_address);
-                formData.append('status', status);
+                formData.append('marketing_order', $("#marketing_order").val());
+                formData.append('subcon', $("#subcon").val());
+                formData.append('job_type', $("#job_type").val());
+                formData.append('remarks', $("#remarks").val());
+                formData.append('selected_items',selected)
                 // Attach file
                  //fromthis    
                  var url = "<?php echo base_url()."portal/job_orders/add_job_orders";?>";
@@ -272,10 +277,12 @@
                     },
                     mimeType:"multipart/form-data"
                 }).done(function(data){ 
-                    if(!data)
+                    if(data!=true)
                     {
+                         $('#uploadBoxMain').html('');         
                         btn.button("reset");
-                        toastr.error(data);
+                        
+                        toastr.error(JSON.parse(data).warning);
                     }
                     else
                     {
@@ -298,6 +305,63 @@
             }
                return false;
         });
+        
+        initialize_selects()
+        $("#deleteJob_order").click(function(){
+            var btn = $(this);
+            var id = $("#deleteKey").val();
+            var deleteItem = $("#deleteItem").html();
+            var data = { "id" : id };
+            btn.button("loading");
+
+            $.ajax({
+                        data: data,
+                        type: "post",
+                        url: "<?php echo base_url()."portal/job_orders/delete_job_orders";?>",
+                        success: function(data){
+                            //alert("Data Save: " + data);
+                            btn.button("reset");
+                            table.draw("page");
+                            $("#deleteJob_orderModal").modal("hide");
+                            toastr.error('Job Order ' + deleteItem + ' successfully deleted');
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                        }
+                });
+        });
+
+        $('#job_ordersModal').on('hidden.bs.modal', function (e) {
+            $(this)
+                .find("input,textarea,select")
+                .val('')
+                .end()
+                .find("input[type=checkbox], input[type=radio]")
+                .prop("checked", "")
+                .end();
+            $("#job_type").val('spray').trigger('change');
+            $("#marketing_order").val('').trigger('change');
+            $("#subcon").val('').trigger('change');
+            $('#inputCoverImage').val("");
+            $('#coverImgPrev').attr("src","");
+            $("#table_body").html("");
+            $("#remarks").val("");
+            $("#job_ordersForm").validator('destroy');
+            
+            
+        });
+
+        $('#inputStatus').select2(inputRoleConfig);
+        $('#job_type').select2(inputRoleConfig);
+        function resetForm($form) {
+            $form.find('input:text, input:password, input:file, textarea').val('');
+            $form.find('input:radio, input:checkbox')
+                .removeAttr('checked').removeAttr('selected');
+        }
+      
+    };
+    function initialize_selects()
+    {
         $("#marketing_order").select2({
             minimumInputLength: 1,
             ajax: {
@@ -338,6 +402,7 @@
         });
         $('#marketing_order').on('select2:select', function (e) {
             var data = $('#marketing_order').select2('data');
+            console.log(data);
             data = { "invoice_id": data[0].invoice_id }
             $.ajax({
                     data: data,
@@ -352,7 +417,7 @@
                         data = JSON.parse(data);
                         data.forEach(function(e){
                             console.log(e["color"])
-                            $("#table_body").append("<tr><td><input type=checkbox name='jo_item[]' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td></tr>");
+                            $("#table_body").append("<tr><td><input type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td></tr>");
                         });
                         
                     },
@@ -361,53 +426,7 @@
                     }
             });
         });
-        $("#deleteJob_order").click(function(){
-            var btn = $(this);
-            var id = $("#deleteKey").val();
-            var deleteItem = $("#deleteItem").html();
-            var data = { "id" : id };
-            btn.button("loading");
-
-            $.ajax({
-                        data: data,
-                        type: "post",
-                        url: "<?php echo base_url()."portal/job_orders/delete_job_orders";?>",
-                        success: function(data){
-                            //alert("Data Save: " + data);
-                            btn.button("reset");
-                            table.draw("page");
-                            $("#deleteJob_orderModal").modal("hide");
-                            toastr.error('Job Order ' + deleteItem + ' successfully deleted');
-                        },
-                        error: function (request, status, error) {
-                            alert(request.responseText);
-                        }
-                });
-        });
-
-        $('#job_ordersModal').on('hidden.bs.modal', function (e) {
-            $(this)
-                .find("input,textarea,select")
-                .val('')
-                .end()
-                .find("input[type=checkbox], input[type=radio]")
-                .prop("checked", "")
-                .end();
-            $("#inputStatus").val('1').trigger('change');
-            $('#inputCoverImage').val("");
-            $('#coverImgPrev').attr("src","");
-            $("#job_ordersForm").validator('destroy');
-        });
-
-        $('#inputStatus').select2(inputRoleConfig);
-        $('#job_type').select2(inputRoleConfig);
-        function resetForm($form) {
-            $form.find('input:text, input:password, input:file, textarea').val('');
-            $form.find('input:radio, input:checkbox')
-                .removeAttr('checked').removeAttr('selected');
-        }
-      
-    };
+    }
     function _edit(id)
     {
         $("#job_ordersModal .modal-title").html("Edit <?php echo ucfirst($module_name);?>");
@@ -422,12 +441,32 @@
                 url: "<?php echo base_url()."portal/job_orders/get_job_orders_data";?>",
                 success: function(data){
                     data = JSON.parse(data);
-                    $("#name").val(data.job_orders.name);
-                    $("#code").val(data.job_orders.code);
-                    $("#inputStatus").val(data.job_orders.status).trigger('change');
+                    console.log(data);
+                        $("#table_body").html("");
+                    $("#marketing_order").append(new Option(data.marketing_order.id,data.marketing_order.invoice_id,  true, true)).trigger('change');
+                    $("#subcon").append(new Option(data.subcon.name,data.subcon.id,  true, true)).trigger('change');
                     $("#job_ordersID").val(data.job_orders.id);
-                    $("#job_orders_details").val(data.job_orders.job_orders_details);
-                    $("#bank_address").val(data.job_orders.address);
+                    $("#remarks").val(data.job_orders.remarks);
+                    $("#job_type").val(data.job_orders.job_type).trigger('change');
+                        data2 = data.invoice_lines;
+                        
+                        data2.forEach(function(e){
+                            console.log(e["color"])
+                            if(e["jo_line_id"] != null)
+                            {
+                                if(data.job_orders.id == e["jo_id"])
+                                {
+                                     $("#table_body").append("<tr><td><input checked type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td></tr>");
+                                }else{
+                                
+                                $("#table_body").append("<tr><td><input type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td></tr>");
+                            }
+                               
+                            }else{
+                                
+                                $("#table_body").append("<tr><td><input type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td></tr>");
+                            }
+                        });
                     $("#job_ordersModal").modal("show");
                 },
                 error: function (request, status, error) {

@@ -17,29 +17,71 @@ class Job_orders extends CI_Controller {
 
 	public function add_job_orders()
 	{
-        $this->job_orders_model->name = $this->input->post("name");
-        $this->job_orders_model->code = $this->input->post("code");
-        $this->job_orders_model->status = $this->input->post("status");
-        $this->job_orders_model->address = $this->input->post("address");
-        $this->job_orders_model->job_orders_details = $this->input->post("job_orders_details");
+        if($this->input->post("selected_items") == null)
+        {
+            echo "Please select an item!";
+            die();
+        }
+        $jo_items = explode(",",$this->input->post("selected_items"));
+        $counter = 1;
+        foreach($jo_items as $item)
+        {
+            $result = $this->job_orders_model->validate_jo_item($item,$this->input->post("job_type"));
+            if($result != null)
+            {
+                $results["warning"] = "Line # ". $counter ." already exist on other JO#:". $result->jo_id;
+                echo json_encode($results);
+                die();
+            }
+
+            $counter++;
+        }
+        $this->job_orders_model->mo_id = $this->input->post("marketing_order");
+        $this->job_orders_model->subcon_id = $this->input->post("subcon");
+        $this->job_orders_model->status = 0;
+        $this->job_orders_model->remarks = $this->input->post("remarks");
+        $this->job_orders_model->job_type = $this->input->post("job_type");
         
         $this->job_orders_model->date_created = date("Y-m-d H:i:s A");
         $this->job_orders_model->created_by =  $this->session->userdata("USERID");
-        echo $this->job_orders_model->insert_job_orders();
+       
+        echo $this->job_orders_model->insert_job_orders($jo_items);
 	}
 
 	public function edit_job_orders()
 	{
         $job_orders_id = $this->input->post("id");
-        $this->job_orders_model->name = $this->input->post("name");
-        $this->job_orders_model->code = $this->input->post("code");
-        $this->job_orders_model->address = $this->input->post("address");
-        $this->job_orders_model->job_orders_details = $this->input->post("job_orders_details");
-        $this->job_orders_model->status = $this->input->post("status");
+        $this->job_orders_model->id = $this->input->post("id");
+        if($this->input->post("selected_items") == null)
+        {
+            echo "Please select an item!";
+            die();
+        }
+        $jo_items = explode(",",$this->input->post("selected_items"));
+        $counter = 1;
+        foreach($jo_items as $item)
+        {
+            $result = $this->job_orders_model->validate_jo_item($item,$this->input->post("job_type"));
+            if($result != null)
+            {
+                $results["warning"] = "Line # ". $counter ." already exist on other JO#:". $result->jo_id;
+                echo json_encode($results);
+                die();
+            }
+            $counter++;
+        }
+        $this->job_orders_model->mo_id = $this->input->post("marketing_order");
+        $this->job_orders_model->subcon_id = $this->input->post("subcon");
+        $this->job_orders_model->status = 0;
+        $this->job_orders_model->remarks = $this->input->post("remarks");
+        $this->job_orders_model->job_type = $this->input->post("job_type");
+       
         $this->job_orders_model->date_modified = date("Y-m-d H:i:s A");
         $this->job_orders_model->modified_by =  $this->session->userdata("USERID");
         $this->job_orders_model->id = $job_orders_id;
-        echo $this->job_orders_model->update_job_orders();
+        $this->db->where("jo_id", $job_orders_id);
+        $this->db->delete("job_order_lines");
+        echo $this->job_orders_model->update_job_orders($jo_items);
 	}
 
 	public function delete_job_orders()
@@ -49,9 +91,12 @@ class Job_orders extends CI_Controller {
         $data_job_orders = $this->db->get("job_orders");
         $this->db->where("id",$id);
         $data["status"] = 3;
-        echo $result = $this->db->update("job_orders",$data);
+        echo $result = $this->db->delete("job_orders");
+        
+        $this->db->where("jo_id",$id);
+        $result = $this->db->delete("job_order_lines");
         $data = json_encode($data_job_orders->row());
-        $this->logs->log = "Deleted job_orders - ID:". $data_job_orders->row()->id .", job_orders Title: ".$data_job_orders->row()->name ;
+        $this->logs->log = "Deleted job_orders - ID:". $data_job_orders->row()->id  ;
         $this->logs->details = json_encode($data);
         $this->logs->module = "job_orders";
         $this->logs->created_by = $this->session->userdata("USERID");
@@ -66,6 +111,15 @@ class Job_orders extends CI_Controller {
         $result = $this->db->get("job_orders");
         $job_orders = $result->row(); 
         $return["job_orders"] = $job_orders;
+        $return["subcon"] = $this->db->where("id", $job_orders->subcon_id)->get("subcon")->row();
+        $return["marketing_order"] =  $this->db->where("id", $job_orders->mo_id)->get("marketing_order")->row();
+        
+        $this->db->select("job_order_lines.id as jo_line_id,job_order_lines.jo_id,product_variants.color,invoice_lines.*,products.description,products.code,products.fob");
+        $this->db->join("job_order_lines"," job_order_lines.invoice_line_id=invoice_lines.id", 'left');
+        $this->db->join("product_variants"," product_variants.id=invoice_lines.product_id");
+        $this->db->join("products"," products.id=product_variants.product_id");
+        $this->db->where("invoice_lines.invoice_id",$return["marketing_order"]->invoice_id);
+        $return["invoice_lines"] = $this->db->order_by("id")->get("invoice_lines")->result();
         echo json_encode($return); 
     } 
 
@@ -73,7 +127,7 @@ class Job_orders extends CI_Controller {
     {
         
         $search = $this->input->get("term[term]");
-        $this->db->like("name",$search);  
+        $this->db->like("name",$search); 
         $this->db->where("status",1);  
         $this->db->select("name as text"); 
         $this->db->select("id as id");
@@ -84,12 +138,23 @@ class Job_orders extends CI_Controller {
             'items' => $filteredValues
         )); 
     }
+
+    public function get_invoice_list()
+    {
+        $invoice_id = $this->input->get("invoice_id");
+        $this->db->select("product_variants.color,invoice_lines.*,products.description,products.code,products.fob");
+        $this->db->join("product_variants"," product_variants.id=invoice_lines.product_id");
+        $this->db->join("products"," products.id=product_variants.product_id");
+        $this->db->where("invoice_id",$invoice_id);
+        $result = $this->db->get("invoice_lines")->result();
+        echo json_encode($result);
+    }
     public function get_job_orders_list()
     {
         $this->load->model("portal/data_table_model","dt_model");  
-        $this->dt_model->select_columns = array("t1.id","t1.id","(SELECT name from subcon WHERE ID = t1.subcon_id) as subcon_id","t1.mo_id","IF(t1.status=1,'Active','Inactive') as status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
-        $this->dt_model->where  = array("t1.id","t1.id","t1.subcon_id","t1.mo_id","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");  
-        $select_columns = array("id","id","subcon_id","mo_id","status","date_created","created_by","date_modified","modified_by");  
+        $this->dt_model->select_columns = array("t1.id","t1.id","(SELECT name from subcon WHERE ID = t1.subcon_id) as subcon_id","t1.mo_id","t1.remarks","IF(t1.status=1,'Active','Inactive') as status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
+        $this->dt_model->where  = array("t1.id","t1.id","t1.subcon_id","t1.mo_id","t1.remarks","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");  
+        $select_columns = array("id","id","subcon_id","mo_id","remarks","status","date_created","created_by","date_modified","modified_by");  
         $this->dt_model->table = "job_orders AS t1 LEFT JOIN user_accounts AS t2 ON t2.id = t1.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t1.modified_by ";  
         $this->dt_model->index_column = "t1.id";
         $this->dt_model->staticWhere = "t1.status != 3"; 
