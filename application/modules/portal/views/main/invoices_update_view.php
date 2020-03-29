@@ -176,7 +176,9 @@
             <div class="col-xs-12">
             <div id="uploadBoxMain" class="col-md-12">
                                 </div>
-            <a href="<?php echo base_url();?>portal/main/page/invoice_print?invoice_id=" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+                                
+            <a href="<?php echo base_url();?>portal/main/invoices/print?invoice_id=<?php echo $invoice->id;?>" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
+            <a  href="<?php echo base_url();?>portal/main/invoices/list" class="btn btn-success"><i class="fa fa-credit-card"></i> Cancel</a>
             <button type="submit" id="save_invoice" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Save Invoice</button>
             <!-- <button type="button" class="btn btn-primary pull-right" style="margin-right: 5px;">
                 <i class="fa fa-download"></i> Generate PDF
