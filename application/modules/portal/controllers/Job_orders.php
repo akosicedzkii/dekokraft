@@ -192,7 +192,8 @@ class Job_orders extends CI_Controller {
                     {
                         if($aRow[$col] == "Pending")
                         {
-                            $btns = '<a href="#" onclick="_complete('.$aRow['id'].',\''.$aRow["id"].'\');return false;" class="glyphicon glyphicon-check text-green" data-toggle="tooltip" name="Complete Purchase Order"></a>';
+                            $btns = '<a href="#" onclick="_complete('.$aRow['id'].',\''.$aRow["id"].'\');return false;" class="glyphicon glyphicon-check text-green" data-toggle="tooltip" name="Complete Purchase Order"></a>
+                                    <a href="#" onclick="_edit('.$aRow['id'].');return false;" class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" name="Edit"></a>';
                             $row[] = '<center><small class="label bg-gray">'.$aRow[$col].'</small></center>';
                         }
                         else if($aRow[$col] == "Completed")
@@ -218,7 +219,7 @@ class Job_orders extends CI_Controller {
             }
             
             $btns .= '
-            <a href="#" onclick="_edit('.$aRow['id'].');return false;" class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" name="Edit"></a>
+            
             <a href="#" onclick="_delete('.$aRow['id'].',\''.$aRow["id"].'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" name="Delete"></a>';
             array_push($row,$btns);
             $output['data'][] = $row;
