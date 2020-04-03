@@ -152,7 +152,13 @@ td { font-size: 11px; }
                                         <label for="location" class="col-sm-2 control-label">Location</label>
 
                                         <div class="col-sm-10">
-                                        <input  class="form-control" maxlength="20" id="location" placeholder="Location" type="text">
+                                        
+                                        <table class="table" id="tbl_location">
+                                            <tr><td><input  class="form-control location" id="location" name="location[]" placeholder="Location" type="text"></td></tr>
+                                        </table>
+                                        
+                                        <a href="#" class="btn btn-success" id="add_loc">+</a>
+                                        <a href="#" class="btn btn-danger" id="sub_loc">-</a>
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
@@ -563,7 +569,12 @@ $uploadCrop .croppie({
     enableOrientation: true,
     mouseWheelZoom: 'ctrl'
 });
-
+$("#add_loc").click(function(){
+    $("#tbl_location").append('<tr><td><input  class="form-control location" id="location" name="location[]" placeholder="Location" type="text"></td></tr>')
+});
+$("#sub_loc").click(function(){
+    $("#tbl_location tr:last").remove();
+});
 $("#add_product").click(function(){
     $("#action").val("add");
     $("#upload").attr("required","required");
@@ -977,11 +988,15 @@ $('.actionDone').on('click', function(){
                 var color_abb = $("#color_abb").val();
                 var product = $("#product").val();
                 var count = $("#count").val();
-                var location = $("#location").val();
                 var code = $("#code").val();
                 var molds = $("#molds").val();
                 var proto = $("#proto").val();
-
+                values = [];
+                $("input[name='location[]']").each(function() {
+                    values.push($(this).val());
+                });
+                var location = values.join(",");
+                
                 var formData = new FormData();
                 formData.append('id', product_variants_id);
                 formData.append('title', title);
@@ -1153,6 +1168,7 @@ $('.actionDone').on('click', function(){
             $("#best_price").removeAttr("disabled");
             $("#old_price").removeAttr("disabled");
             $("#location").removeAttr("disabled");
+            $("#tbl_location").html('<tr><td><input  class="form-control" id="location" name="location[]" placeholder="Location" type="text"></td></tr>')
             $("#count").removeAttr("disabled");
             $("#proto").removeAttr("disabled");
             $("#molds").removeAttr("disabled");
@@ -1207,7 +1223,16 @@ $('.actionDone').on('click', function(){
                     $("#lowest_cost").val(data.product_variants.lowest_cost);
                     $("#best_price").val(data.product_variants.best_price);
                     $("#old_price").val(data.product_variants.best_price);
-                    $("#location").val(data.product_variants.location);
+                    //$("#location").val(data.product_variants.location);
+                    var str_array = data.product_variants.location.split(',');
+                    
+                    $("#tbl_location").html("");
+                    for(var i = 0; i < str_array.length; i++) {
+                    // Trim the excess whitespace.
+                    str_array[i] = str_array[i].replace(/^\s*/, "").replace(/\s*$/, "");
+                    // Add additional code here, such as:
+                        $("#tbl_location").append('<tr><td><input value="'+str_array[i]+'" class="form-control location" id="location" name="location[]" placeholder="Location" type="text"></td></tr>')
+                    }
                     $("#proto").val(data.product_variants.proto);
                     $("#molds").val(data.product_variants.molds);
                     $("#count").val(data.product_variants.count);
