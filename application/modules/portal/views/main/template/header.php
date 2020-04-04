@@ -348,9 +348,9 @@
          } 
        ?>
        <?php 
-         if (in_array("product_profile", $menu)) {
+         if (in_array("product_profiles", $menu)) {
             ?>
-             <li <?php if($module_name == "product_profile"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/product_profile"?>"><i class="fa fa-list-alt"></i><span>Product Profile</span></a></li>
+             <li <?php if($module_name == "product_profiles"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/product_profiles/list"?>"><i class="fa fa-list-alt"></i><span>Product Profile</span></a></li>
             <?php
          } 
        ?>

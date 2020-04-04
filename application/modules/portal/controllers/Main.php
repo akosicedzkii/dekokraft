@@ -240,7 +240,106 @@ class Main extends CI_Controller {
         }
 
     }
-	
+	public function product_profiles()
+    {
+        
+        $page = $this->uri->segment(4, 0); 
+       
+        if (!in_array($this->router->fetch_method(), $this->user_access)) 
+        {
+            redirect(base_url()."portal/main/".$this->default_page);
+        }
+        if($page == "new")
+        {
+            $module["module_name"] = $this->router->fetch_method();
+            $module["menu"] = $this->user_access;
+            
+            $product_variant_id = $this->input->get("product_variant_id");
+            $this->db->select("product_variants.*,products.class,products.code,products.description");
+            $this->db->join("products","products.id=product_variants.product_id");
+            $this->db->where("product_variants.id",$product_variant_id);
+            $module["product_variants"] = $this->db->get("product_variants")->row();
+            $product_profile_id = $this->db->where("product_variant_id",$product_variant_id)->get("product_profiles")->row();
+            $module["material_groups"] = null;
+            $ret = array();
+            if( !$product_profile_id == null){
+                $this->db->where("product_profile_id",$product_profile_id->id);
+                $result =  $this->db->get("product_material_group")->result_array();
+                
+                if( $result != null)
+                {
+                    foreach($result as $res)
+                    {
+                        $this->db->join("materials","materials.id=product_profile_materials.material_id");
+                        $material_list =$this->db->where("product_material_group_id",$res["id"])->get("product_profile_materials")->result_array();
+                        array_push($res,$material_list);
+                        array_push($ret,$res);
+                    }
+                }
+            }
+            $module["material_groups"] = $ret;
+            $this->load->view('main/template/header',$module);
+            $this->load->view('main/product_profiles_add_view',$module);
+            $this->load->view('main/template/footer');
+        }
+        else if($page == "print")
+        {
+            $invoice_id = $this->input->get("invoice_id");
+            $module["invoice"] = $this->db->where("id",$invoice_id)->get("invoices")->row();
+            $module["mo"] = $this->db->where("invoice_id",$invoice_id)->get("marketing_order")->row();
+            $module["customer_address"] = $this->db->where("id",$module["invoice"]->customer_id)->get("customers")->row();
+            $module["bank"] = $this->db->where("id",$module["invoice"]->bank)->get("banks")->row();
+            $module["payment_terms"] = $this->db->where("id",$module["invoice"]->payment_terms)->get("payment_terms")->row();
+            if( $module["invoice"] == null)
+            {
+                echo "invoice not found";
+            }
+            $this->db->select("product_variants.color,invoice_lines.*,products.description,products.code,products.fob");
+            $this->db->join("product_variants"," product_variants.id=invoice_lines.product_id");
+            $this->db->join("products"," products.id=product_variants.product_id");
+            $this->db->where("invoice_id",$invoice_id);
+            $module["invoice_lines"]= $this->db->get("invoice_lines")->result();
+            $module["module_name"] = $this->router->fetch_method();
+            $module["menu"] = $this->user_access;
+            $this->load->view('main/product_profiles_print_view',$module);
+        }
+        else if($page == "view")
+        {
+            $module["module_name"] = $this->router->fetch_method();
+            $module["menu"] = $this->user_access;
+            $this->load->view('main/template/header',$module);
+            $this->load->view('main/product_profiles__solo_view',$module);
+            $this->load->view('main/template/footer');
+        }
+        else if($page == "edit")
+        {
+            $invoice_id = $this->input->get("invoice_id");
+            $module["invoice"] = $this->db->where("id",$invoice_id)->get("invoices")->row();
+            $module["mo"] = $this->db->where("invoice_id",$invoice_id)->get("marketing_order")->row();
+            $module["customer_address"] = $this->db->where("id",$module["invoice"]->customer_id)->get("customers")->row();
+            $module["bank"] = $this->db->where("id",$module["invoice"]->bank)->get("banks")->row();
+            $module["payment_terms"] = $this->db->where("id",$module["invoice"]->payment_terms)->get("payment_terms")->row();
+            if( $module["invoice"] == null)
+            {
+                echo "invoice not found";
+            }
+            $module["invoice_lines"] = $this->db->where("invoice_id",$invoice_id)->get("invoice_lines");
+            $module["module_name"] = $this->router->fetch_method();
+            $module["menu"] = $this->user_access;
+            $this->load->view('main/template/header',$module);
+            $this->load->view('main/product_profiles_add_view',$module);
+            $this->load->view('main/template/footer');
+        }
+        else if($page == "list")
+        {
+            $module["module_name"] = $this->router->fetch_method();
+            $module["menu"] = $this->user_access;
+            $this->load->view('main/template/header',$module);
+            $this->load->view('main/product_profiles_view',$module);
+            $this->load->view('main/template/footer');
+        }
+
+    }
 
 	public function get_profile_data()
     {
