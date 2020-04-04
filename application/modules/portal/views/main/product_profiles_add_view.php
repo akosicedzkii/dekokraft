@@ -28,7 +28,7 @@
         <br>
         <div class="row invoice-info">
             <div class="col-sm-6 invoice-col">
-                <center><img src="<?php echo base_url("uploads/product_variants/").$product_variants->cover_image;?>" class="image"></center>
+                <center><img style="width:25%;" src="<?php echo base_url("uploads/product_variants/").$product_variants->cover_image;?>" class="image"></center>
             </div>
             <div class="col-sm-6 invoice-col">
                 <table class="table" id="listing">
