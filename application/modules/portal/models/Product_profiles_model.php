@@ -23,7 +23,7 @@ class Product_profiles_model extends CI_Model {
                 $insertId = $this->db->insert_id();
                 $this->id = $insertId;
             }else{
-                
+                $this->db->where("product_variant_id",$this->product_variant_id);
                 $this->id = $this->db->get("product_profiles")->row()->id;
             }
             
@@ -51,7 +51,7 @@ class Product_profiles_model extends CI_Model {
             $this->logs->module = "product_profiles";
             $this->logs->created_by = $this->session->userdata("USERID");
             $this->logs->insert_log();
-        
+            echo 1;
         }
 
         public function update_product_profiles()

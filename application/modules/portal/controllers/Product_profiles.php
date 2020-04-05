@@ -50,18 +50,21 @@ class Product_profiles extends CI_Controller {
         echo $this->product_profiles_model->update_product_profiles();
 	}
 
-	public function delete_product_profiles()
+	public function delete_product_materials()
 	{
         $id = $this->input->post("id");
         $this->db->where("id",$id);
         
-        $data_product_profiles = $this->db->get("product_profiles");
+        $data_product_profiles = $this->db->get("product_material_group");
+        
+        $this->db->where("product_material_group_id",$id);
+        $data_product_profile_materials  = $this->db->get("product_profile_materials");
         $this->db->where("id",$id);
-        $data["status"] = 3; 
-        echo $result = $this->db->update("product_profiles",$data);
-        unlink($upload_path = './uploads/product_profiles/'.$data_product_profiles->row()->cover_image);
+        $result = $this->db->delete("product_material_group");
+        $this->db->where("product_material_group_id",$id);
+        echo $result = $this->db->delete("product_profile_materials");
         $data = json_encode($data_product_profiles->row());
-        $this->logs->log = "Deleted Product - ID:". $data_product_profiles->row()->id .", Product Title: ".$data_product_profiles->row()->title ;
+        $this->logs->log = "Deleted Material Group ID - ID:". $data_product_profiles->row()->id .", Material Group Name: ".$data_product_profiles->row()->title ;
         $this->logs->details = json_encode($data);
         $this->logs->module = "product_profiles";
         $this->logs->created_by = $this->session->userdata("USERID");
@@ -118,10 +121,10 @@ class Product_profiles extends CI_Controller {
             $this->dt_model->select_columns = array("t7.id","t1.class","t1.code","t1.description","t7.color","t6.id as product_profile_id","t6.date_created","t2.username as created_by","t6.date_modified","t3.username as modified_by");  
         }
       
-        $this->dt_model->where  = array("t7.id","t1.class","t1.code","t1.description","t7.color","t6.id as product_profile_id");
+        $this->dt_model->where  = array("t1.class","t1.code","t1.description","t7.color");
         if($this->session->userdata("USERTYPE") ==1)
         {
-            $this->dt_model->where  = array("t7.id","t1.class","t1.code","t1.description","t7.color","t6.id as product_profile_id","t6.date_created","t2.username","t6.date_modified","t3.username");  
+            $this->dt_model->where  = array("t1.class","t1.code","t1.description","t7.color","t6.date_created","t2.username","t6.date_modified","t3.username");  
         }  
         
         $select_columns = array("id","class","code","description","color","product_profile_id");    
@@ -130,7 +133,7 @@ class Product_profiles extends CI_Controller {
         }
         $this->dt_model->table = "product_variants AS t7  LEFT JOIN products as t1 ON t1.id = t7.product_id LEFT JOIN product_profiles as t6 ON t6.product_variant_id = t1.id LEFT JOIN user_accounts AS t2 ON t2.id = t6.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t6.modified_by";  
         $this->dt_model->index_column = "t1.id";
-        $this->dt_model->staticWhere = "t1.status != 3"; 
+        $this->dt_model->staticWhere = "t1.status != 3";  
         $result = $this->dt_model->get_table_list();
         $output = $result["output"];
         $rResult = $result["rResult"];

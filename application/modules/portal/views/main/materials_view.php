@@ -368,8 +368,8 @@
                     data = JSON.parse(data);
                     $("#material_name").val(data.materials.material_name);
                     $("#cost").val(data.materials.cost);
-                    $("#unit").val(data.materials.unit);
-                    $("#jp").val(data.materials.jp);
+                    $("#unit").val(data.materials.unit).trigger('change');
+                    $("#jp").val(data.materials.jp).trigger('change');
                     $("#inputStatus").val(data.materials.status).trigger('change');
                     $("#materialsID").val(data.materials.id);
                     $("#materialsModal").modal("show");

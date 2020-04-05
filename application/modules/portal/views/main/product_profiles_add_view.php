@@ -60,14 +60,14 @@
                         foreach($material_groups as $material){
                             ?>
                             <tr>
-                                <td><h4><?php echo $material["material_group_name"];?></h4>
+                                <td><h4><?php echo $material["material_group_name"];?><span class="pull-right"><a href="#" onclick="_edit(<?php echo  $material["id"]?>);" class="btn btn-info">Edit</a>&emsp;<a href="#" onclick="_delete(<?php echo  $material["id"]?>,'<?php echo  $material["material_group_name"];?>');" class="btn btn-danger">Delete</a></span></h4>
                                 <table  class="table" style='width:100%;'>
                                         <thead>
                                             <tr>
-                                            <th>Material</th>
-                                            <th>JP</th>
-                                            <th>QTY</th>
-                                            <th>Unit</th>
+                                            <th style="width:55%;">Material</th>
+                                            <th style="width:15%;">JP</th>
+                                            <th style="width:15%;">QTY</th>
+                                            <th style="width:15%;">Unit</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tbody_materialss">
@@ -172,6 +172,33 @@
     </div>
 <!-- /.modal-dialog -->
 </div>
+
+<!-- /.modal -->
+<div class="modal fade" id="deleteMaterialsModal"  role="dialog"  data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+           
+             <h3 class="modal-title">Delete Materials</h3>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="deleteKey">
+                <center><h4>Are you sure to delete <label id="deleteItem"></label></h4></center>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" id="deleteMaterials">Delete</button>
+            </div>
+        </div>
+    <!-- /.modal-content -->
+    </div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
 <script>
 
 material_counter = 1;
@@ -216,16 +243,49 @@ $("#add_material_group").click(function(){
     material_counter = 1;
 });
 
-$("#saveMaterials").click(function(){
-    console.log($("#product_profilesForm").serialize());
+function _delete(id,item)
+{
+    $("#deleteMaterialsModal .modal-title").html("Delete Materials");
+    $("#deleteItem").html(item);
+    $("#deleteKey").val(id);
+    $("#deleteMaterialsModal").modal("show");
+}
 
+$("#deleteMaterials").click(function(){
+    var btn = $(this);
+    var id = $("#deleteKey").val();
+    var deleteItem = $("#deleteItem").html();
+    var data = { "id" : id };
+    btn.button("loading");
+
+    $.ajax({
+                data: data,
+                type: "post",
+                url: "<?php echo base_url()."portal/product_profiles/delete_product_materials";?>",
+                success: function(data){
+                    //alert("Data Save: " + data);
+                    btn.button("reset");
+                    $("#deleteMaterialsModal").modal("hide");
+                    toastr.error('Materials ' + deleteItem + ' successfully deleted');
+                    setTimeout(() => {
+                        window.location = "";
+                    }, 1000);
+                },
+                error: function (request, status, error) {
+                    alert(request.responseText);
+                }
+        });
+});
+$("#saveMaterials").click(function(){
+    var btn=$("#saveMaterials");
+    console.log($("#product_profilesForm").serialize());
     $.ajax({
     data: $("#product_profilesForm").serialize(),
     type: "get",
     processData: false,
     contentType: false,
     cache: false,
-    url: "<?php echo base_url()."portal/product_profiles/add_product_profiles";?>" ,
+    url: "<?php echo base_url()."portal/product_profiles/add_product_profiles";?>" , 
     xhr: function(){
         //upload Progress
         var xhr = $.ajaxSettings.xhr();
@@ -256,15 +316,10 @@ $("#saveMaterials").click(function(){
     {
             //alert("Data Save: " + data);
             btn.button("reset");
-            if(action == "edit")
-            {
-                table.draw("page");
-            }
-            else
-            {
-                table.draw();
-            }
-            toastr.success(message);
+            toastr.success("Material Group Added Successfully");
+            setTimeout(() => {
+                        window.location = "";
+                    }, 1000);
             $("#colorsForm").validator('destroy');
             $("#colorsModal").modal("hide"); 
             $('#uploadBoxMain').html('');          
