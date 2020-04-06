@@ -21,6 +21,7 @@ class Product_profiles extends CI_Controller {
         $this->product_profiles_model->materials = $this->input->get("selected_material");
         $this->product_profiles_model->qty = $this->input->get("qty");
         $this->product_profiles_model->group_name = $this->input->get("group_name");
+        $this->product_profiles_model->net_weight = $this->input->get("net_weight");
         echo $this->product_profiles_model->insert_product_profiles();
 	}
     public function update_product_profiles()
@@ -30,6 +31,7 @@ class Product_profiles extends CI_Controller {
         $this->product_profiles_model->materials = $this->input->get("selected_material_edit");
         $this->product_profiles_model->material_group_id = $this->input->get("material_list_id_edit");
         $this->product_profiles_model->qty = $this->input->get("qty_edit");
+        $this->product_profiles_model->net_weight = $this->input->get("net_weight_edit");
         $this->product_profiles_model->group_name = $this->input->get("group_name_edit");
         echo $this->product_profiles_model->update_material_list();
 	}

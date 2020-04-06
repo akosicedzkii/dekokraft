@@ -7,6 +7,7 @@ class Product_profiles_model extends CI_Model {
         public $materials;
         public $qty;
         public $group_name;
+        public $net_weight;
         public $material_group_id;
         public function insert_product_profiles()
         {
@@ -20,6 +21,7 @@ class Product_profiles_model extends CI_Model {
                 $data["product_variant_id"] = $this->product_variant_id;
                 $data["date_created"] = date("Y-m-d H:i:s A");
                 $data["created_by"] =  $this->session->userdata("USERID");
+                $data["net_weight"] =  $this->net_weight;
                 $this->db->insert("product_profiles",$data);
                 $insertId = $this->db->insert_id();
                 $this->id = $insertId;
@@ -78,6 +80,9 @@ class Product_profiles_model extends CI_Model {
                 $this->db->insert("product_profile_materials",$data3);
                 $counter++;
             }
+            $data4["net_weight"] = $this->net_weight;
+            $this->db->where("id",$this->product_profile_id);
+            $this->db->update("product_profiles",$data4);
             $this->logs->log = "Updated Product Profile - ID:". $this->product_profile_id ;
             $this->logs->details = json_encode(array($data,$data3));
             $this->logs->module = "product_profiles";

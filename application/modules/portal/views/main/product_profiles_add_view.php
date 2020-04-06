@@ -36,7 +36,7 @@
                     <tr><td>Stock #: </td><td><?php echo $product_variants->code. "-".$product_variants->color_abb;?></td></tr>
                     <tr><td>Desc: </td><td><?php echo $product_variants->description;?></td></tr>
                     <tr><td>Color: </td><td><?php echo $product_variants->color;?></td></tr>
-                    <tr><td>Target Wgt.: </td><td><?php echo $product_variants->description;?></td></tr>
+                    <tr><td>Target Wgt.: </td><td><input type='text' id="weight" style="width:300px;" value="<?php echo $net_weight;?>" class="form-control"></td></tr>
                 </table>
             </div>
         </div>
@@ -131,6 +131,7 @@
                     <form class="form-horizontal" id="product_profilesForm" data-toggle="validator">
                     
                         <input type="hidden" id="action">
+                        <input type="hidden" id="net_weight">
                         <input type="hidden" name="product_variant_id" value="<?php echo $product_variants->id;?>">
                         <div class="box-body"> 
                             <div class="form-group">
@@ -214,6 +215,7 @@
                         <input type="hidden" id="action">
                         <input type="hidden" name="material_list_id_edit"  id="material_list_id">
                         <input type="hidden" name="product_profile_id_edit"  id="product_profile_id">
+                        <input type="hidden" name="net_weight_edit" id="net_weight_edit">
                         <input type="hidden" name="product_variant_id_edit"  id="product_variant_id">
                         <div class="box-body"> 
                             <div class="form-group">
@@ -436,6 +438,7 @@ $("#deleteMaterials").click(function(){
 });
 $("#saveMaterials").click(function(){
     var btn=$("#saveMaterials");
+    $("#net_weight").val($("#weight").val());
     console.log($("#product_profilesForm").serialize());
     $.ajax({
     data: $("#product_profilesForm").serialize(),
@@ -489,6 +492,8 @@ $("#saveMaterials").click(function(){
 
 $("#saveMaterials_edit").click(function(){
     var btn=$("#saveMaterials_edit");
+    
+    $("#net_weight_edit").val($("#weight").val());
     console.log($("#product_profilesForm_edit").serialize());
     $.ajax({
     data: $("#product_profilesForm_edit").serialize(),

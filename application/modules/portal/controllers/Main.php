@@ -262,10 +262,11 @@ class Main extends CI_Controller {
             $product_profile_id = $this->db->where("product_variant_id",$product_variant_id)->get("product_profiles")->row();
             $module["material_groups"] = null;
             $ret = array();
+            $module["net_weight"] = "";
             if( !$product_profile_id == null){
                 $this->db->where("product_profile_id",$product_profile_id->id);
                 $result =  $this->db->get("product_material_group")->result_array();
-                
+                $module["net_weight"] = $product_profile_id->net_weight;
                 if( $result != null)
                 {
                     foreach($result as $res)
