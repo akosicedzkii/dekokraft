@@ -131,7 +131,7 @@
                     <form class="form-horizontal" id="product_profilesForm" data-toggle="validator">
                     
                         <input type="hidden" id="action">
-                        <input type="hidden" id="net_weight">
+                        <input type="hidden" id="net_weight" name="net_weight">
                         <input type="hidden" name="product_variant_id" value="<?php echo $product_variants->id;?>">
                         <div class="box-body"> 
                             <div class="form-group">
