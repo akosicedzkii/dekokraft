@@ -22,9 +22,26 @@ class Product_profiles extends CI_Controller {
         $this->product_profiles_model->qty = $this->input->get("qty");
         $this->product_profiles_model->group_name = $this->input->get("group_name");
         echo $this->product_profiles_model->insert_product_profiles();
-        
 	}
-
+    public function update_product_profiles()
+	{
+        $this->product_profiles_model->product_variant_id = $this->input->get("product_variant_id_edit");
+        $this->product_profiles_model->product_profile_id = $this->input->get("product_profile_id_edit");
+        $this->product_profiles_model->materials = $this->input->get("selected_material_edit");
+        $this->product_profiles_model->material_group_id = $this->input->get("material_list_id_edit");
+        $this->product_profiles_model->qty = $this->input->get("qty_edit");
+        $this->product_profiles_model->group_name = $this->input->get("group_name_edit");
+        echo $this->product_profiles_model->update_material_list();
+	}
+    public function get_materials_on_list()
+    {
+        $id = $this->input->post("id");
+        $this->db->join("materials","materials.id=product_profile_materials.material_id");
+        $material_list["material_list"] =$this->db->where("product_material_group_id",$id)->order_by("product_profile_materials.id","desc")->get("product_profile_materials")->result();
+        $this->db->where("id",$id);
+        $material_list["material_group"] = $this->db->get("product_material_group")->row();
+        echo json_encode($material_list);
+    }
 	public function edit_product_profiles()
 	{
         $this->product_profiles_model->id = $this->input->post("id");

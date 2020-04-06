@@ -7,6 +7,7 @@ class Product_profiles_model extends CI_Model {
         public $materials;
         public $qty;
         public $group_name;
+        public $material_group_id;
         public function insert_product_profiles()
         {
             $insertId = "";
@@ -54,6 +55,36 @@ class Product_profiles_model extends CI_Model {
             echo 1;
         }
 
+        public function update_material_list()
+        {
+
+            $this->db->where("product_material_group_id",$this->material_group_id);
+            $this->db->delete("product_profile_materials");
+            $data["material_group_name"] = $this->group_name;
+            
+            $data3["date_modified"] = date("Y-m-d H:i:s A");
+            $data3["modified_by"] =  $this->session->userdata("USERID");
+            $this->db->update("product_material_group",$data);
+            $counter = 0;
+            foreach($this->materials as $material)
+            {
+                $data3["material_id"] =$material;
+                $data3["qty"] =$this->qty[$counter];
+                $data3["product_material_group_id"] = $this->material_group_id;
+                $data3["product_profile_id"] = $this->product_profile_id;
+                $data3["product_variant_id"] = $this->product_variant_id;
+                $data3["date_created"] = date("Y-m-d H:i:s A");
+                $data3["created_by"] =  $this->session->userdata("USERID");
+                $this->db->insert("product_profile_materials",$data3);
+                $counter++;
+            }
+            $this->logs->log = "Updated Product Profile - ID:". $this->product_profile_id ;
+            $this->logs->details = json_encode(array($data,$data3));
+            $this->logs->module = "product_profiles";
+            $this->logs->created_by = $this->session->userdata("USERID");
+            $this->logs->insert_log();
+            echo 1;
+        }
         public function update_product_profiles()
         {
                 $data["title"] = $this->title ; 

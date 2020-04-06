@@ -60,7 +60,7 @@
                         foreach($material_groups as $material){
                             ?>
                             <tr>
-                                <td><h4><?php echo $material["material_group_name"];?><span class="pull-right"><a href="#" onclick="_edit(<?php echo  $material["id"]?>);" class="btn btn-info">Edit</a>&emsp;<a href="#" onclick="_delete(<?php echo  $material["id"]?>,'<?php echo  $material["material_group_name"];?>');" class="btn btn-danger">Delete</a></span></h4>
+                                <td><h4><?php echo $material["material_group_name"];?><span class="pull-right"><a href="#" onclick="_edit(<?php echo  $material["id"]?>);return false;" class="btn btn-info">Edit</a>&emsp;<a href="#" onclick="_delete(<?php echo  $material["id"]?>,'<?php echo  $material["material_group_name"];?>');return false;" class="btn btn-danger">Delete</a></span></h4>
                                 <table  class="table" style='width:100%;'>
                                         <thead>
                                             <tr>
@@ -198,7 +198,63 @@
 </div>
 <!-- /.modal -->
 
+<div class="modal fade" id="product_profilesModalEdit" role="dialog"  data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+           
+             <h3 class="modal-title">Edit Product Profile Materials</h3>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <form class="form-horizontal" id="product_profilesForm_edit" data-toggle="validator">
+                    
+                        <input type="hidden" id="action">
+                        <input type="hidden" name="material_list_id_edit"  id="material_list_id">
+                        <input type="hidden" name="product_profile_id_edit"  id="product_profile_id">
+                        <input type="hidden" name="product_variant_id_edit"  id="product_variant_id">
+                        <div class="box-body"> 
+                            <div class="form-group">
+                                <label for="group_name" class="col-sm-2 control-label">Material List Name</label>
 
+                                <div class="col-sm-10">
+                                <input type="text" class="form-control" name="group_name_edit" id="group_name_edit" placeholder="Material List Name" required>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <a href="#" class="btn btn-success" onclick="return false;" id="add_material_btn_edit">Add Material</a>
+                                <table class="table">
+                                    <thead>
+                                        <th>Material</th>
+                                        <th>JP</th>
+                                        <th>QTY</th>
+                                        <th>Unit</th>
+                                        <th>Action</th>
+                                    </thead>
+                                    <tbody id="tbody_materials_edit">
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="form-group">
+                                <div id="uploadBoxMain" class="col-md-12">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="saveMaterials_edit">Save Product Profile Material List</button>
+            </div>
+        </div>
+    <!-- /.modal-content -->
+    </div>
+<!-- /.modal-dialog -->
+</div>
 <script>
 
 material_counter = 1;
@@ -238,6 +294,44 @@ $("#add_material_btn").click(function(){
     });
     material_counter ++;
 });
+
+$("#add_material_btn_edit").click(function(){
+    $("#tbody_materials_edit").append("<tr><td><input type='hidden' name='selected_material_edit[]'><select required style='width:300px;' id='mat_"+material_counter+"'></select></td><td><label class='mat_jp'></label></td><td><input type='number' name='qty_edit[]' required></td><td><label class='mat_unit'></label></td><td><a href='#'  class='btn btn-danger remove_item' >&times;</a></td></tr>");
+
+    $("#mat_"+material_counter).select2({
+        minimumInputLength: 2,
+        ajax: {
+            url: "<?php echo base_url()."portal/materials/get_materials_selection";?>",
+            dataType: 'json',
+            type: "GET",
+            data: function (term) {
+                return {
+                    term: term
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: data.items
+                };
+            }
+
+        }
+    });
+    $("#tbody_materials_edit").on("click", ".remove_item", function() {
+        $(this).closest("tr").remove();
+    });
+    $('#mat_'+ material_counter).on('select2:select', function (e) {
+        var data = e.params.data;
+        console.log(data)
+        var $row = $(this).closest("tr");
+        console.log($row)
+        $row.find('input[name="selected_material_edit[]"]').val(data.id);
+        $row.find(".mat_jp").html(data.jp);
+        $row.find(".mat_unit").html(data.unit);
+    });
+    material_counter ++;
+});
+
 $("#add_material_group").click(function(){
     $('#product_profilesModal').modal('show');
     material_counter = 1;
@@ -251,6 +345,70 @@ function _delete(id,item)
     $("#deleteMaterialsModal").modal("show");
 }
 
+function _edit(id)
+{
+    material_counter = 1;
+    data= {"id":id}
+    $.ajax({
+            data: data,
+            type: "post",
+            url: "<?php echo base_url()."portal/product_profiles/get_materials_on_list";?>",
+            success: function(data){
+                //alert("Data Save: " + data);
+                $("#tbody_materials_edit").html("");
+                data = JSON.parse(data);
+                console.log(data["material_list"])
+                $("#group_name_edit").val(data["material_group"].material_group_name);
+                $("#material_list_id").val(data["material_group"].id)
+                $("#product_variant_id").val(data["material_group"].product_variant_id)
+                $("#product_profile_id").val(data["material_group"].product_profile_id)
+                var arrayLength = data["material_list"].length;
+                console.log(arrayLength);
+                for (var i = 0; i < arrayLength; i++) {
+                    $("#tbody_materials_edit").append("<tr><td><input type='hidden' value='"+data["material_list"][i]["material_id"]+"' name='selected_material_edit[]'><select required style='width:300px;' id='mat_"+material_counter+"'></select></td><td><label class='mat_jp'>"+data["material_list"][i]["jp"]+"</label></td><td><input type='number' value='"+data["material_list"][i]["qty"]+"' name='qty_edit[]' required></td><td><label class='mat_unit'>"+data["material_list"][i]["unit"]+"</label></td><td><a href='#'  class='btn btn-danger remove_item' >&times;</a></td></tr>");
+                    $("#mat_"+material_counter).select2({
+                        minimumInputLength: 2,
+                        ajax: {
+                            url: "<?php echo base_url()."portal/materials/get_materials_selection";?>",
+                            dataType: 'json',
+                            type: "GET",
+                            data: function (term) {
+                                return {
+                                    term: term
+                                };
+                            },
+                            processResults: function (data) {
+                                return {
+                                    results: data.items
+                                };
+                            }
+
+                        }
+                    });
+                    $('#mat_'+ material_counter).append(new Option(data["material_list"][i]["material_name"],data["material_list"][i]["materia_id"],  true, true)).trigger('change');
+
+                    $("#tbody_materials_edit").on("click", ".remove_item", function() {
+                        $(this).closest("tr").remove();
+                    });
+
+                    $('#mat_'+ material_counter).on('select2:select', function (e) {
+                        var data = e.params.data;
+                        console.log(data)
+                        var $row = $(this).closest("tr");
+                        console.log($row)
+                        $row.find('input[name="selected_material[]"]').val(data.id);
+                        $row.find(".mat_jp").html(data.jp);
+                        $row.find(".mat_unit").html(data.unit);
+                    });
+                    material_counter++;
+                }
+                $("#product_profilesModalEdit").modal("show");
+            },
+            error: function (request, status, error) {
+                alert(request.responseText);
+            }
+    });
+}
 $("#deleteMaterials").click(function(){
     var btn = $(this);
     var id = $("#deleteKey").val();
@@ -326,4 +484,59 @@ $("#saveMaterials").click(function(){
     }
 });
 });
+
+
+
+$("#saveMaterials_edit").click(function(){
+    var btn=$("#saveMaterials_edit");
+    console.log($("#product_profilesForm_edit").serialize());
+    $.ajax({
+    data: $("#product_profilesForm_edit").serialize(),
+    type: "get",
+    processData: false,
+    contentType: false,
+    cache: false,
+    url: "<?php echo base_url()."portal/product_profiles/update_product_profiles";?>" , 
+    xhr: function(){
+        //upload Progress
+        var xhr = $.ajaxSettings.xhr();
+        if (xhr.upload) {
+            xhr.upload.addEventListener('progress', function(event) {
+                var percent = 0;
+                var position = event.loaded || event.position;
+                var total = event.total;
+                if (event.lengthComputable) {
+                    percent = Math.ceil(position / total * 100);
+                }
+                //update progressbar
+                
+                $('#progressBarMain').css('width',percent+'%').html(percent+'%');
+                                                
+            }, true);
+        }
+        return xhr;
+    },
+    mimeType:"multipart/form-data"
+}).done(function(data){ 
+    if(!data)
+    {
+        btn.button("reset");
+        toastr.error(data);
+    }
+    else
+    {
+            //alert("Data Save: " + data);
+            btn.button("reset");
+            toastr.success("Material Group Added Successfully");
+
+            setTimeout(() => {
+                        window.location = "";
+                    }, 1000);
+            $("#colorsForm").validator('destroy');
+            $("#colorsModal").modal("hide"); 
+            $('#uploadBoxMain').html('');          
+    }
+});
+});
+
 </script>
