@@ -925,7 +925,7 @@ $('.actionDone').on('click', function(){
         var table = $('#product_variantsList').DataTable({
             colReorder: true,
             "lengthMenu": [[10, 25, 50,100,250,500,1000, -1], [10, 25, 50,100,250, 500,1000,"All"]], 
-            dom: 'Btli<"top"fp<"clear">>rt<"bottom"i<"clear">>',
+            dom: 'Btli<"top"fp<"clear">>rt<"bottom"ip<"clear">>',
         buttons: [ 
             {
                 extend: 'print',
