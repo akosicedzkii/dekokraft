@@ -144,6 +144,7 @@
                             </div>
                             <div class="form-group">
                                 <a href="#" class="btn btn-success" onclick="return false;" id="add_material_btn">Add Material</a>
+                                <a href="#" class="btn btn-info pull-right" onclick="return false;" id="add_new_material_btn">Add New Material</a>
                                 <table class="table">
                                     <thead>
                                         <th>Material</th>
@@ -257,6 +258,99 @@
     </div>
 <!-- /.modal-dialog -->
 </div>
+
+<div class="modal fade" id="materialsModal" role="dialog"  data-backdrop="static">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+           
+             <h3 class="modal-title">Add Materials</h3>
+             <input type="hidden" id="action">
+             <input type="hidden" id="materialsID">
+            </div>
+            <div class="modal-body">
+                <div>
+                    <form class="form-horizontal" id="materialsForm" data-toggle="validator">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="material_name" class="col-sm-2 control-label">Material Name</label>
+
+                                <div class="col-sm-10">
+                                <input type="text" class="form-control" id="material_name" placeholder="Material Name" required>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="jp" class="col-sm-2 control-label">JP</label>
+
+                                <div class="col-sm-10">
+                                
+                                <select class="form-control" id="jp" placeholder="JP" style="resize:none" required>
+                                    <option value="FA">FA</option>
+                                    <option value="FB">FB</option>
+                                    <option value="FC">FC</option>
+                                    <option value="M">M</option>
+                                    <option value="R">R</option>
+                                </select>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="unit" class="col-sm-2 control-label">Unit</label>
+
+                                <div class="col-sm-10">
+                                
+                                <select class="form-control" id="unit" placeholder="Unit" style="resize:none" required>
+                                    <option value="GM">GM</option>
+                                    <option value="ML">ML</option>
+                                    <option value="IN">IN</option>
+                                    <option value="PC">PC</option>
+                                </select>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cost" class="col-sm-2 control-label">Cost</label>
+
+                                <div class="col-sm-10">
+                                
+                                <input  type="number" min="1" step="any" class="form-control" id="cost" placeholder="Cost" required>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="inputStatus" class="col-sm-2 control-label">Status</label>
+
+                                <div class="col-sm-10">
+                                <select class="form-control" id="inputStatus" placeholder="Content" style="resize:none" required>
+                                    <option value="1">Enable</option>
+                                    <option value="0">Disable</option>
+                                </select>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div id="uploadBoxMain" class="col-md-12">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="saveMaterials2">Save Materials</button>
+            </div>
+        </div>
+    <!-- /.modal-content -->
+    </div>
+<!-- /.modal-dialog -->
+</div>
+
 <script>
 
 material_counter = 1;
@@ -346,6 +440,109 @@ function _delete(id,item)
     $("#deleteKey").val(id);
     $("#deleteMaterialsModal").modal("show");
 }
+
+$("#add_new_material_btn").click(function(){
+    $("#materialsModal .modal-title").html("Add New Material");
+            $("#action").val("add");
+            $("#inputCoverImage").attr("required","required");
+            $('#materialsForm').validator();
+            $("#materialsModal").modal("show");
+});
+
+$("#saveMaterials2").click(function(){
+    $("#materialsForm").submit();
+});
+
+var image_correct = true;
+        var image_error = "";
+        $("#materialsForm").validator().on('submit', function (e) {
+           
+            var btn = $("#saveMaterials2");
+            var action = $("#action").val();
+            btn.button("loading");
+            if (e.isDefaultPrevented()) {
+                btn.button("reset"); 
+            } else {
+                e.preventDefault();
+                var material_name = $("#material_name").val();
+                var cost = $("#cost").val();
+                var unit = $("#unit").val();
+                var jp = $("#jp").val();
+                var status = $("#inputStatus").val();
+                var materials_id = $("#materialsID").val();
+
+                if(material_name == "" || cost == "")
+                {
+                    btn.button("reset"); 
+                    return false;
+                }
+
+                var formData = new FormData();
+                formData.append('id', materials_id);
+                formData.append('material_name', material_name);
+                formData.append('cost', cost);
+                formData.append('unit', unit);
+                formData.append('status', status);
+                formData.append('jp', jp);
+                // Attach file
+                 //fromthis    
+                 var url = "<?php echo base_url()."portal/materials/add_materials";?>";
+                var message = "New materials successfully added";
+                if(action == "edit")
+                {
+                    url =  "<?php echo base_url()."portal/materials/edit_materials";?>";
+                    message = "Materials successfully updated";
+                }
+
+
+                $('#uploadBoxMain').html('<div class="progress"><div class="progress-bar progress-bar-aqua" id = "progressBarMain" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 0%"><span class="sr-only">20% Complete</span></div></div>');
+                $.ajax({
+                    data: formData,
+                    type: "post",
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    url: url ,
+                    xhr: function(){
+                        //upload Progress
+                        var xhr = $.ajaxSettings.xhr();
+                        if (xhr.upload) {
+                            xhr.upload.addEventListener('progress', function(event) {
+                                var percent = 0;
+                                var position = event.loaded || event.position;
+                                var total = event.total;
+                                if (event.lengthComputable) {
+                                    percent = Math.ceil(position / total * 100);
+                                }
+                                //update progressbar
+                                
+                                $('#progressBarMain').css('width',percent+'%').html(percent+'%');
+                                                                
+                            }, true);
+                        }
+                        return xhr;
+                    },
+                    mimeType:"multipart/form-data"
+                }).done(function(data){ 
+                    if(!data)
+                    {
+                        btn.button("reset");
+                        toastr.error(data);
+                    }
+                    else
+                    {
+                         //alert("Data Save: " + data);
+                         btn.button("reset");
+                         toastr.success(message);
+                         $("#materialsForm").validator('destroy');
+                         $("#materialsModal").modal("hide"); 
+                         $('#uploadBoxMain').html('');          
+                    }
+                });
+            }
+               return false;
+        });
+
 
 function _edit(id)
 {
