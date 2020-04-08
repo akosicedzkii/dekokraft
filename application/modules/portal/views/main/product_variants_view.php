@@ -10,6 +10,7 @@ https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
 <script src="
 https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
 <script src="https://cdn.datatables.net/colreorder/1.5.2/js/dataTables.colReorder.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.5.2/css/colReorder.dataTables.min.css"> 
 <div class="content-wrapper">
@@ -923,7 +924,7 @@ $('.actionDone').on('click', function(){
     var main = function(){
         var table = $('#product_variantsList').DataTable({
             colReorder: true,
-            "lengthMenu": [[10, 25, 50,100,500,1000, -1], [10, 25, 50,100, 500,1000,"All"]], 
+            "lengthMenu": [[10, 25, 50,100,250,500,1000, -1], [10, 25, 50,100,250, 500,1000,"All"]], 
             dom: 'lBfrtip',
         buttons: [ 
             {
@@ -932,7 +933,13 @@ $('.actionDone').on('click', function(){
                 exportOptions: {
                     columns: ':visible',
                     stripHtml : false
+                },messageTop: function () {
+                    return "Page - " + (table.page.info().page + 1)
                 }
+            },
+            {
+                extend: 'pdf',
+                messageBottom: null
             },
             'colvis'
         ],
