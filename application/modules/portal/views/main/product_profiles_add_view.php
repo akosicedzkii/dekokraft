@@ -229,6 +229,7 @@
                             </div>
                             <div class="form-group">
                                 <a href="#" class="btn btn-success" onclick="return false;" id="add_material_btn_edit">Add Material</a>
+                                <a href="#" class="btn btn-info pull-right" onclick="return false;" id="add_new_material_btn_edit">Add New Material</a>
                                 <table class="table">
                                     <thead>
                                         <th>Material</th>
@@ -442,6 +443,13 @@ function _delete(id,item)
 }
 
 $("#add_new_material_btn").click(function(){
+    $("#materialsModal .modal-title").html("Add New Material");
+            $("#action").val("add");
+            $("#inputCoverImage").attr("required","required");
+            $('#materialsForm').validator();
+            $("#materialsModal").modal("show");
+});
+$("#add_new_material_btn_edit").click(function(){
     $("#materialsModal .modal-title").html("Add New Material");
             $("#action").val("add");
             $("#inputCoverImage").attr("required","required");
