@@ -342,6 +342,25 @@ class Main extends CI_Controller {
 
     }
 
+    public function prints()
+    {
+        $page = $this->uri->segment(4, 0);
+        if($page == "product_variants")
+        {
+            $limit = $this->input->get("limit");
+            $this->db->select("product_variants.*,products.description,products.code,products.class");
+            $this->db->join("products","products.id = product_variants.product_id");
+            if($limit!=null)
+            {
+                $module["product_variants"]= $this->db->limit(10)->get("product_variants")->result();
+            }else{
+                $module["product_variants"]= $this->db->get("product_variants")->result();
+            }
+            $module["module_name"] = $this->router->fetch_method();
+            $module["menu"] = $this->user_access;
+            $this->load->view('main/product_variant_print_view',$module);
+        }
+    }
 	public function get_profile_data()
     {
         $this->db->where("user_id",$this->session->userdata("USERID"));

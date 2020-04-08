@@ -150,7 +150,7 @@ class Product_profiles extends CI_Controller {
         if($this->session->userdata("USERTYPE") ==1){
             $select_columns = array("id","class","code","description","color","product_profile_id","date_created","created_by","date_modified","modified_by");  
         }
-        $this->dt_model->table = "product_variants AS t7  LEFT JOIN products as t1 ON t1.id = t7.product_id LEFT JOIN product_profiles as t6 ON t6.product_variant_id = t1.id LEFT JOIN user_accounts AS t2 ON t2.id = t6.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t6.modified_by";  
+        $this->dt_model->table = "product_variants AS t7  LEFT JOIN products as t1 ON t1.id = t7.product_id LEFT JOIN product_profiles as t6 ON t6.product_variant_id = t7.id LEFT JOIN user_accounts AS t2 ON t2.id = t6.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t6.modified_by";  
         $this->dt_model->index_column = "t1.id";
         $this->dt_model->staticWhere = "t1.status != 3";  
         $result = $this->dt_model->get_table_list();
@@ -184,7 +184,7 @@ class Product_profiles extends CI_Controller {
                             $row[] = "No Product profile";
                             $btns.='<a href="'.base_url("portal/main/product_profiles/new?product_variant_id=".$aRow['id']).'"  class="glyphicon glyphicon-plus text-orange" data-toggle="tooltip" title="Edit Product Profile"></a>';
                         }else{
-                            $row[] = '<center><a href="'.base_url("portal/main/product_profiles/new?product_variant_id=".$aRow['id']).'"  class="glyphicon glyphicon-search text-orange" data-toggle="tooltip" title="view Product Profile"></a></center>';
+                            $row[] = '<center><a href="'.base_url("portal/main/product_profiles/new?product_variant_id=".$aRow['id']).'"  class="glyphicon glyphicon-search text-orange" data-toggle="tooltip" title="View Product Profile"></a></center>';
                             $btns.='<a href="'.base_url("portal/main/product_profiles/new?product_variant_id=".$aRow['id']).'"  class="glyphicon glyphicon-plus text-orange" data-toggle="tooltip" title="Edit Product Profile"></a>';
                         }
                        

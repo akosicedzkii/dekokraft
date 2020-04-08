@@ -25,6 +25,7 @@ td { font-size: 11px; }
 <div class="box" id="main-list">
     <div class="box-header">
         <h3 class="box-title"><?php echo ucfirst($module_name);?> List</h3>
+        <a target=_blank href="<?php echo base_url("portal/main/prints/product_variants");?>" class="btn btn-success pull-right"><i class="fa fa-print"></i>&nbsp;Print</a>
     </div>
     <!-- /.box-header -->
     <div class="box-body table-responsive">
