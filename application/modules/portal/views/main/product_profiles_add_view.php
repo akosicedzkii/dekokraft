@@ -317,7 +317,7 @@
 
                                 <div class="col-sm-10">
                                 
-                                <input  type="number" min="1" step="any" class="form-control" id="cost" placeholder="Cost" required>
+                                <input  type="number" min="0" step="any" class="form-control" id="cost" placeholder="Cost" required>
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
