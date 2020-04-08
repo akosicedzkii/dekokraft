@@ -12,7 +12,6 @@
   <link rel="stylesheet" href="<?php echo base_url();?>/assets/bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url();?>/assets/dist/css/AdminLTE.min.css">
-
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -23,6 +22,9 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 <script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script></head>
+
+<script src="<?php echo base_url("assets/print/jquery.min.js");?>"></script>
+<script src="<?php echo base_url("assets/print/jquery-printme.js");?>"></script>
 <style>
 .avoidBreak { 
     border: 2px solid;
@@ -36,7 +38,7 @@
    }
 }
 </style>
-<body onload="window.print();">
+<body onload="//window.print();">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
@@ -123,6 +125,10 @@
 
 $(".table td, .table th").each(function(){ $(this).css("width",  $(this).width() + "px")  });
 $(".table tr").wrap("<div class='avoidBreak'></div>");
-window.print();
+//window.print();
+$("body").printMe({
+    path:"<?php echo base_url();?>/assets/bower_components/bootstrap/dist/css/bootstrap.min.css"
+});
+
 </script>
 </html>

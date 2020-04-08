@@ -4,6 +4,12 @@ th { font-size: 12px; }
 td { font-size: 11px; }
 
 </style>
+<script src="https://cdn.datatables.net/buttons/1.6.1/js/dataTables.buttons.min.js"></script>
+<script src="
+https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
+<script src="
+https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
 <?php $module_name =str_replace("_"," ", rtrim($module_name,"s"));?>
@@ -25,7 +31,7 @@ td { font-size: 11px; }
 <div class="box" id="main-list">
     <div class="box-header">
         <h3 class="box-title"><?php echo ucfirst($module_name);?> List</h3>
-        <a target=_blank href="<?php echo base_url("portal/main/prints/product_variants");?>" class="btn btn-success pull-right"><i class="fa fa-print"></i>&nbsp;Print</a>
+        <!--<a target=_blank href="<?php echo base_url("portal/main/prints/product_variants");?>" class="btn btn-success pull-right"><i class="fa fa-print"></i>&nbsp;Print</a>-->
     </div>
     <!-- /.box-header -->
     <div class="box-body table-responsive">
@@ -914,9 +920,22 @@ $('.actionDone').on('click', function(){
 
     var main = function(){
         var table = $('#product_variantsList').DataTable({
+            "lengthMenu": [[10, 25, 50,100,500, -1], [10, 25, 50,100, 500,"All"]], 
+            dom: 'lBfrtip',
+        buttons: [
+            {
+                extend: 'print',
+                autoPrint: true,
+                exportOptions: {
+                    columns: ':visible',
+                    stripHtml : false
+                }
+            },
+            'colvis'
+        ],
             "language": {                
                 "infoFiltered": ""
-            },    
+            },    "paging": true,
             'autoWidth'   : true,
             "processing" : true,
             "serverSide" : true, 
