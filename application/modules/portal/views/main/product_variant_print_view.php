@@ -100,7 +100,7 @@
             <td><?php echo  $line->code;?></td>
             <td><?php echo  $line->color_abb;?></td>
             <td><?php echo  $line->color;?></td>
-            <td><?php if(is_null($line->cover_image)){ echo "No Image"; }else{ echo  "<img style='height:60px;' src='".base_url("uploads/product_variants/".$line->cover_image)."'>"; } ?></td>
+            <td><?php if($line->cover_image == null){ echo "No Image"; }else{ echo  "<img style='height:60px;' src='".base_url("uploads/product_variants/".$line->cover_image)."'>"; } ?></td>
           </tr>
           <?php }?>
           </tbody>
