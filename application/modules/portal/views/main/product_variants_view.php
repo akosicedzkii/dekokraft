@@ -9,7 +9,9 @@ td { font-size: 11px; }
 https://cdn.datatables.net/buttons/1.6.1/js/buttons.print.min.js"></script>
 <script src="
 https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.datatables.net/colreorder/1.5.2/js/dataTables.colReorder.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.1/css/buttons.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.5.2/css/colReorder.dataTables.min.css"> 
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
 <?php $module_name =str_replace("_"," ", rtrim($module_name,"s"));?>
@@ -920,9 +922,10 @@ $('.actionDone').on('click', function(){
 
     var main = function(){
         var table = $('#product_variantsList').DataTable({
+            colReorder: true,
             "lengthMenu": [[10, 25, 50,100,500, -1], [10, 25, 50,100, 500,"All"]], 
             dom: 'lBfrtip',
-        buttons: [
+        buttons: [ 
             {
                 extend: 'print',
                 autoPrint: true,
