@@ -23,7 +23,16 @@ class Product_profiles extends CI_Controller {
         $this->product_profiles_model->group_name = $this->input->get("group_name");
         $this->product_profiles_model->net_weight = $this->input->get("net_weight");
         echo $this->product_profiles_model->insert_product_profiles();
-	}
+    }
+    public function update_net_wgt()
+    {
+        $id = $this->input->post("id");
+        $this->db->where("id",$id);
+        $data["net_weight"] = $this->input->post("net_weight");
+        echo $this->db->update("product_profiles",$data);
+        
+
+    }
     public function update_product_profiles()
 	{
         $this->product_profiles_model->product_variant_id = $this->input->get("product_variant_id_edit");
