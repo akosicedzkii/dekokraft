@@ -272,7 +272,7 @@ class Main extends CI_Controller {
                     foreach($result as $res)
                     {
                         $this->db->join("materials","materials.id=product_profile_materials.material_id");
-                        $material_list =$this->db->where("product_material_group_id",$res["id"])->get("product_profile_materials")->result_array();
+                        $material_list =$this->db->order_by("product_profile_materials.id","desc")->where("product_material_group_id",$res["id"])->get("product_profile_materials")->result_array();
                         array_push($res,$material_list);
                         array_push($ret,$res);
                     }
