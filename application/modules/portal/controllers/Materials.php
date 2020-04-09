@@ -69,6 +69,7 @@ class Materials extends CI_Controller {
         
         $search = $this->input->get("term[term]");
         $this->db->like("material_name",$search);  
+        $this->db->where("status","1");  
         $this->db->select("material_name as text"); 
         $this->db->select("id");
         $this->db->select("unit");

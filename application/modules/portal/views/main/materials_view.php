@@ -337,6 +337,8 @@
                 .prop("checked", "")
                 .end();
             $("#inputStatus").val('1').trigger('change');
+            $("#jp").val('FA').trigger('change');
+            $("#unit").val('GM').trigger('change');
             $('#inputCoverImage').val("");
             $('#coverImgPrev').attr("src","");
             $("#materialsForm").validator('destroy');
