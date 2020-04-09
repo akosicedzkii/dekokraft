@@ -21,13 +21,16 @@ class Product_profiles_model extends CI_Model {
                 $data["product_variant_id"] = $this->product_variant_id;
                 $data["date_created"] = date("Y-m-d H:i:s A");
                 $data["created_by"] =  $this->session->userdata("USERID");
-                $data["net_weight"] =  $this->net_weight;
                 $this->db->insert("product_profiles",$data);
                 $insertId = $this->db->insert_id();
                 $this->id = $insertId;
             }else{
                 $this->db->where("product_variant_id",$this->product_variant_id);
                 $this->id = $this->db->get("product_profiles")->row()->id;
+                
+                $data4["net_weight"] = $this->net_weight;
+                $this->db->where("id",$this->id);
+                $this->db->update("product_profiles",$data4);
             }
             
             $data2["material_group_name"] = $this->group_name;
