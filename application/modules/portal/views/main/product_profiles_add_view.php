@@ -214,10 +214,10 @@
                     <form class="form-horizontal" id="product_profilesForm_edit" data-toggle="validator">
                     
                         <input type="hidden" id="action">
-                        <input type="hidden" name="material_list_id_edit"  id="material_list_id">
-                        <input type="hidden" name="product_profile_id_edit"  id="product_profile_id">
+                        <input type="hidden" name="material_list_id_edit"  id="material_list_id_edit">
+                        <input type="hidden" name="product_profile_id_edit"  id="product_profile_id_edit">
                         <input type="hidden" name="net_weight_edit" id="net_weight_edit">
-                        <input type="hidden" name="product_variant_id_edit"  id="product_variant_id">
+                        <input type="hidden" name="product_variant_id_edit"  id="product_variant_id_edit">
                         <div class="box-body"> 
                             <div class="form-group">
                                 <label for="group_name" class="col-sm-2 control-label">Material List Name</label>
@@ -566,9 +566,9 @@ function _edit(id)
                 data = JSON.parse(data);
                 console.log(data["material_list"])
                 $("#group_name_edit").val(data["material_group"].material_group_name);
-                $("#material_list_id").val(data["material_group"].id)
-                $("#product_variant_id").val(data["material_group"].product_variant_id)
-                $("#product_profile_id").val(data["material_group"].product_profile_id)
+                $("#material_list_id_edit").val(data["material_group"].id)
+                $("#product_variant_id_edit").val(data["material_list"].product_variant_id)
+                $("#product_profile_id_edit").val(data["material_group"].product_profile_id)
                 var arrayLength = data["material_list"].length;
                 console.log(arrayLength);
                 for (var i = 0; i < arrayLength; i++) {
@@ -739,9 +739,9 @@ $("#saveMaterials_edit").click(function(){
             btn.button("reset");
             toastr.success("Material Group Added Successfully");
 
-            setTimeout(() => {
-                        window.location = "";
-                    }, 1000);
+            // setTimeout(() => {
+            //             window.location = "";
+            //         }, 1000);
             $("#colorsForm").validator('destroy');
             $("#colorsModal").modal("hide"); 
             $('#uploadBoxMain').html('');          

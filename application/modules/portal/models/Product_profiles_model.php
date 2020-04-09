@@ -66,6 +66,7 @@ class Product_profiles_model extends CI_Model {
             
             $data3["date_modified"] = date("Y-m-d H:i:s A");
             $data3["modified_by"] =  $this->session->userdata("USERID");
+            $this->db->where("id",$this->material_group_id);
             $this->db->update("product_material_group",$data);
             $counter = 0;
             foreach($this->materials as $material)
