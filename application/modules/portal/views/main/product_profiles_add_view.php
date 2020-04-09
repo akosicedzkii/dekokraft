@@ -457,7 +457,7 @@ $("#add_new_material_btn_edit").click(function(){
             $("#materialsModal").modal("show");
 });
 
-$("#saveMaterials2").click(function(){
+$("#saveMaterials2").click(function(){ 
     $("#materialsForm").submit();
 });
 
