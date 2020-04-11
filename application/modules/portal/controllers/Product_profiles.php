@@ -184,7 +184,7 @@ class Product_profiles extends CI_Controller {
                             $row[] = "No Product profile";
                             $btns.='<a href="'.base_url("portal/main/product_profiles/new?product_variant_id=".$aRow['id']).'"  class="glyphicon glyphicon-plus text-orange" data-toggle="tooltip" title="Edit Product Profile"></a>';
                         }else{
-                            $row[] = '<center><a href="'.base_url("portal/main/product_profiles/new?product_variant_id=".$aRow['id']).'"  class="glyphicon glyphicon-search text-orange" data-toggle="tooltip" title="View Product Profile"></a></center>';
+                            $row[] = '<center><a target=_blank href="'.base_url("portal/main/product_profiles/print?product_variant_id=".$aRow['id']).'"  class="glyphicon glyphicon-print text-orange" data-toggle="tooltip" title="Print Product Profile"></a></center>';
                             $btns.='<a href="'.base_url("portal/main/product_profiles/new?product_variant_id=".$aRow['id']).'"  class="glyphicon glyphicon-plus text-orange" data-toggle="tooltip" title="Edit Product Profile"></a>';
                         }
                        
