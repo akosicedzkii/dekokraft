@@ -6,6 +6,8 @@ class Colors_model extends CI_Model {
         public $name;
         public $code;
         public $status;
+        public $materials;
+        public $qty;
 
         public function insert_colors()
         {
@@ -26,6 +28,27 @@ class Colors_model extends CI_Model {
                 $this->logs->insert_log();
         }
 
+        public function insert_color_materials()
+        {
+            $counter = 0;
+            $this->db->where("color_id",$this->id);
+            $this->db->delete("color_materials");
+            if($this->materials != null)
+            {
+                foreach($this->materials as $material)
+                {
+                    $data3["material_id"] =$material;
+                    $data3["qty"] =$this->qty[$counter];
+                    $data3["color_id"] = $this->id;
+                    $data3["date_created"] = date("Y-m-d H:i:s A");
+                    $data3["created_by"] =  $this->session->userdata("USERID");
+                    $this->db->insert("color_materials",$data3);
+                    $counter++;
+                }  
+            }
+            
+            echo 1;
+        }
         public function update_colors()
         {
                 $data["name"] = $this->name ; 

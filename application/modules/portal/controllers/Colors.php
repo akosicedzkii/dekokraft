@@ -75,6 +75,22 @@ class Colors extends CI_Controller {
             'items' => $filteredValues
         ));
     }
+
+    public function get_materials_of_color()
+    {
+        $id = $this->input->post("id");
+        $this->db->join("materials","materials.id=color_materials.material_id");
+        $color_materials["color_materials"] =$this->db->where("color_id",$id)->order_by("color_materials.id","desc")->get("color_materials")->result();
+        echo json_encode($color_materials);
+    }
+
+    public function insert_color_materials()
+    {
+        $this->colors_model->materials = $this->input->get("selected_material");
+        $this->colors_model->qty = $this->input->get("qty");
+        $this->colors_model->id = $this->input->get("color_id");
+        $this->colors_model->insert_color_materials();
+    }
     public function get_colors_list()
     {
         $this->load->model("portal/data_table_model","dt_model");  
@@ -123,7 +139,7 @@ class Colors extends CI_Controller {
                     }
             }
             
-            $btns = '<!--<a href="#" onclick="_view('.$aRow['id'].');return false;" class="glyphicon glyphicon-search text-orange" data-toggle="tooltip" name="View Details"></a>-->
+            $btns = '<a href="#" onclick="_view('.$aRow['id'].',\''.$aRow["name"].'\');return false;" class="glyphicon glyphicon-search text-orange" data-toggle="tooltip" name="View Composition of Colors"></a>
             <a href="#" onclick="_edit('.$aRow['id'].');return false;" class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" name="Edit"></a>
             <a href="#" onclick="_delete('.$aRow['id'].',\''.$aRow["name"].'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" name="Delete"></a>';
             array_push($row,$btns);
