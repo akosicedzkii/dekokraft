@@ -742,6 +742,10 @@ $("#saveColorCompositions").click(function(){
 });
 });
 
+$("#saveMaterials2").click(function(){
+$("#materialsForm").submit();
+});
+
 var image_correct = true;
 var image_error = "";
 $("#materialsForm").validator().on('submit', function (e) {
