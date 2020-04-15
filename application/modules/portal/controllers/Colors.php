@@ -80,7 +80,7 @@ class Colors extends CI_Controller {
     {
         $id = $this->input->post("id");
         $this->db->join("materials","materials.id=color_materials.material_id");
-        $color_materials["color_materials"] =$this->db->where("color_id",$id)->order_by("color_materials.id","desc")->get("color_materials")->result();
+        $color_materials["color_materials"] =$this->db->where("color_id",$id)->order_by("color_materials.id","asc")->get("color_materials")->result();
         echo json_encode($color_materials);
     }
 
