@@ -68,8 +68,9 @@
             <table  class="table" style='width:100%;'>
                 <thead>
                     <tr>
-                    <th style="width:55%;">Material</th>
+                    <th style="width:30%;">Material</th>
                     <th style="width:15%;">JP</th>
+                    <th style="width:15%;">UNIT COST</th>
                     <th style="width:15%;">QTY</th>
                     <th style="width:15%;">Unit</th>
                     </tr>
@@ -85,6 +86,7 @@
                                 <tr>
                                 <td><?php echo $material_items["material_name"]?></td>
                                 <td><?php echo $material_items["jp"]?></td>
+                                <td><?php echo number_format($material_items["qty"]*$material_items["cost"], 2, '.', '');?></td>
                                 <td><?php echo $material_items["qty"]?></td>
                                 <td><?php echo $material_items["unit"]?></td>
                                 </tr>
