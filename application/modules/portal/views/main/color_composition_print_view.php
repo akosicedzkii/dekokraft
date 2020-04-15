@@ -86,7 +86,7 @@
                                 <tr>
                                 <td><?php echo $material_items["material_name"]?></td>
                                 <td><?php echo $material_items["jp"]?></td>
-                                <td><?php echo number_format($material_items["qty"]*$material_items["cost"], 2, '.', '');?></td>
+                                <td><?php echo number_format($material_items["cost"], 2, '.', '');?></td>
                                 <td><?php echo $material_items["qty"]?></td>
                                 <td><?php echo $material_items["unit"]?></td>
                                 </tr>
