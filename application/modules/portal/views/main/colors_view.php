@@ -686,6 +686,7 @@
             $row.find(".mat_jp").html(data.jp);
             $row.find(".mat_unit").html(data.unit);
         });
+        material_counter= material_counter +1;
     });
     $("#tbody_materials").on("click", ".remove_item", function() {
         $(this).closest("tr").remove();
