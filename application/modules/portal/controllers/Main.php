@@ -332,6 +332,7 @@ class Main extends CI_Controller {
         if($page == "color_composition")
         {
             $id = $this->input->get("id");
+            $this->db->where("id",$id);
             $module["colors"] = $this->db->get("colors")->row();
             
             $this->db->join("materials","materials.id=color_materials.material_id");
