@@ -329,23 +329,19 @@ class Main extends CI_Controller {
     public function prints()
     {
         $page = $this->uri->segment(4, 0);
-        if($page == "product_variants")
+        if($page == "color_composition")
         {
-            $limit = $this->input->get("limit");
-            $this->db->select("product_variants.*,products.description,products.code,products.class");
-            $this->db->join("products","products.id = product_variants.product_id");
-            if($limit!=null)
-            {
-                $module["product_variants"]= $this->db->limit(10)->get("product_variants")->result();
-            }else{
-                $module["product_variants"]= $this->db->get("product_variants")->result();
-            }
+            $id = $this->input->get("id");
+            $module["colors"] = $this->db->get("colors")->row();
+            
+            $this->db->join("materials","materials.id=color_materials.material_id");
+            $module["color_materials"] =  $this->db->order_by("color_materials.id","desc")->where("color_id",$id)->get("color_materials")->result_array();
             $module["module_name"] = $this->router->fetch_method();
             $module["menu"] = $this->user_access;
-            $this->load->view('main/product_variant_print_view',$module);
+            $this->load->view('main/color_composition_print_view',$module);
         }
     }
-	public function get_profile_data()
+	public function get_profile_data() 
     {
         $this->db->where("user_id",$this->session->userdata("USERID"));
         $result = $this->db->get("user_profiles");
