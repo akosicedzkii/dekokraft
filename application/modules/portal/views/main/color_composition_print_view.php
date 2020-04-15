@@ -77,7 +77,7 @@
                 </thead>
                 <tbody id="tbody_materialss">
                     <?php
-                    
+                        $total_unit = 0;
                         if($color_materials != null)
                         {
                             foreach($color_materials as $material_items)
@@ -88,12 +88,20 @@
                                 <td><?php echo $material_items["jp"]?></td>
                                 <td><?php echo number_format($material_items["cost"], 2, '.', '');?></td>
                                 <td><?php echo $material_items["qty"]?></td>
-                                <td><?php echo $material_items["unit"]?></td>
+                                <td><?php echo $material_items["unit"];$total_unit=$total_unit+$material_items["qty"];?></td>
                                 </tr>
                                 <?php
                             }
                         }
-                    ?>
+                    ?><tfoot>
+                    <tr>
+                    <th style="width:30%;"></th>
+                    <th style="width:15%;"></th>
+                    <th style="width:15%;"></th>
+                    <th style="width:15%;"><?php echo $total_unit;?></th>
+                    <th style="width:15%;"></th>
+                    </tr>
+                </tfoot>
                 </tbody>
         </table>
             </div>
