@@ -332,11 +332,23 @@ class Main extends CI_Controller {
         if($page == "color_composition")
         {
             $id = $this->input->get("id");
-            $this->db->where("id",$id);
-            $module["colors"] = $this->db->get("materials")->row();
+            $ids = explode(",",$id);
+            foreach($ids as $id)
+            {
+                $this->db->or_where("id",$id);
+            }
+            $results = $this->db->get("materials")->result_array();
             
-            $this->db->join("materials","materials.id=color_materials.material_id");
-            $module["color_materials"] =  $this->db->order_by("color_materials.id","asc")->where("color_id",$id)->get("color_materials")->result_array();
+            $ret = array();
+            foreach( $results as $res)
+            {
+                $this->db->join("materials","materials.id=color_materials.material_id");
+                $this->db->where("color_id",$res["id"]);
+                $material_list =  $this->db->order_by("color_materials.id","asc")->get("color_materials")->result_array();
+                array_push($res,$material_list);
+                array_push($ret,$res);
+            }
+            $module["color_materials"] = $ret;
             $module["module_name"] = $this->router->fetch_method();
             $module["menu"] = $this->user_access;
             $this->load->view('main/color_composition_print_view',$module);

@@ -184,7 +184,19 @@ class Product_profiles extends CI_Controller {
                             $row[] = "No Product profile";
                             $btns.='<a href="'.base_url("portal/main/product_profiles/new?product_variant_id=".$aRow['id']).'"  class="glyphicon glyphicon-plus text-orange" data-toggle="tooltip" title="Edit Product Profile"></a>';
                         }else{
-                            $row[] = '<center><a target=_blank href="'.base_url("portal/main/product_profiles/print?product_variant_id=".$aRow['id']).'"  class="glyphicon glyphicon-print text-orange" data-toggle="tooltip" title="Print Product Profile"></a></center>';
+                            $this->db->select("materials.id");
+                            $this->db->join("materials","materials.id=product_profile_materials.material_id");
+                            $material_list =$this->db->order_by("product_profile_materials.id","desc")->where("materials.type","color")->where("product_profile_id",$aRow[$col])->get("product_profile_materials")->result_array();
+                            
+                            $ids = "";
+                            foreach($material_list as $id)
+                            {
+                                $ids .= $id["id"] . ",";
+                            }
+                            $ids = rtrim($ids,",");
+                            $row[] = '<center><a target=_blank href="'.base_url("portal/main/product_profiles/print?product_variant_id=".$aRow['id']).'"  class="glyphicon glyphicon-print text-orange" data-toggle="tooltip" title="Print Product Profile"></a>&emsp;
+                            <a target=_blank href="'.base_url("portal/main/prints/color_composition?id=".$ids).'"  class="glyphicon glyphicon-print text-violet" data-toggle="tooltip" title="Print Color Composition"></a>
+                            </center>';
                             $btns.='<a href="'.base_url("portal/main/product_profiles/new?product_variant_id=".$aRow['id']).'"  class="glyphicon glyphicon-plus text-orange" data-toggle="tooltip" title="Edit Product Profile"></a>';
                         }
                        

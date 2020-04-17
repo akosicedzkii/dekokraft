@@ -1,7 +1,7 @@
 <html><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?php echo $colors->material_name;?></title>
+  <title><?php echo "COLOR COMPOSITION"?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -57,10 +57,10 @@
       <!-- /.col -->
     </div>
     <!-- info row -->
-        
+        <?php foreach($color_materials as $colors){ ?>
         <div class="row invoice-info">
             <div class="col-md-12">
-                <center><h3><?php echo "Color Composition for: <b>".$colors->material_name;?> </b></h3></center>
+                <center><h3><?php echo "Color Composition for: <b>".$colors["material_name"];?> </b></h3></center>
             </div>
         </div>
         <div class="row invoice-info">
@@ -79,9 +79,9 @@
                     <?php
                         $total_cost = 0;
                         $total_qty = 0;
-                        if($color_materials != null)
+                        if($colors[0]!= null)
                         {
-                            foreach($color_materials as $material_items)
+                            foreach($colors[0] as $material_items)
                             {
                                 ?>
                                 <tr>
@@ -109,7 +109,7 @@
             </div>
         </div>
         <!-- /.row -->
-            
+       <?php }?>
   </section>
   <!-- /.content -->
 </div>
