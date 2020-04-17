@@ -114,7 +114,7 @@
 
 
                             <div class="form-group">
-                                <label for="color_composition" class="col-sm-2 control-label">Status</label>
+                                <label for="color_composition" class="col-sm-2 control-label">Material Type</label>
 
                                 <div class="col-sm-10">
                                 <select class="form-control" id="color_composition" placeholder="Content" style="resize:none" required>
