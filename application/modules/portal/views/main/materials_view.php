@@ -114,6 +114,17 @@
 
 
                             <div class="form-group">
+                                <label for="color_composition" class="col-sm-2 control-label">Status</label>
+
+                                <div class="col-sm-10">
+                                <select class="form-control" id="color_composition" placeholder="Content" style="resize:none" required>
+                                    <option value="material">Material</option>
+                                    <option value="color">Color Composition</option>
+                                </select>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="inputStatus" class="col-sm-2 control-label">Status</label>
 
                                 <div class="col-sm-10">
@@ -167,6 +178,53 @@
 </div>
 <!-- /.modal -->
 
+<!-- /.modal -->
+<div class="modal fade" id="addColorsCompositionModal"  role="dialog"  data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+           
+             <h3 class="modal-title">Add Color Composition for <label id="color_name"></label></h3>
+            </div>
+            <div class="modal-body">
+            <form class="form-horizontal" id="colorCompositionAdd" data-toggle="validator">
+                    <input type="hidden" id="action">
+                    <input type="hidden" name="color_id"  id="color_id">
+                    <div class="box-body"> 
+                        <div class="form-group">
+                            <a href="#" class="btn btn-success" onclick="return false;" id="add_material_btn">Add Material</a>
+                            <a href="#" class="btn btn-info pull-right" onclick="return false;" id="add_new_material_btn">Add New Material</a>
+                            <table class="table">
+                                <thead>
+                                    <th>Material</th>
+                                    <th>JP</th>
+                                    <th>QTY</th>
+                                    <th>Unit</th>
+                                    <th>Action</th>
+                                </thead>
+                                <tbody id="tbody_materials">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <div id="uploadBoxMain" class="col-md-12">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success" id="saveColorCompositions">Save Color Composition</button>
+            </div>
+        </div>
+    <!-- /.modal-content -->
+    </div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
 
 <script>
@@ -223,6 +281,7 @@
                 var jp = $("#jp").val();
                 var status = $("#inputStatus").val();
                 var materials_id = $("#materialsID").val();
+                var type = $("#color_composition").val();
 
                 if(material_name == "" || cost == "")
                 {
@@ -237,6 +296,7 @@
                 formData.append('unit', unit);
                 formData.append('status', status);
                 formData.append('jp', jp);
+                formData.append('type', type);
                 // Attach file
                  //fromthis    
                  var url = "<?php echo base_url()."portal/materials/add_materials";?>";
@@ -373,6 +433,7 @@
                     $("#unit").val(data.materials.unit).trigger('change');
                     $("#jp").val(data.materials.jp).trigger('change');
                     $("#inputStatus").val(data.materials.status).trigger('change');
+                    $("#color_composition").val(data.materials.type).trigger('change');
                     $("#materialsID").val(data.materials.id);
                     $("#materialsModal").modal("show");
                 },
@@ -494,6 +555,152 @@
                 }
         });
     });
+    function _view(id,name)
+    {
+        material_counter = 1;
+        data= {"id":id}
+        $("#color_id").val(id);
+        $("#color_name").html(name);
+        $.ajax({
+            data: data,
+            type: "post",
+            url: "<?php echo base_url()."portal/colors/get_materials_of_color";?>",
+            success: function(data){
+                //alert("Data Save: " + data);
+                $("#tbody_materials").html("");
+                data = JSON.parse(data);
+                console.log(data)
+                var arrayLength = data["color_materials"].length;
+                for (var i = 0; i < arrayLength; i++) {
+                    $("#tbody_materials").append("<tr><td><input type='hidden' value='"+data["color_materials"][i]["material_id"]+"' name='selected_material[]'><select required style='width:300px;' id='mat_"+material_counter+"'></select></td><td><label class='mat_jp'>"+data["color_materials"][i]["jp"]+"</label></td><td><input type='number' value='"+data["color_materials"][i]["qty"]+"' name='qty[]' required></td><td><label class='mat_unit'>"+data["color_materials"][i]["unit"]+"</label></td><td><a href='#'  class='btn btn-danger remove_item' >&times;</a></td></tr>");
+                    $("#mat_"+material_counter).select2({
+                        minimumInputLength: 2,
+                        ajax: {
+                            url: "<?php echo base_url()."portal/materials/get_materials_selection";?>",
+                            dataType: 'json',
+                            type: "GET",
+                            data: function (term) {
+                                return {
+                                    term: term
+                                };
+                            },
+                            processResults: function (data) {
+                                return {
+                                    results: data.items
+                                };
+                            }
 
+                        }
+                    });
+                    $('#mat_'+ material_counter).append(new Option(data["color_materials"][i]["material_name"],data["color_materials"][i]["materia_id"],  true, true)).trigger('change');
+
+                    $("#tbody_materials").on("click", ".remove_item", function() {
+                        $(this).closest("tr").remove();
+                    });
+
+                    $('#mat_'+ material_counter).on('select2:select', function (e) {
+                        var data = e.params.data;
+                        console.log(data)
+                        var $row = $(this).closest("tr");
+                        console.log($row)
+                        $row.find('input[name="selected_material[]"]').val(data.id);
+                        $row.find(".mat_jp").html(data.jp);
+                        $row.find(".mat_unit").html(data.unit);
+                    });
+                    material_counter++;
+                }
+            }
+        });
+        
+        $("#addColorsCompositionModal").modal("show");
+    }
+    material_counter = 1;
+    $("#add_material_btn").click(function(){
+        $("#tbody_materials").append("<tr><td><input type='hidden' name='selected_material[]'><select style='width:300px;' id='mat_"+material_counter+"'></select></td><td><label class='mat_jp'></label></td><td><input type='number' name='qty[]'></td><td><label class='mat_unit'></label></td><td><a href='#'  class='btn btn-danger remove_item' >&times;</a></td></tr>");
+
+        $("#mat_"+material_counter).select2({
+            minimumInputLength: 2,
+            ajax: {
+                url: "<?php echo base_url()."portal/materials/get_materials_selection";?>",
+                dataType: 'json',
+                type: "GET",
+                data: function (term) {
+                    return {
+                        term: term
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: data.items
+                    };
+                }
+
+            }
+        });
+        $('#mat_'+ material_counter).on('select2:select', function (e) {
+            var data = e.params.data;
+            console.log(data)
+            var $row = $(this).closest("tr");
+            console.log($row)
+            $row.find('input[name="selected_material[]"]').val(data.id);
+            $row.find(".mat_jp").html(data.jp);
+            $row.find(".mat_unit").html(data.unit);
+        });
+        material_counter= material_counter +1;
+    });
+    $("#tbody_materials").on("click", ".remove_item", function() {
+        $(this).closest("tr").remove();
+    });
+    
+
+        
+    $("#saveColorCompositions").click(function(){
+        var btn=$("#saveColorCompositions");
+        console.log($("#colorCompositionAdd").serialize());
+        $.ajax({
+        data: $("#colorCompositionAdd").serialize(),
+        type: "get",
+        processData: false,
+        contentType: false,
+        cache: false,
+        url: "<?php echo base_url()."portal/colors/insert_color_materials";?>" , 
+        xhr: function(){
+            //upload Progress
+            var xhr = $.ajaxSettings.xhr();
+            if (xhr.upload) {
+                xhr.upload.addEventListener('progress', function(event) {
+                    var percent = 0;
+                    var position = event.loaded || event.position;
+                    var total = event.total;
+                    if (event.lengthComputable) {
+                        percent = Math.ceil(position / total * 100);
+                    }
+                    //update progressbar
+                    
+                    $('#progressBarMain').css('width',percent+'%').html(percent+'%');
+                                                    
+                }, true);
+            }
+            return xhr;
+        },
+        mimeType:"multipart/form-data"
+    }).done(function(data){ 
+        if(!data)
+        {
+            btn.button("reset");
+            toastr.error(data);
+        }
+        else
+        {
+                //alert("Data Save: " + data);
+                btn.button("reset");
+                toastr.success("Color Composition Added Successfully");
+                // setTimeout(() => {
+                //             window.location = "";
+                //         }, 1000);
+                $("#addColorsCompositionModal").modal("hide"); 
+        }
+    });
+    });
     $(document).ready(main);
 </script>

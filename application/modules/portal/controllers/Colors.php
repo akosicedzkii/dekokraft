@@ -139,8 +139,8 @@ class Colors extends CI_Controller {
                     }
             }
             
-            $btns = '<a href="#" onclick="_view('.$aRow['id'].',\''.$aRow["name"].'\');return false;" class="glyphicon glyphicon-search text-orange" data-toggle="tooltip" name="View Composition of Colors"></a>
-            <a href="'.base_url("portal/main/prints/color_composition?id=").$aRow['id'].'" target=_blank class="glyphicon glyphicon-print text-green" data-toggle="tooltip" name="Print Composition of Colors"></a>
+            $btns = '<!--<a href="#" onclick="_view('.$aRow['id'].',\''.$aRow["name"].'\');return false;" class="glyphicon glyphicon-search text-orange" data-toggle="tooltip" name="View Composition of Colors"></a>
+            <a href="'.base_url("portal/main/prints/color_composition?id=").$aRow['id'].'" target=_blank class="glyphicon glyphicon-print text-green" data-toggle="tooltip" name="Print Composition of Colors"></a>-->
             <a href="#" onclick="_edit('.$aRow['id'].');return false;" class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" name="Edit"></a>
             <a href="#" onclick="_delete('.$aRow['id'].',\''.$aRow["name"].'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" name="Delete"></a>';
             array_push($row,$btns);

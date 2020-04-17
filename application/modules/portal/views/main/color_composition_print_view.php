@@ -1,7 +1,7 @@
 <html><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?php echo $colors->name;?> - <?php echo $colors->code;?></title>
+  <title><?php echo $colors->material_name;?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -60,7 +60,7 @@
         
         <div class="row invoice-info">
             <div class="col-md-12">
-                <center><h3><?php echo "Color Composition for: <b>".$colors->name;?> - <?php echo $colors->code;?></b></h3></center>
+                <center><h3><?php echo "Color Composition for: <b>".$colors->material_name;?> </b></h3></center>
             </div>
         </div>
         <div class="row invoice-info">
@@ -77,7 +77,8 @@
                 </thead>
                 <tbody id="tbody_materialss">
                     <?php
-                        $total_unit = 0;
+                        $total_cost = 0;
+                        $total_qty = 0;
                         if($color_materials != null)
                         {
                             foreach($color_materials as $material_items)
@@ -86,23 +87,24 @@
                                 <tr>
                                 <td><?php echo $material_items["material_name"]?></td>
                                 <td><?php echo $material_items["jp"]?></td>
-                                <td><?php echo number_format($material_items["cost"], 2, '.', '');?></td>
-                                <td><?php echo $material_items["qty"]?></td>
-                                <td><?php echo $material_items["unit"];$total_unit=$total_unit+$material_items["qty"];?></td>
+                                <td><?php echo number_format($material_items["cost"], 2, '.', ''); $total_cost +=$material_items["cost"]; ?></td>
+                                <td><?php echo $material_items["qty"];$total_qty +=$material_items["qty"];?></td>
+                                <td><?php echo $material_items["unit"]?></td>
                                 </tr>
                                 <?php
                             }
                         }
-                    ?><tfoot>
+                    ?>
+                </tbody>
+                <tfoot>
                     <tr>
-                    <th style="width:30%;"></th>
+                    <th style="width:30%;">SUBTOTAL:</th>
                     <th style="width:15%;"></th>
-                    <th style="width:15%;"></th>
-                    <th style="width:15%;"><?php echo $total_unit;?></th>
+                    <th style="width:15%;"><?php echo number_format($total_cost, 2, '.', '');?></th>
+                    <th style="width:15%;"><?php echo $total_qty;?></th>
                     <th style="width:15%;"></th>
                     </tr>
                 </tfoot>
-                </tbody>
         </table>
             </div>
         </div>

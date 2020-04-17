@@ -333,7 +333,7 @@ class Main extends CI_Controller {
         {
             $id = $this->input->get("id");
             $this->db->where("id",$id);
-            $module["colors"] = $this->db->get("colors")->row();
+            $module["colors"] = $this->db->get("materials")->row();
             
             $this->db->join("materials","materials.id=color_materials.material_id");
             $module["color_materials"] =  $this->db->order_by("color_materials.id","asc")->where("color_id",$id)->get("color_materials")->result_array();

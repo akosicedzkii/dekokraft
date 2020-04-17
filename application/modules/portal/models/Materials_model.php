@@ -7,6 +7,7 @@ class Materials_model extends CI_Model {
         public $cost;
         public $unit;
         public $status;
+        public $type;
 
         public function insert_materials()
         {
@@ -14,6 +15,7 @@ class Materials_model extends CI_Model {
                 $data["cost"] = $this->cost;
                 $data["unit"] = $this->unit;
                 $data["jp"] = $this->jp;
+                $data["type"] = $this->type;
                 $data["date_created"] = date("Y-m-d H:i:s A");
                 $data["status"] = $this->status;
                 $data["created_by"] =  $this->session->userdata("USERID");
@@ -35,6 +37,7 @@ class Materials_model extends CI_Model {
                 $data["cost"] = $this->cost;
                 $data["unit"] = $this->unit;
                 $data["jp"] = $this->jp;
+                $data["type"] = $this->type;
                 $data["date_modified"] = date("Y-m-d H:i:s A");
                 $data["status"] = $this->status;
                 $data["modified_by"] =  $this->session->userdata("USERID");
