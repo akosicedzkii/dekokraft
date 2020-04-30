@@ -50,109 +50,6 @@
 <!-- /.content -->
 </div>
 
-<div class="modal fade" id="materialsModal" role="dialog"  data-backdrop="static">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-           
-             <h3 class="modal-title">Add Materials</h3>
-             <input type="hidden" id="action">
-             <input type="hidden" id="materialsID">
-            </div>
-            <div class="modal-body">
-                <div>
-                    <form class="form-horizontal" id="materialsForm" data-toggle="validator">
-                        <div class="box-body">
-                            <div class="form-group">
-                                <label for="material_name" class="col-sm-2 control-label">Material Name</label>
-
-                                <div class="col-sm-10">
-                                <input type="text" class="form-control" id="material_name" placeholder="Material Name" required>
-                                <div class="help-block with-errors"></div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="jp" class="col-sm-2 control-label">JP</label>
-
-                                <div class="col-sm-10">
-                                
-                                <select class="form-control" id="jp" placeholder="JP" style="resize:none" required>
-                                    <option value="FA">FA</option>
-                                    <option value="FB">FB</option>
-                                    <option value="FC">FC</option>
-                                    <option value="M">M</option>
-                                    <option value="R">R</option>
-                                </select>
-                                <div class="help-block with-errors"></div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="unit" class="col-sm-2 control-label">Unit</label>
-
-                                <div class="col-sm-10">
-                                
-                                <select class="form-control" id="unit" placeholder="Unit" style="resize:none" required>
-                                    <option value="GM">GM</option>
-                                    <option value="ML">ML</option>
-                                    <option value="IN">IN</option>
-                                    <option value="PC">PC</option>
-                                </select>
-                                <div class="help-block with-errors"></div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="cost" class="col-sm-2 control-label">Cost</label>
-
-                                <div class="col-sm-10">
-                                
-                                <input  type="number" min="0" step="any" class="form-control" id="cost" placeholder="Cost" required>
-                                <div class="help-block with-errors"></div>
-                                </div>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="color_composition" class="col-sm-2 control-label">Material Type</label>
-
-                                <div class="col-sm-10">
-                                <select class="form-control" id="color_composition" placeholder="Content" style="resize:none" required>
-                                    <option value="material">Material</option>
-                                    <option value="color">Color Composition</option>
-                                </select>
-                                <div class="help-block with-errors"></div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputStatus" class="col-sm-2 control-label">Status</label>
-
-                                <div class="col-sm-10">
-                                <select class="form-control" id="inputStatus" placeholder="Content" style="resize:none" required>
-                                    <option value="1">Enable</option>
-                                    <option value="0">Disable</option>
-                                </select>
-                                <div class="help-block with-errors"></div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div id="uploadBoxMain" class="col-md-12">
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                    </div>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="saveMaterials">Save Materials</button>
-            </div>
-        </div>
-    <!-- /.modal-content -->
-    </div>
-<!-- /.modal-dialog -->
-</div>
-
 <!-- /.modal -->
 <div class="modal fade" id="deleteMaterialsModal"  role="dialog"  data-backdrop="static">
     <div class="modal-dialog">
@@ -227,6 +124,110 @@
 <!-- /.modal -->
 
 
+<div class="modal fade" id="materialsModal" role="dialog"  data-backdrop="static">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+           
+             <h3 class="modal-title">Add Materials</h3>
+             <input type="hidden" id="action">
+             <input type="hidden" id="materialsID">
+            </div>
+            <div class="modal-body">
+                <div>
+                    <form class="form-horizontal" id="materialsForm" data-toggle="validator">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="material_name" class="col-sm-2 control-label">Material Name</label>
+
+                                <div class="col-sm-10">
+                                <input type="text" class="form-control" id="material_name" placeholder="Material Name" required>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="jp" class="col-sm-2 control-label">JP</label>
+
+                                <div class="col-sm-10">
+                                
+                                <select class="form-control" id="jp" placeholder="JP" style="resize:none" required>
+                                    <option value="NONE">NONE</option>
+                                    <option value="FA">FA</option>
+                                    <option value="FB">FB</option>
+                                    <option value="FC">FC</option>
+                                    <option value="M">M</option>
+                                    <option value="R">R</option>
+                                </select>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="unit" class="col-sm-2 control-label">Unit</label>
+
+                                <div class="col-sm-10">
+                                
+                                <select class="form-control" id="unit" placeholder="Unit" style="resize:none" required>
+                                    <option value="GM">GM</option>
+                                    <option value="ML">ML</option>
+                                    <option value="IN">IN</option>
+                                    <option value="PC">PC</option>
+                                </select>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cost" class="col-sm-2 control-label">Cost</label>
+
+                                <div class="col-sm-10">
+                                
+                                <input  type="number" min="0" step="any" class="form-control" id="cost" placeholder="Cost" required>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="color_composition" class="col-sm-2 control-label">Material Type</label>
+
+                                <div class="col-sm-10">
+                                <select class="form-control" id="color_composition" placeholder="Content" style="resize:none" required>
+                                    <option value="material">Material</option>
+                                    <option value="color">Color Composition</option>
+                                </select>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputStatus" class="col-sm-2 control-label">Status</label>
+
+                                <div class="col-sm-10">
+                                <select class="form-control" id="inputStatus" placeholder="Content" style="resize:none" required>
+                                    <option value="1">Enable</option>
+                                    <option value="0">Disable</option>
+                                </select>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div id="uploadBoxMain" class="col-md-12">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="saveMaterials">Save Materials</button>
+            </div>
+        </div>
+    <!-- /.modal-content -->
+    </div>
+<!-- /.modal-dialog -->
+</div>
+
 <script>
 
     var inputRoleConfig = {
@@ -259,7 +260,13 @@
             $('#materialsForm').validator();
             $("#materialsModal").modal("show");
         });
-
+        $("#add_new_material_btn").click(function(){
+            $("#materialsModal .modal-title").html("Add <?php echo ucfirst($module_name);?>");
+            $("#action").val("add");
+            $("#inputCoverImage").attr("required","required");
+            $('#materialsForm').validator();
+            $("#materialsModal").modal("show");
+        });
         $("#saveMaterials").click(function(){
             $("#materialsForm").submit();
         });
