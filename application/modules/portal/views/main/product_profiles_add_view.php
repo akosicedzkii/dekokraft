@@ -138,7 +138,7 @@
                                 <label for="group_name" class="col-sm-2 control-label">Material List Name</label>
 
                                 <div class="col-sm-10">
-                                <input type="text" class="form-control" name="group_name" id="group_name" placeholder="Material List Name" required>
+                                <input type="text" class="form-control" value="Materials" name="group_name" id="group_name" placeholder="Material List Name" required>
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
