@@ -81,13 +81,13 @@ class Main extends CI_Controller {
 		$module["module_name"] = $_view;
         $module["menu"] = $this->user_access;
         $module["site_settings"] = $this->db->get("site_settings")->row();
+        $module["roles"] = $this->db->get("roles")->result();
 		$this->load->view('main/template/header',$module);
 		$this->load->view("main/$_view"."_view",$module);
 		$this->load->view('main/template/footer');
     }
 	
-	
-   
+
 
     public function invoices()
     {
@@ -194,7 +194,7 @@ class Main extends CI_Controller {
             {
                 echo "invoice not found";
             }
-            $this->db->select("product_variants.color,invoice_lines.*,products.description,products.code,products.fob");
+            $this->db->select("products.weight_of_box,products.inner_carton,products.master_carton,products.class,product_variants.color_abb,product_variants.color,invoice_lines.*,products.description,products.code,products.fob");
             $this->db->join("product_variants"," product_variants.id=invoice_lines.product_id");
             $this->db->join("products"," products.id=product_variants.product_id");
             $this->db->where("invoice_id",$invoice_id);
@@ -353,6 +353,32 @@ class Main extends CI_Controller {
             $module["menu"] = $this->user_access;
             $this->load->view('main/color_composition_print_view',$module);
         }
+
+        if($page == "job_order")
+        {
+            $id = $this->input->get("id");
+            $ids = explode(",",$id);
+            foreach($ids as $id)
+            {
+                $this->db->or_where("id",$id);
+            }
+            $results = $this->db->get("job_order")->result_array();
+            
+            $ret = array();
+            foreach( $results as $res)
+            {
+                $this->db->join("materials","materials.id=color_materials.material_id");
+                $this->db->where("color_id",$res["id"]);
+                $material_list =  $this->db->order_by("color_materials.id","asc")->get("color_materials")->result_array();
+                array_push($res,$material_list);
+                array_push($ret,$res);
+            }
+            $module["color_materials"] = $ret;
+            $module["module_name"] = $this->router->fetch_method();
+            $module["menu"] = $this->user_access;
+            $this->load->view('main/color_composition_print_view',$module);
+        }
+        
     }
 	public function get_profile_data() 
     {

@@ -127,21 +127,21 @@ class Products extends CI_Controller {
     {
         $this->load->model("portal/data_table_model","dt_model");  
         
-        $this->dt_model->select_columns = array("t1.id","t1.class","t1.code","t1.description","t1.inner_carton","t1.master_carton","t1.minimum_of_quantity","t1.lowest_cost","t1.best_price","t1.fob","t1.status","(SELECT COUNT(*) FROM STOCKS WHERE status = 0 and product_variant_id in(SELECT id from product_variants WHERE product_id = t1.id   and product_variants.status )) as quantity");  
+        $this->dt_model->select_columns = array("t1.id","t1.class","t1.code","t1.description","t1.inner_carton","t1.master_carton","t1.weight_of_box","t1.minimum_of_quantity","t1.lowest_cost","t1.fob","t1.status","(SELECT COUNT(*) FROM STOCKS WHERE status = 0 and product_variant_id in(SELECT id from product_variants WHERE product_id = t1.id   and product_variants.status )) as quantity");  
         if($this->session->userdata("USERTYPE") ==1)
         {
-            $this->dt_model->select_columns = array("t1.id","t1.class","t1.code","t1.description","t1.inner_carton","t1.master_carton","t1.minimum_of_quantity","t1.lowest_cost","t1.best_price","t1.fob","t1.status","(SELECT COUNT(*) FROM STOCKS WHERE status = 0 and  product_variant_id in(SELECT id from product_variants WHERE product_id = t1.id   and product_variants.status )) as quantity","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
+            $this->dt_model->select_columns = array("t1.id","t1.class","t1.code","t1.description","t1.inner_carton","t1.master_carton","t1.weight_of_box","t1.minimum_of_quantity","t1.lowest_cost","t1.fob","t1.status","(SELECT COUNT(*) FROM STOCKS WHERE status = 0 and  product_variant_id in(SELECT id from product_variants WHERE product_id = t1.id   and product_variants.status )) as quantity","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
         }
       
-        $this->dt_model->where  = array("t1.id","t1.class","t1.code","t1.description","t1.inner_carton","t1.master_carton","t1.minimum_of_quantity","t1.lowest_cost","t1.best_price","t1.fob","t1.status");
+        $this->dt_model->where  = array("t1.id","t1.class","t1.code","t1.description","t1.inner_carton","t1.master_carton","t1.weight_of_box","t1.minimum_of_quantity","t1.lowest_cost","t1.fob","t1.status");
         if($this->session->userdata("USERTYPE") ==1)
         {
-            $this->dt_model->where  = array("t1.id","t1.class","t1.code","t1.description","t1.inner_carton","t1.master_carton","t1.minimum_of_quantity","t1.lowest_cost","t1.best_price","t1.fob","t1.status","t1.inner_carton","t1.date_created","t2.username","t1.date_modified","t3.username");  
+            $this->dt_model->where  = array("t1.id","t1.class","t1.code","t1.description","t1.inner_carton","t1.master_carton","t1.weight_of_box","t1.minimum_of_quantity","t1.lowest_cost","t1.fob","t1.status","t1.inner_carton","t1.date_created","t2.username","t1.date_modified","t3.username");  
         }  
         
-        $select_columns = array("id","class","code","description","inner_carton","master_carton","minimum_of_quantity","lowest_cost","best_price","fob","quantity","status");    
+        $select_columns = array("id","class","code","description","inner_carton","master_carton","weight_of_box","minimum_of_quantity","lowest_cost","fob","quantity","status");    
         if($this->session->userdata("USERTYPE") ==1){
-            $select_columns = array("id","class","code","description","inner_carton","master_carton","minimum_of_quantity","lowest_cost","best_price","fob","quantity","status","date_created","created_by","date_modified","modified_by");  
+            $select_columns = array("id","class","code","description","inner_carton","master_carton","weight_of_box","minimum_of_quantity","lowest_cost","fob","quantity","status","date_created","created_by","date_modified","modified_by");  
         }
         $this->dt_model->table = "products AS t1 LEFT JOIN user_accounts AS t2 ON t2.id = t1.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t1.modified_by";  
         $this->dt_model->index_column = "t1.id";

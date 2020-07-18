@@ -19,7 +19,7 @@ $db['default'] = array(
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
-	'db_debug' => ((ENVIRONMENT == 'developement') ? TRUE : FALSE),
+	'db_debug' => ((ENVIRONMENT == 'developement') ? TRUE : TRUE),
 	'cache_on' => FALSE,
 	'cachedir' => '',
 	'char_set' => 'utf8',

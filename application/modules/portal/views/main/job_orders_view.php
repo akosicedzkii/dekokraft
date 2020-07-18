@@ -29,6 +29,7 @@
             <th>Job Order Number</th>
             <th>Subcon</th>
             <th>MO#</th>
+            <th>Deadline</th>
             <th>Remarks</th>
             <th>Job Type</th>
             <th>Status</th>
@@ -95,11 +96,28 @@
                                 <div class="col-sm-6">
                                 <select class="form-control" id="job_type" placeholder="Job Type" style="resize:none" required>
                                     
+                                    <option value="resin">Resin</option>
                                     <option value="spray">Spray</option>
                                     <option value="finishing">Finishing</option>
                                 </select>
                                 <div class="help-block with-errors"></div>
                                 </div>
+                            </div>
+
+                           
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="deadline" class="col-sm-6 control-label">Deadline</label>
+
+                                        <div class="col-sm-6">
+                                        <input type="date" style="width:150px;" class="form-control" id="deadline" placeholder="Deadline" required>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                
                             </div>
                                 </div>
                             </div>
@@ -222,7 +240,7 @@
             }
             ,"columnDefs": [
             { "visible": false,  "targets": [ 0 ] },
-            { "width": "20%",  "targets": [ 4 ] }
+            { "width": "20%",  "targets": [ 5 ] }
         ], "order": [[ 4, 'desc' ]]
         });
         $("#addBtn").click(function(){
@@ -259,6 +277,7 @@
                 formData.append('id', job_orders_id);
                 formData.append('marketing_order', $("#marketing_order").val());
                 formData.append('subcon', $("#subcon").val());
+                formData.append('deadline', $("#deadline").val());
                 formData.append('job_type', $("#job_type").val());
                 formData.append('remarks', $("#remarks").val());
                 formData.append('selected_items',selected)
@@ -393,6 +412,7 @@
             $('#coverImgPrev').attr("src","");
             $("#table_body").html("");
             $("#remarks").val("");
+            $("#deadline").val("");
             $("#job_ordersForm").validator('destroy');
             
             
@@ -481,7 +501,7 @@
         $('#job_ordersForm').validator();    
         $("#action").val("edit");
         $("#inputCoverImage").removeAttr("required");
-        var data = { "id" : id }
+        var data = { "id" : id ,"job_type":$("#job_type_option").val()}
         $.ajax({
                 data: data,
                 type: "post",
@@ -490,29 +510,30 @@
                     data = JSON.parse(data);
                     console.log(data);
                         $("#table_body").html("");
-                    $("#marketing_order").append(new Option(data.marketing_order.id,data.marketing_order.invoice_id,  true, true)).trigger('change');
+                    $("#marketing_order").append(new Option(data.marketing_order.id,data.marketing_order.id,  true, true)).trigger('change');
+               
                     $("#subcon").append(new Option(data.subcon.name,data.subcon.id,  true, true)).trigger('change');
                     $("#job_ordersID").val(data.job_orders.id);
                     $("#remarks").val(data.job_orders.remarks);
+                    $("#deadline").val(data.job_orders.deadline);
                     $("#job_type").val(data.job_orders.job_type).trigger('change');
                         data2 = data.invoice_lines;
-                        
+                        data3 = data.jo_lines;
                         data2.forEach(function(e){
-                            console.log(e["color"])
-                            if(e["jo_line_id"] != null)
-                            {
-                                if(data.job_orders.id == e["jo_id"])
+                            selected = 0;
+                            data3.forEach(function(e2){
+                                if(e["id"] == e2["invoice_line_id"])
                                 {
                                      $("#table_body").append("<tr><td><input checked type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td></tr>");
-                                }else{
-                                
+                                        selected = 1;
+                                        return false;
+                                }
+                            }); 
+                            if(selected == 0)
+                            {
                                 $("#table_body").append("<tr><td><input type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td></tr>");
                             }
-                               
-                            }else{
-                                
-                                $("#table_body").append("<tr><td><input type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td></tr>");
-                            }
+                            
                         });
                     $("#job_ordersModal").modal("show");
                 },

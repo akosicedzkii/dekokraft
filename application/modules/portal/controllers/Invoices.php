@@ -20,6 +20,7 @@ class Invoices extends CI_Controller {
        
         $params = array(
             'invoice_date' => date("Y-m-d h:i:s a"),
+            'attn' => $this->input->post('attn'),
             'customer_id' => $this->input->post('customer_name'),
             'invoice_number' => $this->input->post('invoice_number'),
             'iq' => $this->input->post('iq'),
@@ -46,6 +47,7 @@ class Invoices extends CI_Controller {
 	{
         $params = array(
             'invoice_date' => date("Y-m-d h:i:s a"),
+            'attn' => $this->input->post('attn'),
             'customer_id' => $this->input->post('customer_name'),
             'invoice_number' => $this->input->post('invoice_number'),
             'mo_number' => $this->input->post('mo_number'),

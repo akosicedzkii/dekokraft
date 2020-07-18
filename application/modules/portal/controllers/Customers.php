@@ -19,6 +19,7 @@ class Customers extends CI_Controller {
 	{
         $this->customers_model->id = $this->input->post("id");
         $this->customers_model->customer_name = $this->input->post("customer_name");
+        $this->customers_model->attn = $this->input->post("attn");
         $this->customers_model->customer_address = $this->input->post("customer_address");
         $this->customers_model->customer_mobile = $this->input->post("customer_mobile");
         $this->customers_model->customer_fax = $this->input->post("customer_fax");
@@ -38,6 +39,7 @@ class Customers extends CI_Controller {
 	public function edit_customers()
 	{
         $this->customers_model->id = $this->input->post("id");
+        $this->customers_model->attn = $this->input->post("attn");
         $this->customers_model->customer_name = $this->input->post("customer_name");
         $this->customers_model->customer_address = $this->input->post("customer_address");
         $this->customers_model->customer_mobile = $this->input->post("customer_mobile");
@@ -90,6 +92,7 @@ class Customers extends CI_Controller {
         $this->db->or_like("company_name",$search);  
         $this->db->where("status",1);  
         $this->db->select("company_name as text"); 
+        $this->db->select("attn as attn"); 
         $this->db->select("customer_address as address"); 
         $this->db->select("id as id");
         $this->db->limit(10);
@@ -102,9 +105,9 @@ class Customers extends CI_Controller {
     public function get_customers_list()
     {
         $this->load->model("portal/data_table_model","dt_model");  
-        $this->dt_model->select_columns = array("t1.id","t1.customer_name","t1.company_name","t1.customer_address","IF(t1.status=1,'Active','Inactive') as status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
-        $this->dt_model->where  = array("t1.id","t1.customer_name","t1.company_name","t1.customer_address","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");  
-        $select_columns = array("id","customer_name","company_name","customer_address","status","date_created","created_by","date_modified","modified_by");  
+        $this->dt_model->select_columns = array("t1.id","t1.customer_name","t1.company_name","t1.attn","t1.customer_address","IF(t1.status=1,'Active','Inactive') as status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
+        $this->dt_model->where  = array("t1.id","t1.customer_name","t1.company_name","t1.attn","t1.customer_address","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");  
+        $select_columns = array("id","customer_name","company_name","attn","customer_address","status","date_created","created_by","date_modified","modified_by");  
         $this->dt_model->table = "customers AS t1 LEFT JOIN user_accounts AS t2 ON t2.id = t1.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t1.modified_by ";  
         $this->dt_model->index_column = "t1.id";
         $this->dt_model->staticWhere = "t1.status != 3"; 

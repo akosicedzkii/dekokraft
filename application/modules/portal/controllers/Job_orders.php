@@ -37,6 +37,7 @@ class Job_orders extends CI_Controller {
             $counter++;
         }
         $this->job_orders_model->mo_id = $this->input->post("marketing_order");
+        $this->job_orders_model->deadline = $this->input->post("deadline");
         $this->job_orders_model->subcon_id = $this->input->post("subcon");
         $this->job_orders_model->status = 0;
         $this->job_orders_model->remarks = $this->input->post("remarks");
@@ -54,14 +55,15 @@ class Job_orders extends CI_Controller {
         $this->job_orders_model->id = $this->input->post("id");
         if($this->input->post("selected_items") == null)
         {
-            echo "Please select an item!";
+             $results["warning"] ="Please select an item!";
+            echo json_encode($results);
             die();
         }
         $jo_items = explode(",",$this->input->post("selected_items"));
         $counter = 1;
         foreach($jo_items as $item)
         {
-            $result = $this->job_orders_model->validate_jo_item($item,$this->input->post("job_type"));
+            $result = $this->job_orders_model->validate_jo_item($item,$this->input->post("job_type"),$job_orders_id);
             if($result != null)
             {
                 $results["warning"] = "Line # ". $counter ." already exist on other JO#:". $result->jo_id;
@@ -75,6 +77,7 @@ class Job_orders extends CI_Controller {
         $this->job_orders_model->status = 0;
         $this->job_orders_model->remarks = $this->input->post("remarks");
         $this->job_orders_model->job_type = $this->input->post("job_type");
+        $this->job_orders_model->deadline = $this->input->post("deadline");
        
         $this->job_orders_model->date_modified = date("Y-m-d H:i:s A");
         $this->job_orders_model->modified_by =  $this->session->userdata("USERID");
@@ -129,15 +132,21 @@ class Job_orders extends CI_Controller {
         $result = $this->db->get("job_orders");
         $job_orders = $result->row(); 
         $return["job_orders"] = $job_orders;
+        $return["job_orders"]->deadline = date("Y-m-d",strtotime($job_orders->deadline)); 
         $return["subcon"] = $this->db->where("id", $job_orders->subcon_id)->get("subcon")->row();
         $return["marketing_order"] =  $this->db->where("id", $job_orders->mo_id)->get("marketing_order")->row();
         
-        $this->db->select("job_order_lines.id as jo_line_id,job_order_lines.jo_id,product_variants.color,invoice_lines.*,products.description,products.code,products.fob");
-        $this->db->join("job_order_lines"," job_order_lines.invoice_line_id=invoice_lines.id", 'left');
+        // $this->db->select("job_order_lines.id as jo_line_id,job_order_lines.jo_id,product_variants.color,invoice_lines.*,products.description,products.code,products.fob");
+        //$this->db->join("job_order_lines"," job_order_lines.invoice_line_id=invoice_lines.id", 'left');
+        $this->db->select("product_variants.color,invoice_lines.*,products.description,products.code,products.fob");
         $this->db->join("product_variants"," product_variants.id=invoice_lines.product_id");
         $this->db->join("products"," products.id=product_variants.product_id");
         $this->db->where("invoice_lines.invoice_id",$return["marketing_order"]->invoice_id);
         $return["invoice_lines"] = $this->db->order_by("id")->get("invoice_lines")->result();
+        $this->db->where("jo_id",$id);
+        $this->db->where("job_type",$job_orders->job_type);
+        $this->db->where("subcon_id",$job_orders->subcon_id);
+        $return["jo_lines"] =  $this->db->order_by("id")->get("job_order_lines")->result();
         echo json_encode($return); 
     } 
 
@@ -170,9 +179,9 @@ class Job_orders extends CI_Controller {
     public function get_job_orders_list()
     {
         $this->load->model("portal/data_table_model","dt_model");  
-        $this->dt_model->select_columns = array("t1.id","t1.id","(SELECT name from subcon WHERE ID = t1.subcon_id) as subcon_id","t1.mo_id","t1.remarks","t1.job_type","IF(t1.status=1,'Completed','Pending') as status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
-        $this->dt_model->where  = array("t1.id","t1.id","t1.subcon_id","t1.mo_id","t1.remarks","t1.job_type","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");  
-        $select_columns = array("id","id","subcon_id","mo_id","remarks","job_type","status","date_created","created_by","date_modified","modified_by");  
+        $this->dt_model->select_columns = array("t1.id","t1.id","(SELECT name from subcon WHERE ID = t1.subcon_id) as subcon_id","t1.mo_id","t1.deadline","t1.remarks","t1.job_type","IF(t1.status=1,'Completed','Pending') as status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
+        $this->dt_model->where  = array("t1.id","t1.id","t1.subcon_id","t1.mo_id","t1.deadline","t1.remarks","t1.job_type","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");  
+        $select_columns = array("id","id","subcon_id","mo_id","deadline","remarks","job_type","status","date_created","created_by","date_modified","modified_by");  
         $this->dt_model->table = "job_orders AS t1 LEFT JOIN user_accounts AS t2 ON t2.id = t1.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t1.modified_by ";  
         $this->dt_model->index_column = "t1.id";
         $this->dt_model->staticWhere = "t1.status != 3"; 
@@ -193,12 +202,23 @@ class Job_orders extends CI_Controller {
                         if($aRow[$col] == "Pending")
                         {
                             $btns = '<a href="#" onclick="_complete('.$aRow['id'].',\''.$aRow["id"].'\');return false;" class="glyphicon glyphicon-check text-green" data-toggle="tooltip" name="Complete Purchase Order"></a>
-                                    <a href="#" onclick="_edit('.$aRow['id'].');return false;" class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" name="Edit"></a>';
+                                     <a href="#" onclick="_edit('.$aRow['id'].',\''.$aRow["job_type"].'\');return false;" class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" name="Edit"></a>';
                             $row[] = '<center><small class="label bg-gray">'.$aRow[$col].'</small></center>';
                         }
                         else if($aRow[$col] == "Completed")
                         {
                             $row[] = '<center><small class="label bg-green">'.$aRow[$col].'</small></center>';
+                        }
+                    }
+                    else if($col == "deadline")
+                    {
+                        if($aRow[$col] != null)
+                        {   
+                            $row[] = date("Y-m-d",strtotime($aRow[$col]));
+                        }
+                        else
+                        {
+                            $row[] = "None";
                         }
                     }
                     else if($col == "cover_image")
@@ -219,7 +239,7 @@ class Job_orders extends CI_Controller {
             }
             
             $btns .= '
-            
+            <a href="#" onclick="_print('.$aRow['id'].',\''.$aRow["id"].'\');return false;" class="glyphicon glyphicon-print text-orange" data-toggle="tooltip" name="Print"></a>
             <a href="#" onclick="_delete('.$aRow['id'].',\''.$aRow["id"].'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" name="Delete"></a>';
             array_push($row,$btns);
             $output['data'][] = $row;

@@ -16,6 +16,7 @@ class customers_model extends CI_Model {
         public $date_created;
         public $created_by;
         public $modified_by;
+        public $attn;
         public $date_modified;
 
         public function insert_customers()

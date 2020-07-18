@@ -28,6 +28,7 @@
             <th>ID</th>
             <th>Customer Name</th>
             <th>Company Name</th>
+            <th>ATTN</th>
             <th>Customer Address</th>
             <th>Status</th>
             <th>Date Created</th>
@@ -81,7 +82,15 @@
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="attn" class="col-sm-2 control-label">ATTN</label>
 
+                                <div class="col-sm-10">
+                                
+                                <input type="text" class="form-control" id="attn" placeholder="ATTN" required>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="customer_mobile" class="col-sm-2 control-label">Customer Mobile Number</label>
 
@@ -270,6 +279,7 @@
                 var formData = new FormData();
                 formData.append('id',$("#customersID").val());
                 formData.append('customer_name',$("#customer_name").val());
+                formData.append('attn',$("#attn").val());
                 formData.append('customer_address',$("#customer_address").val());
                 formData.append('customer_mobile',$("#customer_mobile").val());
                 formData.append('customer_fax',$("#customer_fax").val());
@@ -412,6 +422,7 @@
                     $("#customersID").val(data.customers.id);
                     $("#customer_name").val(data.customers.customer_name);
                     $("#customer_address").val(data.customers.customer_address);
+                    $("#attn").val(data.customers.attn);
                     $("#customer_mobile").val(data.customers.customer_mobile);
                     $("#customer_fax").val(data.customers.customer_fax);
                     $("#customer_email").val(data.customers.customer_email);

@@ -12,6 +12,7 @@ class Job_orders_model extends CI_Model {
         public $created_by;
         public $modified_by;
         public $date_modified;
+        public $deadline;
 
         public function insert_job_orders($arr_jo)
         {

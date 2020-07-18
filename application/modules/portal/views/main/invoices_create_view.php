@@ -49,6 +49,9 @@
                 <br>
                 <br>
                 <textarea class="form-control" style="width:70%;"   placeholder="Customer Address" id="customer_address"/></textarea>
+                
+                <br>
+                <input type="text" class="form-control" style="width:70%;"   placeholder="ATTN" id="attn"/>
             </address>
             </div>
             <!-- /.col -->
@@ -339,6 +342,7 @@
             $('#customer_name').on('select2:select', function (e) {
                 var data = $('#customer_name').select2('data');
                 $("#customer_address").val(data[0].address);
+                $("#attn").val(data[0].attn);
             });
             $("#payment_terms").select2({
                 minimumInputLength:1,
@@ -385,6 +389,7 @@
                 var formData = new FormData();
                 formData.append('id',$("#id").val());
                 formData.append('customer_name',$("#customer_name").val());
+                formData.append('attn',$("#attn").val());
                 formData.append('invoice_number',$("#invoice_number").val());
                 formData.append('mo_number',$("#mo_number").val());
                 formData.append('iq',$("#iq").val());
