@@ -1,4 +1,5 @@
-<html><head>
+<!DOCTYPE html>
+<html lang="en"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title><?php echo "INVOINCE:#".$invoice->id;?></title>
@@ -29,92 +30,96 @@
   <section class="invoice">
     <!-- title row -->
     <div class="row">
-      <div class="col-xs-12">
-        <h2 class="page-header">
-           <!-- <i class="fa fa-globe"></i>--> <?php echo SITE_NAME;?> 
-           <input type="hidden" value="<?php echo $invoice->id;?>" id="id">
-           <small class="pull-right"> <b>Invoice #<?php echo $invoice->id;?><b>&emsp;MO #<?php echo $mo->id;?></b>&emsp;Invoice Date: <?php echo date("m/d/Y",strtotime($invoice->invoice_date));?></small>
-        </h2>
+      <div class="col-xs-12 text-center">
+           <p style="margin-bottom:0px;"><?php echo SITE_NAME;?></p>
+           <p><?php echo nl2br(COMPANY_ADDRESS);?></p>
       </div>
       <!-- /.col -->
     </div>
     <!-- info row -->
-    <div class="row invoice-info">
-        
-        <div class="col-sm-4 invoice-col">
-        From
-        <address>
-            <strong><?php echo SITE_NAME;?></strong><br>
-            <?php echo nl2br(COMPANY_ADDRESS);?>
-        </address>
-        </div>
-        <!-- /.col -->
-        <div class="col-sm-4 invoice-col">
-        Customer:
-        <address>
-            <?php echo $customer_address->customer_name;?>
-            <br>
-            <br>
-            <?php echo $customer_address->customer_address;?>
-        </address>
-        </div>
-        <!-- /.col -->
-        <div class="col-sm-4 invoice-col">
-        Bank Account:
-        <br>
-       <?php echo $invoice->bank;?>
-        <br>
-        <br>
-        <!-- <b>Order ID:</b> 4F3S8J<br>
-        <b>Payment Due:</b> 2/22/2014<br>
-        <b>Account:</b> 968-34567 -->
-        
-        <?php echo $invoice->invoice_remarks;?>
+    <div class="row">
+      <h4 class="text-center text-uppercase"><strong><?php echo $invoice->invoice_type;?> INVOICE</strong></h4>
+      <div class="col-sm-5 invoice-col">
+        <p class="font-weight-bold" style="margin-bottom:0px;"><b>ID.#</b></p>
+        <p style="margin-bottom:0px;"><b>IQ.#<?php echo $invoice->iq;?></b></p>
+        <p style="margin-bottom:0px;"><b>DATE:</b> <?php echo date("d F Y", strtotime($invoice->invoice_date));?></p>
+        <dl class="row">
+          <dt class="col-xs-2">TO:</dt>
+          <dd class="col-xs-10"><?php echo $customer_address->customer_address;?></dd>
+          <dt class="col-xs-2">ATTN:</dt>
+          <dd class="col-xs-10"><?php echo $customer_address->customer_name;?></dd>
+        </dl>
+      </div>
+      <div class="col-sm-2 invoice-col">
 
-
-        </div>
-        <!-- /.col -->
+      </div>
+      <div class="col-sm-5 invoice-col">
+        <b>ORDER</b>
+        <p style="margin-bottom:0px;"><b>M.O.#</b> <?php echo $mo->id;?></p>
+        <p style="margin-bottom:0px;"><b>Inv.#</b> <?php echo $invoice->id;?></p>
+        <p><b>Remarks:</b> <?php echo $invoice->invoice_remarks;?></p>
+      </div>
     </div>
     <!-- /.row -->
 
     <!-- Table row -->
     <div class="row">
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped" style="font-size:10px;">
+        <table class="table table-striped table-condensed" style="font-size:10px;border-bottom: 1px solid black;border-top: 1px solid black;">
         <thead>
-                <tr>
-                <th>QTY</th>
-                <th>PRODUCT</th>
-                <th>PRODUCT CODE</th>
-                <th>COLOR</th>
-                <th>DESCRIPTION</th>
-                <th>U. PRICE</th>
-                <th>DISCOUNT(%)</th>
-                <th>TOTAL</th>
-                <th>DISCOUNTED PRICE</th>
-                </tr>
-                </thead>
+          <tr style="border-bottom: 0px;">
+            <th colspan="3" class="text-center"></th>
+            <th>PACKING</th>
+            <th colspan="4" class="text-center"></th>
+            <th colspan="2" class="text-center">(STD FOB-MNL US$)</th>
+          </tr>
+          <tr>
+            <th>ITEM</th>
+            <th>STOCK #</th>
+            <th>ARTICLE#</th>
+            <th>IN/MSTR</th>
+            <th>CBM.</th>
+            <th>COLOR</th>
+            <th>QTY</th>
+            <th>DESCRIPTION</th>
+            <th>U. PRICE</th>
+            <th>TOTAL</th>
+          </tr>
+          </thead>
           <tbody>
-          <?php 
+          <?php
             $total_price = 0;
             $total_discounted = 0;
+            $item_no=1;
+            $total_quntity=0;
           ?>
-          <?php foreach($invoice_lines as $line){
-              $total_price = $total_price + ( $line->quantity* $line->product_price);
-              $total_discounted = $total_discounted + (($line->quantity*$line->product_price)-($line->quantity*$line->product_price)*($line->discount/100));
-            ?>
+          <?php foreach ($invoice_lines as $line) {
+              $total_quntity=$total_quntity+$line->quantity;
+              $total_price = $total_price + ($line->quantity* $line->product_price);
+              $total_discounted = $total_discounted + (($line->quantity*$line->product_price)-($line->quantity*$line->product_price)*($line->discount/100)); ?>
           <tr>
-            <td><?php echo  $line->quantity;?></td>
-            <td><?php echo  $line->description. " - " . $line->color;?></td>
-            <td><?php echo  $line->code;?></td>
-            <td><?php echo  $line->color;?></td>
-            <td><?php echo  $line->description;?></td>
-            <td><?php echo  $line->product_price;?></td>
-            <td><?php echo  number_format((float)$line->discount, 2, '.', '');?></td>
-            <td><?php echo  number_format((float)($line->quantity * $line->product_price), 2, '.', '') ;?></td>
-            <td><?php echo  number_format((float)(($line->quantity * $line->product_price) - (($line->quantity * $line->product_price)*($line->discount/100))), 2, '.', '');?></td>
+            <td><?php echo  $item_no++; ?>.</td>
+            <td><?php echo  $line->class. "-" . $line->code."-".$line->color_abb; ?></td>
+            <td><?php echo  $line->code; ?></td>
+            <td><?php echo  $line->inner_carton."/".$line->master_carton; ?></td>
+            <td><?php echo  $line->weight_of_box; ?></td>
+            <td><?php echo  $line->color; ?></td>
+            <td><?php echo  $line->quantity; ?></td>
+            <td><?php echo  $line->description; ?></td>
+            <td><?php echo  $line->product_price; ?></td>
+            <td><?php echo  number_format((float)($line->quantity * $line->product_price), 2, '.', '') ; ?></td>
+            <!-- <td><?php echo  number_format((float)(($line->quantity * $line->product_price) - (($line->quantity * $line->product_price)*($line->discount/100))), 2, '.', ''); ?></td> -->
           </tr>
-          <?php }?>
+          <?php
+          }?>
+            <tr style="border-top: 2px solid black;">
+              <td colspan="2">TOTAL</td>
+              <td>EST. CTN:</td>
+              <td>/</td>
+              <td colspan="2">EST CBM= </td>
+              <td><?php echo $total_quntity; ?></td>
+              <td colspan="3"></td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -122,59 +127,39 @@
     </div>
     <!-- /.row -->
 
-    
+    <!-- /.row -->
     <div class="row">
-            <!-- accepted payments column -->
-            <div class="col-xs-6">
-            <p class="lead">Payment Terms: <?php echo $payment_terms->code;?></p>
-                <br>
-                <br>
-                Remarks: <?php echo $invoice->remarks;?>
-            <br>
-            <br>
-            Packing Instruction: <?php echo $invoice->packing_instruction;?>
-            <br>
-            <br>
-            Label Instructions: <?php echo $invoice->label_instructions;?>
-            <br>
-            <br>
-            Markings: <?php echo $invoice->markings;?>
-            <br>
-            <br>
-            </div>
-            <!-- /.col -->
-            <div class="col-xs-6">
-            <!-- <p class="lead">Amount Due 2/22/2014</p> -->
+      <div class="col-xs-3">
 
-            <div class="table-responsive">
-                <table class="table">
-                <tbody><tr>
-                    <th style="width:50%">Total:</th>
-                    <td>$ <?php echo  number_format((float)$total_price, 2, '.', '');?></td>
-                </tr>
-                <tr>
-                    <th style="width:50%">Total Discounted Price:</th>
-                    <td>$ <?php echo  number_format((float)$total_discounted, 2, '.', '');?></td>
-                </tr>
-                <tr>
-                    <th>Delivery Time:</th>
-                    <td><?php echo date("Y-m-d",strtotime($invoice->delivery_time));?></td>
-                </tr>
-                <tr>
-                    <th>IQ:</th>
-                    <td><?php echo $invoice->iq;?></td>
-                </tr>
-                <tr>
-                    <th>Shipping Instruction:</th>
-                    <td><?php echo $invoice->shipping_instruction;?></td>
-                </tr>
-                </tbody></table>
-            </div>
-            </div>
-            <!-- /.col -->
-        </div>
-        <!-- /.row -->
-            
+      </div>
+      <div class="col-xs-3">
+
+      </div>
+      <div class="col-xs-3">
+        <p>Packing Instruction: <?php echo $invoice->packing_instruction;?></p>
+        <p>Markings: <?php echo $invoice->markings;?></p>
+        <p>Label Instructions: <?php echo $invoice->label_instructions;?></p>
+      </div>
+      <div class="col-xs-3">
+        <p>Remarks: <?php echo $invoice->remarks;?></p>
+        <p>PDF Due:</p>
+      </div>
+    </div>
+    <hr style="border-top: 1px dashed black;margin:0 0 0 0;">
+    <div class="row">
+      <div class="col-xs-12">
+        <p>All samples and products are of the exclusive ownership and use of DEKOKRAFT. INC., Unauthorized copying, distributing, selling, photocopying and use in any kind of form or demo, to represent other buyers, person, exhibitors, is strictly prohibited. The Company and its owners reserve the right to unilaterally rescind the contract or out-off the services of the client/s who violates the foregoing prohibition. The person/s who violates the prohibition shall be held liable and be penalized and/or be criminal charged of qualified theft, foregery of products, samples and documents and be held accountable as provided by law.</p>
+      </div>
+    </div>
+    <hr style="border-top: 1px dashed black;margin:0 0 0 0;">
+    <div class="row">
+      <div class="col-xs-12">
+        <p style="margin-bottom:0px;">Delivery Time: <?php echo date("F d,Y", strtotime($invoice->delivery_time));?></p>
+        <p>Shipping Instruction: <?php echo $invoice->shipping_instruction;?></p>
+        <p style="margin-bottom:0px;">Authorized Signature:</p>
+      </div>
+    </div>
+
   </section>
   <!-- /.content -->
 </div>
