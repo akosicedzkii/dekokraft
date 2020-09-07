@@ -280,6 +280,32 @@ class Main extends CI_Controller
         }
     }
 
+    public function job_orders()
+    {
+        $page = $this->uri->segment(4, 0);
+        if ($page == "print") {
+            $id = $this->input->get("job_id");
+            $ids = explode(",", $id);
+            foreach ($ids as $id) {
+                $this->db->or_where("id", $id);
+            }
+            $results = $this->db->get("job_orders")->result_array();
+
+            $ret = array();
+            foreach ($results as $res) {
+                $this->db->join("materials", "materials.id=color_materials.material_id");
+                $this->db->where("color_id", $res["id"]);
+                $material_list =  $this->db->order_by("color_materials.id", "asc")->get("color_materials")->result_array();
+                array_push($res, $material_list);
+                array_push($ret, $res);
+            }
+            $module["color_materials"] = $ret;
+            $module["module_name"] = $this->router->fetch_method();
+            $module["menu"] = $this->user_access;
+            $this->load->view('main/color_composition_print_view', $module);
+        }
+    }
+
     public function prints()
     {
         $page = $this->uri->segment(4, 0);
@@ -311,7 +337,7 @@ class Main extends CI_Controller
             foreach ($ids as $id) {
                 $this->db->or_where("id", $id);
             }
-            $results = $this->db->get("job_order")->result_array();
+            $results = $this->db->get("job_orders")->result_array();
 
             $ret = array();
             foreach ($results as $res) {
@@ -327,6 +353,7 @@ class Main extends CI_Controller
             $this->load->view('main/color_composition_print_view', $module);
         }
     }
+
     public function get_profile_data()
     {
         $this->db->where("user_id", $this->session->userdata("USERID"));
