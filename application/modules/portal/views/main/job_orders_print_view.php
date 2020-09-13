@@ -23,130 +23,186 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 <script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script></head>
-<body onload="//window.print();">
+<body onload="window.print();">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
     <!-- title row -->
     <div class="row">
-      <div class="col-xs-12">
-        <h2 class="page-header">
-           <!-- <i class="fa fa-globe"></i>--> 
-           <center>
-            <address style="font-size:14px;">
-                <strong><?php echo SITE_NAME;?></strong><br>
-                <?php echo nl2br(COMPANY_ADDRESS);?>
-            </address>
-         </center>
-           <input type="hidden" value="<?php echo $invoice->id;?>" id="id">
-           <div class="row">
-                <table class="pull-right">
-                <tr><td><small style="font-size:14px;"> M.O. # <?php echo $mo->id;?></b>&emsp;</small><td></tr>
-                
-                <tr><td><small  style="font-size:14px;">Authorized Signature: <u>______________</u></small><td></tr>
-                </table>
-           </div>
-           
-            <div class="row">
-                </br>
-                <center><small>MARKETING ORDER</small></center>
-            </div>
-
-            <div class="row">
-                </br>
-                <small><b>DATE: <?php echo date("m/d/Y",strtotime($invoice->invoice_date));?></small>
-                <small class="pull-right"><b>Inv. #<?php echo $invoice->id;?><b></small>
-            </div>
-        </h2>
+      <div class="col-xs-12 text-center">
+        <!-- title row -->
+         <p class="font-weight-bold text-uppercase" style="margin-bottom:0px;letter-spacing: 3px;"><?php echo SITE_NAME;?></p>
+         <p style="margin-bottom:0px;"><?php echo nl2br(COMPANY_ADDRESS);?></p>
+         <p>*** JOB ORDER ***</p>
       </div>
-      <!-- /.col -->    
+      <!-- /.col -->
     </div>
-    <!-- info row -->
-    <div class="row invoice-info">
-        
-  
-        <!-- /.col -->
-        <div class="col-sm-4 invoice-col">
-        Customer:
-        <address>
-            <?php echo $customer_address->customer_name;?>
-            <br>
-            <br>
-            <?php echo $customer_address->customer_address;?>
-            <br>
-            <?php echo "ATTN: ".$invoice->attn;?>
-        </address>
-        </div>
-        <!-- /.col -->
-        <div class="col-sm-4 invoice-col">
-        Bank Account:
-        <br>
-       <?php echo $invoice->bank;?>
-        <br>
-        <br>
-        <!-- <b>Order ID:</b> 4F3S8J<br>
-        <b>Payment Due:</b> 2/22/2014<br>
-        <b>Account:</b> 968-34567 -->
-        
-        <?php echo $invoice->invoice_remarks;?>
-
-
-        </div>
-        <div class="col-sm-4 invoice-col">
-        </div>
-        <!-- /.col -->
+    <div class="row">
+      <div class="col-xs-9"></div>
+      <div class="col-xs-3">
+        <p style="margin-bottom:0px;">J.O.# </p>
+        <p>Date :</p>
+      </div>
     </div>
-    <!-- /.row -->
+    <div class="row">
+      <div class="col-xs-6">
+        <dl class="row">
+          <dt class="col-xs-2">TO :</dt>
+          <dd class="col-xs-10"></dd>
+        </dl>
+      </div>
+      <div class="col-xs-6">
+        <dl class="row">
+          <dt class="col-xs-5">Payment Terms:</dt>
+          <dd class="col-xs-7"></dd>
+        </dl>
+      </div>
+    </div>
+    <p>Please supply and deliver undermentioned to DEKODRAFT, INC. on or before </p>
 
     <!-- Table row -->
     <div class="row">
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped" style="font-size:10px;">
+        <table class="table table-striped table-condensed" style="font-size:10px;border-bottom: 1px solid black;border-top: 1px solid black;">
         <thead>
                 <tr>
-                <th>Item</th>
                 <th>Stock #</th>
-                <th>Article #</th>
-                <th>Packing<br>IN/MSTR</th>
-                <th>CBM</th>
-                <th>COLOR</th>
-                <th>QTY</th>
-                <th>PRODUCT</th>
-                <th>PRODUCT CODE</th>
-                <th>DESCRIPTION</th>
-                <th>U. PRICE</th>
-                <th>DISCOUNT(%)</th>
-                <th>TOTAL</th>
-                <th>DISCOUNTED PRICE</th>
+                <th>Color</th>
+                <th>Quantity</th>
+                <th>Description</th>
+                <th>Tgt.</th>
+                <th>Wgt</th>
+                <th>Job</th>
+                <th>U.Price</th>
+                <th>Amount</th>
                 </tr>
                 </thead>
           <tbody>
-          <?php 
-            $total_price = 0;
-            $total_discounted = 0;
-            $count = 1;
-          ?>
-          <?php foreach($invoice_lines as $line){
-              $total_price = $total_price + ( $line->quantity* $line->product_price);
-              $total_discounted = $total_discounted + (($line->quantity*$line->product_price)-($line->quantity*$line->product_price)*($line->discount/100));
-            ?>
-          <tr>
-            <td><?php echo  $count;?></td>
-            <td><?php echo  $line->class."-".$line->code."-".$line->color_abb;?></td>
-            <td><?php echo  "______";?></td>
-            <td><?php echo  $line->master_carton." ".$line->master_carton;?></td>
-            <td><?php echo  $line->weight_of_box;?></td> 
-            <td><?php echo  $line->color;?></td>
-            <td><?php echo  $line->quantity;?></td>
-            <td><?php echo  $line->description. " - " . $line->color;?></td>
-            <td><?php echo  $line->code;?></td>
-            <td><?php echo  $line->description;?></td>
-            <td><?php echo  $line->product_price;?></td>
-            <td><?php echo  number_format((float)$line->discount, 2, '.', '');?></td>
-            <td><?php echo  number_format((float)($line->quantity * $line->product_price), 2, '.', '') ;?></td>
-            <td><?php echo  number_format((float)(($line->quantity * $line->product_price) - (($line->quantity * $line->product_price)*($line->discount/100))), 2, '.', '');?></td>
+          <tr style="border-top: 2px solid black;">
+            <td colspan="2" class="text-center">TOTAL</td>
+            <td></td>
+            <td colspan="5"></td>
+            <td></td>
           </tr>
-          <?php $count++;}?>
+          </tbody>
+        </table>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+      <!-- <div class="col-xs-6"> -->
+        <div class="col-xs-12">
+          <div class="col-xs-2">
+
+          </div>
+          <div class="col-xs-6">
+            <p style="margin-bottom:0px;">Note: Resin - Materials, Moulds & Labor</p>
+            <p>PRICES INCLUSIVE OF LABOR & MATLS.</p>
+            <p style="margin-bottom:0px;">*** STAGGERED DELIVERY REQUIRED ***</p>
+            <!-- <p style="margin-bottom:0px;">Note: Finishing & Materials</p>
+            <p>NET OF SPRAY & HAND PAINT.</p>
+            <p style="margin-bottom:0px;">*** UNIT PRICES ABOVE INCLUDE MATERIAL PRICE ***</p>
+            <p style="margin-bottom:0px;">*** STAGGERED DELIVERY REQUIRED ***</p> -->
+          </div>
+        </div>
+        <div class="col-xs-3">
+          <p style="margin-bottom:0px;">PROFORMA INVOICE# </p>
+        </div>
+        <div class="col-xs-3">
+          <p style="margin-bottom:0px;">M.O.# </p>
+        </div>
+      <!-- </div> -->
+      <div class="col-xs-12">
+        <p style="margin-bottom:0px;">RULES & REGULATIONS:</p>
+        <p>Subcontractor may not offer subject items which are the exclusive designs and sole property of DEKOKRAFT, INC. to any other individual, COMPANY or establishment. Should the Subcontractor violate the foregoing condition, he shall be liable to penalty for estafa and breach of contract.</p>
+        <ol style="padding-left: 15px;">
+          <li>Subcontractor is required to submit atleast (2) resin control sample per LINE item on or before</li>
+          <li>Approved control sample must have signature of approving officer & should accompany finish goods on 1st delivery for reference.</li>
+          <li>Non-submission of control sample will be subject to 1% penalty based on J.O. value or P500 per item whichever higher.</li>
+        </ol>
+        <!-- <ol style="padding-left: 15px;">
+          <li>Subcontractor is required to submit atleast (2) control sample per item w/in 3 working days of TR RECEIVED DATE.</li>
+          <li>Approved control sample must have signature of approving officer & should accompany finish goods on 1st delivery for reference.</li>
+          <li>Non-submission of control sample will be subject to 1% penalty based on J.O. value or P500 per item whichever higher.</li>
+        </ol> -->
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <p>I hereby accept this J.O. subject to the foregoing terms and conditions which we have read and fully understood.</p>
+        <div class="col-xs-6">
+          <p class="text-center" style="margin-bottom:0px;">____________________</p>
+          <p class="text-center" style="margin-top:0px;">( Firm )</p><br>
+          <p class="text-center" style="margin-bottom:0px;">____________________</p>
+          <p class="text-center">( Designation )</p>
+        </div>
+        <div class="col-xs-6">
+          <p class="text-center" style="margin-bottom:0px;">____________________</p>
+          <p class="text-center">( Signature )</p>
+        </div>
+      </div>
+      <div class="col-xs-6">
+        <br>
+        <p class="text-center" style="margin-bottom:0px;">___________________________________</p>
+        <p class="text-center">AUTHORIZED SIGNATURE AND DATE</p>
+        <p style="margin-bottom:0px;">PENALTY FOR LATE DELIVERIES SHALL BE SHOULDERED 50% BY SUB-CON AND 50% BY COMPANY STAFF RESPONSIBLE FOR THE TRANSACTION BASED ON P.O. VALUE</p>
+        <div class="" style="font-size:10px;">
+          <div class="col-xs-3">
+            <p style="margin-bottom:0px;">1-5 DAYS,</p>
+            <p style="margin-bottom:0px;">6-10 DAYS,</p>
+            <p style="margin-bottom:0px;">11 DAYS $ UP,</p>
+          </div>
+          <div class="col-xs-4">
+            <p style="margin-bottom:0px;">1/4 OR 1% PER DAY,</p>
+            <p style="margin-bottom:0px;">1/2 OR 1% PER DAY,</p>
+            <p style="margin-bottom:0px;">1% PER DAY,</p>
+          </div>
+          <div class="col-xs-5">
+            <p style="margin-bottom:0px;">W/2 DAYS GRACE PERIOD</p>
+            <p style="margin-bottom:0px;">NO GRACE PERIOD</p>
+            <p style="margin-bottom:0px;">NO GRACE PERIOD</p>
+          </div>
+          <p>( Straight Computation )</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <p>*** ***</p>
+        <div class="col-xs-6">
+          <p></p>
+        </div>
+        <div class="col-xs-6">
+          <div class="col-xs-2">
+
+          </div>
+          <div class="col-xs-10">
+            <p>App'd Ctrl Sample: _______________</p>
+            <p>J.O. Recieved : __________________</p>
+            <p>Resin Received : _________________</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Table row -->
+    <div class="row">
+      <p class="text-center">*** JOB ORDER LIST ***</p>
+      <div class="col-xs-12 table-responsive">
+        <table class="table table-striped table-condensed" style="font-size:10px;border-bottom: 1px solid black;border-top: 1px solid black;">
+        <thead>
+          <tr>
+            <th>Stock #</th>
+            <th>Color</th>
+            <th>Description</th>
+            <th>Qty.</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr>
+            <td colspan="3">TOTAL</td>
+            <td></td>
+          </tr>
           </tbody>
         </table>
       </div>
@@ -154,59 +210,27 @@
     </div>
     <!-- /.row -->
 
-    
+    <!-- Table row -->
     <div class="row">
-            <!-- accepted payments column -->
-            <div class="col-xs-6">
-            <p class="lead">Payment Terms: <?php echo $payment_terms->code;?></p>
-                <br>
-                <br>
-                Remarks: <?php echo $invoice->remarks;?>
-            <br>
-            <br>
-            Packing Instruction: <?php echo $invoice->packing_instruction;?>
-            <br>
-            <br>
-            Label Instructions: <?php echo $invoice->label_instructions;?>
-            <br>
-            <br>
-            Markings: <?php echo $invoice->markings;?>
-            <br>
-            <br>
-            </div>
-            <!-- /.col -->
-            <div class="col-xs-6">
-            <!-- <p class="lead">Amount Due 2/22/2014</p> -->
+      <p class="text-center">*** SUB-BQ ( BILL OF QUANTITY ) ***</p>
+      <div class="col-xs-12 table-responsive">
+        <table class="table table-striped table-condensed" style="font-size:10px;border-bottom: 1px solid black;border-top: 1px solid black;">
+        <thead>
+          <tr>
+            <th>Item Name</th>
+            <th>Issuance Quantity</th>
+            <th>Issued</th>
+          </tr>
+          </thead>
+          <tbody>
 
-            <div class="table-responsive">
-                <table class="table">
-                <tbody><tr>
-                    <th style="width:50%">Total:</th>
-                    <td>$ <?php echo  number_format((float)$total_price, 2, '.', '');?></td>
-                </tr>
-                <tr>
-                    <th style="width:50%">Total Discounted Price:</th>
-                    <td>$ <?php echo  number_format((float)$total_discounted, 2, '.', '');?></td>
-                </tr>
-                <tr>
-                    <th>Delivery Time:</th>
-                    <td><?php echo date("Y-m-d",strtotime($invoice->delivery_time));?></td>
-                </tr>
-                <tr>
-                    <th>IQ:</th>
-                    <td><?php echo $invoice->iq;?></td>
-                </tr>
-                <tr>
-                    <th>Shipping Instruction:</th>
-                    <td><?php echo $invoice->shipping_instruction;?></td>
-                </tr>
-                </tbody></table>
-            </div>
-            </div>
-            <!-- /.col -->
-        </div>
-        <!-- /.row -->
-            
+          </tbody>
+        </table>
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
   </section>
   <!-- /.content -->
 </div>
