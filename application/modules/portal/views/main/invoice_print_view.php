@@ -24,21 +24,23 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 <script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script></head>
-<body onload="window.print();">
+<style media="screen">
+</style>
+<body onload="window.print();" style="font-size: 10px;line-height: 1;">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
     <!-- title row -->
     <div class="row">
       <div class="col-xs-12 text-center">
-           <p style="margin-bottom:0px;"><?php echo SITE_NAME;?></p>
+           <p style="margin-bottom:0px;" class="text-uppercase"><?php echo SITE_NAME;?></p>
            <p><?php echo nl2br(COMPANY_ADDRESS);?></p>
       </div>
       <!-- /.col -->
     </div>
     <!-- info row -->
     <div class="row">
-      <h4 class="text-center text-uppercase"><strong><?php echo $invoice->invoice_type;?> INVOICE</strong></h4>
+      <h4 class="text-center text-uppercase" style="letter-spacing: 3px;"><strong><?php echo $invoice->invoice_type;?> INVOICE</strong></h4>
       <div class="col-sm-5 invoice-col">
         <p class="font-weight-bold" style="margin-bottom:0px;"><b>ID.#</b></p>
         <p style="margin-bottom:0px;"><b>IQ.#<?php echo $invoice->iq;?></b></p>
@@ -65,25 +67,25 @@
     <!-- Table row -->
     <div class="row">
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:10px;border-bottom: 1px solid black;border-top: 1px solid black;">
+        <table class="table table-striped table-condensed" style="font-size:8px;border-bottom: 1px solid black;border-top: 1px solid black;margin-bottom:10px">
         <thead>
-          <tr style="border-bottom: 0px;">
-            <th colspan="3" class="text-center"></th>
-            <th>PACKING</th>
-            <th colspan="4" class="text-center"></th>
-            <th colspan="2" class="text-center">(STD FOB-MNL US$)</th>
+          <tr>
+            <th colspan="3" style="padding: 1px;" class="text-center"></th>
+            <th style="padding: 1px;" class="text-center">PACKING</th>
+            <th colspan="4" style="padding: 1px;" class="text-center"></th>
+            <th colspan="2" style="padding: 1px;" class="text-center">(STD FOB-MNL US$)</th>
           </tr>
           <tr>
-            <th>ITEM</th>
-            <th>STOCK #</th>
-            <th>ARTICLE#</th>
-            <th>IN/MSTR</th>
-            <th>CBM.</th>
-            <th>COLOR</th>
-            <th>QTY</th>
-            <th>DESCRIPTION</th>
-            <th>U. PRICE</th>
-            <th>TOTAL</th>
+            <th style="padding: 1px;" class="text-center">ITEM</th>
+            <th style="padding: 1px;" class="text-center">STOCK #</th>
+            <th style="padding: 1px;" class="text-center">ARTICLE#</th>
+            <th style="padding: 1px;" class="text-center">IN/MSTR</th>
+            <th style="padding: 1px;" class="text-center">CBM.</th>
+            <th style="padding: 1px;" class="text-center">COLOR</th>
+            <th style="padding: 1px;" class="text-center">QTY</th>
+            <th style="padding: 1px;" class="text-center">DESCRIPTION</th>
+            <th style="padding: 1px;" class="text-center">U. PRICE</th>
+            <th style="padding: 1px;" class="text-center">TOTAL</th>
           </tr>
           </thead>
           <tbody>
@@ -97,28 +99,28 @@
               $total_quntity=$total_quntity+$line->quantity;
               $total_price = $total_price + ($line->quantity* $line->product_price);
               $total_discounted = $total_discounted + (($line->quantity*$line->product_price)-($line->quantity*$line->product_price)*($line->discount/100)); ?>
-          <tr>
-            <td><?php echo  $item_no++; ?>.</td>
-            <td><?php echo  $line->class. "-" . $line->code."-".$line->color_abb; ?></td>
-            <td><?php echo  $line->code; ?></td>
-            <td><?php echo  $line->inner_carton."/".$line->master_carton; ?></td>
-            <td><?php echo  $line->weight_of_box; ?></td>
-            <td><?php echo  $line->color; ?></td>
-            <td><?php echo  $line->quantity; ?></td>
-            <td><?php echo  $line->description; ?></td>
-            <td><?php echo  $line->product_price; ?></td>
-            <td><?php echo  number_format((float)($line->quantity * $line->product_price), 2, '.', '') ; ?></td>
+          <tr class="text-center">
+            <td style="padding: 1px;"><?php echo  $item_no++; ?>.</td>
+            <td style="padding: 1px;"><?php echo  $line->class. "-" . $line->code."-".$line->color_abb; ?></td>
+            <td style="padding: 1px;"><?php echo  $line->code; ?></td>
+            <td style="padding: 1px;"><?php echo  $line->inner_carton."/".$line->master_carton; ?></td>
+            <td style="padding: 1px;"><?php echo  $line->weight_of_box; ?></td>
+            <td style="padding: 1px;"><?php echo  $line->color; ?></td>
+            <td style="padding: 1px;"><?php echo  $line->quantity; ?></td>
+            <td style="padding: 1px;"><?php echo  $line->description; ?></td>
+            <td style="padding: 1px;"><?php echo  $line->product_price; ?></td>
+            <td style="padding: 1px;"><?php echo  number_format((float)($line->quantity * $line->product_price), 2, '.', '') ; ?></td>
             <!-- <td><?php echo  number_format((float)(($line->quantity * $line->product_price) - (($line->quantity * $line->product_price)*($line->discount/100))), 2, '.', ''); ?></td> -->
           </tr>
           <?php
           }?>
-            <tr style="border-top: 2px solid black;">
-              <td colspan="2">TOTAL</td>
-              <td>EST. CTN:</td>
-              <td>/</td>
-              <td colspan="2">EST CBM= </td>
-              <td><?php echo $total_quntity; ?></td>
-              <td colspan="3"></td>
+            <tr>
+              <td colspan="2" style="padding: 1px;border-top: 1px solid black;">TOTAL</td>
+              <td style="padding: 1px;border-top: 1px solid black;" class="text-center">EST. CTN:</td>
+              <td style="padding: 1px;border-top: 1px solid black;" class="text-center">/</td>
+              <td colspan="2" style="padding: 1px;border-top: 1px solid black;" class="text-left">EST CBM= </td>
+              <td style="padding: 1px;border-top: 1px solid black;" class="text-center"><?php echo number_format($total_quntity); ?></td>
+              <td colspan="3" style="padding: 1px;border-top: 1px solid black;"></td>
             </tr>
           </tbody>
         </table>
@@ -128,14 +130,14 @@
     <!-- /.row -->
 
     <!-- /.row -->
-    <div class="row">
+    <div class="row" style="display:flex;">
       <div class="col-xs-3">
 
       </div>
       <div class="col-xs-3">
 
       </div>
-      <div class="col-xs-3">
+      <div class="col-xs-3" style="border-left: 1px dashed black;border-right: 1px dashed black;">
         <p>Packing Instruction: <?php echo $invoice->packing_instruction;?></p>
         <p>Markings: <?php echo $invoice->markings;?></p>
         <p>Label Instructions: <?php echo $invoice->label_instructions;?></p>
@@ -145,7 +147,7 @@
         <p>PDF Due:</p>
       </div>
     </div>
-    <hr style="border-top: 1px dashed black;margin:0 0 0 0;">
+    <hr style="border-top: 1px dashed black;margin:5px 0 5px 0;">
     <div class="row">
       <div class="col-xs-12">
         <p>All samples and products are of the exclusive ownership and use of DEKOKRAFT. INC., Unauthorized copying, distributing, selling, photocopying and use in any kind of form or demo, to represent other buyers, person, exhibitors, is strictly prohibited. The Company and its owners reserve the right to unilaterally rescind the contract or out-off the services of the client/s who violates the foregoing prohibition. The person/s who violates the prohibition shall be held liable and be penalized and/or be criminal charged of qualified theft, foregery of products, samples and documents and be held accountable as provided by law.</p>
@@ -154,6 +156,7 @@
     <hr style="border-top: 1px dashed black;margin:0 0 0 0;">
     <div class="row">
       <div class="col-xs-12">
+        <br>
         <p style="margin-bottom:0px;">Delivery Time: <?php echo date("F d,Y", strtotime($invoice->delivery_time));?></p>
         <p>Shipping Instruction: <?php echo $invoice->shipping_instruction;?></p>
         <p style="margin-bottom:0px;">Authorized Signature:</p>
