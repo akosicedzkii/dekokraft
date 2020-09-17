@@ -24,6 +24,14 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 <script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script></head>
+<style type="text/css">
+@media print {
+  * { overflow: visible !important; }
+  body {
+    height: auto;
+  }
+}
+</style>
 <body onload="window.print();" style="font-size: 10px;line-height: 1;">
 <div class="wrapper">
   <!-- Main content -->
@@ -49,7 +57,7 @@
                 </div>
                 <div class="col-xs-6">
                   <div class="pull-right">
-                    <p>M.O. # <?php echo $mo->id;?></p>
+                    <p style="margin-bottom:0px;">M.O. # <?php echo $mo->id;?></p>
                     <p>Authorized Signature: <u>______________</u></p>
                   </div>
                 </div>

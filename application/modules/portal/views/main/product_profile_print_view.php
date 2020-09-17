@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,7 +25,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 <script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script></head>
 
-<style>
+<style media="screen">
 .avoidBreak {
     border: 2px solid;
     page-break-inside:avoid;
@@ -40,17 +41,33 @@
     {
         font-size:10px;
     }
+
 }
 
 </style>
-<body onload="window.print();">
+<style type="text/css">
+  @media print {
+    * { overflow: visible !important; }
+    body {
+      height: auto;
+    }
+  }
+  .tbl-pad{
+    padding:1px !important;
+  }
+  .bb{
+    border-bottom: 1px solid black !important;
+  }
+</style>
+<body onload="window.print();" style="font-size: 10px;line-height: 1;">
+
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
     <!-- title row -->
     <div class="row">
       <div class="col-xs-12">
-        <p style="margin-bottom:0px;">Date:</p>
+        <p style="margin-bottom:0px;">Date: <?php echo date("Y.m.d"); ?></p>
         <h4 class="text-center text-uppercase" style="margin-bottom:0px;margin-top:0px;letter-spacing: 3px;"><b><?php echo SITE_NAME;?></b></h4>
         <h4 class="text-center" style="margin-top:0px;">PRODUCT PROFILE</h4>
       </div>
@@ -84,19 +101,20 @@
                 </table> -->
             </div>
         </div>
+        <br><br>
         <div class="row">
           <div class="col-sm-12 table-responsive">
-            <p>MATERIAL REQUIREMENT SUMMARY :</p>
-            <table class="table">
+            <p style="margin-bottom:0px;">MATERIAL REQUIREMENT SUMMARY :</p>
+            <table class="table table-striped table-condensed" style="font-size:9px;border-bottom: 1px solid black;margin-bottom:10px">
               <thead>
                 <tr>
-                  <th></th>
-                  <th>Item Name</th>
-                  <th>JP</th>
-                  <th>Qty.</th>
-                  <th>Unit</th>
-                  <th>U. Cost</th>
-                  <th>Total Cost</th>
+                  <th class="tbl-pad bb"></th>
+                  <th class="tbl-pad bb">Item Name</th>
+                  <th class="tbl-pad bb">JP</th>
+                  <th class="tbl-pad bb">Qty.</th>
+                  <th class="tbl-pad bb">Unit</th>
+                  <th class="tbl-pad bb">U. Cost</th>
+                  <th class="tbl-pad bb">Total Cost</th>
                 </tr>
               </thead>
               <tbody>
@@ -106,9 +124,9 @@
                 $total_f=0;
                 $total_ap=0;
                   if ($material_groups!=null) {
+                      $counts=0;
                       foreach ($material_groups as $material) {
                           if ($material[0] != null) {
-                              $counts=0;
                               foreach ($material[0] as $material_items) {
                                   switch ($material_items['jp']) {
                                   case 'R':
@@ -133,13 +151,13 @@
                                 }
                                   $counts++; ?>
                               <tr>
-                                <td><?php echo $counts; ?></td>
-                                <td><?php echo $material_items['material_name']; ?></td>
-                                <td><?php echo $material_items['jp']; ?></td>
-                                <td><?php echo $material_items['qty']; ?></td>
-                                <td><?php echo $material_items['unit']; ?></td>
-                                <td><?php echo $material_items['cost']; ?></td>
-                                <td><?php echo number_format(floatval($material_items['qty'])*floatval($material_items['cost']), 2); ?></td>
+                                <td class="tbl-pad text-center"><?php echo $counts; ?>.</td>
+                                <td class="tbl-pad"><?php echo $material_items['material_name']; ?></td>
+                                <td class="tbl-pad"><?php echo $material_items['jp']; ?></td>
+                                <td class="tbl-pad"><?php echo $material_items['qty']; ?></td>
+                                <td class="tbl-pad"><?php echo $material_items['unit']; ?></td>
+                                <td class="tbl-pad"><?php echo $material_items['cost']; ?></td>
+                                <td class="tbl-pad"><?php echo number_format(floatval($material_items['qty'])*floatval($material_items['cost']), 2); ?></td>
                               </tr>
                   <?php
                               }
@@ -156,35 +174,35 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th>MATERIAL COST (A)</th>
-                  <th>-JP-</th>
-                  <th></th>
+                  <th class="tbl-pad">MATERIAL COST (A)</th>
+                  <th class="tbl-pad">-JP-</th>
+                  <th class="tbl-pad"></th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>Resin Materials</td>
-                  <td>( R )</td>
-                  <td>P <?php echo number_format($total_r, 2); ?></td>
+                  <td class="tbl-pad">Resin Materials</td>
+                  <td class="tbl-pad">( R )</td>
+                  <td class="tbl-pad">P <?php echo number_format($total_r, 2); ?></td>
                 </tr>
                 <tr>
-                  <td>Silicon Rubber Mold</td>
-                  <td>( M )</td>
-                  <td>P <?php echo number_format($total_m, 2); ?></td>
+                  <td class="tbl-pad">Silicon Rubber Mold</td>
+                  <td class="tbl-pad">( M )</td>
+                  <td class="tbl-pad">P <?php echo number_format($total_m, 2); ?></td>
                 </tr>
                 <tr>
-                  <td>Finishing Materials</td>
-                  <td>( F )</td>
-                  <td>P <?php echo number_format($total_f, 2); ?></td>
+                  <td class="tbl-pad">Finishing Materials</td>
+                  <td class="tbl-pad">( F )</td>
+                  <td class="tbl-pad">P <?php echo number_format($total_f, 2); ?></td>
                 </tr>
                 <tr>
-                  <td>Artist Painting Material</td>
-                  <td>( AP )</td>
-                  <td>P <?php echo number_format($total_ap, 2); ?></td>
+                  <td class="tbl-pad">Artist Painting Material</td>
+                  <td class="tbl-pad">( AP )</td>
+                  <td class="tbl-pad">P <?php echo number_format($total_ap, 2); ?></td>
                 </tr>
                 <tr>
-                  <td colspan="2">*** TOTAL MATERIALS COST ***</td>
-                  <td>P <?php echo number_format($total_r+$total_m+$total_f+$total_ap, 2); ?></td>
+                  <td colspan="2" class="tbl-pad">*** TOTAL MATERIALS COST ***</td>
+                  <td class="tbl-pad">P <?php echo number_format($total_r+$total_m+$total_f+$total_ap, 2); ?></td>
                 </tr>
               </tbody>
             </table>
@@ -196,11 +214,11 @@
             <table class="table">
               <thead>
                 <tr>
-                  <th></th>
-                  <th>Job Process</th>
-                  <th>JP</th>
-                  <th>Min.</th>
-                  <th>Sec.</th>
+                  <th class="tbl-pad"></th>
+                  <th class="tbl-pad">Job Process</th>
+                  <th class="tbl-pad">JP</th>
+                  <th class="tbl-pad">Min.</th>
+                  <th class="tbl-pad">Sec.</th>
                 </tr>
               </thead>
               <tbody>
@@ -211,30 +229,60 @@
         </div>
         <div class="row">
           <div class="col-sm-12">
-            <table class="table">
+            <table class="table" style="margin-bottom:10px">
               <thead>
                 <tr>
-                  <th>LABOR COST :</th>
-                  <th>-JP-</th>
-                  <th>MIN.</th>
-                  <th>SEC.</th>
-                  <th>DELIVERED(B)</th>
-                  <th>PROVIDED(C)</th>
+                  <th class="tbl-pad">LABOR COST :</th>
+                  <th class="tbl-pad">-JP-</th>
+                  <th class="tbl-pad">MIN.</th>
+                  <th class="tbl-pad">SEC.</th>
+                  <th class="tbl-pad">DELIVERED(B)</th>
+                  <th class="tbl-pad">PROVIDED(C)</th>
                 </tr>
               </thead>
               <tbody>
-
-              </tbody>
-              <tfoot>
                 <tr>
-                  <td colspan="4">*** TOTAL LABOR COST ***</td>
-                  <td></td>
-                  <td></td>
+                  <td class="tbl-pad">Resin Cast</td>
+                  <td class="tbl-pad">( RA )</td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
                 </tr>
-              </tfoot>
+                <tr>
+                  <td class="tbl-pad">Resin Clean</td>
+                  <td class="tbl-pad">( RL )</td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                </tr>
+                <tr>
+                  <td class="tbl-pad">Finishing</td>
+                  <td class="tbl-pad">( F )</td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                </tr>
+                <tr>
+                  <td class="tbl-pad">Artist Painting</td>
+                  <td class="tbl-pad">( AP )</td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                </tr>
+                <tr>
+                  <td colspan="4" class="tbl-pad">*** TOTAL LABOR COST ***</td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>
+        <hr style="border-top: 1px dashed black;margin:1px 0 5px 0;">
         <div class="row">
           <div class="col-xs-12">
             <p style="margin-bottom:0px;">L.C. PESO COSTING:</p>
@@ -257,33 +305,76 @@
           </div>
 
         </div>
+        <hr style="border-top: 1px dashed black;margin:5px 0 1px 0;">
         <div class="row">
           <div class="col-sm-12">
             <table class="table">
               <thead>
                 <tr>
-                  <th>SUBCON JOB COST :</th>
-                  <th>DERIVED(A+B)</th>
-                  <th>DERIVED(A+C)</th>
-                  <th>PROVIDED</th>
+                  <th class="tbl-pad">SUBCON JOB COST :</th>
+                  <th class="tbl-pad">DERIVED(A+B)</th>
+                  <th class="tbl-pad">DERIVED(A+C)</th>
+                  <th class="tbl-pad">PROVIDED</th>
                 </tr>
               </thead>
               <tbody>
-
+                <tr>
+                  <td class="tbl-pad">1. Resin -Subcon Mat'l, Mold & Labor</td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                </tr>
+                <tr>
+                  <td class="tbl-pad">2. Resin -Subcon Labor, Dekokraft Matl</td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                </tr>
+                <tr>
+                  <td class="tbl-pad">3. Fin. -Subcon Materials & Labor</td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                </tr>
+                <tr>
+                  <td class="tbl-pad">4. Fin. -Subcon Labor, Dekokraft Matl</td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                </tr>
+                <tr>
+                  <td class="tbl-pad">5. Artist -Subcon Materials & Labor</td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                </tr>
+                <tr>
+                  <td class="tbl-pad">6. Artist -Subcon Labor, Dekokraft Matl</td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                </tr>
+                <tr>
+                  <td class="tbl-pad">7. Trading</td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                </tr>
               </tbody>
             </table>
           </div>
         </div>
+        <hr style="border-top: 1px dashed black;margin:1px 0 5px 0;">
         <div class="row">
           <div class="col-sm-12">
             <p>IN-HOUSE WORK IN PROCESS :</p>
             <table class="table">
               <thead>
                 <tr>
-                  <th>PROCESS CODE</th>
-                  <th>JOB DESCRIPTION</th>
-                  <th>RATE PESO</th>
-                  <th>B.C. QTY.</th>
+                  <th class="tbl-pad">PROCESS CODE</th>
+                  <th class="tbl-pad">JOB DESCRIPTION</th>
+                  <th class="tbl-pad">RATE PESO</th>
+                  <th class="tbl-pad">B.C. QTY.</th>
                 </tr>
               </thead>
               <tbody>
@@ -292,37 +383,59 @@
             </table>
           </div>
         </div>
+        <hr style="border-top: 1px dashed black;margin:1px 0 5px 0;">
         <div class="row">
           <div class="col-sm-12">
-            <p>IN-HOUSE WORK IN PROCESS :</p>
+
             <table class="table">
               <thead>
                 <tr>
-                  <th>CBM [Standard Pack]</th>
-                  <th>Lb x Flute x Joint x L x W x H</th>
-                  <th>CONTENT</th>
-                  <th>UNIT COST</th>
+                  <th class="tbl-pad">CBM [Standard Pack]</th>
+                  <th class="tbl-pad">Lb x Flute x Joint x L x W x H</th>
+                  <th class="tbl-pad">CONTENT</th>
+                  <th class="tbl-pad">UNIT COST</th>
                 </tr>
               </thead>
               <tbody>
-
+                <tr>
+                  <td class="tbl-pad">Inner Box =</td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad">0 pcs.</td>
+                  <td class="tbl-pad">P 0.00</td>
+                </tr>
+                <tr>
+                  <td class="tbl-pad">Master Box =</td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad">0 pcs.</td>
+                  <td class="tbl-pad">P 0.00</td>
+                </tr>
               </tbody>
-            </table>
-            <table class="table">
               <thead>
                 <tr>
-                  <th>[Standard Pack]</th>
-                  <th>L x W x T</th>
-                  <th></th>
-                  <th></th>
+                  <th class="tbl-pad">[Standard Pack]</th>
+                  <th class="tbl-pad">L x W x T</th>
+                  <th class="tbl-pad"></th>
+                  <th class="tbl-pad"></th>
                 </tr>
               </thead>
               <tbody>
-
+                <tr>
+                  <td class="tbl-pad">Inner Polybag</td>
+                  <td class="tbl-pad">BUBBLE BAG 06 X 08</td>
+                  <td class="tbl-pad">1 pcs.</td>
+                  <td class="tbl-pad">P 0.00</td>
+                </tr>
+                <tr>
+                  <td class="tbl-pad">Master Polybag</td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad">0 pcs.</td>
+                  <td class="tbl-pad">P 0.00</td>
+                </tr>
               </tbody>
             </table>
           </div>
         </div>
+        <hr style="border-top: 1px dashed black;margin:1px 0 5px 0;">
         <div class="row">
           <div class="col-xs-3">
             <p>Prepared by :</p>
@@ -345,7 +458,7 @@
             <p>Date: ________________________</p>
           </div>
         </div>
-        <div class="row invoice-info">
+        <!-- <div class="row invoice-info">
             <div class="col-md-12">
                 <table id="material_list_tbl" class="table" style='width:100%;'>
                 <?php
@@ -390,7 +503,7 @@
                 ?>
                 </table>
             </div>
-        </div>
+        </div> -->
         <!-- /.row -->
 
   </section>

@@ -24,7 +24,13 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 <script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script></head>
-<style media="screen">
+<style type="text/css">
+@media print {
+  * { overflow: visible !important; }
+  body {
+    height: auto;
+  }
+}
 </style>
 <body onload="window.print();" style="font-size: 10px;line-height: 1;">
 <div class="wrapper">
