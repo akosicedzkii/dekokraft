@@ -146,7 +146,7 @@ https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
                                         <label for="Code" class="col-sm-2 control-label">Product Code</label>
 
                                         <div class="col-sm-10">
-                                        <input type="text" class="form-control" disabled id="code" placeholder="Code" required>
+                                        <input type="text" class="form-control" id="code" placeholder="Code" required>
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
