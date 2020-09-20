@@ -3,7 +3,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
     <h1>
-    <?php $module_name = str_replace("_"," ",$module_name);echo ucfirst(str_replace("_"," ",$module_name));?>
+    <?php $module_name = str_replace("_", " ", $module_name);echo ucfirst(str_replace("_", " ", $module_name));?>
     <small>Management</small>
     </h1>
     <ol class="breadcrumb">
@@ -37,7 +37,7 @@
             <th>Created By</th>
             <th>Date Modified</th>
             <th>Modified By</th>
-            <th>Actions</th> 
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -58,7 +58,7 @@
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-           
+
              <h3 class="modal-title">Add Job_order</h3>
              <input type="hidden" id="action">
              <input type="hidden" id="job_ordersID">
@@ -83,7 +83,7 @@
                                         <label for="subcon" class="col-sm-6 control-label">Subcon</label>
 
                                         <div class="col-sm-6">
-                                        
+
                                         <select type="text"  style="width:150px;" class="form-control" id="subcon" placeholder="Subcon" required><option value="">Select Subcon</option></select>
                                         <div class="help-block with-errors"></div>
                                         </div>
@@ -95,7 +95,7 @@
 
                                 <div class="col-sm-6">
                                 <select class="form-control" id="job_type" placeholder="Job Type" style="resize:none" required>
-                                    
+
                                     <option value="resin">Resin</option>
                                     <option value="spray">Spray</option>
                                     <option value="finishing">Finishing</option>
@@ -104,7 +104,7 @@
                                 </div>
                             </div>
 
-                           
+
 
                             </div>
                             <div class="row">
@@ -117,15 +117,15 @@
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                                 </div>
                             </div>
-                           
+
 
                             <div class="form-group">
 
-                                <div class="col-sm-12"> 
+                                <div class="col-sm-12">
                                 <table class="table responsive">
                                     <thead>
                                         <th>Select</th>
@@ -143,7 +143,7 @@
                                 <label for="remarks" class="col-sm-2 control-label">Job Order Remarks</label>
 
                                 <div class="col-sm-10">
-                                
+
                                 <textarea type="text" class="form-control" id="remarks" placeholder="Job Order Remarks" required></textarea>
                                 <div class="help-block with-errors"></div>
                                 </div>
@@ -173,7 +173,7 @@
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-           
+
              <h3 class="modal-title">Delete Job_order</h3>
             </div>
             <div class="modal-body">
@@ -199,7 +199,7 @@
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-           
+
              <h3 class="modal-title">Complete Job Order</h3>
             </div>
             <div class="modal-body">
@@ -228,12 +228,12 @@
 
     var main = function(){
         var table = $('#job_ordersList').DataTable({
-            "language": {                
+            "language": {
                 "infoFiltered": ""
-            },  
+            },
             'autoWidth'   : true,
             "processing" : true,
-            "serverSide" : true, 
+            "serverSide" : true,
             "ajax" : "<?php echo base_url()."portal/job_orders/get_job_orders_list";?>",
             "initComplete": function(settings,json){
                 $('[data-toggle="tooltip"]').tooltip()
@@ -259,19 +259,19 @@
         var image_error = "";
         $("#job_ordersForm").validator().on('submit', function (e) {
             var selected = [];
-            $.each($("input[name='jo_item']:checked"), function(){            
+            $.each($("input[name='jo_item']:checked"), function(){
                 selected.push($(this).val());
             });
             var btn = $("#saveJob_order");
             var action = $("#action").val();
             btn.button("loading");
             if (e.isDefaultPrevented()) {
-                btn.button("reset"); 
+                btn.button("reset");
             } else {
                 e.preventDefault();
-               
+
                 var job_orders_id = $("#job_ordersID").val();
-                
+
 
                 var formData = new FormData();
                 formData.append('id', job_orders_id);
@@ -282,7 +282,7 @@
                 formData.append('remarks', $("#remarks").val());
                 formData.append('selected_items',selected)
                 // Attach file
-                 //fromthis    
+                 //fromthis
                  var url = "<?php echo base_url()."portal/job_orders/add_job_orders";?>";
                 var message = "New job order successfully added";
                 if(action == "edit")
@@ -312,20 +312,20 @@
                                     percent = Math.ceil(position / total * 100);
                                 }
                                 //update progressbar
-                                
+
                                 $('#progressBarMain').css('width',percent+'%').html(percent+'%');
-                                                                
+
                             }, true);
                         }
                         return xhr;
                     },
                     mimeType:"multipart/form-data"
-                }).done(function(data){ 
+                }).done(function(data){
                     if(data!=true)
                     {
-                         $('#uploadBoxMain').html('');         
+                         $('#uploadBoxMain').html('');
                         btn.button("reset");
-                        
+
                         toastr.error(JSON.parse(data).warning);
                     }
                     else
@@ -342,14 +342,14 @@
                          }
                          toastr.success(message);
                          $("#job_ordersForm").validator('destroy');
-                         $("#job_ordersModal").modal("hide"); 
-                         $('#uploadBoxMain').html('');          
+                         $("#job_ordersModal").modal("hide");
+                         $('#uploadBoxMain').html('');
                     }
                 });
             }
                return false;
         });
-        
+
         initialize_selects()
         $("#deleteJob_order").click(function(){
             var btn = $(this);
@@ -414,8 +414,8 @@
             $("#remarks").val("");
             $("#deadline").val("");
             $("#job_ordersForm").validator('destroy');
-            
-            
+
+
         });
 
         $('#inputStatus').select2(inputRoleConfig);
@@ -425,7 +425,7 @@
             $form.find('input:radio, input:checkbox')
                 .removeAttr('checked').removeAttr('selected');
         }
-      
+
     };
     function initialize_selects()
     {
@@ -469,7 +469,7 @@
         });
         $('#marketing_order').on('select2:select', function (e) {
             var data = $('#marketing_order').select2('data');
-            console.log(data);
+            //console.log(data);
             data = { "invoice_id": data[0].invoice_id }
             $.ajax({
                     data: data,
@@ -478,15 +478,15 @@
                     success: function(data){
                         $("#table_body").html("");
                         if(!data)
-                        {   
+                        {
                             return false;
                         }
                         data = JSON.parse(data);
                         data.forEach(function(e){
-                            console.log(e["color"])
+                            //console.log(e["color"])
                             $("#table_body").append("<tr><td><input type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td></tr>");
                         });
-                        
+
                     },
                     error: function (request, status, error) {
                         alert(request.responseText);
@@ -497,8 +497,8 @@
     function _edit(id)
     {
         $("#job_ordersModal .modal-title").html("Edit <?php echo ucfirst($module_name);?>");
-        $(".add").hide();    
-        $('#job_ordersForm').validator();    
+        $(".add").hide();
+        $('#job_ordersForm').validator();
         $("#action").val("edit");
         $("#inputCoverImage").removeAttr("required");
         var data = { "id" : id ,"job_type":$("#job_type_option").val()}
@@ -508,10 +508,10 @@
                 url: "<?php echo base_url()."portal/job_orders/get_job_orders_data";?>",
                 success: function(data){
                     data = JSON.parse(data);
-                    console.log(data);
+                    //console.log(data);
                         $("#table_body").html("");
                     $("#marketing_order").append(new Option(data.marketing_order.id,data.marketing_order.id,  true, true)).trigger('change');
-               
+
                     $("#subcon").append(new Option(data.subcon.name,data.subcon.id,  true, true)).trigger('change');
                     $("#job_ordersID").val(data.job_orders.id);
                     $("#remarks").val(data.job_orders.remarks);
@@ -528,12 +528,12 @@
                                         selected = 1;
                                         return false;
                                 }
-                            }); 
+                            });
                             if(selected == 0)
                             {
                                 $("#table_body").append("<tr><td><input type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td></tr>");
                             }
-                            
+
                         });
                     $("#job_ordersModal").modal("show");
                 },
@@ -549,7 +549,7 @@
         $("#deleteKey").val(id);
         $("#deleteJob_orderModal").modal("show");
     }
-    
+
     function _complete(id,item)
     {
         $("#completeJob_orderModal .modal-title").html("Complete Job Order");
@@ -557,7 +557,7 @@
         $("#completeKey").val(id);
         $("#completeJob_orderModal").modal("show");
     }
-  
+
 
     $(document).ready(main);
 </script>

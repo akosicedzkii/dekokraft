@@ -23,7 +23,27 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 <script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script></head>
-<body onload="window.print();">
+<style type="text/css">
+@media print {
+  * { overflow: visible !important; }
+  body {
+    height: auto;
+  }
+}
+.tbl-pad{
+  padding:1px !important;
+}
+.m-b{
+  margin-bottom:0px;
+}
+.l-h{
+  line-height: 1;
+}
+.bb{
+  border-bottom: 1px solid black !important;
+}
+</style>
+<body onload="window.print();" style="font-size: 10px;" class="l-h">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
@@ -40,49 +60,74 @@
     <div class="row">
       <div class="col-xs-9"></div>
       <div class="col-xs-3">
-        <p style="margin-bottom:0px;">J.O.# </p>
-        <p>Date :</p>
+        <p class="m-b">J.O.# <?php echo $job_orders->id; ?></p>
+        <p>Date : <?php echo date("d F Y", strtotime($job_orders->date_created));?></p>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-6">
         <dl class="row">
-          <dt class="col-xs-2">TO :</dt>
-          <dd class="col-xs-10"></dd>
+          <dt class="col-xs-1 l-h">TO:</dt>
+          <dd class="col-xs-11 l-h"><?php echo $job_orders->code; ?></dd>
+          <dt class="col-xs-1 l-h"></dt>
+          <dd class="col-xs-11 offset-xs-1 l-h"><?php echo $job_orders->name; ?></dd>
+          <dt class="col-xs-1 l-h"></dt>
+          <dd class="col-xs-11 offset-xs-1 l-h"><?php echo $job_orders->address; ?></dd>
+          <dt class="col-xs-1 l-h"></dt>
+          <dd class="col-xs-11 offset-xs-1 l-h"><?php echo $job_orders->subcon_details; ?></dd>
         </dl>
       </div>
       <div class="col-xs-6">
         <dl class="row">
-          <dt class="col-xs-5">Payment Terms:</dt>
-          <dd class="col-xs-7"></dd>
+          <dt class="col-xs-4 text-right">Payment Terms:</dt>
+          <dd class="col-xs-8" style="padding-left:0px;"><?php echo $job_orders->payment_code; ?> D/P Upon J.O. Issuance Balance upon completion of delivery.</dd>
         </dl>
       </div>
     </div>
-    <p>Please supply and deliver undermentioned to DEKODRAFT, INC. on or before </p>
+    <p>Please supply and deliver undermentioned to DEKODRAFT, INC. on or before <?php echo date("d F Y", strtotime($job_orders->deadline)); ?></p>
 
     <!-- Table row -->
     <div class="row">
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:10px;border-bottom: 1px solid black;border-top: 1px solid black;">
+        <table class="table table-striped table-condensed" style="font-size:8px;border-top: 1px solid black;">
         <thead>
                 <tr>
-                <th>Stock #</th>
-                <th>Color</th>
-                <th>Quantity</th>
-                <th>Description</th>
-                <th>Tgt.</th>
-                <th>Wgt</th>
-                <th>Job</th>
-                <th>U.Price</th>
-                <th>Amount</th>
+                <th class="tbl-pad bb">Stock #</th>
+                <th class="tbl-pad bb">Color</th>
+                <th class="tbl-pad bb">Quantity</th>
+                <th class="tbl-pad bb">Description</th>
+                <th class="tbl-pad bb">Tgt. Wgt</th>
+                <!-- <th class="tbl-pad">Wgt</th> -->
+                <th class="tbl-pad bb">Job</th>
+                <th class="tbl-pad bb">U.Price</th>
+                <th class="tbl-pad bb">Amount</th>
                 </tr>
                 </thead>
           <tbody>
-          <tr style="border-top: 2px solid black;">
-            <td colspan="2" class="text-center">TOTAL</td>
-            <td></td>
-            <td colspan="5"></td>
-            <td></td>
+          <tr>
+            <?php
+            $total_price=0;
+            $total_quantity=0;
+              foreach ($invoice_lines as $line) {
+                  $total_price = $total_price + ($line->quantity* $line->product_price);
+                  $total_quantity=$total_quantity + $line->quantity ?>
+                <tr>
+                  <td class="tbl-pad"><?php echo  $line->class. "-" . $line->code."-".$line->color_abb; ?></td>
+                  <td class="tbl-pad"><?php echo  $line->color; ?></td>
+                  <td class="tbl-pad"><?php echo  $line->quantity; ?> pcs.</td>
+                  <td class="tbl-pad"><?php echo  $line->description; ?></td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"><?php echo  $line->product_price; ?></td>
+                  <td class="tbl-pad"><?php echo  number_format((float)($line->quantity * $line->product_price), 2, '.', '') ; ?></td>
+                </tr>
+            <?php
+              }
+             ?>
+            <td colspan="2" class="text-center tbl-pad">TOTAL</td>
+            <td class="tbl-pad"><?php echo number_format($total_quantity); ?> pcs.</td>
+            <td colspan="4" class="tbl-pad"></td>
+            <td class="tbl-pad" style="border-top:1px solid black;border-bottom:1px solid black;"><?php echo number_format($total_price, 2); ?></td>
           </tr>
           </tbody>
         </table>
@@ -97,48 +142,54 @@
 
           </div>
           <div class="col-xs-6">
+            <?php if ($job_orders->job_type=='resin') { ?>
             <p style="margin-bottom:0px;">Note: Resin - Materials, Moulds & Labor</p>
             <p>PRICES INCLUSIVE OF LABOR & MATLS.</p>
             <p style="margin-bottom:0px;">*** STAGGERED DELIVERY REQUIRED ***</p>
-            <!-- <p style="margin-bottom:0px;">Note: Finishing & Materials</p>
+          <?php } else { ?>
+            <p style="margin-bottom:0px;">Note: Finishing & Materials</p>
             <p>NET OF SPRAY & HAND PAINT.</p>
             <p style="margin-bottom:0px;">*** UNIT PRICES ABOVE INCLUDE MATERIAL PRICE ***</p>
-            <p style="margin-bottom:0px;">*** STAGGERED DELIVERY REQUIRED ***</p> -->
+            <p style="margin-bottom:0px;">*** STAGGERED DELIVERY REQUIRED ***</p>
+          <?php } ?>
           </div>
         </div>
         <div class="col-xs-3">
-          <p style="margin-bottom:0px;">PROFORMA INVOICE# </p>
+          <p style="margin-bottom:0px;">PROFORMA INVOICE# <?php echo $job_orders->invoice_id; ?></p>
         </div>
         <div class="col-xs-3">
-          <p style="margin-bottom:0px;">M.O.# </p>
+          <p style="margin-bottom:0px;">M.O.# <?php echo $job_orders->mo_id; ?></p>
         </div>
       <!-- </div> -->
       <div class="col-xs-12">
         <p style="margin-bottom:0px;">RULES & REGULATIONS:</p>
         <p>Subcontractor may not offer subject items which are the exclusive designs and sole property of DEKOKRAFT, INC. to any other individual, COMPANY or establishment. Should the Subcontractor violate the foregoing condition, he shall be liable to penalty for estafa and breach of contract.</p>
+        <?php if ($job_orders->job_type=='resin') { ?>
         <ol style="padding-left: 15px;">
           <li>Subcontractor is required to submit atleast (2) resin control sample per LINE item on or before</li>
           <li>Approved control sample must have signature of approving officer & should accompany finish goods on 1st delivery for reference.</li>
           <li>Non-submission of control sample will be subject to 1% penalty based on J.O. value or P500 per item whichever higher.</li>
         </ol>
-        <!-- <ol style="padding-left: 15px;">
+      <?php } else { ?>
+        <ol style="padding-left: 15px;">
           <li>Subcontractor is required to submit atleast (2) control sample per item w/in 3 working days of TR RECEIVED DATE.</li>
           <li>Approved control sample must have signature of approving officer & should accompany finish goods on 1st delivery for reference.</li>
           <li>Non-submission of control sample will be subject to 1% penalty based on J.O. value or P500 per item whichever higher.</li>
-        </ol> -->
+        </ol>
+      <?php } ?>
       </div>
     </div>
     <div class="row">
       <div class="col-xs-6">
         <p>I hereby accept this J.O. subject to the foregoing terms and conditions which we have read and fully understood.</p>
         <div class="col-xs-6">
-          <p class="text-center" style="margin-bottom:0px;">____________________</p>
+          <p class="text-center" style="margin-bottom:0px;">_________________________</p>
           <p class="text-center" style="margin-top:0px;">( Firm )</p><br>
-          <p class="text-center" style="margin-bottom:0px;">____________________</p>
+          <p class="text-center" style="margin-bottom:0px;">_________________________</p>
           <p class="text-center">( Designation )</p>
         </div>
         <div class="col-xs-6">
-          <p class="text-center" style="margin-bottom:0px;">____________________</p>
+          <p class="text-center" style="margin-bottom:0px;">_________________________</p>
           <p class="text-center">( Signature )</p>
         </div>
       </div>
@@ -168,14 +219,28 @@
       </div>
     </div>
     <div class="row">
+      <?php if ($job_orders->job_type=='resin') { ?>
       <div class="col-xs-12">
-        <p>*** ***</p>
+        <p>*** <?php echo $job_orders->customer_name; ?> ***</p>
         <div class="col-xs-6">
-          <p></p>
+          <div class="col-xs-3" style="font-size:9px;">
+            <p>25% D/P</p>
+            <p>25% D/P Add'l</p>
+            <p>Full Pay't</p>
+          </div>
+          <div class="col-xs-4">
+            <p>P______________</p>
+            <p>P______________</p>
+            <p>P______________</p>
+          </div>
+          <div class="col-xs-5">
+            <p>Check # ______________</p>
+            <p>Check # ______________</p>
+            <p>Check # ______________</p>
+          </div>
         </div>
         <div class="col-xs-6">
           <div class="col-xs-2">
-
           </div>
           <div class="col-xs-10">
             <p>App'd Ctrl Sample: _______________</p>
@@ -184,24 +249,39 @@
           </div>
         </div>
       </div>
+    <?php } ?>
     </div>
+    <br>
     <!-- Table row -->
     <div class="row">
       <p class="text-center">*** JOB ORDER LIST ***</p>
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:10px;border-bottom: 1px solid black;border-top: 1px solid black;">
+        <table class="table table-striped table-condensed" style="font-size:8px;">
         <thead>
           <tr>
-            <th>Stock #</th>
-            <th>Color</th>
-            <th>Description</th>
-            <th>Qty.</th>
+            <th class="tbl-pad bb">Stock #</th>
+            <th class="tbl-pad bb">Color</th>
+            <th class="tbl-pad bb">Description</th>
+            <th class="tbl-pad bb">Qty.</th>
           </tr>
           </thead>
           <tbody>
+            <?php
+            $total_quantity=0;
+              foreach ($invoice_lines as $line) {
+                  $total_quantity=$total_quantity + $line->quantity ?>
+                <tr>
+                  <td class="tbl-pad"><?php echo  $line->class. "-" . $line->code."-".$line->color_abb; ?></td>
+                  <td class="tbl-pad"><?php echo  $line->color; ?></td>
+                  <td class="tbl-pad"><?php echo  $line->description; ?></td>
+                  <td class="tbl-pad"><?php echo  $line->quantity; ?></td>
+                </tr>
+            <?php
+              }
+             ?>
           <tr>
-            <td colspan="3">TOTAL</td>
-            <td></td>
+            <td colspan="3" class="tbl-pad">*** TOTAL ***</td>
+            <td class="tbl-pad"><?php echo number_format($total_quantity); ?></td>
           </tr>
           </tbody>
         </table>
@@ -209,21 +289,46 @@
       <!-- /.col -->
     </div>
     <!-- /.row -->
-
+    <br>
     <!-- Table row -->
     <div class="row">
       <p class="text-center">*** SUB-BQ ( BILL OF QUANTITY ) ***</p>
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:10px;border-bottom: 1px solid black;border-top: 1px solid black;">
+        <table class="table table-striped table-condensed" style="font-size:10px;">
         <thead>
           <tr>
-            <th>Item Name</th>
-            <th>Issuance Quantity</th>
-            <th>Issued</th>
+            <th class="bb text-center">Item Name</th>
+            <th class="bb text-center">Issuance Quantity</th>
+            <th class="bb text-center">Issued</th>
           </tr>
           </thead>
           <tbody>
-
+            <?php
+            $x=0;
+            $job_typ=$job_orders->job_type=='resin'?array('M','R'):array('FA','FB','FC');
+              foreach ($invoice_lines as $line) {
+                  for ($i=0; $i < count($job_typ); $i++) { ?>
+                    <tr>
+                      <td class="tbl-pad" colspan="3">** Job Process: <?php echo $job_typ[$i]; ?></td>
+                    </tr>
+                    <?php  foreach ($materials as $material) {
+                      foreach ($material as $value) {
+                          if ($line->product_id==$value["product_variant_id"]) {
+                              if ($job_typ[$i]==$value["jp"]) {
+                                  // var_dump($value['product_variant_id'].'='.$value['material_name'].'='.$value['jp'].'<br>');?>
+                                    <tr>
+                                      <td class="tbl-pad"><?php echo $value["material_name"]; ?></td>
+                                      <td class="tbl-pad text-center"><?php echo $value["qty"].' '.$value["unit"]; ?></td>
+                                      <td class="tbl-pad text-center">______________________:______________________:______________________</td>
+                                    </tr>
+            <?php
+                              }
+                          }
+                      }
+                  }
+                  }
+              }
+             ?>
           </tbody>
         </table>
       </div>
