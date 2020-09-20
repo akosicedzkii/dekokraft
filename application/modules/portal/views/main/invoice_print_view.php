@@ -31,6 +31,12 @@
     height: auto;
   }
 }
+.m-b{
+  margin-bottom: 0px;
+}
+.tbl-pad{
+  padding: 1px !important;
+}
 </style>
 <body onload="window.print();" style="font-size: 10px;line-height: 1;">
 <div class="wrapper">
@@ -39,7 +45,7 @@
     <!-- title row -->
     <div class="row">
       <div class="col-xs-12 text-center">
-           <p style="margin-bottom:0px;" class="text-uppercase"><?php echo SITE_NAME;?></p>
+           <p class="text-uppercase m-b"><?php echo SITE_NAME;?></p>
            <p><?php echo nl2br(COMPANY_ADDRESS);?></p>
       </div>
       <!-- /.col -->
@@ -48,9 +54,9 @@
     <div class="row">
       <h4 class="text-center text-uppercase" style="letter-spacing: 3px;"><strong><?php echo $invoice->invoice_type;?> INVOICE</strong></h4>
       <div class="col-sm-5 invoice-col">
-        <p class="font-weight-bold" style="margin-bottom:0px;"><b>ID.#</b></p>
-        <p style="margin-bottom:0px;"><b>IQ.#<?php echo $invoice->iq;?></b></p>
-        <p style="margin-bottom:0px;"><b>DATE:</b> <?php echo date("d F Y", strtotime($invoice->invoice_date));?></p>
+        <p class="font-weight-bold m-b"><b>ID.#</b></p>
+        <p class="m-b"><b>IQ.#<?php echo $invoice->iq;?></b></p>
+        <p class="m-b"><b>DATE:</b> <?php echo date("d F Y", strtotime($invoice->invoice_date));?></p>
         <dl class="row">
           <dt class="col-xs-2">TO:</dt>
           <dd class="col-xs-10"><?php echo $customer_address->customer_address;?></dd>
@@ -63,8 +69,8 @@
       </div>
       <div class="col-sm-5 invoice-col">
         <b>ORDER</b>
-        <p style="margin-bottom:0px;"><b>M.O.#</b> <?php echo $mo->id;?></p>
-        <p style="margin-bottom:0px;"><b>Inv.#</b> <?php echo $invoice->id;?></p>
+        <p class="m-b"><b>M.O.#</b> <?php echo $mo->id;?></p>
+        <p class="m-b"><b>Inv.#</b> <?php echo $invoice->id;?></p>
         <p><b>Remarks:</b> <?php echo $invoice->invoice_remarks;?></p>
       </div>
     </div>
@@ -76,22 +82,22 @@
         <table class="table table-striped table-condensed" style="font-size:8px;border-bottom: 1px solid black;border-top: 1px solid black;margin-bottom:10px">
         <thead>
           <tr>
-            <th colspan="3" style="padding: 1px;" class="text-center"></th>
-            <th style="padding: 1px;" class="text-center">PACKING</th>
-            <th colspan="4" style="padding: 1px;" class="text-center"></th>
-            <th colspan="2" style="padding: 1px;" class="text-center">(STD FOB-MNL US$)</th>
+            <th colspan="3" class="text-center tbl-pad"></th>
+            <th class="text-center tbl-pad">PACKING</th>
+            <th colspan="4" class="text-center tbl-pad"></th>
+            <th colspan="2" class="text-center tbl-pad">(STD FOB-MNL US$)</th>
           </tr>
           <tr>
-            <th style="padding: 1px;" class="text-center">ITEM</th>
-            <th style="padding: 1px;" class="text-center">STOCK #</th>
-            <th style="padding: 1px;" class="text-center">ARTICLE#</th>
-            <th style="padding: 1px;" class="text-center">IN/MSTR</th>
-            <th style="padding: 1px;" class="text-center">CBM.</th>
-            <th style="padding: 1px;" class="text-center">COLOR</th>
-            <th style="padding: 1px;" class="text-center">QTY</th>
-            <th style="padding: 1px;" class="text-center">DESCRIPTION</th>
-            <th style="padding: 1px;" class="text-center">U. PRICE</th>
-            <th style="padding: 1px;" class="text-center">TOTAL</th>
+            <th class="text-center tbl-pad">ITEM</th>
+            <th class="text-center tbl-pad">STOCK #</th>
+            <th class="text-center tbl-pad">ARTICLE#</th>
+            <th class="text-center tbl-pad">IN/MSTR</th>
+            <th class="text-center tbl-pad">CBM.</th>
+            <th class="text-center tbl-pad">COLOR</th>
+            <th class="text-center tbl-pad">QTY</th>
+            <th class="text-center tbl-pad">DESCRIPTION</th>
+            <th class="text-center tbl-pad">U. PRICE</th>
+            <th class="text-center tbl-pad">TOTAL</th>
           </tr>
           </thead>
           <tbody>
@@ -106,27 +112,27 @@
               $total_price = $total_price + ($line->quantity* $line->product_price);
               $total_discounted = $total_discounted + (($line->quantity*$line->product_price)-($line->quantity*$line->product_price)*($line->discount/100)); ?>
           <tr class="text-center">
-            <td style="padding: 1px;"><?php echo  $item_no++; ?>.</td>
-            <td style="padding: 1px;"><?php echo  $line->class. "-" . $line->code."-".$line->color_abb; ?></td>
-            <td style="padding: 1px;"><?php echo  $line->code; ?></td>
-            <td style="padding: 1px;"><?php echo  $line->inner_carton."/".$line->master_carton; ?></td>
-            <td style="padding: 1px;"><?php echo  $line->weight_of_box; ?></td>
-            <td style="padding: 1px;"><?php echo  $line->color; ?></td>
-            <td style="padding: 1px;"><?php echo  $line->quantity; ?></td>
-            <td style="padding: 1px;"><?php echo  $line->description; ?></td>
-            <td style="padding: 1px;"><?php echo  $line->product_price; ?></td>
-            <td style="padding: 1px;"><?php echo  number_format((float)($line->quantity * $line->product_price), 2, '.', '') ; ?></td>
+            <td class="tbl-pad"><?php echo  $item_no++; ?>.</td>
+            <td class="tbl-pad"><?php echo  $line->class. "-" . $line->code."-".$line->color_abb; ?></td>
+            <td class="tbl-pad"><?php echo  $line->code; ?></td>
+            <td class="tbl-pad"><?php echo  $line->inner_carton."/".$line->master_carton; ?></td>
+            <td class="tbl-pad"><?php echo  $line->weight_of_box; ?></td>
+            <td class="tbl-pad"><?php echo  $line->color; ?></td>
+            <td class="tbl-pad"><?php echo  $line->quantity; ?></td>
+            <td class="tbl-pad"><?php echo  $line->description; ?></td>
+            <td class="tbl-pad"><?php echo  $line->product_price; ?></td>
+            <td class="tbl-pad"><?php echo  number_format((float)($line->quantity * $line->product_price), 2, '.', '') ; ?></td>
             <!-- <td><?php echo  number_format((float)(($line->quantity * $line->product_price) - (($line->quantity * $line->product_price)*($line->discount/100))), 2, '.', ''); ?></td> -->
           </tr>
           <?php
           }?>
             <tr>
-              <td colspan="2" style="padding: 1px;border-top: 1px solid black;">TOTAL</td>
-              <td style="padding: 1px;border-top: 1px solid black;" class="text-center">EST. CTN:</td>
-              <td style="padding: 1px;border-top: 1px solid black;" class="text-center">/</td>
-              <td colspan="2" style="padding: 1px;border-top: 1px solid black;" class="text-left">EST CBM= </td>
-              <td style="padding: 1px;border-top: 1px solid black;" class="text-center"><?php echo number_format($total_quntity); ?></td>
-              <td colspan="3" style="padding: 1px;border-top: 1px solid black;"></td>
+              <td colspan="2" class="tbl-pad" style="border-top: 1px solid black;">TOTAL</td>
+              <td style="border-top: 1px solid black;" class="text-center tbl-pad">EST. CTN:</td>
+              <td style="border-top: 1px solid black;" class="text-center tbl-pad">/</td>
+              <td colspan="2" style="border-top: 1px solid black;" class="text-left tbl-pad">EST CBM= </td>
+              <td style="border-top: 1px solid black;" class="text-center tbl-pad"><?php echo number_format($total_quntity); ?></td>
+              <td colspan="3" class="tbl-pad" style="border-top: 1px solid black;"></td>
             </tr>
           </tbody>
         </table>
@@ -163,9 +169,9 @@
     <div class="row">
       <div class="col-xs-12">
         <br>
-        <p style="margin-bottom:0px;">Delivery Time: <?php echo date("F d,Y", strtotime($invoice->delivery_time));?></p>
+        <p class="m-b">Delivery Time: <?php echo date("F d,Y", strtotime($invoice->delivery_time));?></p>
         <p>Shipping Instruction: <?php echo $invoice->shipping_instruction;?></p>
-        <p style="margin-bottom:0px;">Authorized Signature:</p>
+        <p class="m-b">Authorized Signature:</p>
       </div>
     </div>
 

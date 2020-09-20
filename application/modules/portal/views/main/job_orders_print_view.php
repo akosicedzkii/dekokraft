@@ -1,7 +1,7 @@
 <html><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?php echo "INVOINCE:#".$invoice->id;?></title>
+  <title><?php echo "JOB ORDER:#".$job_orders->job_type;?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -37,7 +37,7 @@
   margin-bottom:0px;
 }
 .l-h{
-  line-height: 1;
+  line-height: 1 !important;
 }
 .bb{
   border-bottom: 1px solid black !important;
@@ -51,8 +51,8 @@
     <div class="row">
       <div class="col-xs-12 text-center">
         <!-- title row -->
-         <p class="font-weight-bold text-uppercase" style="margin-bottom:0px;letter-spacing: 3px;"><?php echo SITE_NAME;?></p>
-         <p style="margin-bottom:0px;"><?php echo nl2br(COMPANY_ADDRESS);?></p>
+         <p class="font-weight-bold text-uppercase m-b" style="letter-spacing: 3px;"><?php echo SITE_NAME;?></p>
+         <p class="m-b"><?php echo nl2br(COMPANY_ADDRESS);?></p>
          <p>*** JOB ORDER ***</p>
       </div>
       <!-- /.col -->
@@ -141,28 +141,28 @@
           <div class="col-xs-2">
 
           </div>
-          <div class="col-xs-6">
+          <div class="col-xs-6" style="font-size: 8px;">
             <?php if ($job_orders->job_type=='resin') { ?>
-            <p style="margin-bottom:0px;">Note: Resin - Materials, Moulds & Labor</p>
+            <p class="m-b"><b>Note: Resin - Materials, Moulds & Labor</b></p>
             <p>PRICES INCLUSIVE OF LABOR & MATLS.</p>
-            <p style="margin-bottom:0px;">*** STAGGERED DELIVERY REQUIRED ***</p>
+            <p class="m-b">*** STAGGERED DELIVERY REQUIRED ***</p>
           <?php } else { ?>
-            <p style="margin-bottom:0px;">Note: Finishing & Materials</p>
+            <p class="m-b"><b>Note: Finishing & Materials</b></p>
             <p>NET OF SPRAY & HAND PAINT.</p>
-            <p style="margin-bottom:0px;">*** UNIT PRICES ABOVE INCLUDE MATERIAL PRICE ***</p>
-            <p style="margin-bottom:0px;">*** STAGGERED DELIVERY REQUIRED ***</p>
+            <p class="m-b">*** UNIT PRICES ABOVE INCLUDE MATERIAL PRICE ***</p>
+            <p class="m-b">*** STAGGERED DELIVERY REQUIRED ***</p>
           <?php } ?>
           </div>
         </div>
         <div class="col-xs-3">
-          <p style="margin-bottom:0px;">PROFORMA INVOICE# <?php echo $job_orders->invoice_id; ?></p>
+          <p class="m-b">PROFORMA INVOICE# <?php echo $job_orders->invoice_id; ?></p>
         </div>
         <div class="col-xs-3">
-          <p style="margin-bottom:0px;">M.O.# <?php echo $job_orders->mo_id; ?></p>
+          <p class="m-b">M.O.# <?php echo $job_orders->mo_id; ?></p>
         </div>
       <!-- </div> -->
       <div class="col-xs-12">
-        <p style="margin-bottom:0px;">RULES & REGULATIONS:</p>
+        <p class="m-b">RULES & REGULATIONS:</p>
         <p>Subcontractor may not offer subject items which are the exclusive designs and sole property of DEKOKRAFT, INC. to any other individual, COMPANY or establishment. Should the Subcontractor violate the foregoing condition, he shall be liable to penalty for estafa and breach of contract.</p>
         <?php if ($job_orders->job_type=='resin') { ?>
         <ol style="padding-left: 15px;">
@@ -183,36 +183,36 @@
       <div class="col-xs-6">
         <p>I hereby accept this J.O. subject to the foregoing terms and conditions which we have read and fully understood.</p>
         <div class="col-xs-6">
-          <p class="text-center" style="margin-bottom:0px;">_________________________</p>
-          <p class="text-center" style="margin-top:0px;">( Firm )</p><br>
-          <p class="text-center" style="margin-bottom:0px;">_________________________</p>
+          <p class="text-center m-b">_________________________</p>
+          <p class="text-center m-b">( Firm )</p><br>
+          <p class="text-center m-b">_________________________</p>
           <p class="text-center">( Designation )</p>
         </div>
         <div class="col-xs-6">
-          <p class="text-center" style="margin-bottom:0px;">_________________________</p>
+          <p class="text-center m-b">_________________________</p>
           <p class="text-center">( Signature )</p>
         </div>
       </div>
       <div class="col-xs-6">
         <br>
-        <p class="text-center" style="margin-bottom:0px;">___________________________________</p>
+        <p class="text-center m-b">___________________________________</p>
         <p class="text-center">AUTHORIZED SIGNATURE AND DATE</p>
-        <p style="margin-bottom:0px;">PENALTY FOR LATE DELIVERIES SHALL BE SHOULDERED 50% BY SUB-CON AND 50% BY COMPANY STAFF RESPONSIBLE FOR THE TRANSACTION BASED ON P.O. VALUE</p>
-        <div class="" style="font-size:10px;">
+        <p class="m-b">PENALTY FOR LATE DELIVERIES SHALL BE SHOULDERED 50% BY SUB-CON AND 50% BY COMPANY STAFF RESPONSIBLE FOR THE TRANSACTION BASED ON P.O. VALUE</p>
+        <div class="" style="font-size:9px;">
           <div class="col-xs-3">
-            <p style="margin-bottom:0px;">1-5 DAYS,</p>
-            <p style="margin-bottom:0px;">6-10 DAYS,</p>
-            <p style="margin-bottom:0px;">11 DAYS $ UP,</p>
+            <p class="m-b">1-5 DAYS,</p>
+            <p class="m-b">6-10 DAYS,</p>
+            <p class="m-b">11 DAYS $ UP,</p>
           </div>
           <div class="col-xs-4">
-            <p style="margin-bottom:0px;">1/4 OR 1% PER DAY,</p>
-            <p style="margin-bottom:0px;">1/2 OR 1% PER DAY,</p>
-            <p style="margin-bottom:0px;">1% PER DAY,</p>
+            <p class="m-b">1/4 OR 1% PER DAY,</p>
+            <p class="m-b">1/2 OR 1% PER DAY,</p>
+            <p class="m-b">1% PER DAY,</p>
           </div>
           <div class="col-xs-5">
-            <p style="margin-bottom:0px;">W/2 DAYS GRACE PERIOD</p>
-            <p style="margin-bottom:0px;">NO GRACE PERIOD</p>
-            <p style="margin-bottom:0px;">NO GRACE PERIOD</p>
+            <p class="m-b">W/2 DAYS GRACE PERIOD</p>
+            <p class="m-b">NO GRACE PERIOD</p>
+            <p class="m-b">NO GRACE PERIOD</p>
           </div>
           <p>( Straight Computation )</p>
         </div>
@@ -294,7 +294,7 @@
     <div class="row">
       <p class="text-center">*** SUB-BQ ( BILL OF QUANTITY ) ***</p>
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:10px;">
+        <table class="table table-condensed" style="font-size:10px;">
         <thead>
           <tr>
             <th class="bb text-center">Item Name</th>
@@ -304,28 +304,30 @@
           </thead>
           <tbody>
             <?php
-            $x=0;
             $job_typ=$job_orders->job_type=='resin'?array('M','R'):array('FA','FB','FC');
               foreach ($invoice_lines as $line) {
-                  for ($i=0; $i < count($job_typ); $i++) { ?>
-                    <tr>
-                      <td class="tbl-pad" colspan="3">** Job Process: <?php echo $job_typ[$i]; ?></td>
-                    </tr>
-                    <?php  foreach ($materials as $material) {
-                      foreach ($material as $value) {
-                          if ($line->product_id==$value["product_variant_id"]) {
-                              if ($job_typ[$i]==$value["jp"]) {
-                                  // var_dump($value['product_variant_id'].'='.$value['material_name'].'='.$value['jp'].'<br>');?>
+                  for ($i=0; $i < count($job_typ); $i++) {
+                      $x=0;
+                      foreach ($materials as $material) {
+                          foreach ($material as $value) {
+                              if ($line->product_id==$value["product_variant_id"]) {
+                                  if ($job_typ[$i]==$value["jp"]) {
+                                      if ($x==0) { ?>
+                                      <tr>
+                                        <td class="tbl-pad" colspan="3">** Job Process: <?php echo $job_typ[$i]; ?></td>
+                                      </tr>
+                                  <?php $x++; }
+                                      // var_dump($value['product_variant_id'].'='.$value['material_name'].'='.$value['jp'].'<br>');?>
                                     <tr>
                                       <td class="tbl-pad"><?php echo $value["material_name"]; ?></td>
                                       <td class="tbl-pad text-center"><?php echo $value["qty"].' '.$value["unit"]; ?></td>
                                       <td class="tbl-pad text-center">______________________:______________________:______________________</td>
                                     </tr>
             <?php
+                                  }
                               }
                           }
                       }
-                  }
                   }
               }
              ?>

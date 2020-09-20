@@ -58,6 +58,9 @@
   .bb{
     border-bottom: 1px solid black !important;
   }
+  .m-b{
+    margin-bottom:0px;
+  }
 </style>
 <body onload="window.print();" style="font-size: 10px;line-height: 1;">
 
@@ -67,8 +70,8 @@
     <!-- title row -->
     <div class="row">
       <div class="col-xs-12">
-        <p style="margin-bottom:0px;">Date: <?php echo date("Y.m.d"); ?></p>
-        <h4 class="text-center text-uppercase" style="margin-bottom:0px;margin-top:0px;letter-spacing: 3px;"><b><?php echo SITE_NAME;?></b></h4>
+        <p class="m-b">Date: <?php echo date("Y.m.d"); ?></p>
+        <h4 class="text-center text-uppercase m-b" style="margin-top:0px;letter-spacing: 3px;"><b><?php echo SITE_NAME;?></b></h4>
         <h4 class="text-center" style="margin-top:0px;">PRODUCT PROFILE</h4>
       </div>
       <!-- /.col -->
@@ -104,7 +107,7 @@
         <br><br>
         <div class="row">
           <div class="col-sm-12 table-responsive">
-            <p style="margin-bottom:0px;">MATERIAL REQUIREMENT SUMMARY :</p>
+            <p class="m-b">MATERIAL REQUIREMENT SUMMARY :</p>
             <table class="table table-striped table-condensed" style="font-size:9px;border-bottom: 1px solid black;margin-bottom:10px">
               <thead>
                 <tr>
@@ -210,7 +213,7 @@
         </div>
         <div class="row">
           <div class="col-sm-12">
-            <p style="margin-bottom:0px;">PROCESS ROUTE SUMMARY :</p>
+            <p class="m-b">PROCESS ROUTE SUMMARY :</p>
             <table class="table">
               <thead>
                 <tr>
@@ -285,9 +288,9 @@
         <hr style="border-top: 1px dashed black;margin:1px 0 5px 0;">
         <div class="row">
           <div class="col-xs-12">
-            <p style="margin-bottom:0px;">L.C. PESO COSTING:</p>
+            <p class="m-b">L.C. PESO COSTING:</p>
             <div class="container">
-              <p style="margin-bottom:0px;">Selling L.C = </p>
+              <p class="m-b">Selling L.C = </p>
               <p>Sub-con L.C = </p>
             </div>
             <div class="row col-xs-6">

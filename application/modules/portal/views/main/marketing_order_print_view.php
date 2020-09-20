@@ -31,6 +31,12 @@
     height: auto;
   }
 }
+.m-b{
+  margin-bottom: 0px;
+}
+.tbl-pad{
+  padding: 1px !important;
+}
 </style>
 <body onload="window.print();" style="font-size: 10px;line-height: 1;">
 <div class="wrapper">
@@ -42,7 +48,7 @@
         <!-- <div class="page-header"> -->
            <!-- <i class="fa fa-globe"></i>-->
            <center>
-                <p style="margin-bottom:0px;" class="text-uppercase"><strong><?php echo SITE_NAME;?></strong></p>
+                <p class="text-uppercase m-b"><strong><?php echo SITE_NAME;?></strong></p>
                 <p><?php echo nl2br(COMPANY_ADDRESS);?></p>
          </center>
            <input type="hidden" value="<?php echo $invoice->id;?>" id="id">
@@ -57,7 +63,7 @@
                 </div>
                 <div class="col-xs-6">
                   <div class="pull-right">
-                    <p style="margin-bottom:0px;">M.O. # <?php echo $mo->id;?></p>
+                    <p class="m-b">M.O. # <?php echo $mo->id;?></p>
                     <p>Authorized Signature: <u>______________</u></p>
                   </div>
                 </div>
@@ -90,8 +96,8 @@
         </dl>
       </div>
       <div class="col-sm-4 invoice-col">
-        <p style="margin-bottom:0px;">Resin:</p>
-        <p style="margin-bottom:0px;">Spray: _______________</p>
+        <p class="m-b">Resin:</p>
+        <p class="m-b">Spray: _______________</p>
         <p>Finish: _______________</p>
       </div>
       <div class="col-sm-4 invoice-col">
@@ -106,18 +112,18 @@
         <table class="table table-striped table-condensed" style="font-size:8px;border-bottom: 1px solid black;border-top: 1px solid black;margin-bottom:10px">
         <thead>
                 <tr>
-                <th style="padding: 1px;" class="text-center">Item</th>
-                <th style="padding: 1px;" class="text-center">Stock #</th>
-                <th style="padding: 1px;" class="text-center">Article #</th>
-                <th style="padding: 1px;" class="text-center">Packing<br>IN/MSTR</th>
-                <th style="padding: 1px;" class="text-center">CBM</th>
-                <th style="padding: 1px;" class="text-center">COLOR</th>
-                <th style="padding: 1px;" class="text-center">QTY</th>
-                <th style="padding: 1px;" class="text-center">DESCRIPTION</th>
-                <th style="padding: 1px;" class="text-center">INNER BOX</th>
-                <th style="padding: 1px;" class="text-center">MASTER BOX</th>
-                <th style="padding: 1px;" class="text-center">U. PRICE</th>
-                <th style="padding: 1px;" class="text-center">TOTAL</th>
+                <th class="text-center tbl-pad">Item</th>
+                <th class="text-center tbl-pad">Stock #</th>
+                <th class="text-center tbl-pad">Article #</th>
+                <th class="text-center tbl-pad">Packing<br>IN/MSTR</th>
+                <th class="text-center tbl-pad">CBM</th>
+                <th class="text-center tbl-pad">COLOR</th>
+                <th class="text-center tbl-pad">QTY</th>
+                <th class="text-center tbl-pad">DESCRIPTION</th>
+                <th class="text-center tbl-pad">INNER BOX</th>
+                <th class="text-center tbl-pad">MASTER BOX</th>
+                <th class="text-center tbl-pad">U. PRICE</th>
+                <th class="text-center tbl-pad">TOTAL</th>
                 <!-- <th>DISCOUNT(%)</th>
                 <th>DISCOUNTED PRICE</th> -->
                 </tr>
@@ -134,28 +140,28 @@
               $total_price = $total_price + ($line->quantity* $line->product_price);
               $total_discounted = $total_discounted + (($line->quantity*$line->product_price)-($line->quantity*$line->product_price)*($line->discount/100)); ?>
           <tr>
-            <td style="padding: 1px;" class="text-center"><?php echo  $count; ?></td>
-            <td style="padding: 1px;" class="text-center"><?php echo  $line->class."-".$line->code."-".$line->color_abb; ?></td>
-            <td style="padding: 1px;"><?php echo  ""; ?></td>
-            <td style="padding: 1px;" class="text-center"><?php echo  $line->master_carton." / ".$line->master_carton; ?></td>
-            <td style="padding: 1px;" class="text-center"><?php echo  $line->weight_of_box; ?></td>
-            <td style="padding: 1px;" class="text-center"><?php echo  $line->color; ?></td>
-            <td style="padding: 1px;" class="text-center"><?php echo  $line->quantity; ?></td>
-            <td style="padding: 1px;" class="text-center"><?php echo  $line->description; ?></td>
-            <td style="padding: 1px;" class="text-center"><?php echo  $line->inner_carton; ?></td>
-            <td style="padding: 1px;" class="text-center"><?php echo  $line->master_carton; ?></td>
-            <td style="padding: 1px;" class="text-center"><?php echo  $line->product_price; ?></td>
-            <td style="padding: 1px;" class="text-center"><?php echo  number_format((float)($line->quantity * $line->product_price), 2, '.', '') ; ?></td>
+            <td class="text-center tbl-pad"><?php echo  $count; ?></td>
+            <td class="text-center tbl-pad"><?php echo  $line->class."-".$line->code."-".$line->color_abb; ?></td>
+            <td class="tbl-pad"><?php echo  ""; ?></td>
+            <td class="text-center tbl-pad"><?php echo  $line->master_carton." / ".$line->master_carton; ?></td>
+            <td class="text-center tbl-pad"><?php echo  $line->weight_of_box; ?></td>
+            <td class="text-center tbl-pad"><?php echo  $line->color; ?></td>
+            <td class="text-center tbl-pad"><?php echo  $line->quantity; ?></td>
+            <td class="text-center tbl-pad"><?php echo  $line->description; ?></td>
+            <td class="text-center tbl-pad"><?php echo  $line->inner_carton; ?></td>
+            <td class="text-center tbl-pad"><?php echo  $line->master_carton; ?></td>
+            <td class="text-center tbl-pad"><?php echo  $line->product_price; ?></td>
+            <td class="text-center tbl-pad"><?php echo  number_format((float)($line->quantity * $line->product_price), 2, '.', '') ; ?></td>
             <!-- <td><?php echo  number_format((float)$line->discount, 2, '.', ''); ?></td>
             <td><?php echo  number_format((float)(($line->quantity * $line->product_price) - (($line->quantity * $line->product_price)*($line->discount/100))), 2, '.', ''); ?></td> -->
           </tr>
           <?php $count++;
           }?>
           <tr>
-            <td colspan="2" style="border-top: 1px solid black;padding: 1px;">TOTAL</td>
-            <td colspan="4" style="border-top: 1px solid black;padding: 1px;"></td>
-            <td style="border-top: 1px solid black;padding: 1px;" class="text-center"><?php echo number_format($total_quntity); ?></td>
-            <td colspan="5" style="border-top: 1px solid black;padding: 1px;"></td>
+            <td colspan="2" class="tbl-pad" style="border-top: 1px solid black;">TOTAL</td>
+            <td colspan="4" class="tbl-pad" style="border-top: 1px solid black;"></td>
+            <td style="border-top: 1px solid black;" class="text-center tbl-pad"><?php echo number_format($total_quntity); ?></td>
+            <td colspan="5" class="tbl-pad" style="border-top: 1px solid black;"></td>
           </tr>
           </tbody>
         </table>
