@@ -207,6 +207,7 @@ https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
                                         <select class="form-control" id="inputStatus" placeholder="Content" style="resize:none" required>
                                             <option value="1">Enable</option>
                                             <option value="0">Disable</option>
+                                            <option value="4">Pending</option>
                                         </select>
                                         <div class="help-block with-errors"></div>
                                         </div>

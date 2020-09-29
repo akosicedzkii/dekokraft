@@ -236,6 +236,7 @@ $module_name = rtrim($module_name,"s");?>
                                         <select class="form-control" id="inputStatus" placeholder="Content" style="resize:none" required>
                                             <option value="1">Enable</option>
                                             <option value="0">Disable</option>
+                                            <option value="4">Pending</option>
                                         </select>
                                         <div class="help-block with-errors"></div>
                                         </div>
