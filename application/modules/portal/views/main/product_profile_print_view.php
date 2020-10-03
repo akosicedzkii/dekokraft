@@ -128,10 +128,11 @@
                 $total_ap=0;
                   if ($material_groups!=null) {
                       $counts=0;
-                      foreach ($material_groups as $material) {
-                          if ($material[0] != null) {
-                              foreach ($material[0] as $material_items) {
-                                  switch ($material_items['jp']) {
+                      foreach ($material_groups as $material_items) {
+                          // foreach ($material_groups as $material) {
+                          //if ($material[0] != null) {
+                          //foreach ($material[0] as $material_items) {
+                          switch ($material_items['jp']) {
                                   case 'R':
                                     $total_r=$total_r+floatval($material_items['qty'])*floatval($material_items['cost']);
                                     break;
@@ -152,7 +153,7 @@
                                     // code...
                                     break;
                                 }
-                                  $counts++; ?>
+                          $counts++; ?>
                               <tr>
                                 <td class="tbl-pad text-center"><?php echo $counts; ?>.</td>
                                 <td class="tbl-pad"><?php echo $material_items['material_name']; ?></td>
@@ -163,8 +164,8 @@
                                 <td class="tbl-pad"><?php echo number_format(floatval($material_items['qty'])*floatval($material_items['cost']), 2); ?></td>
                               </tr>
                   <?php
-                              }
-                          }
+                              //}
+                          //}
                       }
                   } ?>
               </tbody>
@@ -225,7 +226,6 @@
                 </tr>
               </thead>
               <tbody>
-
               </tbody>
             </table>
           </div>
@@ -247,39 +247,39 @@
                 <tr>
                   <td class="tbl-pad">Resin Cast</td>
                   <td class="tbl-pad">( RA )</td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad">0'</td>
+                  <td class="tbl-pad">0"</td>
+                  <td class="tbl-pad">P 0.00</td>
+                  <td class="tbl-pad">P <?php echo $resin_cast=number_format(($prod_profile->provided_resin_cast=='')?0:$prod_profile->provided_resin_cast, 2); ?></td>
                 </tr>
                 <tr>
                   <td class="tbl-pad">Resin Clean</td>
                   <td class="tbl-pad">( RL )</td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad">0'</td>
+                  <td class="tbl-pad">0"</td>
+                  <td class="tbl-pad">P 0.00</td>
+                  <td class="tbl-pad">P <?php echo $resin_clean=number_format(($prod_profile->provided_resin_clean=='')?0:$prod_profile->provided_resin_clean, 2); ?></td>
                 </tr>
                 <tr>
                   <td class="tbl-pad">Finishing</td>
                   <td class="tbl-pad">( F )</td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad">0'</td>
+                  <td class="tbl-pad">0"</td>
+                  <td class="tbl-pad">P 0.00</td>
+                  <td class="tbl-pad">P <?php echo $finisheng=number_format(($prod_profile->provided_finishing=='')?0:$prod_profile->provided_finishing, 2); ?></td>
                 </tr>
                 <tr>
                   <td class="tbl-pad">Artist Painting</td>
                   <td class="tbl-pad">( AP )</td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad">0'</td>
+                  <td class="tbl-pad">0"</td>
+                  <td class="tbl-pad">P 0.00</td>
+                  <td class="tbl-pad">P 0.00</td>
                 </tr>
                 <tr>
                   <td colspan="4" class="tbl-pad">*** TOTAL LABOR COST ***</td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad">P 0.00</td>
+                  <td class="tbl-pad">P <?php echo number_format($resin_cast+$resin_clean+$finisheng, 2); ?></td>
                 </tr>
               </tbody>
             </table>
@@ -290,20 +290,20 @@
           <div class="col-xs-12">
             <p class="m-b">L.C. PESO COSTING:</p>
             <div class="container">
-              <p class="m-b">Selling L.C = </p>
-              <p>Sub-con L.C = </p>
+              <p class="m-b">Selling L.C = P <?php echo number_format(($prod_profile->selling_lc=='')?0:$prod_profile->selling_lc, 2); ?></p>
+              <p>Sub-con L.C = P <?php echo number_format(($prod_profile->subcon_lc=='')?0:$prod_profile->subcon_lc, 2); ?></p>
             </div>
             <div class="row col-xs-6">
               <dl class="">
                 <dt class="col-xs-3" style="padding-left: 0px;padding-right: 0px;">Derived Price</dt>
-                <dd class="col-xs-9" style="padding-left: 0px;">(A)</dd>
+                <dd class="col-xs-9" style="padding-left: 0px;">(A) US$ <?php echo number_format(($prod_profile->derived_price_a=='')?0:$prod_profile->derived_price_a, 2); ?></dd>
                 <dt class="col-xs-3" style="padding-left: 0px;padding-right: 0px;"></dt>
-                <dd class="col-xs-9 offset-xs-3" style="padding-left: 0px;">(B)</dd>
+                <dd class="col-xs-9 offset-xs-3" style="padding-left: 0px;">(B) US$ <?php echo number_format(($prod_profile->derived_price_b=='')?0:$prod_profile->derived_price_b, 2); ?></dd>
                 <dt class="col-xs-3" style="padding-left: 0px;padding-right: 0px;">Quoted Price</dt>
               </dl>
             </div>
             <div class="col-xs-6">
-              <p>PESO/US$ Conversion = </p>
+              <p>PESO/US$ Conversion = <?php echo number_format(($prod_profile->peso_conversion=='')?0:$prod_profile->peso_conversion, 2); ?></p>
             </div>
           </div>
 
@@ -323,45 +323,45 @@
               <tbody>
                 <tr>
                   <td class="tbl-pad">1. Resin -Subcon Mat'l, Mold & Labor</td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad">P <?php echo $resin_sub_mat=number_format($total_r+$total_m, 2); ?></td>
+                  <td class="tbl-pad">P <?php echo $resin_derived_ac=number_format($resin_sub_mat+$resin_cast+$resin_clean, 2); ?></td>
+                  <td class="tbl-pad">P <?php echo number_format(($prod_profile->provided_resin_mat=='')?0:$prod_profile->provided_resin_mat, 2); ?></td>
                 </tr>
                 <tr>
                   <td class="tbl-pad">2. Resin -Subcon Labor, Dekokraft Matl</td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad">P 0.00</td>
+                  <td class="tbl-pad">P <?php echo number_format($resin_cast+$resin_clean, 2); ?></td>
+                  <td class="tbl-pad">P <?php echo number_format(($prod_profile->provided_resin_lab=='')?0:$prod_profile->provided_resin_lab, 2); ?></td>
                 </tr>
                 <tr>
                   <td class="tbl-pad">3. Fin. -Subcon Materials & Labor</td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad">P <?php echo number_format($total_f, 2); ?></td>
+                  <td class="tbl-pad">P <?php echo $finishing_ac=number_format($total_f+$finisheng, 2); ?></td>
+                  <td class="tbl-pad">P <?php echo number_format(($prod_profile->provided_finishing_mat=='')?0:$prod_profile->provided_finishing_mat, 2); ?></td>
                 </tr>
                 <tr>
                   <td class="tbl-pad">4. Fin. -Subcon Labor, Dekokraft Matl</td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad">P 0.00</td>
+                  <td class="tbl-pad">P <?php echo number_format($finisheng, 2); ?></td>
+                  <td class="tbl-pad">P <?php echo number_format(($prod_profile->provided_finishing_lab=='')?0:$prod_profile->provided_finishing_lab, 2); ?></td>
                 </tr>
                 <tr>
                   <td class="tbl-pad">5. Artist -Subcon Materials & Labor</td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad">P 0.00</td>
+                  <td class="tbl-pad">P 0.00</td>
+                  <td class="tbl-pad">P <?php echo number_format(($prod_profile->provided_artist_mat=='')?0:$prod_profile->provided_artist_mat, 2); ?></td>
                 </tr>
                 <tr>
                   <td class="tbl-pad">6. Artist -Subcon Labor, Dekokraft Matl</td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad">P 0.00</td>
+                  <td class="tbl-pad">P 0.00</td>
+                  <td class="tbl-pad">P <?php echo number_format(($prod_profile->provided_artist_lab=='')?0:$prod_profile->provided_artist_lab, 2); ?></td>
                 </tr>
                 <tr>
                   <td class="tbl-pad">7. Trading</td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
-                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad">P <?php echo number_format($resin_sub_mat+$total_f, 2); ?></td>
+                  <td class="tbl-pad">P <?php echo number_format($total_f+$finisheng+$resin_derived_ac, 2); ?></td>
+                  <td class="tbl-pad">P <?php echo number_format(($prod_profile->provided_trading=='')?0:$prod_profile->provided_trading, 2); ?></td>
                 </tr>
               </tbody>
             </table>
@@ -424,8 +424,8 @@
               <tbody>
                 <tr>
                   <td class="tbl-pad">Inner Polybag</td>
-                  <td class="tbl-pad">BUBBLE BAG 06 X 08</td>
-                  <td class="tbl-pad">1 pcs.</td>
+                  <td class="tbl-pad">BUBBLE BAG 00 X 00</td>
+                  <td class="tbl-pad">0 pcs.</td>
                   <td class="tbl-pad">P 0.00</td>
                 </tr>
                 <tr>

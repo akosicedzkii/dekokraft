@@ -110,6 +110,7 @@ class Main extends CI_Controller
             $this->db->join("product_variants", " product_variants.id=invoice_lines.product_id");
             $this->db->join("products", " products.id=product_variants.product_id");
             $this->db->where("invoice_id", $invoice_id);
+            $this->db->order_by("products.id", "asc");
             $module["invoice_lines"]= $this->db->get("invoice_lines")->result();
             $module["module_name"] = $this->router->fetch_method();
             $module["menu"] = $this->user_access;
@@ -257,19 +258,22 @@ class Main extends CI_Controller
             $ret = array();
             $module["net_weight"] = "";
             if (!$product_profile_id == null) {
-                $this->db->where("product_profile_id", $product_profile_id->id);
-                $result =  $this->db->get("product_material_group")->result_array();
+                //$this->db->where("product_profile_id", $product_profile_id->id);
+                //$result =  $this->db->get("product_material_group")->result_array();
                 $module["net_weight"] = $product_profile_id->net_weight;
-                if ($result != null) {
-                    foreach ($result as $res) {
-                        $this->db->join("materials", "materials.id=product_profile_materials.material_id");
-                        $material_list =$this->db->order_by("product_profile_materials.id", "desc")->where("product_material_group_id", $res["id"])->get("product_profile_materials")->result_array();
-                        array_push($res, $material_list);
-                        array_push($ret, $res);
-                    }
-                }
+                $module["prod_profile"] = $product_profile_id;
+                //if ($result != null) {
+                //foreach ($result as $res) {
+                $this->db->join("materials", "materials.id=product_profile_materials.material_id");
+                //$material_list =$this->db->order_by("product_profile_materials.id", "desc")->where("product_material_group_id", $res["id"])->get("product_profile_materials")->result_array();
+                $material_list =$this->db->order_by("FIELD(materials.jp, 'M', 'R', 'FA', 'FB', 'FC')")->where("product_profile_materials.product_profile_id", $product_profile_id->id)->get("product_profile_materials")->result_array();
+                //array_push($res, $material_list);
+                //array_push($ret, $res);
+                //}
+                //}
             }
-            $module["material_groups"] = $ret;
+            $module["material_groups"] = $material_list;
+            //$module["material_groups"] = $ret;
             $this->load->view('main/product_profile_print_view', $module);
         } elseif ($page == "list") {
             $module["module_name"] = $this->router->fetch_method();
