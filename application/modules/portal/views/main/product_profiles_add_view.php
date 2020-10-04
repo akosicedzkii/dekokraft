@@ -40,11 +40,50 @@
                 </table>
             </div>
         </div>
+        <div class="row invoice-info">
+            <div class="col-sm-4 invoice-col">
+                <table class="table" id="listing">
+                    <tr><th>Labor Cost</th><th>JP</th><th>Provided(C)</th></tr>
+                    <tr><td>Resin Cast</td><td>(RA)</td><td><input type='number' id="provided_resin_cast" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_cast;}?>" class="form-control"></td></tr>
+                    <tr><td>Resin Clean</td><td>(RL)</td><td><input type='number' id="provided_resin_clean" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_clean; }?>" class="form-control"></td></tr>
+                    <tr><td>Finishing</td><td>(F)</td><td><input type='number' id="provided_finishing" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_finishing; }?>" class="form-control"></td></tr>
+                    <tr><td>Artist Painting Material</td><td>(AP)</td><td></td></tr>
+                </table>
+            </div>
+            <div class="col-sm-4 invoice-col">
+            <table class="table" id="listing">
+                    <tr><th>L.C PESO COSTING </th><th></th></tr>
+                    <tr><td>Selling L.C.</td><td><input type='number' id="selling_lc" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->selling_lc; }?>" class="form-control"></td></tr>
+                    <tr><td>Sub-con L.C.</td><td><input type='number' id="subcon_lc" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->subcon_lc; }?>" class="form-control"></td></tr>
+                    <tr><td>Derived Price (A)</td><td><input type='number' id="derived_price_a" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->derived_price_a; }?>" class="form-control"></td></tr>
+                    <tr><td>Derived Price (B)</td><td><input type='number' id="derived_price_b" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->derived_price_b; }?>" class="form-control"></td></tr>
+                    <tr><td>PESO/US$Conversion</td><td><input type='number' id="peso_conversion" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->peso_conversion; }?>" class="form-control"></td></tr>
+                </table>
+            </div>
+            <div class="col-sm-4 invoice-col">
+            <table class="table" id="listing">
+                    <tr><th>SUBCON JOB COST  </th><th>PROVIDED</th></tr>
+                    <tr><td>Resin - Subcon Mat’l Mold and Labor</td><td><input type='number' id="provided_resin_mat" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_mat; }?>" class="form-control"></td></tr>
+                    <tr><td>Resin - Subcon Labor, Dekokraft Mat’l</td><td><input type='number' id="provided_resin_lab" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_lab; }?>" class="form-control"></td></tr>
+                    <tr><td>Finishing - Subcon Materials and Labor</td><td><input type='number' id="provided_finishing_mat" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_finishing_mat; }?>" class="form-control"></td></tr>
+                    <tr><td>Finishing - Subcon Labor, Dekokraft Mat’l</td><td><input type='number' id="provided_finishing_lab" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_finishing_lab; }?>" class="form-control"></td></tr>
+                    <tr><td>Artist - Subcon Materials and Labor</td><td><input type='number' id="provided_artist_mat" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_artist_mat; }?>" class="form-control"></td></tr>
+                    <tr><td>Artist - Subcon Labor, Dekokraft Mat’l</td><td><input type='number' id="provided_artist_lab" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_artist_lab; }?>" class="form-control"></td></tr>
+                    <tr><td>Trading </td><td><input type='number' id="provided_trading" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_trading; }?>" class="form-control"></td></tr>
+                </table>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 </br>
                 </br>
-                <center><a href="#"  onclick="return false;" id="add_material_group" class="btn btn-success">Add Material List</a></center>
+                <center><a href="#"  onclick="return false;" id="add_material_group" class="btn btn-success">Add Material List</a>
+                <?php  if(isset($prod_profile_details)){ ?>
+                &emsp;<button type="button" class="btn btn-primary" id="updateDetails">Update Product Profile Details</button></center>
+
+                <?php } ?>
+                
+                
                 <br>
                 <br>
             </div>
@@ -131,7 +170,24 @@
                     <form class="form-horizontal" id="product_profilesForm" data-toggle="validator">
                     
                         <input type="hidden" id="action">
-                        <input type="hidden" id="net_weight" name="net_weight">
+                        <input type="hidden" name="net_weight"  id="net_weight">
+                        
+                        <input type="hidden" name="product_profile_id"  id="product_profile_id">
+                        <input type="hidden" name="provided_resin_cast_add" id="provided_resin_cast_add">
+                        <input type="hidden" name="provided_resin_clean_add" id="provided_resin_clean_add"> 
+                        <input type="hidden" name="provided_finishing_add" id="provided_finishing_add">
+                        <input type="hidden" name="selling_lc_add" id="selling_lc_add">
+                        <input type="hidden" name="subcon_lc_add" id="subcon_lc_add">
+                        <input type="hidden" name="derived_price_a_add" id="derived_price_a_add">
+                        <input type="hidden" name="derived_price_b_add" id="derived_price_b_add">
+                        <input type="hidden" name="peso_conversion_add" id="peso_conversion_add">
+                        <input type="hidden" name="provided_resin_mat_add" id="provided_resin_mat_add">
+                        <input type="hidden" name="provided_resin_lab_add" id="provided_resin_lab_add">
+                        <input type="hidden" name="provided_finishing_mat_add" id="provided_finishing_mat_add">
+                        <input type="hidden" name="provided_finishing_lab_add" id="provided_finishing_lab_add">
+                        <input type="hidden" name="provided_artist_mat_add" id="provided_artist_mat_add">
+                        <input type="hidden" name="provided_artist_lab_add" id="provided_artist_lab_add">
+                        <input type="hidden" name="provided_trading_add"  id="provided_trading_add">
                         <input type="hidden" name="product_variant_id" value="<?php echo $product_variants->id;?>">
                         <div class="box-body"> 
                             <div class="form-group">
@@ -216,8 +272,23 @@
                         <input type="hidden" id="action">
                         <input type="hidden" name="material_list_id_edit"  id="material_list_id_edit">
                         <input type="hidden" name="product_profile_id_edit"  id="product_profile_id_edit">
-                        <input type="hidden" name="net_weight_edit" id="net_weight_edit">
+                        <input type="hidden" name="provided_resin_cast_edit" id="provided_resin_cast_edit">
+                        <input type="hidden" name="provided_resin_clean_edit" id="provided_resin_clean_edit"> 
+                        <input type="hidden" name="provided_finishing_edit" id="provided_finishing_edit">
+                        <input type="hidden" name="selling_lc_edit" id="selling_lc_edit">
+                        <input type="hidden" name="subcon_lc_edit" id="subcon_lc_edit">
+                        <input type="hidden" name="derived_price_a_edit" id="derived_price_a_edit">
+                        <input type="hidden" name="derived_price_b_edit" id="derived_price_b_edit">
+                        <input type="hidden" name="peso_conversion_edit" id="peso_conversion_edit">
+                        <input type="hidden" name="provided_resin_mat_edit" id="provided_resin_mat_edit">
+                        <input type="hidden" name="provided_resin_lab_edit" id="provided_resin_lab_edit">
+                        <input type="hidden" name="provided_finishing_mat_edit" id="provided_finishing_mat_edit">
+                        <input type="hidden" name="provided_finishing_lab_edit" id="provided_finishing_lab_edit">
+                        <input type="hidden" name="provided_artist_mat_edit" id="provided_artist_mat_edit">
+                        <input type="hidden" name="provided_artist_lab_edit" id="provided_artist_lab_edit">
+                        <input type="hidden" name="provided_trading_edit"  id="provided_trading_edit">
                         <input type="hidden" name="product_variant_id_edit"  id="product_variant_id_edit">
+                        <input type="hidden" name="net_weight_edit"  id="net_weight_edit">
                         <div class="box-body"> 
                             <div class="form-group">
                                 <label for="group_name" class="col-sm-2 control-label">Material List Name</label>
@@ -641,9 +712,94 @@ $("#deleteMaterials").click(function(){
                 }
         });
 });
+
+$("#updateDetails").click(function(){
+    
+    
+    var formData = new FormData();
+    formData.append("net_weight",$("#weight").val());
+    formData.append("provided_resin_cast",$("#provided_resin_cast").val())
+    formData.append("provided_resin_clean",$("#provided_resin_clean").val())
+    formData.append("provided_finishing",$("#provided_finishing").val())
+    formData.append("selling_lc",$("#selling_lc").val())
+    formData.append("subcon_lc",$("#subcon_lc").val())
+    formData.append("derived_price_a",$("#derived_price_a").val())
+    formData.append("derived_price_b",$("#derived_price_b").val())
+    formData.append("peso_conversion",$("#peso_conversion").val())
+    formData.append("provided_resin_mat",$("#provided_resin_mat").val())
+    formData.append("provided_resin_lab",$("#provided_resin_lab").val())
+    formData.append("provided_finishing_mat",$("#provided_finishing_mat").val())
+    formData.append("provided_finishing_lab",$("#provided_finishing_lab").val())
+    formData.append("provided_artist_mat",$("#provided_artist_mat").val())
+    formData.append("provided_artist_lab",$("#provided_artist_lab").val())
+    formData.append("provided_trading",$("#provided_trading").val())
+    formData.append("product_profile_id","<?php if(isset($prod_profile_details)){ echo $prod_profile_details->id;}?>")
+    
+    $.ajax({
+    data: formData,
+    type: "post",
+    processData: false,
+    contentType: false,
+    cache: false,
+    url: "<?php echo base_url()."portal/product_profiles/update_details";?>" , 
+    xhr: function(){
+        //upload Progress
+        var xhr = $.ajaxSettings.xhr();
+        if (xhr.upload) {
+            xhr.upload.addEventListener('progress', function(event) {
+                var percent = 0;
+                var position = event.loaded || event.position;
+                var total = event.total;
+                if (event.lengthComputable) {
+                    percent = Math.ceil(position / total * 100);
+                }
+                //update progressbar
+                
+                $('#progressBarMain').css('width',percent+'%').html(percent+'%');
+                                                
+            }, true);
+        }
+        return xhr;
+    },
+    mimeType:"multipart/form-data"
+}).done(function(data){ 
+    if(!data)
+    {
+        //btn.button("reset");
+        toastr.error(data);
+    }
+    else
+    {
+            //alert("Data Save: " + data);
+           // btn.button("reset");
+            toastr.success("Update Successfully");
+
+            setTimeout(() => {
+                         window.location = "";
+                    }, 1000);       
+    }
+});
+});
 $("#saveMaterials").click(function(){
     var btn=$("#saveMaterials");
     $("#net_weight").val($("#weight").val());
+    
+    $("#provided_resin_cast_add").val($("#provided_resin_cast").val())
+    $("#provided_resin_clean_add").val($("#provided_resin_clean").val())
+    $("#provided_finishing_add").val($("#provided_finishing").val())
+    $("#selling_lc_add").val($("#selling_lc").val())
+    $("#subcon_lc_add").val($("#subcon_lc").val())
+    $("#derived_price_a_add").val($("#derived_price_a").val())
+    $("#derived_price_b_add").val($("#derived_price_b").val())
+    $("#peso_conversion_add").val($("#peso_conversion").val())
+    $("#provided_resin_mat_add").val($("#provided_resin_mat").val())
+    $("#provided_resin_lab_add").val($("#provided_resin_lab").val())
+    $("#provided_finishing_mat_add").val($("#provided_finishing_mat").val())
+    $("#provided_finishing_lab_add").val($("#provided_finishing_lab").val())
+    $("#provided_artist_mat_add").val($("#provided_artist_mat").val())
+    $("#provided_artist_lab_add").val($("#provided_artist_lab").val())
+    $("#provided_trading_add").val($("#provided_trading").val())
+    console.log($("#product_profilesForm_edit").serialize());
     console.log($("#product_profilesForm").serialize());
     $.ajax({
     data: $("#product_profilesForm").serialize(),
@@ -683,9 +839,9 @@ $("#saveMaterials").click(function(){
             //alert("Data Save: " + data);
             btn.button("reset");
             toastr.success("Material Group Added Successfully");
-            setTimeout(() => {
-                        window.location = "";
-                    }, 1000);
+            // setTimeout(() => {
+            //             window.location = "";
+            //         }, 1000);
             $("#colorsForm").validator('destroy');
             $("#colorsModal").modal("hide"); 
             $('#uploadBoxMain').html('');          
@@ -699,6 +855,21 @@ $("#saveMaterials_edit").click(function(){
     var btn=$("#saveMaterials_edit");
     
     $("#net_weight_edit").val($("#weight").val());
+    $("#provided_resin_cast_edit").val($("#provided_resin_cast").val())
+    $("#provided_resin_clean_edit").val($("#provided_resin_clean").val())
+    $("#provided_finishing_edit").val($("#provided_finishing").val())
+    $("#selling_lc_edit").val($("#selling_lc").val())
+    $("#subcon_lc_edit").val($("#subcon_lc").val())
+    $("#derived_price_a_edit").val($("#derived_price_a").val())
+    $("#derived_price_b_edit").val($("#derived_price_b").val())
+    $("#peso_conversion_edit").val($("#peso_conversion").val())
+    $("#provided_resin_mat_edit").val($("#provided_resin_mat").val())
+    $("#provided_resin_lab_edit").val($("#provided_resin_lab").val())
+    $("#provided_finishing_mat_edit").val($("#provided_finishing_mat").val())
+    $("#provided_finishing_lab_edit").val($("#provided_finishing_lab").val())
+    $("#provided_artist_mat_edit").val($("#provided_artist_mat").val())
+    $("#provided_artist_lab_edit").val($("#provided_artist_lab").val())
+    $("#provided_trading_edit").val($("#provided_trading").val())
     console.log($("#product_profilesForm_edit").serialize());
     $.ajax({
     data: $("#product_profilesForm_edit").serialize(),
@@ -739,9 +910,9 @@ $("#saveMaterials_edit").click(function(){
             btn.button("reset");
             toastr.success("Material Group Added Successfully");
 
-            setTimeout(() => {
-                        window.location = "";
-                    }, 1000);
+            // setTimeout(() => {
+            //             window.location = "";
+            //         }, 1000);
             $("#colorsForm").validator('destroy');
             $("#colorsModal").modal("hide"); 
             $('#uploadBoxMain').html('');          

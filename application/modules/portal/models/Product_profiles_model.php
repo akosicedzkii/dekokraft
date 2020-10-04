@@ -8,6 +8,21 @@ class Product_profiles_model extends CI_Model {
         public $qty;
         public $group_name;
         public $net_weight;
+        public $provided_resin_cast;
+        public $provided_resin_clean;
+        public $provided_finishing;
+        public $selling_lc;
+        public $subcon_lc;
+        public $derived_price_a;
+        public $derived_price_b;
+        public $peso_conversion;
+        public $provided_resin_mat;
+        public $provided_resin_lab;
+        public $provided_finishing_mat;
+        public $provided_finishing_lab;
+        public $provided_artist_mat;
+        public $provided_artist_lab;
+        public $provided_trading;
         public $material_group_id;
         public function insert_product_profiles()
         {
@@ -21,6 +36,22 @@ class Product_profiles_model extends CI_Model {
                 $data["product_variant_id"] = $this->product_variant_id;
                 $data["date_created"] = date("Y-m-d H:i:s A");
                 $data["created_by"] =  $this->session->userdata("USERID");
+                $data["net_weight"] = $this->net_weight;
+                $data["provided_resin_cast"] = $this->provided_resin_cast;
+                $data["provided_resin_clean"] = $this->provided_resin_clean;
+                $data["provided_finishing"] = $this->provided_finishing;
+                $data["selling_lc"] = $this->selling_lc;
+                $data["subcon_lc"] = $this->subcon_lc;
+                $data["derived_price_a"] = $this->derived_price_a;
+                $data["derived_price_b"] = $this->derived_price_b;
+                $data["peso_conversion"] = $this->peso_conversion;
+                $data["provided_resin_mat"] = $this->provided_resin_mat;
+                $data["provided_resin_lab"] = $this->provided_resin_lab;
+                $data["provided_finishing_mat"] = $this->provided_finishing_mat;
+                $data["provided_finishing_lab"] = $this->provided_finishing_lab;
+                $data["provided_artist_mat"] = $this->provided_artist_mat;
+                $data["provided_artist_lab"] = $this->provided_artist_lab;
+                $data["provided_trading"] = $this->provided_trading;
                 $this->db->insert("product_profiles",$data);
                 $insertId = $this->db->insert_id();
                 $this->id = $insertId;
@@ -29,6 +60,22 @@ class Product_profiles_model extends CI_Model {
                 $this->id = $this->db->get("product_profiles")->row()->id;
                 
                 $data4["net_weight"] = $this->net_weight;
+                $data4["provided_resin_cast"] = $this->provided_resin_cast;
+                $data4["provided_resin_clean"] = $this->provided_resin_clean;
+                $data4["provided_finishing"] = $this->provided_finishing;
+                $data4["selling_lc"] = $this->selling_lc;
+                $data4["subcon_lc"] = $this->subcon_lc;
+                $data4["derived_price_a"] = $this->derived_price_a;
+                $data4["derived_price_b"] = $this->derived_price_b;
+                $data4["peso_conversion"] = $this->peso_conversion;
+                $data4["provided_resin_mat"] = $this->provided_resin_mat;
+                $data4["provided_resin_lab"] = $this->provided_resin_lab;
+                $data4["provided_finishing_mat"] = $this->provided_finishing_mat;
+                $data4["provided_finishing_lab"] = $this->provided_finishing_lab;
+                $data4["provided_artist_mat"] = $this->provided_artist_mat;
+                $data4["provided_artist_lab"] = $this->provided_artist_lab;
+                $data4["provided_trading"] = $this->provided_trading;
+
                 $this->db->where("id",$this->id);
                 $this->db->update("product_profiles",$data4);
             }
@@ -85,6 +132,49 @@ class Product_profiles_model extends CI_Model {
                 $counter++;
             }
             $data4["net_weight"] = $this->net_weight;
+            $data4["provided_resin_cast"] = $this->provided_resin_cast;
+            $data4["provided_resin_clean"] = $this->provided_resin_clean;
+            $data4["provided_finishing"] = $this->provided_finishing;
+            $data4["selling_lc"] = $this->selling_lc;
+            $data4["subcon_lc"] = $this->subcon_lc;
+            $data4["derived_price_a"] = $this->derived_price_a;
+            $data4["derived_price_b"] = $this->derived_price_b;
+            $data4["peso_conversion"] = $this->peso_conversion;
+            $data4["provided_resin_mat"] = $this->provided_resin_mat;
+            $data4["provided_resin_lab"] = $this->provided_resin_lab;
+            $data4["provided_finishing_mat"] = $this->provided_finishing_mat;
+            $data4["provided_finishing_lab"] = $this->provided_finishing_lab;
+            $data4["provided_artist_mat"] = $this->provided_artist_mat;
+            $data4["provided_artist_lab"] = $this->provided_artist_lab;
+            $data4["provided_trading"] = $this->provided_trading;
+            $this->db->where("id",$this->product_profile_id);
+            $this->db->update("product_profiles",$data4);
+            $this->logs->log = "Updated Product Profile - ID:". $this->product_profile_id ;
+            $this->logs->details = json_encode(array($data,$data3));
+            $this->logs->module = "product_profiles";
+            $this->logs->created_by = $this->session->userdata("USERID");
+            $this->logs->insert_log();
+            echo 1;
+        }
+
+        public function update_details()
+        {
+            $data4["net_weight"] = $this->net_weight;
+            $data4["provided_resin_cast"] = $this->provided_resin_cast;
+            $data4["provided_resin_clean"] = $this->provided_resin_clean;
+            $data4["provided_finishing"] = $this->provided_finishing;
+            $data4["selling_lc"] = $this->selling_lc;
+            $data4["subcon_lc"] = $this->subcon_lc;
+            $data4["derived_price_a"] = $this->derived_price_a;
+            $data4["derived_price_b"] = $this->derived_price_b;
+            $data4["peso_conversion"] = $this->peso_conversion;
+            $data4["provided_resin_mat"] = $this->provided_resin_mat;
+            $data4["provided_resin_lab"] = $this->provided_resin_lab;
+            $data4["provided_finishing_mat"] = $this->provided_finishing_mat;
+            $data4["provided_finishing_lab"] = $this->provided_finishing_lab;
+            $data4["provided_artist_mat"] = $this->provided_artist_mat;
+            $data4["provided_artist_lab"] = $this->provided_artist_lab;
+            $data4["provided_trading"] = $this->provided_trading;
             $this->db->where("id",$this->product_profile_id);
             $this->db->update("product_profiles",$data4);
             $this->logs->log = "Updated Product Profile - ID:". $this->product_profile_id ;

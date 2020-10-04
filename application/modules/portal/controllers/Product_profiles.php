@@ -22,6 +22,21 @@ class Product_profiles extends CI_Controller {
         $this->product_profiles_model->qty = $this->input->get("qty");
         $this->product_profiles_model->group_name = $this->input->get("group_name");
         $this->product_profiles_model->net_weight = $this->input->get("net_weight");
+        $this->product_profiles_model->provided_resin_cast =	$this->input->get("provided_resin_cast_add");	 	 
+        $this->product_profiles_model->provided_resin_clean =	$this->input->get("provided_resin_clean_add"); 	 	 
+        $this->product_profiles_model->provided_finishing =	 	 $this->input->get("provided_finishing_add");	 
+        $this->product_profiles_model->selling_lc =	 	 	 $this->input->get("selling_lc_add");
+        $this->product_profiles_model->subcon_lc =	 	 	 $this->input->get("subcon_lc_add");
+        $this->product_profiles_model->derived_price_a =	 	 	$this->input->get("derived_price_a_add"); 
+        $this->product_profiles_model->derived_price_b =	 	 	$this->input->get("derived_price_b_add");
+        $this->product_profiles_model->peso_conversion =	 	 	$this->input->get("peso_conversion_add"); 
+        $this->product_profiles_model->provided_resin_mat =	 	 	$this->input->get("provided_resin_mat_add"); 
+        $this->product_profiles_model->provided_resin_lab =	 	 	$this->input->get("provided_resin_lab_add"); 
+        $this->product_profiles_model->provided_finishing_mat =	 	$this->input->get("provided_finishing_mat_add"); 	 
+        $this->product_profiles_model->provided_finishing_lab =	 	$this->input->get("provided_finishing_lab_add"); 	 
+        $this->product_profiles_model->provided_artist_mat = 	 	$this->input->get("provided_artist_mat_add"); 
+        $this->product_profiles_model->provided_artist_lab =	 	$this->input->get("provided_artist_lab_add"); 	 
+        $this->product_profiles_model->provided_trading =           $this->input->get("provided_trading_add");
         echo $this->product_profiles_model->insert_product_profiles();
 	}
     public function update_product_profiles()
@@ -32,9 +47,48 @@ class Product_profiles extends CI_Controller {
         $this->product_profiles_model->material_group_id = $this->input->get("material_list_id_edit");
         $this->product_profiles_model->qty = $this->input->get("qty_edit");
         $this->product_profiles_model->net_weight = $this->input->get("net_weight_edit");
+        $this->product_profiles_model->provided_resin_cast =	$this->input->get("provided_resin_cast_edit");	 	 
+        $this->product_profiles_model->provided_resin_clean =	$this->input->get("provided_resin_clean_edit"); 	 	 
+        $this->product_profiles_model->provided_finishing =	 	 $this->input->get("provided_finishing_edit");	 
+        $this->product_profiles_model->selling_lc =	 	 	 $this->input->get("selling_lc_edit");
+        $this->product_profiles_model->subcon_lc =	 	 	 $this->input->get("subcon_lc_edit");
+        $this->product_profiles_model->derived_price_a =	 	 	$this->input->get("derived_price_a_edit"); 
+        $this->product_profiles_model->derived_price_b =	 	 	$this->input->get("derived_price_b_edit");
+        $this->product_profiles_model->peso_conversion =	 	 	$this->input->get("peso_conversion_edit"); 
+        $this->product_profiles_model->provided_resin_mat =	 	 	$this->input->get("provided_resin_mat_edit"); 
+        $this->product_profiles_model->provided_resin_lab =	 	 	$this->input->get("provided_resin_lab_edit"); 
+        $this->product_profiles_model->provided_finishing_mat =	 	$this->input->get("provided_finishing_mat_edit"); 	 
+        $this->product_profiles_model->provided_finishing_lab =	 	$this->input->get("provided_finishing_lab_edit"); 	 
+        $this->product_profiles_model->provided_artist_mat = 	 	$this->input->get("provided_artist_mat_edit"); 
+        $this->product_profiles_model->provided_artist_lab =	 	$this->input->get("provided_artist_lab_edit"); 	 
+        $this->product_profiles_model->provided_trading =           $this->input->get("provided_trading_edit");
         $this->product_profiles_model->group_name = $this->input->get("group_name_edit");
         echo $this->product_profiles_model->update_material_list();
-	}
+    }
+    
+    public function update_details()
+	{
+        $this->product_profiles_model->product_variant_id = $this->input->post("product_variant_id");
+        $this->product_profiles_model->product_profile_id = $this->input->post("product_profile_id");
+        $this->product_profiles_model->net_weight = $this->input->post("net_weight");
+        $this->product_profiles_model->provided_resin_cast =	$this->input->post("provided_resin_cast");	 	 
+        $this->product_profiles_model->provided_resin_clean =	$this->input->post("provided_resin_clean"); 	 	 
+        $this->product_profiles_model->provided_finishing =	 	 $this->input->post("provided_finishing");	 
+        $this->product_profiles_model->selling_lc =	 	 	 $this->input->post("selling_lc");
+        $this->product_profiles_model->subcon_lc =	 	 	 $this->input->post("subcon_lc");
+        $this->product_profiles_model->derived_price_a =	 	 	$this->input->post("derived_price_a"); 
+        $this->product_profiles_model->derived_price_b =	 	 	$this->input->post("derived_price_b");
+        $this->product_profiles_model->peso_conversion =	 	 	$this->input->post("peso_conversion"); 
+        $this->product_profiles_model->provided_resin_mat =	 	 	$this->input->post("provided_resin_mat"); 
+        $this->product_profiles_model->provided_resin_lab =	 	 	$this->input->post("provided_resin_lab"); 
+        $this->product_profiles_model->provided_finishing_mat =	 	$this->input->post("provided_finishing_mat"); 	 
+        $this->product_profiles_model->provided_finishing_lab =	 	$this->input->post("provided_finishing_lab"); 	 
+        $this->product_profiles_model->provided_artist_mat = 	 	$this->input->post("provided_artist_mat"); 
+        $this->product_profiles_model->provided_artist_lab =	 	$this->input->post("provided_artist_lab"); 	 
+        $this->product_profiles_model->provided_trading =           $this->input->post("provided_trading");
+        echo $this->product_profiles_model->update_details();
+    }
+    
     public function get_materials_on_list()
     {
         $id = $this->input->post("id");

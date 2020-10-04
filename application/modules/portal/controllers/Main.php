@@ -230,6 +230,7 @@ class Main extends CI_Controller
                 $this->db->where("product_profile_id", $product_profile_id->id);
                 $result =  $this->db->get("product_material_group")->result_array();
                 $module["net_weight"] = $product_profile_id->net_weight;
+                $module["prod_profile_details"] = $product_profile_id;
                 if ($result != null) {
                     foreach ($result as $res) {
                         $this->db->join("materials", "materials.id=product_profile_materials.material_id");
