@@ -46,7 +46,6 @@ class Invoices extends CI_Controller {
 	public function update_invoices()
 	{
         $params = array(
-            'invoice_date' => date("Y-m-d h:i:s a"),
             'attn' => $this->input->post('attn'),
             'customer_id' => $this->input->post('customer_name'),
             'invoice_number' => $this->input->post('invoice_number'),
