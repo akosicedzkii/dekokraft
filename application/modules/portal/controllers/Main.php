@@ -325,9 +325,9 @@ class Main extends CI_Controller
     {
         $page = $this->uri->segment(4, 0);
         if ($page == "color_composition") {
-            // $id = $this->input->get("id");
-            // $ids = explode(",", $id);
-            $ids=array(18,18);
+            $id = $this->input->get("id");
+            $ids = explode(",", $id);
+            //$ids=array(18,18);
             foreach ($ids as $id) {
                 $this->db->or_where("id", $id);
             }

@@ -279,7 +279,7 @@
                 <tr>
                   <td colspan="4" class="tbl-pad">*** TOTAL LABOR COST ***</td>
                   <td class="tbl-pad">P 0.00</td>
-                  <td class="tbl-pad">P <?php echo number_format($resin_cast+$resin_clean+$finisheng, 2); ?></td>
+                  <td class="tbl-pad">P <?php echo number_format(str_replace(',', '', $resin_cast)+str_replace(',', '', $resin_clean)+str_replace(',', '', $finisheng), 2); ?></td>
                 </tr>
               </tbody>
             </table>
@@ -324,25 +324,25 @@
                 <tr>
                   <td class="tbl-pad">1. Resin -Subcon Mat'l, Mold & Labor</td>
                   <td class="tbl-pad">P <?php echo $resin_sub_mat=number_format($total_r+$total_m, 2); ?></td>
-                  <td class="tbl-pad">P <?php echo $resin_derived_ac=number_format($resin_sub_mat+$resin_cast+$resin_clean, 2); ?></td>
+                  <td class="tbl-pad">P <?php echo $resin_derived_ac=number_format(str_replace(',', '', $resin_sub_mat)+str_replace(',', '', $resin_cast)+str_replace(',', '', $resin_clean), 2); ?></td>
                   <td class="tbl-pad">P <?php echo number_format(($prod_profile->provided_resin_mat=='')?0:$prod_profile->provided_resin_mat, 2); ?></td>
                 </tr>
                 <tr>
                   <td class="tbl-pad">2. Resin -Subcon Labor, Dekokraft Matl</td>
                   <td class="tbl-pad">P 0.00</td>
-                  <td class="tbl-pad">P <?php echo number_format($resin_cast+$resin_clean, 2); ?></td>
+                  <td class="tbl-pad">P <?php echo number_format(str_replace(',', '', $resin_cast)+str_replace(',', '', $resin_clean), 2); ?></td>
                   <td class="tbl-pad">P <?php echo number_format(($prod_profile->provided_resin_lab=='')?0:$prod_profile->provided_resin_lab, 2); ?></td>
                 </tr>
                 <tr>
                   <td class="tbl-pad">3. Fin. -Subcon Materials & Labor</td>
                   <td class="tbl-pad">P <?php echo number_format($total_f, 2); ?></td>
-                  <td class="tbl-pad">P <?php echo $finishing_ac=number_format($total_f+$finisheng, 2); ?></td>
+                  <td class="tbl-pad">P <?php echo $finishing_ac=number_format($total_f+str_replace(',', '', $finisheng), 2); ?></td>
                   <td class="tbl-pad">P <?php echo number_format(($prod_profile->provided_finishing_mat=='')?0:$prod_profile->provided_finishing_mat, 2); ?></td>
                 </tr>
                 <tr>
                   <td class="tbl-pad">4. Fin. -Subcon Labor, Dekokraft Matl</td>
                   <td class="tbl-pad">P 0.00</td>
-                  <td class="tbl-pad">P <?php echo number_format($finisheng, 2); ?></td>
+                  <td class="tbl-pad">P <?php echo number_format(str_replace(',', '', $finisheng), 2); ?></td>
                   <td class="tbl-pad">P <?php echo number_format(($prod_profile->provided_finishing_lab=='')?0:$prod_profile->provided_finishing_lab, 2); ?></td>
                 </tr>
                 <tr>
@@ -359,8 +359,8 @@
                 </tr>
                 <tr>
                   <td class="tbl-pad">7. Trading</td>
-                  <td class="tbl-pad">P <?php echo number_format($resin_sub_mat+$total_f, 2); ?></td>
-                  <td class="tbl-pad">P <?php echo number_format($total_f+$finisheng+$resin_derived_ac, 2); ?></td>
+                  <td class="tbl-pad">P <?php echo number_format(str_replace(',', '', $resin_sub_mat)+$total_f, 2); ?></td>
+                  <td class="tbl-pad">P <?php echo number_format(str_replace(',', '', $finishing_ac)+str_replace(',', '', $resin_derived_ac), 2); ?></td>
                   <td class="tbl-pad">P <?php echo number_format(($prod_profile->provided_trading=='')?0:$prod_profile->provided_trading, 2); ?></td>
                 </tr>
               </tbody>
