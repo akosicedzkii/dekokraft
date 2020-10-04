@@ -25,7 +25,7 @@
 <script src="chrome-extension://mooikfkahbdckldjjndioackbalphokd/assets/prompt.js"></script></head>
 
 <style>
-.avoidBreak {
+.avoidBreak { 
     border: 2px solid;
     page-break-inside:avoid;
 }
@@ -35,7 +35,7 @@
      height: auto;
      overflow: visible;
    }
-
+    
     body
     {
         font-size:10px;
@@ -51,16 +51,16 @@
     <div class="row">
       <div class="col-xs-12">
         <h2 class="page-header">
-           <!-- <i class="fa fa-globe"></i>--> <?php echo SITE_NAME;?>
+           <!-- <i class="fa fa-globe"></i>--> <?php echo SITE_NAME;?> 
         </h2>
       </div>
       <!-- /.col -->
     </div>
     <!-- info row -->
-        <?php foreach ($color_materials as $colors) { ?>
+        <?php foreach($color_materials as $colors){ ?>
         <div class="row invoice-info">
             <div class="col-md-12">
-                <center><h3><?php echo "Color Composition for: <b>".$colors['material_name']; ?></b></h3></center>
+                <center><h3><?php echo "Color Composition for: <b>".$colors["material_name"];?> </b></h3></center>
             </div>
         </div>
         <div class="row invoice-info">
@@ -78,29 +78,30 @@
                 <tbody id="tbody_materialss">
                     <?php
                         $total_cost = 0;
-    $total_qty = 0;
-    if ($colors[0]!= null) {
-        foreach ($colors[0] as $material_items) {
-            ?>
+                        $total_qty = 0;
+                        if($colors[0]!= null)
+                        {
+                            foreach($colors[0] as $material_items)
+                            {
+                                ?>
                                 <tr>
                                 <td><?php echo $material_items["material_name"]?></td>
                                 <!--<td><?php echo $material_items["jp"]?></td>-->
-                                <td><?php echo number_format($material_items["cost"], 2, '.', '');
-            $total_cost +=$material_items["cost"]; ?></td>
-                                <td><?php echo $material_items["qty"];
-            $total_qty +=$material_items["qty"]; ?></td>
+                                <td><?php echo number_format($material_items["cost"], 2, '.', ''); $total_cost +=$material_items["cost"]; ?></td>
+                                <td><?php echo $material_items["qty"];$total_qty +=$material_items["qty"];?></td>
                                 <td><?php echo $material_items["unit"]?></td>
                                 </tr>
                                 <?php
-        }
-    } ?>
+                            }
+                        }
+                    ?>
                 </tbody>
                 <tfoot>
                     <tr>
                     <th style="width:30%;">SUBTOTAL:</th>
                     <th style="width:15%;"></th>
-                    <th style="width:15%;"><?php echo number_format($total_cost, 2, '.', ''); ?></th>
-                    <th style="width:15%;"><?php echo $total_qty; ?></th>
+                    <th style="width:15%;"><?php echo number_format($total_cost, 2, '.', '');?></th>
+                    <th style="width:15%;"><?php echo $total_qty;?></th>
                     <th style="width:15%;"></th>
                     </tr>
                 </tfoot>
@@ -108,8 +109,7 @@
             </div>
         </div>
         <!-- /.row -->
-       <?php
-}?>
+       <?php }?>
   </section>
   <!-- /.content -->
 </div>
