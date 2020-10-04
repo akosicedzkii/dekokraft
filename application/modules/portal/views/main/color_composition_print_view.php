@@ -60,7 +60,7 @@
         <?php foreach ($color_materials as $colors) { ?>
         <div class="row invoice-info">
             <div class="col-md-12">
-                <center><h3><?php echo "Color Composition for: <b>".$colors['material_name']; ?></b></h3></center>
+                  <center><h3><b><?php echo $colors['material_name']; ?></b></h3></center>
             </div>
         </div>
         <div class="row invoice-info">
