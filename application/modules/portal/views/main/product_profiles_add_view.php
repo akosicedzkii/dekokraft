@@ -839,9 +839,9 @@ $("#saveMaterials").click(function(){
             //alert("Data Save: " + data);
             btn.button("reset");
             toastr.success("Material Group Added Successfully");
-            // setTimeout(() => {
-            //             window.location = "";
-            //         }, 1000);
+            setTimeout(() => {
+                        window.location = "";
+                    }, 1000);
             $("#colorsForm").validator('destroy');
             $("#colorsModal").modal("hide"); 
             $('#uploadBoxMain').html('');          
@@ -910,9 +910,9 @@ $("#saveMaterials_edit").click(function(){
             btn.button("reset");
             toastr.success("Material Group Added Successfully");
 
-            // setTimeout(() => {
-            //             window.location = "";
-            //         }, 1000);
+            setTimeout(() => {
+                        window.location = "";
+                    }, 1000);
             $("#colorsForm").validator('destroy');
             $("#colorsModal").modal("hide"); 
             $('#uploadBoxMain').html('');          
