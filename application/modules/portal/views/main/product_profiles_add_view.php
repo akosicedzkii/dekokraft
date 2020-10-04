@@ -36,7 +36,7 @@
                     <tr><td>Stock #: </td><td><?php echo $product_variants->code. "-".$product_variants->color_abb;?></td></tr>
                     <tr><td>Desc: </td><td><?php echo $product_variants->description;?></td></tr>
                     <tr><td>Color: </td><td><?php echo $product_variants->color;?></td></tr>
-                    <tr><td>Target Wgt.: </td><td><input type='text' id="weight" style="width:300px;" value="<?php echo $net_weight;?>" class="form-control"></td></tr>
+                    <tr><td>Target Wgt.: </td><td><input type='text' id="weight" style="width:200px;" value="<?php echo $net_weight;?>" class="form-control"></td></tr>
                 </table>
             </div>
         </div>
@@ -44,32 +44,32 @@
             <div class="col-sm-4 invoice-col">
                 <table class="table" id="listing">
                     <tr><th>Labor Cost</th><th>JP</th><th>Provided(C)</th></tr>
-                    <tr><td>Resin Cast</td><td>(RA)</td><td><input type='number' id="provided_resin_cast" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_cast;}?>" class="form-control"></td></tr>
-                    <tr><td>Resin Clean</td><td>(RL)</td><td><input type='number' id="provided_resin_clean" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_clean; }?>" class="form-control"></td></tr>
-                    <tr><td>Finishing</td><td>(F)</td><td><input type='number' id="provided_finishing" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_finishing; }?>" class="form-control"></td></tr>
+                    <tr><td>Resin Cast</td><td>(RA)</td><td><input type='number' id="provided_resin_cast" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_cast;}?>" class="form-control"></td></tr>
+                    <tr><td>Resin Clean</td><td>(RL)</td><td><input type='number' id="provided_resin_clean" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_clean; }?>" class="form-control"></td></tr>
+                    <tr><td>Finishing</td><td>(F)</td><td><input type='number' id="provided_finishing" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_finishing; }?>" class="form-control"></td></tr>
                     <tr><td>Artist Painting Material</td><td>(AP)</td><td></td></tr>
                 </table>
             </div>
             <div class="col-sm-4 invoice-col">
             <table class="table" id="listing">
                     <tr><th>L.C PESO COSTING </th><th></th></tr>
-                    <tr><td>Selling L.C.</td><td><input type='number' id="selling_lc" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->selling_lc; }?>" class="form-control"></td></tr>
-                    <tr><td>Sub-con L.C.</td><td><input type='number' id="subcon_lc" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->subcon_lc; }?>" class="form-control"></td></tr>
-                    <tr><td>Derived Price (A)</td><td><input type='number' id="derived_price_a" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->derived_price_a; }?>" class="form-control"></td></tr>
-                    <tr><td>Derived Price (B)</td><td><input type='number' id="derived_price_b" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->derived_price_b; }?>" class="form-control"></td></tr>
-                    <tr><td>PESO/US$Conversion</td><td><input type='number' id="peso_conversion" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->peso_conversion; }?>" class="form-control"></td></tr>
+                    <tr><td>Selling L.C.</td><td><input type='number' id="selling_lc" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->selling_lc; }?>" class="form-control"></td></tr>
+                    <tr><td>Sub-con L.C.</td><td><input type='number' id="subcon_lc" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->subcon_lc; }?>" class="form-control"></td></tr>
+                    <tr><td>Derived Price (A)</td><td><input type='number' id="derived_price_a" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->derived_price_a; }?>" class="form-control"></td></tr>
+                    <tr><td>Derived Price (B)</td><td><input type='number' id="derived_price_b" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->derived_price_b; }?>" class="form-control"></td></tr>
+                    <tr><td>PESO/US$Conversion</td><td><input type='number' id="peso_conversion" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->peso_conversion; }?>" class="form-control"></td></tr>
                 </table>
             </div>
             <div class="col-sm-4 invoice-col">
             <table class="table" id="listing">
                     <tr><th>SUBCON JOB COST  </th><th>PROVIDED</th></tr>
-                    <tr><td>Resin - Subcon Mat’l Mold and Labor</td><td><input type='number' id="provided_resin_mat" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_mat; }?>" class="form-control"></td></tr>
-                    <tr><td>Resin - Subcon Labor, Dekokraft Mat’l</td><td><input type='number' id="provided_resin_lab" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_lab; }?>" class="form-control"></td></tr>
-                    <tr><td>Finishing - Subcon Materials and Labor</td><td><input type='number' id="provided_finishing_mat" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_finishing_mat; }?>" class="form-control"></td></tr>
-                    <tr><td>Finishing - Subcon Labor, Dekokraft Mat’l</td><td><input type='number' id="provided_finishing_lab" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_finishing_lab; }?>" class="form-control"></td></tr>
-                    <tr><td>Artist - Subcon Materials and Labor</td><td><input type='number' id="provided_artist_mat" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_artist_mat; }?>" class="form-control"></td></tr>
-                    <tr><td>Artist - Subcon Labor, Dekokraft Mat’l</td><td><input type='number' id="provided_artist_lab" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_artist_lab; }?>" class="form-control"></td></tr>
-                    <tr><td>Trading </td><td><input type='number' id="provided_trading" style="width:300px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_trading; }?>" class="form-control"></td></tr>
+                    <tr><td>Resin - Subcon Mat’l Mold and Labor</td><td><input type='number' id="provided_resin_mat" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_mat; }?>" class="form-control"></td></tr>
+                    <tr><td>Resin - Subcon Labor, Dekokraft Mat’l</td><td><input type='number' id="provided_resin_lab" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_lab; }?>" class="form-control"></td></tr>
+                    <tr><td>Finishing - Subcon Materials and Labor</td><td><input type='number' id="provided_finishing_mat" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_finishing_mat; }?>" class="form-control"></td></tr>
+                    <tr><td>Finishing - Subcon Labor, Dekokraft Mat’l</td><td><input type='number' id="provided_finishing_lab" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_finishing_lab; }?>" class="form-control"></td></tr>
+                    <tr><td>Artist - Subcon Materials and Labor</td><td><input type='number' id="provided_artist_mat" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_artist_mat; }?>" class="form-control"></td></tr>
+                    <tr><td>Artist - Subcon Labor, Dekokraft Mat’l</td><td><input type='number' id="provided_artist_lab" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_artist_lab; }?>" class="form-control"></td></tr>
+                    <tr><td>Trading </td><td><input type='number' id="provided_trading" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_trading; }?>" class="form-control"></td></tr>
                 </table>
             </div>
         </div>
@@ -427,7 +427,7 @@
 
 material_counter = 1;
 $("#add_material_btn").click(function(){
-    $("#tbody_materials").append("<tr><td><input type='hidden' name='selected_material[]'><select style='width:300px;' id='mat_"+material_counter+"'></select></td><td><label class='mat_jp'></label></td><td><input type='number' name='qty[]'></td><td><label class='mat_unit'></label></td><td><a href='#'  class='btn btn-danger remove_item' >&times;</a></td></tr>");
+    $("#tbody_materials").append("<tr><td><input type='hidden' name='selected_material[]'><select style='width:200px;' id='mat_"+material_counter+"'></select></td><td><label class='mat_jp'></label></td><td><input type='number' name='qty[]'></td><td><label class='mat_unit'></label></td><td><a href='#'  class='btn btn-danger remove_item' >&times;</a></td></tr>");
 
     $("#mat_"+material_counter).select2({
         minimumInputLength: 2,
@@ -464,7 +464,7 @@ $("#add_material_btn").click(function(){
 });
 
 $("#add_material_btn_edit").click(function(){
-    $("#tbody_materials_edit").append("<tr><td><input type='hidden' name='selected_material_edit[]'><select required style='width:300px;' id='mat_"+material_counter+"'></select></td><td><label class='mat_jp'></label></td><td><input type='number' name='qty_edit[]' required></td><td><label class='mat_unit'></label></td><td><a href='#'  class='btn btn-danger remove_item' >&times;</a></td></tr>");
+    $("#tbody_materials_edit").append("<tr><td><input type='hidden' name='selected_material_edit[]'><select required style='width:200px;' id='mat_"+material_counter+"'></select></td><td><label class='mat_jp'></label></td><td><input type='number' name='qty_edit[]' required></td><td><label class='mat_unit'></label></td><td><a href='#'  class='btn btn-danger remove_item' >&times;</a></td></tr>");
 
     $("#mat_"+material_counter).select2({
         minimumInputLength: 2,
@@ -643,7 +643,7 @@ function _edit(id)
                 var arrayLength = data["material_list"].length;
                 console.log(arrayLength);
                 for (var i = 0; i < arrayLength; i++) {
-                    $("#tbody_materials_edit").append("<tr><td><input type='hidden' value='"+data["material_list"][i]["material_id"]+"' name='selected_material_edit[]'><select required style='width:300px;' id='mat_"+material_counter+"'></select></td><td><label class='mat_jp'>"+data["material_list"][i]["jp"]+"</label></td><td><input type='number' value='"+data["material_list"][i]["qty"]+"' name='qty_edit[]' required></td><td><label class='mat_unit'>"+data["material_list"][i]["unit"]+"</label></td><td><a href='#'  class='btn btn-danger remove_item' >&times;</a></td></tr>");
+                    $("#tbody_materials_edit").append("<tr><td><input type='hidden' value='"+data["material_list"][i]["material_id"]+"' name='selected_material_edit[]'><select required style='width:200px;' id='mat_"+material_counter+"'></select></td><td><label class='mat_jp'>"+data["material_list"][i]["jp"]+"</label></td><td><input type='number' value='"+data["material_list"][i]["qty"]+"' name='qty_edit[]' required></td><td><label class='mat_unit'>"+data["material_list"][i]["unit"]+"</label></td><td><a href='#'  class='btn btn-danger remove_item' >&times;</a></td></tr>");
                     $("#mat_"+material_counter).select2({
                         minimumInputLength: 2,
                         ajax: {
