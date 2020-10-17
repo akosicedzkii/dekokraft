@@ -1266,7 +1266,7 @@ $('.actionDone').on('click', function(){
                     }
                     $("#proto").val(data.product_variants.proto);
                     $("#molds").val(data.product_variants.molds);
-                    $("#count").val(data.product_variants.count);
+                    $("#count").val(data.product_variants.stock).attr("disabled","disabled");
                     $("#inputProduct_variantsEmailAddress").val(data.product_variants.email_address);
 
                     $("#coverImgPrev").show();
@@ -1329,7 +1329,7 @@ $('.actionDone').on('click', function(){
                     $("#coverImgPrev").attr("src","<?php echo base_url()."/uploads/product_variants/"; ?>" + data.product_variants.cover_image);
                     $("#main-cropper , .actionUpload, #cancel_edit").hide();
                     $("#edit_image").show();
-                    $("#count").val(data.product_variants.count).attr("disabled","disabled");
+                    $("#count").val(data.product_variants.stock).attr("disabled","disabled");
                     $("#proto").val(data.product_variants.proto).attr("disabled","disabled");
                     $("#molds").val(data.product_variants.molds).attr("disabled","disabled");
                     $("#product_variantsID").val(data.product_variants.id);
@@ -1337,7 +1337,7 @@ $('.actionDone').on('click', function(){
                     $("#saveProduct_variants").html("Save Product").hide();
                     $("#add_color").attr("disabled","disabled");
                     $("#edit_image").attr("disabled","disabled");
-                    $("#count").val(data.product_variants.count);
+                    $("#count").val(data.product_variants.stock);
 
                 },
                 error: function (request, status, error) {

@@ -73,6 +73,8 @@ class Product_variants extends CI_Controller {
     {
         $id = $this->input->post("id");
         $this->db->where("id",$id);
+        $this->db->select("*");
+        $this->db->select("(SELECT COUNT(id) FROM stocks WHERE product_variant_id=product_variants.id) as stock");
         $result = $this->db->get("product_variants");
         $product_variants = $result->row();
         $prod_id = $result->row()->product_id;
@@ -105,7 +107,6 @@ class Product_variants extends CI_Controller {
         $this->db->select("t1.fob"); 
         $this->db->select("t2.color"); 
         $this->db->select("t2.id");
-        $this->db->limit(10);
         $this->db->join('product_variants as t2', 't2.product_id = t1.id');
         $filteredValues=$this->db->get("products as t1")->result_array();
 

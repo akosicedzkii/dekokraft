@@ -110,6 +110,10 @@ class Invoices extends CI_Controller {
         echo $this->invoices_model->get_invoices_roles($this->input->post("term"));
     }
 
+    public function create_mo()
+    {
+        echo $this->invoices_model->create_mo($this->input->post("id"));
+    }
     public function check_invoicesname_exist()
     {
         $method = $this->input->get("method");
@@ -186,9 +190,15 @@ class Invoices extends CI_Controller {
                         $row[] = ucfirst( $aRow[$col] );
                     }
             }
-            
+            $create_mo = '<a href="#" onclick="_create_mo('.$aRow['id'].',\''.$aRow['id'].'\');return false;"  class="glyphicon glyphicon-plus text-green" data-toggle="tooltip" title="Create Marketing Ordering"></a>';
+            $results = $this->db->where("invoice_id",$aRow['id'])->get("marketing_order");
+            if($results->result() != null)
+            {
+                $create_mo ="";
+            }
             $btns = ''; 
             $btns = '<a href="'.base_url("portal/main/invoices/print?invoice_id=".$aRow['id']).'" target=_blank class="glyphicon glyphicon-print text-orange" data-toggle="tooltip" title="Print Invoice"></a>
+            '.$create_mo.'
             <a href="'.base_url("portal/main/invoices/edit?invoice_id=".$aRow['id']).'"  class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" title="Edit"></a>
             <a href="#" onclick="_delete('.$aRow['id'].',\''.$aRow['id'].'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" title="Delete"></a>';
          

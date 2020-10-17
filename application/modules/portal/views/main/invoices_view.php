@@ -77,6 +77,30 @@
 </div>
 <!-- /.modal -->
 
+<!-- /.modal -->
+<div class="modal fade" id="CreateMOInvoiceModal"  role="dialog"  data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+           
+             <h3 class="modal-title">Create Marketing Order</h3>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="MOKey">
+                <center><h4>Are you sure to create marketing order for <label id="moItem"></label></h4></center>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success" id="createMo">Create MO</button>
+            </div>
+        </div>
+    <!-- /.modal-content -->
+    </div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 <script>
     var startDateDownload;
     var endDateDownload;
@@ -196,7 +220,7 @@
                             btn.button("reset");
                             table.draw("page");
                             $("#deleteInvoiceModal").modal("hide");
-                            toastr.error('Blogs ' + deleteItem + ' successfully deleted');
+                            toastr.error('Invoice ' + deleteItem + ' successfully deleted');
                         },
                         error: function (request, status, error) {
                             alert(request.responseText);
@@ -210,4 +234,34 @@
         $("#deleteKey").val(id);
         $("#deleteInvoiceModal").modal("show");
     }
+
+    function _create_mo(id,item)
+    {
+        $("#moItem").html(" invoice#: "+ item);
+        $("#MOKey").val(id);
+        $("#CreateMOInvoiceModal").modal("show");
+    }
+    $("#createMo").click(function(){
+            var btn = $(this);
+            var id = $("#MOKey").val();
+            var deleteItem = $("#moItem").html();
+            var data = { "id" : id };
+            btn.button("loading");
+
+            $.ajax({
+                        data: data,
+                        type: "post",
+                        url: "<?php echo base_url()."portal/invoices/create_mo";?>",
+                        success: function(data){
+                            //alert("Data Save: " + data);
+                            btn.button("reset");
+                            table.draw("page");
+                            $("#CreateMOInvoiceModal").modal("hide");
+                            toastr.error('Marketing order for ' + moItem + ' successfully crated');
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                        }
+                });
+        });
 </script>

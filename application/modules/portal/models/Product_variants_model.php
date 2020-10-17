@@ -36,7 +36,7 @@ class Product_variants_model extends CI_Model {
                 $data["product_id"] =  $this->product_id;
                 $data["color"] = $this->color;
                 $data["color_abb"] = $this->color_abb;
-                //$data["count"] = $this->count;
+                $data["count"] = $this->count;
                 $data["location"] = $this->location;
                 $data["product_year"] =  date("Y");
                 $data["product_month"] =  date("m");
@@ -82,7 +82,7 @@ class Product_variants_model extends CI_Model {
                 $data["product_id"] =  $this->product_id;
                 $data["color"] = $this->color;
                 $data["color_abb"] = $this->color_abb;
-                //$data["count"] = $this->count;
+                $data["count"] = $this->count;
                 $data["location"] = $this->location;
                 $data["proto"] = $this->proto;
                 $data["molds"] = $this->molds;

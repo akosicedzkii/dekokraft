@@ -16,11 +16,11 @@ class Invoices_model extends CI_Model {
                     $data["product_price"] = $a[2];
                     $this->db->insert('invoice_lines',$data);
                 }
-                $data2["invoice_id"] = $id;
-                $data2["date_created"] = date("Y-m-d H:i:s A");
-                $data2["created_by"] =  $this->session->userdata("USERID");
-                $data2["status"] = 0;
-                $this->db->insert("marketing_order",$data2);
+                // $data2["invoice_id"] = $id;
+                // $data2["date_created"] = date("Y-m-d H:i:s A");
+                // $data2["created_by"] =  $this->session->userdata("USERID");
+                // $data2["status"] = 0;
+                // $this->db->insert("marketing_order",$data2);
                 $this->logs->log = "Created Invoice - ID: ". $id  ;
                 $this->logs->details =  " Invoice Details: ".json_encode( $params );
                 $this->logs->module = "invoices";
@@ -28,6 +28,20 @@ class Invoices_model extends CI_Model {
                 $this->logs->insert_log();
         }
 
+        public function create_mo($id)
+        {
+                $data2["invoice_id"] = $id;
+                $data2["date_created"] = date("Y-m-d H:i:s A");
+                $data2["created_by"] =  $this->session->userdata("USERID");
+                $data2["status"] = 0;
+                $this->db->insert("marketing_order",$data2);
+                $insertId = $this->db->insert_id();
+                $this->logs->log = "Created Marketing Order - ID: ". $insertId  ;
+                $this->logs->details =  " Marketing Order  Details: invoice id - ".$id;
+                $this->logs->module = "marketing_order";
+                $this->logs->created_by = $this->session->userdata("USERID");
+                $this->logs->insert_log();
+        }
         public function update_invoices($params,$invoice_items)
         {
             $this->db->where("invoice_id",$params["id"]);

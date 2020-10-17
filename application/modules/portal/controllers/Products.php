@@ -34,6 +34,7 @@ class Products extends CI_Controller {
         $this->products_model->product_year = $this->input->post("product_year");
         $this->products_model->product_month = $this->input->post("product_month");
         $this->products_model->fob = $this->input->post("fob");
+        $this->products_model->qty = $this->input->post("qty");
         //$this->products_model->location = $this->input->post("location");
 
         echo $this->products_model->insert_products();
@@ -60,6 +61,7 @@ class Products extends CI_Controller {
         $this->products_model->old_price = $this->input->post("old_price");
         $this->products_model->product_year = $this->input->post("product_year");
         $this->products_model->product_month = $this->input->post("product_month");
+        $this->products_model->qty = $this->input->post("qty");
         $this->products_model->fob = $this->input->post("fob");
         //$this->products_model->location = $this->input->post("location");
         echo $this->products_model->update_products();
