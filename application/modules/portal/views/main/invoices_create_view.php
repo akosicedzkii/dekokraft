@@ -82,6 +82,7 @@
                 <thead>
                 <tr>
                 <th>QTY</th>
+                <th>ARTICLE#</th>
                 <th>PRODUCT</th>
                 <th>PRODUCT CODE</th>
                 <th>COLOR</th>
@@ -99,6 +100,7 @@
                 <tfoot>
                     <tr>
                     <td>TOTAL: <b><label id="mega_quantity"></label></b></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -195,7 +197,7 @@
         $(document).ready(function () { 
             
             $("#add_new_product").click(function () { 
-                markup =  "<tr><td><input type='hidden' name='total_discount_percentage[]'><input type='hidden' name='base_amount[]'><input type='hidden' name='total_discount[]'><input type='hidden' name='total_amount[]'><input type='hidden' name='total_quantity[]'><input type='hidden' name='product_selected[]'><input required value=1 type='number' min=0 class='form-control quantity' style='width:100px;' ></td><td><select type='text' style='width:300px;' required id='product"+ lineNo+"'></select></td><td><label class='product_code'></label></td><td><label class='product_color'></label></td><td><label class='product_desc'></label></td><td><label class='product_price'></td><td><input required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'></td><td><label class='discounted_price'></td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>"; 
+                markup =  "<tr><td><input type='hidden' name='total_discount_percentage[]'><input type='hidden' name='base_amount[]'><input type='hidden' name='total_discount[]'><input type='hidden' name='total_amount[]'><input type='hidden' name='total_quantity[]'><input type='hidden' name='product_selected[]'><input required value=1 type='number' min=0 class='form-control quantity' style='width:100px;' ><td><input type='text' min=0 class='form-control article' name='article[]' style='width:100px;' ></td></td><td><select type='text' style='width:300px;' required id='product"+ lineNo+"'></select></td><td><label class='product_code'></label></td><td><label class='product_color'></label></td><td><label class='product_desc'></label></td><td><label class='product_price'></td><td><input required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'></td><td><label class='discounted_price'></td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>"; 
                 tableBody = $("#product_table tbody"); 
                 tableBody.append(markup); 
                 $("#product"+lineNo).select2({
@@ -231,6 +233,7 @@
                     $row.find(".product_code").html(data.code);
                     $row.find(".product_desc").html(data.description);
                     $row.find(".product_color").html(data.color);
+                    $row.find(".article").html(data.article);
                     $row.find(".product_price").html(data.fob);
                     $row.find('input[name="base_amount[]"]').val(data.fob);
                     //alert( $row.find("#quantity").val()*$row.find("#base_amount").val())
@@ -369,11 +372,12 @@
                 $("input[name='product_selected[]']").each(function( index, currentElement  ) {
                     console.log(index);
                     prod_selected = $('input[name="product_selected[]"]')[index].value;
+                    articles = $('input[name="articles[]"]')[index].value;
                     total_quan =  $('input[name="total_quantity[]"]')[index].value;
                     total_am =  $('input[name="base_amount[]"]')[index].value;
                     total_dis =  $('input[name="total_discount[]"]')[index].value;
                     var arr_val = []
-                    arr_val.push(prod_selected,total_quan,total_am,total_dis)
+                    arr_val.push(prod_selected,total_quan,articles,total_am,total_dis)
                     values.push(arr_val);
                 });
                 if( $("#mega_total").html() == "")

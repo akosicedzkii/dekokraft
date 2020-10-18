@@ -23,8 +23,8 @@ class Products extends CI_Controller {
         $this->products_model->class = $this->input->post("class");
         $this->products_model->code = $this->input->post("code");
         //$this->products_model->cover_image = $this->input->post("cover_image");
-        //$this->products_model->color = $this->input->post("color");
-        //$this->products_model->color_abb = $this->input->post("color_abb");
+        $this->products_model->in_ = $this->input->post("in_");
+        $this->products_model->mstr = $this->input->post("mstr");
         $this->products_model->inner_carton = $this->input->post("inner_carton");
         $this->products_model->master_carton = $this->input->post("master_carton");
         $this->products_model->weight_of_box = $this->input->post("weight_of_box");
@@ -50,8 +50,8 @@ class Products extends CI_Controller {
         $this->products_model->class = $this->input->post("class");
         $this->products_model->code = $this->input->post("code");
         //$this->products_model->cover_image = $this->input->post("cover_image");
-        //$this->products_model->color = $this->input->post("color");
-        //$this->products_model->color_abb = $this->input->post("color_abb");
+        $this->products_model->in_ = $this->input->post("in_");
+        $this->products_model->mstr = $this->input->post("mstr");
         $this->products_model->inner_carton = $this->input->post("inner_carton");
         $this->products_model->master_carton = $this->input->post("master_carton");
         $this->products_model->weight_of_box = $this->input->post("weight_of_box");

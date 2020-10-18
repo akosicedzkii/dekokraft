@@ -19,9 +19,9 @@ $module_name = rtrim($module_name,"s");?>
     <li class="active"><?php echo ucfirst($module_name);?></li>
     </ol>
 </section>
-<a class="btn btn-success btn-circle btn-lg fix-btn" href="<?php echo base_url("portal/main/product_profiles/new");?>" data-toggle="tooltip" title="New Product Profiles">
+<!-- <a class="btn btn-success btn-circle btn-lg fix-btn" href="<?php echo base_url("portal/main/product_profiles/new");?>" data-toggle="tooltip" title="New Product Profiles">
     <span class="glyphicon glyphicon-plus"></span>
-</a>
+</a> -->
 <section class="content">
 <div class="box" id="main-list">
     <div class="box-header">

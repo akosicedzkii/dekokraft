@@ -21,7 +21,7 @@
             <h2 class="page-header">
                 <!-- <i class="fa fa-globe"></i>--> <?php echo SITE_NAME;?> 
                 <input type="hidden" value="<?php echo $invoice->id;?>" id="id">
-                <small class="pull-right"> <b>Invoice #<?php echo $invoice->id;?><b>&emsp;MO #<?php echo $mo->id;?></b>&emsp;Invoice Date: <?php echo date("m/d/Y",strtotime($invoice->invoice_date));?></small>
+                <small class="pull-right"> <b>Invoice #<?php echo $invoice->id;?><b>&emsp;MO #<?php if(isset($mo->id)) {echo $mo->id;}else{ echo "No MO yet";}?></b>&emsp;Invoice Date: <?php echo date("m/d/Y",strtotime($invoice->invoice_date));?></small>
                 
             
             </h2>
@@ -81,6 +81,7 @@
                 <thead>
                 <tr>
                 <th>QTY</th>
+                <th>ARTICLE#</th>
                 <th>PRODUCT</th>
                 <th>PRODUCT CODE</th>
                 <th>COLOR</th>
@@ -98,6 +99,7 @@
                 <tfoot>
                     <tr>
                     <td>TOTAL: <b><label id="mega_quantity"></label></b></td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -203,7 +205,7 @@
                     var arrayLength = res.length;
                     for (var i = 0; i < arrayLength; i++) {
                        
-                        markup =  "<tr><td><input type='hidden' value='" + res[i]["product_price"] + "' name='base_amount[]'><input type='hidden'  value='" + res[i]["discount"] + "' name='total_discount[]'><input type='hidden'  value='" +(res[i]["product_price"]*res[i]["quantity"])  + "'name='total_amount[]'><input type='hidden' value='" + res[i]["quantity"] + "'name='total_quantity[]'><input type='hidden' name='product_selected[]' value='" + res[i]["product_id"] + "'><input required type='number' min=0 class='form-control quantity' style='width:100px;' value='" + res[i]["quantity"] + "'></td><td><select type='text' style='width:300px;' required id='product"+ lineNo+"'></select></td><td><label class='product_code'>"+res[i]["code"]+"</label></td><td><label class='product_color'>"+res[i]["color"]+"</label></td><td><label class='product_desc'>"+res[i]["description"]+"</label></td><td><label class='product_price'>"+res[i]["product_price"]+"</td><td><input value='"+res[i]["discount"]+"' required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'>" + (res[i]["product_price"]*res[i]["quantity"]).toFixed(2)+ "</td><td><label class='discounted_price'>" + ((res[i]["quantity"]*res[i]["product_price"]) - (res[i]["discount"]/100)*(res[i]["quantity"]*res[i]["product_price"])).toFixed(2)+ "</td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>"; 
+                        markup =  "<tr><td><input type='hidden' value='" + res[i]["product_price"] + "' name='base_amount[]'><input type='hidden'  value='" + res[i]["discount"] + "' name='total_discount[]'><input type='hidden'  value='" +(res[i]["product_price"]*res[i]["quantity"])  + "'name='total_amount[]'><input type='hidden' value='" + res[i]["quantity"] + "'name='total_quantity[]'><input type='hidden' name='product_selected[]' value='" + res[i]["product_id"] + "'><input required type='number' min=0 class='form-control quantity' style='width:100px;' value='" + res[i]["quantity"] + "'></td><td><input name='article[]' value='"+res[i]["article"]+"'  type='text' class='form-control article' style='width:100px;' ></td><td><select type='text' style='width:300px;' required id='product"+ lineNo+"'></select></td><td><label class='product_code'>"+res[i]["code"]+"</label></td><td><label class='product_color'>"+res[i]["color"]+"</label></td><td><label class='product_desc'>"+res[i]["description"]+"</label></td><td><label class='product_price'>"+res[i]["product_price"]+"</td><td><input value='"+res[i]["discount"]+"' required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'>" + (res[i]["product_price"]*res[i]["quantity"]).toFixed(2)+ "</td><td><label class='discounted_price'>" + ((res[i]["quantity"]*res[i]["product_price"]) - (res[i]["discount"]/100)*(res[i]["quantity"]*res[i]["product_price"])).toFixed(2)+ "</td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>"; 
                             tableBody = $("#product_table tbody"); 
                             tableBody.append(markup); 
                             $("#product"+lineNo).select2({
@@ -234,6 +236,7 @@
                                 $row.find('input[name="product_selected[]"]').val(data.id);
                                 $row.find(".product_code").html(data.code);
                                 $row.find(".product_desc").html(data.description);
+                                $row.find(".article").html(data.article);
                                 $row.find(".product_color").html(data.color);
                                 $row.find(".product_price").html(data.fob);
                                 $row.find('input[name="base_amount[]"]').val(data.fob);
@@ -309,7 +312,7 @@
                 }
             });
             $("#add_new_product").click(function () { 
-                markup =  "<tr><td><input type='hidden' name='total_discount_percentage[]'><input type='hidden' name='base_amount[]'><input type='hidden' name='total_discount[]'><input type='hidden' name='total_amount[]'><input type='hidden' name='total_quantity[]'><input type='hidden' name='product_selected[]'><input required value=1 type='number' min=0 class='form-control quantity' style='width:100px;' ></td><td><select type='text' style='width:300px;' required id='product"+ lineNo+"'></select></td><td><label class='product_code'></label></td><td><label class='product_color'></label></td><td><label class='product_desc'></label></td><td><label class='product_price'></td><td><input required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'></td><td><label class='discounted_price'></td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>"; 
+                markup =  "<tr><td><input type='hidden' name='total_discount_percentage[]'><input type='hidden' name='base_amount[]'><input type='hidden' name='total_discount[]'><input type='hidden' name='total_amount[]'><input type='hidden' name='total_quantity[]'><input type='hidden' name='product_selected[]'><input required value=1 type='number' min=0 class='form-control quantity' style='width:100px;' ></td><td><input type='text' min=0 class='form-control article' name='article[]' style='width:100px;' ></td><td><select type='text' style='width:300px;' required id='product"+ lineNo+"'></select></td><td><label class='product_code'></label></td><td><label class='product_color'></label></td><td><label class='product_desc'></label></td><td><label class='product_price'></td><td><input required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'></td><td><label class='discounted_price'></td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>"; 
                 tableBody = $("#product_table tbody"); 
                 tableBody.append(markup); 
                 $("#product"+lineNo).select2({
@@ -483,11 +486,13 @@
                     console.log(index);
                     prod_selected = $('input[name="product_selected[]"]')[index].value;
                     total_quan =  $('input[name="total_quantity[]"]')[index].value;
+                    articles =  $('input[name="article[]"]')[index].value;
                     total_am =  $('input[name="base_amount[]"]')[index].value;
                     total_dis =  $('input[name="total_discount[]"]')[index].value;
                     var arr_val = []
-                    arr_val.push(prod_selected,total_quan,total_am,total_dis)
+                    arr_val.push(prod_selected,total_quan,articles,total_am,total_dis)
                     values.push(arr_val);
+                    e.preventDefault();
                 });
                 if( $("#mega_total").html() == "")
                 {  

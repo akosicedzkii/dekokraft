@@ -25,6 +25,9 @@ class Products_model extends CI_Model {
         public $product_month;
         public $location;
         public $fob;
+        public $in_;
+        public $mstr;
+
         public function insert_products()
         {
                 $data["title"] = $this->title ; 
@@ -34,8 +37,8 @@ class Products_model extends CI_Model {
                 $data["class"] = $this->class;
                 $data["created_by"] =  $this->session->userdata("USERID");
                 $data["code"] =  $this->code;
-                //$data["color"] = $this->color;
-                //$data["color_abb"] = $this->color_abb;
+                $data["in_"] = $this->in_;
+                $data["mstr"] = $this->mstr;
                 $data["inner_carton"] = $this->inner_carton;
                 $data["master_carton"] = $this->master_carton;
                 $data["weight_of_box"] = $this->weight_of_box;
@@ -92,6 +95,9 @@ class Products_model extends CI_Model {
                 //$data["color"] = $this->color;
                 $data["code"]  = $this->code;
                 //$data["color_abb"] = $this->color_abb; 
+                
+                $data["in_"] = $this->in_;
+                $data["mstr"] = $this->mstr;
                 $data["inner_carton"] = $this->inner_carton;
                 $data["master_carton"] = $this->master_carton;
                 $data["weight_of_box"] = $this->weight_of_box;

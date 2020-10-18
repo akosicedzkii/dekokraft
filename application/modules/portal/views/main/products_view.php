@@ -121,32 +121,29 @@ $module_name = rtrim($module_name,"s");?>
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                    <!--<div class="form-group">
                                         <label for="inputDescription" class="col-sm-2 control-label">Description</label>
 
                                         <div class="col-sm-10">
                                         <textarea class="form-control" id="inputDescription" placeholder="Description" style="resize:none" required></textarea>
                                         <div class="help-block with-errors"></div>
                                         </div>
-                                    </div>
-                                   
-                                    <!--<div class="form-group">
-                                        <label for="color" class="col-sm-2 control-label">Color</label>
-
-                                        <div class="col-sm-10">
-                                        <select  class="form-control" id="color" placeholder="Color" required></select>
-                                        <a class="btn btn-info" id="add_color">+</a>
-                                        <div class="help-block with-errors"></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="color_abb" class="col-sm-2 control-label">Color Abbrieviation</label>
-
-                                        <div class="col-sm-10">
-                                        <input type="text" disabled class="form-control" id="color_abb" placeholder="Color Abbrieviation" required>
-                                        <div class="help-block with-errors"></div>
-                                        </div>
                                     </div>-->
+                                   
+                                    <div class="form-group">
+                                        <label for="in_" class="col-sm-2 control-label">IN</label>
+
+                                        <div class="col-sm-5">
+                                        <input type="text" style="width:150px;" class="form-control" id="in_" placeholder="IN" required>
+                                        <div class="help-block with-errors"></div>
+                                       
+                                        </div>
+                                        
+                                        <div class="col-sm-5">
+                                        <input type="text"  style="width:150px;"class="form-control" id="mstr" placeholder="MSTR" required>
+                                        <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
                                     
                                     <div class="form-group">
                                         <label for="inner_carton" class="col-sm-2 control-label">Inner Carton</label>
@@ -595,7 +592,7 @@ $('.actionDone').on('click', function(){
             } else {
                 e.preventDefault();
                 var title = $("#inputProductsTitle").val();
-                var description = $("#inputDescription").val();
+                var description =  $("#inputProductsTitle").val();
                 var status = $("#inputStatus").val();
                 var products_id = $("#productsID").val();
                 var cover_image = $("#cover_image").val();
@@ -603,7 +600,8 @@ $('.actionDone').on('click', function(){
                 //var data = $('#color').select2('data');
                 //var color  = data[0].text;
                 var code = $("#code").val();
-                //var color_abb = $("#color_abb").val();
+                var in_ = $("#in_").val();
+                var mstr = $("#mstr").val();
                 var inner_carton = $("#inner_carton").val();
                 var master_carton = $("#master_carton").val();
                 var weight_of_box = $("#weight_of_box").val();
@@ -623,8 +621,8 @@ $('.actionDone').on('click', function(){
                 formData.append('description', description);
                 formData.append('status', status);
                 formData.append('class', classs);
-                //formData.append('color', color);
-                //formData.append('color_abb', color_abb);
+                formData.append('in_', in_);
+                formData.append('mstr', mstr);
                 formData.append('inner_carton', inner_carton);
                 formData.append('master_carton', master_carton);
                 formData.append('weight_of_box', weight_of_box);
@@ -755,7 +753,7 @@ $('.actionDone').on('click', function(){
             $("#uploadBoxMain").hide();
             $("#inputStatus").val('').trigger('change');
             $("#inputProductsTitle").removeAttr("disabled");
-            $("#inputDescription").removeAttr("disabled");
+            //$("#inputDescription").removeAttr("disabled");
             $("#inputStatus").removeAttr("disabled");
             $("#class").removeAttr("disabled");
             $("#code").removeAttr("disabled");
@@ -769,6 +767,8 @@ $('.actionDone').on('click', function(){
             $("#best_price").removeAttr("disabled");
             $("#old_price").removeAttr("disabled");
             $("#location").removeAttr("disabled");
+            $("#in_").removeAttr("disabled");
+            $("#mstr").removeAttr("disabled");
 
             $("#code").removeAttr("disabled");
             $("#saveProducts").html("Save Product").show();
@@ -806,7 +806,7 @@ $('.actionDone').on('click', function(){
                 success: function(data){
                     data = JSON.parse(data);
                     $("#inputProductsTitle").val(data.products.title);
-                    $("#inputDescription").val(data.products.description);
+                    //$("#inputDescription").val(data.products.description);
                     $("#inputStatus").val(data.products.status).trigger('change');
                     
                     $("#class").val(data.products.class);
@@ -815,6 +815,8 @@ $('.actionDone').on('click', function(){
                     $("#color").append(new Option(data.products.color,data.products.color_abb,  true, true)).trigger('change');
                     
                     $("#color_abb").val(data.products.color_abb);
+                    $("#in_").val(data.products.in_);
+                    $("#mstr").val(data.products.mstr);
                     $("#inner_carton").val(data.products.inner_carton);
                     $("#master_carton").val(data.products.master_carton);
                     $("#weight_of_box").val(data.products.weight_of_box);
@@ -869,6 +871,8 @@ $('.actionDone').on('click', function(){
                     $("#inputStatus").val(data.products.status).trigger('change').attr("disabled","disabled");
                     $("#class").val(data.products.class).attr("disabled","disabled");
                     $("#code").val(data.products.code).attr("disabled","disabled");
+                    $("#in_").val(data.products.in_).attr("disabled","disabled");
+                    $("#mstr").val(data.products.mstr).attr("disabled","disabled");
                     //$("#color").select2('data', { id:data.products.color_abb, label: data.products.color});
                     $("#color").append(new Option(data.products.color,data.products.color_abb,  true, true)).trigger('change').attr("disabled","disabled");
                     $("#color_abb").val(data.products.color_abb).attr("disabled","disabled");

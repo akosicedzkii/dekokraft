@@ -10,10 +10,11 @@ class Invoices_model extends CI_Model {
                 {
                     $data["product_id"] = $a[0];
                     $data["invoice_id"] =  $id;
-                    $data["discount"] = $a[3];
+                    $data["discount"] = $a[4];
                     $data["quantity"] = $a[1];
+                    $data["article"] = $a[2];
                     //$price_id = $this->db->where('product_id',$a[0])->order_by("id", "desc")->get("product_price_history")->row()->id;
-                    $data["product_price"] = $a[2];
+                    $data["product_price"] = $a[3];
                     $this->db->insert('invoice_lines',$data);
                 }
                 // $data2["invoice_id"] = $id;
@@ -53,10 +54,11 @@ class Invoices_model extends CI_Model {
 
                 $data["product_id"] = $a[0];
                 $data["invoice_id"] =  $id;
-                $data["discount"] = $a[3];
+                $data["discount"] = $a[4];
                 $data["quantity"] = $a[1];
+                $data["article"] = $a[2];
                 //$price_id = $this->db->where('product_id',$a[0])->order_by("id", "desc")->get("product_price_history")->row()->id;
-                $data["product_price"] = $a[2];
+                $data["product_price"] = $a[3];
                 $this->db->insert('invoice_lines',$data);
             }
             $this->logs->log = "Created Invoice - ID: ". $id  ;
