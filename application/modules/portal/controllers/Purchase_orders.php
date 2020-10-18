@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Purchase_orders extends CI_Controller { 
+class Purchase_orders extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->settings_model->get_settings();   
-        $this->load->model("portal/purchase_orders_model"); 
-        
+        $this->settings_model->get_settings();
+        $this->load->model("portal/purchase_orders_model");
+
         if($this->session->userdata("USERID") == null)
         {
                 echo "Sorry you are not logged in";
@@ -41,10 +41,10 @@ class Purchase_orders extends CI_Controller {
         $this->purchase_orders_model->status = 0;
         $this->purchase_orders_model->remarks = $this->input->post("remarks");
         $this->purchase_orders_model->job_type = $this->input->post("job_type");
-        
+
         $this->purchase_orders_model->date_created = date("Y-m-d H:i:s A");
         $this->purchase_orders_model->created_by =  $this->session->userdata("USERID");
-       
+
         echo $this->purchase_orders_model->insert_purchase_orders($jo_items);
 	}
 
@@ -75,7 +75,7 @@ class Purchase_orders extends CI_Controller {
         $this->purchase_orders_model->status = 0;
         $this->purchase_orders_model->remarks = $this->input->post("remarks");
         $this->purchase_orders_model->job_type = $this->input->post("job_type");
-       
+
         $this->purchase_orders_model->date_modified = date("Y-m-d H:i:s A");
         $this->purchase_orders_model->modified_by =  $this->session->userdata("USERID");
         $this->purchase_orders_model->id = $purchase_orders_id;
@@ -92,7 +92,7 @@ class Purchase_orders extends CI_Controller {
         $this->db->where("id",$id);
         $data["status"] = 3;
         echo $result = $this->db->delete("purchase_orders");
-        
+
         $this->db->where("po_id",$id);
         $result = $this->db->delete("purchase_order_lines");
         $data = json_encode($data_purchase_orders->row());
@@ -101,10 +101,10 @@ class Purchase_orders extends CI_Controller {
         $this->logs->module = "purchase_orders";
         $this->logs->created_by = $this->session->userdata("USERID");
         $this->logs->insert_log();
-        
+
 	}
 
-    
+
 	public function complete_purchase_orders()
 	{
         $id = $this->input->post("id");
@@ -113,7 +113,7 @@ class Purchase_orders extends CI_Controller {
         $this->db->where("id",$id);
         $data["status"] = 1;
         echo $result = $this->db->update("purchase_orders",$data);
-        
+
         $this->db->where("po_id",$id);
         $result = $this->db->delete("purchase_order_lines");
         $data = json_encode($data_purchase_orders->row());
@@ -122,42 +122,42 @@ class Purchase_orders extends CI_Controller {
         $this->logs->module = "purchase_orders";
         $this->logs->created_by = $this->session->userdata("USERID");
         $this->logs->insert_log();
-        
+
     }
-    
+
     public function get_purchase_orders_data()
     {
         $id = $this->input->post("id");
         $this->db->where("id",$id);
         $result = $this->db->get("purchase_orders");
-        $purchase_orders = $result->row(); 
+        $purchase_orders = $result->row();
         $return["purchase_orders"] = $purchase_orders;
         $return["subcon"] = $this->db->where("id", $purchase_orders->subcon_id)->get("subcon")->row();
         $return["marketing_order"] =  $this->db->where("id", $purchase_orders->mo_id)->get("marketing_order")->row();
-        
+
         $this->db->select("purchase_order_lines.id as jo_line_id,purchase_order_lines.po_id,product_variants.color,invoice_lines.*,products.description,products.code,products.fob");
         $this->db->join("purchase_order_lines"," purchase_order_lines.invoice_line_id=invoice_lines.id", 'left');
         $this->db->join("product_variants"," product_variants.id=invoice_lines.product_id");
         $this->db->join("products"," products.id=product_variants.product_id");
         $this->db->where("invoice_lines.invoice_id",$return["marketing_order"]->invoice_id);
         $return["invoice_lines"] = $this->db->order_by("id")->get("invoice_lines")->result();
-        echo json_encode($return); 
-    } 
+        echo json_encode($return);
+    }
 
     public function get_purchase_orders_selection()
     {
-        
+
         $search = $this->input->get("term[term]");
-        $this->db->like("name",$search); 
-        $this->db->where("status",1);  
-        $this->db->select("name as text"); 
+        $this->db->like("name",$search);
+        $this->db->where("status",1);
+        $this->db->select("name as text");
         $this->db->select("id as id");
         $this->db->limit(10);
         $filteredValues=$this->db->get("purchase_orders")->result_array();
 
         echo json_encode(array(
             'items' => $filteredValues
-        )); 
+        ));
     }
 
     public function get_invoice_list()
@@ -172,18 +172,18 @@ class Purchase_orders extends CI_Controller {
     }
     public function get_purchase_orders_list()
     {
-        $this->load->model("portal/data_table_model","dt_model");  
-        $this->dt_model->select_columns = array("t1.id","t1.id","(SELECT name from subcon WHERE ID = t1.subcon_id) as subcon_id","t1.mo_id","t1.remarks","t1.job_type","IF(t1.status=1,'Complete','Pending') as status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
-        $this->dt_model->where  = array("t1.id","t1.id","t1.subcon_id","t1.mo_id","t1.remarks","t1.job_type","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");  
-        $select_columns = array("id","id","subcon_id","mo_id","remarks","job_type","status","date_created","created_by","date_modified","modified_by");  
-        $this->dt_model->table = "purchase_orders AS t1 LEFT JOIN user_accounts AS t2 ON t2.id = t1.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t1.modified_by ";  
+        $this->load->model("portal/data_table_model","dt_model");
+        $this->dt_model->select_columns = array("t1.id","t1.id","(SELECT name from subcon WHERE ID = t1.subcon_id) as subcon_id","t1.mo_id","t1.remarks","t1.job_type","IF(t1.status=1,'Complete','Pending') as status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");
+        $this->dt_model->where  = array("t1.id","t1.id","t1.subcon_id","t1.mo_id","t1.remarks","t1.job_type","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");
+        $select_columns = array("id","id","subcon_id","mo_id","remarks","job_type","status","date_created","created_by","date_modified","modified_by");
+        $this->dt_model->table = "purchase_orders AS t1 LEFT JOIN user_accounts AS t2 ON t2.id = t1.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t1.modified_by ";
         $this->dt_model->index_column = "t1.id";
-        $this->dt_model->staticWhere = "t1.status != 3"; 
+        $this->dt_model->staticWhere = "t1.status != 3";
         $result = $this->dt_model->get_table_list();
         $output = $result["output"];
         $rResult = $result["rResult"];
         $aColumns = $result["aColumns"];
-        
+
         foreach ($rResult->result_array() as $aRow) {
             $row = array();
             $btns="";
@@ -208,7 +208,7 @@ class Purchase_orders extends CI_Controller {
                     else if($col == "cover_image")
                     {
                         if($aRow[$col] != null)
-                        {    
+                        {
                             $row[] = "<a href=\"#\" onclick='return false;'><img class='img-thumbnail' src='".base_url()."uploads/purchase_orders/".$aRow[$col]."' style='height:70px;' onclick='img_preview(\"".$aRow[$col]."\");return false;'></a>";
                         }
                         else
@@ -221,9 +221,9 @@ class Purchase_orders extends CI_Controller {
                         $row[] = $aRow[$col] ;
                     }
             }
-            
-            $btns .= '
-            <a href="#" onclick="_delete('.$aRow['id'].',\''.$aRow["id"].'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" name="Delete"></a>';
+
+            $btns .= '<a href="'.base_url("portal/main/purchase_orders/print?po_id=".$aRow['id']).'" target=_blank class="glyphicon glyphicon-print text-orange" data-toggle="tooltip" name="Job Order Print"></a>';
+            $btns .= '<a href="#" onclick="_delete('.$aRow['id'].',\''.$aRow["id"].'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" name="Delete"></a>';
             array_push($row,$btns);
             $output['data'][] = $row;
         }
