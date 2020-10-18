@@ -106,7 +106,7 @@ class Main extends CI_Controller
             if ($module["invoice"] == null) {
                 echo "invoice not found";
             }
-            $this->db->select("product_variants.color,product_variants.color_abb,invoice_lines.*,products.description,products.weight_of_box,products.inner_carton,products.master_carton,products.class,products.code,products.fob");
+            $this->db->select("product_variants.color,product_variants.color_abb,invoice_lines.*,products.description,products.weight_of_box,products.inner_carton,products.master_carton,products.in_,products.mstr,products.class,products.code,products.fob");
             $this->db->join("product_variants", " product_variants.id=invoice_lines.product_id");
             $this->db->join("products", " products.id=product_variants.product_id");
             $this->db->where("invoice_id", $invoice_id);
@@ -425,5 +425,25 @@ class Main extends CI_Controller
         $this->users_model->user_id = $this->session->userdata("USERID");
         $this->users_model->birthday = $this->input->post("birthday");
         echo $this->users_model->update_profile();
+    }
+
+    public function purchase_orders(){
+      $page = $this->uri->segment(4, 0);
+      if ($page == "print") {
+        $id = $this->input->get("po_id");
+        $this->db->select("pv.description,pv.color,pv.color_abb,p.class,p.code,il.quantity,il.discount,il.product_price");
+        $this->db->join('invoice_lines as il', 'pol.invoice_line_id=il.id', 'left');
+        $this->db->join('product_variants as pv', 'il.product_id=pv.id', 'left');
+        $this->db->join('products as p', 'pv.product_id=p.id', 'left');
+        $this->db->where("pol.po_id", $id);
+        $module['p_o'] = $this->db->get("purchase_order_lines as pol")->result();
+
+        $this->db->select("s.name");
+        $this->db->join('subcon as s', 'po.subcon_id=s.id', 'left');
+        $this->db->where("po.id", $id);
+        $module['detail'] = $this->db->get("purchase_orders as po")->result();
+
+        $this->load->view('main/purchase_orders_print_view',$module);
+      }
     }
 }

@@ -202,7 +202,7 @@
           <div class="col-xs-3">
             <p class="m-b">1-5 DAYS,</p>
             <p class="m-b">6-10 DAYS,</p>
-            <p class="m-b">11 DAYS $ UP,</p>
+            <p class="m-b">11 DAYS & UP,</p>
           </div>
           <div class="col-xs-4">
             <p class="m-b">1/4 OR 1% PER DAY,</p>
