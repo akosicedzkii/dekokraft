@@ -92,13 +92,36 @@
           <dt class="col-xs-2">TO:</dt>
           <dd class="col-xs-10"><?php echo $customer_address->customer_address;?></dd>
           <dt class="col-xs-2">ATTN:</dt>
-          <dd class="col-xs-10"><?php echo $customer_address->customer_name;?></dd>
+          <dd class="col-xs-10"><?php echo $invoice->attn;?></dd>
         </dl>
       </div>
       <div class="col-sm-4 invoice-col">
-        <p class="m-b">Resin:</p>
-        <p class="m-b">Spray: _______________</p>
-        <p>Finish: _______________</p>
+        <?php
+          $res='';
+          $spry='';
+          $fnsh='';
+          if($with=='1'){
+          foreach ($jopo as $list) {
+            switch ($list->job_type) {
+              case 'resin':
+                $res=date("F d, Y", strtotime($list->deadline));
+                break;
+              case 'spray':
+                $spry=date("F d, Y", strtotime($list->deadline));
+                break;
+              case 'finishing':
+                $fnsh=date("F d, Y", strtotime($list->deadline));
+                break;
+              // default:
+              //   // code...
+              //   break;
+            }
+          }
+        }
+         ?>
+        <p class="m-b">Resin: <?php echo ($res=='')?'_______________':$res; ?></p>
+        <p class="m-b">Spray: <?php echo ($spry=='')?'_______________':$spry; ?></p>
+        <p>Finish: <?php echo ($fnsh=='')?'_______________':$fnsh; ?></p>
       </div>
       <div class="col-sm-4 invoice-col">
 
@@ -142,8 +165,8 @@
           <tr>
             <td class="text-center tbl-pad"><?php echo  $count; ?></td>
             <td class="text-center tbl-pad"><?php echo  $line->class."-".$line->code."-".$line->color_abb; ?></td>
-            <td class="tbl-pad"><?php echo  ""; ?></td>
-            <td class="text-center tbl-pad"><?php echo  $line->master_carton." / ".$line->master_carton; ?></td>
+            <td class="tbl-pad"><?php echo  $line->article; ?></td>
+            <td class="text-center tbl-pad"><?php echo  $line->in_." / ".$line->mstr; ?></td>
             <td class="text-center tbl-pad"><?php echo  $line->weight_of_box; ?></td>
             <td class="text-center tbl-pad"><?php echo  $line->color; ?></td>
             <td class="text-center tbl-pad"><?php echo  $line->quantity; ?></td>

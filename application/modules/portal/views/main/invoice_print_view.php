@@ -61,7 +61,7 @@
           <dt class="col-xs-2">TO:</dt>
           <dd class="col-xs-10"><?php echo $customer_address->customer_address;?></dd>
           <dt class="col-xs-2">ATTN:</dt>
-          <dd class="col-xs-10"><?php echo $customer_address->customer_name;?></dd>
+          <dd class="col-xs-10"><?php echo $invoice->attn;?></dd>
         </dl>
       </div>
       <div class="col-sm-2 invoice-col">
@@ -69,7 +69,7 @@
       </div>
       <div class="col-sm-5 invoice-col">
         <b>ORDER</b>
-        <p class="m-b"><b>M.O.#</b> <?php echo $mo->id;?></p>
+        <p class="m-b"><b>M.O.#</b> <?php echo ($mo==null)?"":$mo->id;?></p>
         <p class="m-b"><b>Inv.#</b> <?php echo $invoice->id;?></p>
         <p><b>Remarks:</b> <?php echo $invoice->invoice_remarks;?></p>
       </div>
@@ -114,8 +114,8 @@
           <tr class="text-center">
             <td class="tbl-pad"><?php echo  $item_no++; ?>.</td>
             <td class="tbl-pad"><?php echo  $line->class. "-" . $line->code."-".$line->color_abb; ?></td>
-            <td class="tbl-pad"><?php echo  $line->code; ?></td>
-            <td class="tbl-pad"><?php echo  $line->inner_carton."/".$line->master_carton; ?></td>
+            <td class="tbl-pad"><?php echo  $line->article; ?></td>
+            <td class="tbl-pad"><?php echo  $line->in_."/".$line->mstr; ?></td>
             <td class="tbl-pad"><?php echo  $line->weight_of_box; ?></td>
             <td class="tbl-pad"><?php echo  $line->color; ?></td>
             <td class="tbl-pad"><?php echo  $line->quantity; ?></td>

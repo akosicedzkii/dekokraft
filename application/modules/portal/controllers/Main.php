@@ -161,22 +161,38 @@ class Main extends CI_Controller
             $this->load->view('main/template/footer');
         } elseif ($page == "print") {
             $invoice_id = $this->input->get("invoice_id");
-            $module["invoice"] = $this->db->where("id", $invoice_id)->get("invoices")->row();
-            $module["mo"] = $this->db->where("invoice_id", $invoice_id)->get("marketing_order")->row();
-            $module["customer_address"] = $this->db->where("id", $module["invoice"]->customer_id)->get("customers")->row();
-            $module["bank"] = $this->db->where("id", $module["invoice"]->bank)->get("banks")->row();
-            $module["payment_terms"] = $this->db->where("id", $module["invoice"]->payment_terms)->get("payment_terms")->row();
-            if ($module["invoice"] == null) {
-                echo "invoice not found";
+            $with = $this->input->get("with");
+            if($invoice_id==''){
+              echo "invoice not found";
+            }else{
+              $module["invoice"] = $this->db->where("id", $invoice_id)->get("invoices")->row();
+              $module["mo"] = $this->db->where("invoice_id", $invoice_id)->get("marketing_order")->row();
+              $module["customer_address"] = $this->db->where("id", $module["invoice"]->customer_id)->get("customers")->row();
+              $module["bank"] = $this->db->where("id", $module["invoice"]->bank)->get("banks")->row();
+              $module["payment_terms"] = $this->db->where("id", $module["invoice"]->payment_terms)->get("payment_terms")->row();
+              // if ($module["invoice"] == null) {
+              //     echo "invoice not found";
+              // }
+              $this->db->select("products.weight_of_box,products.inner_carton,products.master_carton,products.class,product_variants.color_abb,product_variants.color,invoice_lines.*,products.description,products.code,products.fob,products.in_,products.mstr");
+              $this->db->join("product_variants", " product_variants.id=invoice_lines.product_id");
+              $this->db->join("products", " products.id=product_variants.product_id");
+              $this->db->where("invoice_id", $invoice_id);
+              $module["invoice_lines"]= $this->db->get("invoice_lines")->result();
+              $module["module_name"] = $this->router->fetch_method();
+              $module["menu"] = $this->user_access;
+
+              if($with=='1'){
+                $this->db->select("job_type,deadline");
+                $this->db->where("mo_id", $module["mo"]->id);
+                $module["jopo"]= $this->db->get("job_orders")->result();
+                $module["with"]='1';
+              }else{
+                $module["with"]='0';
+              }
+
+              $this->load->view('main/marketing_order_print_view', $module);
             }
-            $this->db->select("products.weight_of_box,products.inner_carton,products.master_carton,products.class,product_variants.color_abb,product_variants.color,invoice_lines.*,products.description,products.code,products.fob");
-            $this->db->join("product_variants", " product_variants.id=invoice_lines.product_id");
-            $this->db->join("products", " products.id=product_variants.product_id");
-            $this->db->where("invoice_id", $invoice_id);
-            $module["invoice_lines"]= $this->db->get("invoice_lines")->result();
-            $module["module_name"] = $this->router->fetch_method();
-            $module["menu"] = $this->user_access;
-            $this->load->view('main/marketing_order_print_view', $module);
+
         } elseif ($page == "view") {
             $module["module_name"] = $this->router->fetch_method();
             $module["menu"] = $this->user_access;
@@ -250,7 +266,7 @@ class Main extends CI_Controller
             $module["menu"] = $this->user_access;
 
             $product_variant_id = $this->input->get("product_variant_id");
-            $this->db->select("product_variants.*,products.class,products.code,products.description");
+            $this->db->select("product_variants.*,products.class,products.code,products.description,products.inner_carton,products.master_carton,products.in_,products.mstr");
             $this->db->join("products", "products.id=product_variants.product_id");
             $this->db->where("product_variants.id", $product_variant_id);
             $module["product_variants"] = $this->db->get("product_variants")->row();
@@ -300,11 +316,11 @@ class Main extends CI_Controller
             $this->db->where('jo.id', $id);
             $module["job_orders"]=$this->db->get("job_orders as jo")->row();
 
-            $this->db->select("product_variants.color,product_variants.color_abb,invoice_lines.*,products.description,products.weight_of_box,products.inner_carton,products.master_carton,products.class,products.code,products.fob");
-            $this->db->join("product_variants", " product_variants.id=invoice_lines.product_id");
-            $this->db->join("products", " products.id=product_variants.product_id");
-            $this->db->join("job_order_lines", "job_order_lines.invoice_line_id=invoice_lines.id");
-            $this->db->join("product_profiles", "product_variants.id=product_profiles.product_variant_id");
+            $this->db->select("product_variants.color,product_variants.color_abb,invoice_lines.*,products.description,products.weight_of_box,products.inner_carton,products.master_carton,products.class,products.code,products.fob,product_profiles.net_weight");
+            $this->db->join("product_variants", "product_variants.id=invoice_lines.product_id","left");
+            $this->db->join("products", "products.id=product_variants.product_id","left");
+            $this->db->join("job_order_lines", "job_order_lines.invoice_line_id=invoice_lines.id","left");
+            $this->db->join("product_profiles", "product_variants.id=product_profiles.product_variant_id","left");
             // $this->db->where("invoice_id", $module["job_orders"]->invoice_id);
             $this->db->where("job_order_lines.jo_id", $module["job_orders"]->id);
             $module["invoice_lines"]= $this->db->get("invoice_lines")->result();

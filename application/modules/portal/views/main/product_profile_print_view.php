@@ -401,15 +401,15 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="tbl-pad">Inner Box =</td>
+                  <td class="tbl-pad">Inner Box = <?php echo $product_variants->inner_carton; ?></td>
                   <td class="tbl-pad"></td>
-                  <td class="tbl-pad">0 pcs.</td>
+                  <td class="tbl-pad"><?php echo ($product_variants->in_=='')?'0':$product_variants->in_; ?> pcs.</td>
                   <td class="tbl-pad">P 0.00</td>
                 </tr>
                 <tr>
-                  <td class="tbl-pad">Master Box =</td>
+                  <td class="tbl-pad">Master Box = <?php echo $product_variants->master_carton; ?></td>
                   <td class="tbl-pad"></td>
-                  <td class="tbl-pad">0 pcs.</td>
+                  <td class="tbl-pad"><?php echo ($product_variants->mstr=='')?'0':$product_variants->mstr; ?> pcs.</td>
                   <td class="tbl-pad">P 0.00</td>
                 </tr>
               </tbody>

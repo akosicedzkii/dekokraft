@@ -116,7 +116,7 @@
                   <td class="tbl-pad"><?php echo  $line->color; ?></td>
                   <td class="tbl-pad"><?php echo  $line->quantity; ?> pcs.</td>
                   <td class="tbl-pad"><?php echo  $line->description; ?></td>
-                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"><?php echo $line->net_weight; ?></td>
                   <td class="tbl-pad"></td>
                   <td class="tbl-pad"><?php echo  $line->product_price; ?></td>
                   <td class="tbl-pad"><?php echo  number_format((float)($line->quantity * $line->product_price), 2, '.', '') ; ?></td>
@@ -164,9 +164,13 @@
       <div class="col-xs-12">
         <p class="m-b">RULES & REGULATIONS:</p>
         <p>Subcontractor may not offer subject items which are the exclusive designs and sole property of DEKOKRAFT, INC. to any other individual, COMPANY or establishment. Should the Subcontractor violate the foregoing condition, he shall be liable to penalty for estafa and breach of contract.</p>
-        <?php if ($job_orders->job_type=='resin') { ?>
+        <?php if ($job_orders->job_type=='resin') {
+          $dated=date_create(date("F d, Y", strtotime($job_orders->deadline)));
+          date_sub($dated,date_interval_create_from_date_string("10 days"));
+          $final_date=date_format($dated,"F d, Y");
+         ?>
         <ol style="padding-left: 15px;">
-          <li>Subcontractor is required to submit atleast (2) resin control sample per LINE item on or before</li>
+          <li>Subcontractor is required to submit atleast (2) resin control sample per LINE item on or before <?php echo $final_date; ?></li>
           <li>Approved control sample must have signature of approving officer & should accompany finish goods on 1st delivery for reference.</li>
           <li>Non-submission of control sample will be subject to 1% penalty based on J.O. value or P500 per item whichever higher.</li>
         </ol>
