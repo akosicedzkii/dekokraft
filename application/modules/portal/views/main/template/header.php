@@ -336,28 +336,28 @@
          <?php 
           if (in_array("products", $menu)) {
              ?>
-              <li <?php if($module_name == "products"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/products"?>"><i class="fa fa-list-alt"></i><span>Product Category</span></a></li>
+              <li <?php if($module_name == "products"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/products"?>"><i class="glyphicon glyphicon-briefcase"></i><span>Product Category</span></a></li>
              <?php
           } 
         ?>
         <?php 
          if (in_array("product_variants", $menu)) {
             ?>
-             <li <?php if($module_name == "product_variants"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/product_variants"?>"><i class="fa fa-list-alt"></i><span>Product Variants</span></a></li>
+             <li <?php if($module_name == "product_variants"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/product_variants"?>"><i class="glyphicon glyphicon-th-list"></i><span>Product Variants</span></a></li>
             <?php
          } 
        ?>
        <?php 
          if (in_array("product_profiles", $menu)) {
             ?>
-             <li <?php if($module_name == "product_profiles"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/product_profiles/list"?>"><i class="fa fa-list-alt"></i><span>Product Profile</span></a></li>
+             <li <?php if($module_name == "product_profiles"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/product_profiles/list"?>"><i class="glyphicon glyphicon-th"></i><span>Product Profile</span></a></li>
             <?php
          } 
        ?>
         <?php 
          if (in_array("colors", $menu)) {
             ?>
-             <li <?php if($module_name == "colors"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/colors"?>"><i class="fa fa-list-alt"></i><span>Colors</span></a></li>
+             <li <?php if($module_name == "colors"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/colors"?>"><i class="glyphicon glyphicon-tint"></i><span>Colors</span></a></li>
             <?php
          } 
        ?>

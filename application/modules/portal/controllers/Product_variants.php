@@ -117,20 +117,20 @@ class Product_variants extends CI_Controller {
     public function get_product_variants_list()
     {
         $this->load->model("portal/data_table_model","dt_model");  
-        $this->dt_model->select_columns = array("t1.id","t1.cover_image","t4.class","t4.code","t4.description","t1.location","CONCAT(t1.color,' (',t1.color_abb,')') as color","t1.proto","t1.molds","(SELECT COUNT(id) FROM stocks WHERE product_variant_id=t1.id) as stock","t1.status");  
+        $this->dt_model->select_columns = array("t1.id","t1.cover_image","t4.class","t4.code","t4.description","t1.location","CONCAT(t1.color,' (',t1.color_abb,')') as color","t1.proto","t1.molds","(SELECT COUNT(id) FROM stocks WHERE product_variant_id=t1.id) as stock","(SELECT fob FROM products WHERE id=t1.product_id) as fob","t1.status");  
         if($this->session->userdata("USERTYPE") ==1)
         {
-            $this->dt_model->select_columns = array("t1.id","t1.cover_image","t4.class","t4.code","t1.description","t1.location","CONCAT(t1.color,' (',t1.color_abb,')') as color","t1.proto","t1.molds","(SELECT COUNT(id) FROM stocks WHERE product_variant_id=t1.id) as stock","t1.status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
+            $this->dt_model->select_columns = array("t1.id","t1.cover_image","t4.class","t4.code","t1.description","t1.location","CONCAT(t1.color,' (',t1.color_abb,')') as color","t1.proto","t1.molds","(SELECT COUNT(id) FROM stocks WHERE product_variant_id=t1.id) as stock","(SELECT fob FROM products WHERE id=t1.product_id) as fob","t1.status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
         }
         $this->dt_model->where  = array("t1.id","t4.class","t4.code","t4.description","t1.location","t1.color","t1.proto","t1.molds","t1.status");  
         if($this->session->userdata("USERTYPE") ==1)
         {
             $this->dt_model->where  = array("t1.id","t4.class","t4.code","t4.description","t1.location","t1.color","t1.proto","t1.molds","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");  
         }
-        $select_columns = array("id","cover_image","class","code","description","location","color","proto","molds","stock","status");  
+        $select_columns = array("id","cover_image","class","code","description","location","color","proto","molds","stock","fob","status");  
         if($this->session->userdata("USERTYPE") ==1)
         {
-            $select_columns = array("id","cover_image","class","code","description","location","color","proto","molds","stock","status","date_created","created_by","date_modified","modified_by");
+            $select_columns = array("id","cover_image","class","code","description","location","color","proto","molds","stock","fob","status","date_created","created_by","date_modified","modified_by");
         }  
         $this->dt_model->table = "product_variants AS t1 LEFT JOIN user_accounts AS t2 ON t2.id = t1.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t1.modified_by LEFT JOIN products AS t4 ON t4.id = t1.product_id"; 
         $this->dt_model->index_column = "t1.id"; 
@@ -146,7 +146,7 @@ class Product_variants extends CI_Controller {
                     {
                         $row[] = $aRow[$col];
                     }
-                    else if($col == "best_price")
+                    else if($col == "fob")
                     {
                         $row[] = "$ ". $aRow[$col] ;
                     }

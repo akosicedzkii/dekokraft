@@ -51,6 +51,7 @@ https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
             <th>MOLD</th>
             <th>PROTO</th>
             <th>PCS</th>
+            <th>FOB</th>
             <th>Status</th>
             <?php if($this->session->userdata("USERTYPE") ==1){ ?><th>Date Created</th>
             <th>Created By</th>
