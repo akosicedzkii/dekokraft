@@ -401,14 +401,26 @@
               </thead>
               <tbody>
                 <tr>
-                  <td class="tbl-pad">Inner Box = <?php echo $product_variants->inner_carton; ?></td>
-                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad">Inner Box = </td>
+                  <td class="tbl-pad"><?php echo $product_variants->inner_carton; ?></td>
                   <td class="tbl-pad"><?php echo ($product_variants->in_=='')?'0':$product_variants->in_; ?> pcs.</td>
                   <td class="tbl-pad">P 0.00</td>
                 </tr>
                 <tr>
-                  <td class="tbl-pad">Master Box = <?php echo $product_variants->master_carton; ?></td>
-                  <td class="tbl-pad"></td>
+                  <?php
+                    $res_mstr=0;
+                    $mstr_data=trim(strtolower($product_variants->master_carton));
+                    $slice_mstr=explode('x',$mstr_data);
+                    if(count($slice_mstr)>0){
+                      foreach ($slice_mstr as $value) {
+                        $res_mstr=($res_mstr<1)?$res_mstr+floatval(trim($value)):$res_mstr*floatval(trim($value));
+                      }
+                      $res_mstr=$res_mstr/61023;
+                    }
+
+                   ?>
+                  <td class="tbl-pad">Master Box = <?php echo number_format($res_mstr,4); ?> </td>
+                  <td class="tbl-pad"><?php echo $product_variants->master_carton; ?></td>
                   <td class="tbl-pad"><?php echo ($product_variants->mstr=='')?'0':$product_variants->mstr; ?> pcs.</td>
                   <td class="tbl-pad">P 0.00</td>
                 </tr>

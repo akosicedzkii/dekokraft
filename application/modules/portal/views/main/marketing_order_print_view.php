@@ -161,13 +161,24 @@
           <?php foreach ($invoice_lines as $line) {
               $total_quntity=$total_quntity+$line->quantity;
               $total_price = $total_price + ($line->quantity* $line->product_price);
-              $total_discounted = $total_discounted + (($line->quantity*$line->product_price)-($line->quantity*$line->product_price)*($line->discount/100)); ?>
+              $total_discounted = $total_discounted + (($line->quantity*$line->product_price)-($line->quantity*$line->product_price)*($line->discount/100));
+
+              $res_mstr=0;
+              $mstr_data=trim(strtolower($line->master_carton));
+              $slice_mstr=explode('x',$mstr_data);
+              if(count($slice_mstr)>0){
+                foreach ($slice_mstr as $value) {
+                  $res_mstr=($res_mstr<1)?$res_mstr+floatval(trim($value)):$res_mstr*floatval(trim($value));
+                }
+                $res_mstr=$res_mstr/61023;
+              }
+          ?>
           <tr>
             <td class="text-center tbl-pad"><?php echo  $count; ?></td>
             <td class="text-center tbl-pad"><?php echo  $line->class."-".$line->code."-".$line->color_abb; ?></td>
             <td class="tbl-pad"><?php echo  $line->article; ?></td>
             <td class="text-center tbl-pad"><?php echo  $line->in_." / ".$line->mstr; ?></td>
-            <td class="text-center tbl-pad"><?php echo  $line->weight_of_box; ?></td>
+            <td class="text-center tbl-pad"><?php echo  number_format($res_mstr,4); ?></td>
             <td class="text-center tbl-pad"><?php echo  $line->color; ?></td>
             <td class="text-center tbl-pad"><?php echo  $line->quantity; ?></td>
             <td class="text-center tbl-pad"><?php echo  $line->description; ?></td>
@@ -207,7 +218,7 @@
         </div>
         <div class="col-xs-3">
           <p>Delivery Time: <?php echo date("F d,Y", strtotime($invoice->delivery_time));?></p>
-          <p>Payment Terms: <?php echo $payment_terms->code;?></p>
+          <p>Payment Terms: <?php echo (isset($payment_terms->code))?$payment_terms->code:'';?></p>
         </div>
     </div>
     <hr style="border-top: 1px dashed black;margin:5px 0 5px 0;">

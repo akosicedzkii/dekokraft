@@ -106,17 +106,30 @@
             $total_discounted = 0;
             $item_no=1;
             $total_quntity=0;
+            $est_cbm=0;
           ?>
           <?php foreach ($invoice_lines as $line) {
               $total_quntity=$total_quntity+$line->quantity;
               $total_price = $total_price + ($line->quantity* $line->product_price);
-              $total_discounted = $total_discounted + (($line->quantity*$line->product_price)-($line->quantity*$line->product_price)*($line->discount/100)); ?>
+              $total_discounted = $total_discounted + (($line->quantity*$line->product_price)-($line->quantity*$line->product_price)*($line->discount/100));
+
+              $res_mstr=0;
+              $mstr_data=trim(strtolower($line->master_carton));
+              $slice_mstr=explode('x',$mstr_data);
+              if(count($slice_mstr)>0){
+                foreach ($slice_mstr as $value) {
+                  $res_mstr=($res_mstr<1)?$res_mstr+floatval(trim($value)):$res_mstr*floatval(trim($value));
+                }
+                $res_mstr=$res_mstr/61023;
+              }
+              $est_cbm=$est_cbm+floatval($res_mstr);
+          ?>
           <tr class="text-center">
             <td class="tbl-pad"><?php echo  $item_no++; ?>.</td>
             <td class="tbl-pad"><?php echo  $line->class. "-" . $line->code."-".$line->color_abb; ?></td>
             <td class="tbl-pad"><?php echo  $line->article; ?></td>
             <td class="tbl-pad"><?php echo  $line->in_."/".$line->mstr; ?></td>
-            <td class="tbl-pad"><?php echo  $line->weight_of_box; ?></td>
+            <td class="tbl-pad"><?php echo  number_format($res_mstr,4); ?></td>
             <td class="tbl-pad"><?php echo  $line->color; ?></td>
             <td class="tbl-pad"><?php echo  $line->quantity; ?></td>
             <td class="tbl-pad"><?php echo  $line->description; ?></td>
@@ -130,7 +143,7 @@
               <td colspan="2" class="tbl-pad" style="border-top: 1px solid black;">TOTAL</td>
               <td style="border-top: 1px solid black;" class="text-center tbl-pad">EST. CTN:</td>
               <td style="border-top: 1px solid black;" class="text-center tbl-pad">/</td>
-              <td colspan="2" style="border-top: 1px solid black;" class="text-left tbl-pad">EST CBM= </td>
+              <td colspan="2" style="border-top: 1px solid black;" class="text-left tbl-pad">EST CBM= <?php echo number_format($est_cbm,4); ?></td>
               <td style="border-top: 1px solid black;" class="text-center tbl-pad"><?php echo number_format($total_quntity); ?></td>
               <td colspan="3" class="tbl-pad" style="border-top: 1px solid black;"></td>
             </tr>
