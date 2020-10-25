@@ -372,7 +372,7 @@
                 $("input[name='product_selected[]']").each(function( index, currentElement  ) {
                     console.log(index);
                     prod_selected = $('input[name="product_selected[]"]')[index].value;
-                    articles = $('input[name="articles[]"]')[index].value;
+                    articles = $('input[name="article[]"]')[index].value;
                     total_quan =  $('input[name="total_quantity[]"]')[index].value;
                     total_am =  $('input[name="base_amount[]"]')[index].value;
                     total_dis =  $('input[name="total_discount[]"]')[index].value;
