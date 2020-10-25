@@ -275,12 +275,39 @@ https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
                 <div class="box-body">
                     <div class="form-group">
                         <input type="hidden" id="reflenish_id">
-                        <center>Count: <input  class="form-control" type="number" id="reflenish_count" placeholder="Product Count"></center>
+                        <center>Count: <input  class="form-control" min=1 type="number" id="reflenish_count" placeholder="Product Count"></center>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
             <button type="button" class="btn btn-primary" id="saveReflenish">Reflenish</button>
+            <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    <!-- /.modal-content -->
+    </div>
+<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<div class="modal fade" id="reduceProduct"  role="dialog"  data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+           
+             <h3 class="modal-title">Reduce Product: <label id="reduce_name"></label></h3>
+            </div>
+            <div class="modal-body">
+                <div class="box-body">
+                    <div class="form-group">
+                        <input type="hidden" id="reduce_id">
+                        <center>Count: <input  class="form-control" min=1 type="number" id="reduce_count" placeholder="Product Count"></center>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="saveReduce">Reduce</button>
             <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
             </div>
         </div>
@@ -1125,6 +1152,31 @@ $('.actionDone').on('click', function(){
             }
                return false;
         });
+        $("#saveReduce").click(function(){
+            var btn = $(this);
+            var id = $("#reduce_id").val();
+            var count = $("#reduce_count").val();
+            var reduce_name = $("#reduce_name").html();
+            var data = { "product_variant_id" : id , "count" : count};
+            btn.button("loading");
+
+            $.ajax({
+                        data: data,
+                        type: "post",
+                        url: "<?php echo base_url()."portal/stocks/reduce";?>",
+                        success: function(data){
+                            //alert("Data Save: " + data);
+                            btn.button("reset");
+                            table.draw("page");
+                            $("#reduceProduct").modal("hide");
+                            toastr.success('Product Variant ' + reduce_name + ' successfully reduced');
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                        }
+                });
+        });
+
         $("#saveReflenish").click(function(){
             var btn = $(this);
             var id = $("#reflenish_id").val();
@@ -1388,6 +1440,13 @@ $('.actionDone').on('click', function(){
         $("#reflenish_id").val(id);
         $("#reflenish_name").html(description);
         $("#reflenishProduct").modal("show");
+
+    }
+    function _reduce(id,description)
+    {
+        $("#reduce_id").val(id);
+        $("#reduce_name").html(description);
+        $("#reduceProduct").modal("show");
 
     }
 
