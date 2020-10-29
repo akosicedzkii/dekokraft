@@ -404,7 +404,7 @@
                   <td class="tbl-pad">Inner Box = </td>
                   <td class="tbl-pad"><?php echo $product_variants->inner_carton; ?></td>
                   <td class="tbl-pad"><?php echo ($product_variants->in_=='')?'0':$product_variants->in_; ?> pcs.</td>
-                  <td class="tbl-pad">P 0.00</td>
+                  <td class="tbl-pad">P <?php echo number_format(floatval($prod_profile->in_box_cost),2); ?></td>
                 </tr>
                 <tr>
                   <?php
@@ -422,7 +422,7 @@
                   <td class="tbl-pad">Master Box = <?php echo number_format($res_mstr,4); ?> </td>
                   <td class="tbl-pad"><?php echo $product_variants->master_carton; ?></td>
                   <td class="tbl-pad"><?php echo ($product_variants->mstr=='')?'0':$product_variants->mstr; ?> pcs.</td>
-                  <td class="tbl-pad">P 0.00</td>
+                  <td class="tbl-pad">P <?php echo number_format(floatval($prod_profile->mstr_box_cost),2); ?></td>
                 </tr>
               </tbody>
               <thead>
@@ -436,15 +436,15 @@
               <tbody>
                 <tr>
                   <td class="tbl-pad">Inner Polybag</td>
-                  <td class="tbl-pad">BUBBLE BAG 00 X 00</td>
-                  <td class="tbl-pad">0 pcs.</td>
-                  <td class="tbl-pad">P 0.00</td>
+                  <td class="tbl-pad"><!--BUBBLE BAG 00 X 00--></td>
+                  <td class="tbl-pad"><?php echo $prod_profile->in_poly_cont; ?> pcs.</td>
+                  <td class="tbl-pad">P <?php echo number_format(floatval($prod_profile->in_poly_cost),2); ?></td>
                 </tr>
                 <tr>
                   <td class="tbl-pad">Master Polybag</td>
                   <td class="tbl-pad"></td>
-                  <td class="tbl-pad">0 pcs.</td>
-                  <td class="tbl-pad">P 0.00</td>
+                  <td class="tbl-pad"><?php echo $prod_profile->mstr_poly_cont; ?> pcs.</td>
+                  <td class="tbl-pad">P <?php echo number_format(floatval($prod_profile->mstr_poly_cost),2); ?></td>
                 </tr>
               </tbody>
             </table>

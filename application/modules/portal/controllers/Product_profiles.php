@@ -5,9 +5,9 @@ class Product_profiles extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        $this->settings_model->get_settings();   
-        $this->load->model("portal/product_profiles_model"); 
-        
+        $this->settings_model->get_settings();
+        $this->load->model("portal/product_profiles_model");
+
         if($this->session->userdata("USERID") == null)
         {
                 echo "Sorry you are not logged in";
@@ -22,21 +22,27 @@ class Product_profiles extends CI_Controller {
         $this->product_profiles_model->qty = $this->input->get("qty");
         $this->product_profiles_model->group_name = $this->input->get("group_name");
         $this->product_profiles_model->net_weight = $this->input->get("net_weight");
-        $this->product_profiles_model->provided_resin_cast =	$this->input->get("provided_resin_cast_add");	 	 
-        $this->product_profiles_model->provided_resin_clean =	$this->input->get("provided_resin_clean_add"); 	 	 
-        $this->product_profiles_model->provided_finishing =	 	 $this->input->get("provided_finishing_add");	 
+        $this->product_profiles_model->provided_resin_cast =	$this->input->get("provided_resin_cast_add");
+        $this->product_profiles_model->provided_resin_clean =	$this->input->get("provided_resin_clean_add");
+        $this->product_profiles_model->provided_finishing =	 	 $this->input->get("provided_finishing_add");
         $this->product_profiles_model->selling_lc =	 	 	 $this->input->get("selling_lc_add");
         $this->product_profiles_model->subcon_lc =	 	 	 $this->input->get("subcon_lc_add");
-        $this->product_profiles_model->derived_price_a =	 	 	$this->input->get("derived_price_a_add"); 
+        $this->product_profiles_model->derived_price_a =	 	 	$this->input->get("derived_price_a_add");
         $this->product_profiles_model->derived_price_b =	 	 	$this->input->get("derived_price_b_add");
-        $this->product_profiles_model->peso_conversion =	 	 	$this->input->get("peso_conversion_add"); 
-        $this->product_profiles_model->provided_resin_mat =	 	 	$this->input->get("provided_resin_mat_add"); 
-        $this->product_profiles_model->provided_resin_lab =	 	 	$this->input->get("provided_resin_lab_add"); 
-        $this->product_profiles_model->provided_finishing_mat =	 	$this->input->get("provided_finishing_mat_add"); 	 
-        $this->product_profiles_model->provided_finishing_lab =	 	$this->input->get("provided_finishing_lab_add"); 	 
-        $this->product_profiles_model->provided_artist_mat = 	 	$this->input->get("provided_artist_mat_add"); 
-        $this->product_profiles_model->provided_artist_lab =	 	$this->input->get("provided_artist_lab_add"); 	 
+        $this->product_profiles_model->peso_conversion =	 	 	$this->input->get("peso_conversion_add");
+        $this->product_profiles_model->provided_resin_mat =	 	 	$this->input->get("provided_resin_mat_add");
+        $this->product_profiles_model->provided_resin_lab =	 	 	$this->input->get("provided_resin_lab_add");
+        $this->product_profiles_model->provided_finishing_mat =	 	$this->input->get("provided_finishing_mat_add");
+        $this->product_profiles_model->provided_finishing_lab =	 	$this->input->get("provided_finishing_lab_add");
+        $this->product_profiles_model->provided_artist_mat = 	 	$this->input->get("provided_artist_mat_add");
+        $this->product_profiles_model->provided_artist_lab =	 	$this->input->get("provided_artist_lab_add");
         $this->product_profiles_model->provided_trading =           $this->input->get("provided_trading_add");
+        $this->product_profiles_model->inner_box = $this->input->get("inner_box_add");
+        $this->product_profiles_model->master_box = $this->input->get("master_box_add");
+        $this->product_profiles_model->inner_polybag = $this->input->get("inner_polybag_add");
+        $this->product_profiles_model->master_polybag = $this->input->get("master_polybag_add");
+        $this->product_profiles_model->in_poly_cost = $this->input->get("in_poly_cost_add");
+        $this->product_profiles_model->mstr_poly_cost = $this->input->get("mstr_poly_cost_add");
         echo $this->product_profiles_model->insert_product_profiles();
 	}
     public function update_product_profiles()
@@ -47,48 +53,60 @@ class Product_profiles extends CI_Controller {
         $this->product_profiles_model->material_group_id = $this->input->get("material_list_id_edit");
         $this->product_profiles_model->qty = $this->input->get("qty_edit");
         $this->product_profiles_model->net_weight = $this->input->get("net_weight_edit");
-        $this->product_profiles_model->provided_resin_cast =	$this->input->get("provided_resin_cast_edit");	 	 
-        $this->product_profiles_model->provided_resin_clean =	$this->input->get("provided_resin_clean_edit"); 	 	 
-        $this->product_profiles_model->provided_finishing =	 	 $this->input->get("provided_finishing_edit");	 
+        $this->product_profiles_model->provided_resin_cast =	$this->input->get("provided_resin_cast_edit");
+        $this->product_profiles_model->provided_resin_clean =	$this->input->get("provided_resin_clean_edit");
+        $this->product_profiles_model->provided_finishing =	 	 $this->input->get("provided_finishing_edit");
         $this->product_profiles_model->selling_lc =	 	 	 $this->input->get("selling_lc_edit");
         $this->product_profiles_model->subcon_lc =	 	 	 $this->input->get("subcon_lc_edit");
-        $this->product_profiles_model->derived_price_a =	 	 	$this->input->get("derived_price_a_edit"); 
+        $this->product_profiles_model->derived_price_a =	 	 	$this->input->get("derived_price_a_edit");
         $this->product_profiles_model->derived_price_b =	 	 	$this->input->get("derived_price_b_edit");
-        $this->product_profiles_model->peso_conversion =	 	 	$this->input->get("peso_conversion_edit"); 
-        $this->product_profiles_model->provided_resin_mat =	 	 	$this->input->get("provided_resin_mat_edit"); 
-        $this->product_profiles_model->provided_resin_lab =	 	 	$this->input->get("provided_resin_lab_edit"); 
-        $this->product_profiles_model->provided_finishing_mat =	 	$this->input->get("provided_finishing_mat_edit"); 	 
-        $this->product_profiles_model->provided_finishing_lab =	 	$this->input->get("provided_finishing_lab_edit"); 	 
-        $this->product_profiles_model->provided_artist_mat = 	 	$this->input->get("provided_artist_mat_edit"); 
-        $this->product_profiles_model->provided_artist_lab =	 	$this->input->get("provided_artist_lab_edit"); 	 
+        $this->product_profiles_model->peso_conversion =	 	 	$this->input->get("peso_conversion_edit");
+        $this->product_profiles_model->provided_resin_mat =	 	 	$this->input->get("provided_resin_mat_edit");
+        $this->product_profiles_model->provided_resin_lab =	 	 	$this->input->get("provided_resin_lab_edit");
+        $this->product_profiles_model->provided_finishing_mat =	 	$this->input->get("provided_finishing_mat_edit");
+        $this->product_profiles_model->provided_finishing_lab =	 	$this->input->get("provided_finishing_lab_edit");
+        $this->product_profiles_model->provided_artist_mat = 	 	$this->input->get("provided_artist_mat_edit");
+        $this->product_profiles_model->provided_artist_lab =	 	$this->input->get("provided_artist_lab_edit");
         $this->product_profiles_model->provided_trading =           $this->input->get("provided_trading_edit");
         $this->product_profiles_model->group_name = $this->input->get("group_name_edit");
+        $this->product_profiles_model->inner_box = $this->input->get("inner_box_edit");
+        $this->product_profiles_model->master_box = $this->input->get("master_box_edit");
+        $this->product_profiles_model->inner_polybag = $this->input->get("inner_polybag_edit");
+        $this->product_profiles_model->master_polybag = $this->input->get("master_polybag_edit");
+        $this->product_profiles_model->in_poly_cost = $this->input->get("in_poly_cost_edit");
+        $this->product_profiles_model->mstr_poly_cost = $this->input->get("mstr_poly_cost_edit");
         echo $this->product_profiles_model->update_material_list();
     }
-    
+
     public function update_details()
 	{
         $this->product_profiles_model->product_variant_id = $this->input->post("product_variant_id");
         $this->product_profiles_model->product_profile_id = $this->input->post("product_profile_id");
         $this->product_profiles_model->net_weight = $this->input->post("net_weight");
-        $this->product_profiles_model->provided_resin_cast =	$this->input->post("provided_resin_cast");	 	 
-        $this->product_profiles_model->provided_resin_clean =	$this->input->post("provided_resin_clean"); 	 	 
-        $this->product_profiles_model->provided_finishing =	 	 $this->input->post("provided_finishing");	 
+        $this->product_profiles_model->provided_resin_cast =	$this->input->post("provided_resin_cast");
+        $this->product_profiles_model->provided_resin_clean =	$this->input->post("provided_resin_clean");
+        $this->product_profiles_model->provided_finishing =	 	 $this->input->post("provided_finishing");
         $this->product_profiles_model->selling_lc =	 	 	 $this->input->post("selling_lc");
         $this->product_profiles_model->subcon_lc =	 	 	 $this->input->post("subcon_lc");
-        $this->product_profiles_model->derived_price_a =	 	 	$this->input->post("derived_price_a"); 
+        $this->product_profiles_model->derived_price_a =	 	 	$this->input->post("derived_price_a");
         $this->product_profiles_model->derived_price_b =	 	 	$this->input->post("derived_price_b");
-        $this->product_profiles_model->peso_conversion =	 	 	$this->input->post("peso_conversion"); 
-        $this->product_profiles_model->provided_resin_mat =	 	 	$this->input->post("provided_resin_mat"); 
-        $this->product_profiles_model->provided_resin_lab =	 	 	$this->input->post("provided_resin_lab"); 
-        $this->product_profiles_model->provided_finishing_mat =	 	$this->input->post("provided_finishing_mat"); 	 
-        $this->product_profiles_model->provided_finishing_lab =	 	$this->input->post("provided_finishing_lab"); 	 
-        $this->product_profiles_model->provided_artist_mat = 	 	$this->input->post("provided_artist_mat"); 
-        $this->product_profiles_model->provided_artist_lab =	 	$this->input->post("provided_artist_lab"); 	 
+        $this->product_profiles_model->peso_conversion =	 	 	$this->input->post("peso_conversion");
+        $this->product_profiles_model->provided_resin_mat =	 	 	$this->input->post("provided_resin_mat");
+        $this->product_profiles_model->provided_resin_lab =	 	 	$this->input->post("provided_resin_lab");
+        $this->product_profiles_model->provided_finishing_mat =	 	$this->input->post("provided_finishing_mat");
+        $this->product_profiles_model->provided_finishing_lab =	 	$this->input->post("provided_finishing_lab");
+        $this->product_profiles_model->provided_artist_mat = 	 	$this->input->post("provided_artist_mat");
+        $this->product_profiles_model->provided_artist_lab =	 	$this->input->post("provided_artist_lab");
         $this->product_profiles_model->provided_trading =           $this->input->post("provided_trading");
+        $this->product_profiles_model->inner_box = $this->input->post("inner_box");
+        $this->product_profiles_model->master_box = $this->input->post("master_box");
+        $this->product_profiles_model->inner_polybag = $this->input->post("inner_polybag");
+        $this->product_profiles_model->master_polybag = $this->input->post("master_polybag");
+        $this->product_profiles_model->in_poly_cost = $this->input->post("in_poly_cost");
+        $this->product_profiles_model->mstr_poly_cost = $this->input->post("mstr_poly_cost");
         echo $this->product_profiles_model->update_details();
     }
-    
+
     public function get_materials_on_list()
     {
         $id = $this->input->post("id");
@@ -127,9 +145,9 @@ class Product_profiles extends CI_Controller {
 	{
         $id = $this->input->post("id");
         $this->db->where("id",$id);
-        
+
         $data_product_profiles = $this->db->get("product_material_group");
-        
+
         $this->db->where("product_material_group_id",$id);
         $data_product_profile_materials  = $this->db->get("product_profile_materials");
         $this->db->where("id",$id);
@@ -142,7 +160,7 @@ class Product_profiles extends CI_Controller {
         $this->logs->module = "product_profiles";
         $this->logs->created_by = $this->session->userdata("USERID");
         $this->logs->insert_log();
-        
+
 	}
 
     public function get_product_profiles_data()
@@ -160,22 +178,22 @@ class Product_profiles extends CI_Controller {
             }
         }
         $return["product_profiles"] = $product_profiles;
-        echo json_encode($return); 
+        echo json_encode($return);
     }
     public function get_product_profiles_selection()
     {
-        
+
         $search = $this->input->get("term[term]");
-        $this->db->like("title",$search);  
+        $this->db->like("title",$search);
         //$this->db->where("status",1);
-        $this->db->or_like("code",$search); 
-        //$this->db->where("status",1); 
-        $this->db->or_like("class",$search);  
+        $this->db->or_like("code",$search);
         //$this->db->where("status",1);
-        $this->db->select("title as text"); 
-        $this->db->select("class"); 
-        $this->db->select("code"); 
-        $this->db->select("description"); 
+        $this->db->or_like("class",$search);
+        //$this->db->where("status",1);
+        $this->db->select("title as text");
+        $this->db->select("class");
+        $this->db->select("code");
+        $this->db->select("description");
         $this->db->select("id");
         $this->db->limit(10);
         $filteredValues=$this->db->get("product_profiles")->result_array();
@@ -186,27 +204,27 @@ class Product_profiles extends CI_Controller {
     }
     public function get_product_profiles_list()
     {
-        $this->load->model("portal/data_table_model","dt_model");  
-        
-        $this->dt_model->select_columns = array("t7.id","t1.class","t1.code","t1.description","t7.color","t6.id as product_profile_id");  
+        $this->load->model("portal/data_table_model","dt_model");
+
+        $this->dt_model->select_columns = array("t7.id","t1.class","t1.code","t1.description","t7.color","t6.id as product_profile_id");
         if($this->session->userdata("USERTYPE") ==1)
         {
-            $this->dt_model->select_columns = array("t7.id","t1.class","t1.code","t1.description","t7.color","t6.id as product_profile_id","t6.date_created","t2.username as created_by","t6.date_modified","t3.username as modified_by");  
+            $this->dt_model->select_columns = array("t7.id","t1.class","t1.code","t1.description","t7.color","t6.id as product_profile_id","t6.date_created","t2.username as created_by","t6.date_modified","t3.username as modified_by");
         }
-      
+
         $this->dt_model->where  = array("t1.class","t1.code","t1.description","t7.color");
         if($this->session->userdata("USERTYPE") ==1)
         {
-            $this->dt_model->where  = array("t1.class","t1.code","t1.description","t7.color","t6.date_created","t2.username","t6.date_modified","t3.username");  
-        }  
-        
-        $select_columns = array("id","class","code","description","color","product_profile_id");    
-        if($this->session->userdata("USERTYPE") ==1){
-            $select_columns = array("id","class","code","description","color","product_profile_id","date_created","created_by","date_modified","modified_by");  
+            $this->dt_model->where  = array("t1.class","t1.code","t1.description","t7.color","t6.date_created","t2.username","t6.date_modified","t3.username");
         }
-        $this->dt_model->table = "product_variants AS t7  LEFT JOIN products as t1 ON t1.id = t7.product_id LEFT JOIN product_profiles as t6 ON t6.product_variant_id = t7.id LEFT JOIN user_accounts AS t2 ON t2.id = t6.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t6.modified_by";  
+
+        $select_columns = array("id","class","code","description","color","product_profile_id");
+        if($this->session->userdata("USERTYPE") ==1){
+            $select_columns = array("id","class","code","description","color","product_profile_id","date_created","created_by","date_modified","modified_by");
+        }
+        $this->dt_model->table = "product_variants AS t7  LEFT JOIN products as t1 ON t1.id = t7.product_id LEFT JOIN product_profiles as t6 ON t6.product_variant_id = t7.id LEFT JOIN user_accounts AS t2 ON t2.id = t6.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t6.modified_by";
         $this->dt_model->index_column = "t1.id";
-        $this->dt_model->staticWhere = "t1.status != 3";  
+        $this->dt_model->staticWhere = "t1.status != 3";
         $result = $this->dt_model->get_table_list();
         $output = $result["output"];
         $rResult = $result["rResult"];
@@ -229,10 +247,10 @@ class Product_profiles extends CI_Controller {
                         }else{
                             $row[] = $aRow[$col] ;
                         }
-                        
+
                     }else if($col == "product_profile_id")
-                    { 
-                       
+                    {
+
                         if($aRow[$col] == "")
                         {
                             $row[] = "No Product profile";
@@ -241,7 +259,7 @@ class Product_profiles extends CI_Controller {
                             $this->db->select("materials.id");
                             $this->db->join("materials","materials.id=product_profile_materials.material_id");
                             $material_list =$this->db->order_by("product_profile_materials.id","desc")->where("materials.type","color")->where("product_profile_id",$aRow[$col])->get("product_profile_materials")->result_array();
-                            
+
                             $ids = "";
                             foreach($material_list as $id)
                             {
@@ -253,7 +271,7 @@ class Product_profiles extends CI_Controller {
                             </center>';
                             $btns.='<a href="'.base_url("portal/main/product_profiles/new?product_variant_id=".$aRow['id']).'"  class="glyphicon glyphicon-plus text-orange" data-toggle="tooltip" title="Edit Product Profile"></a>';
                         }
-                       
+
                     }
                     else if($col == "status")
                     {
@@ -271,7 +289,7 @@ class Product_profiles extends CI_Controller {
                     else if($col == "cover_image")
                     {
                         if($aRow[$col] != null)
-                        {    
+                        {
                             $row[] = "<center><a href=\"#\" onclick='return false;'><img class='img-thumbnail' src='".base_url()."uploads/product_profiles/".$aRow[$col]."' style='height:70px;' onclick='img_preview(\"".$aRow[$col]."\");return false;'></a></center>";
                         }
                         else
@@ -284,10 +302,10 @@ class Product_profiles extends CI_Controller {
                         $row[] = $aRow[$col] ;
                     }
             }
-            
+
             $btns .= '
             <!--<a href="'.base_url("portal/main/product_profiles/new?product_variant_id=".$aRow['id']).'"  class="glyphicon glyphicon-search text-orange" data-toggle="tooltip" title="view Product Profile"></a>-->
-            
+
             <!--<a href="#" onclick="_edit('.$aRow['id'].');return false;" class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" title="Edit Product Profile"></a>-->
             <a href="#" onclick="_delete('.$aRow['id'].',\''.htmlentities($aRow["description"]).'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" title="Delete Product Profile"></a>';
             array_push($row,$btns);
@@ -296,6 +314,6 @@ class Product_profiles extends CI_Controller {
         echo json_encode( $output );
     }
 
-    
+
 
 }

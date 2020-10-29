@@ -3,7 +3,7 @@
     <section class="content-header">
       <h1>
         Product Profile
-        <!-- <small>#007612</small> --> 
+        <!-- <small>#007612</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -11,7 +11,7 @@
       </ol>
     </section>
 
-  
+
     <form id="product_profile_form">
         <!-- Main content -->
         <section class="invoice">
@@ -19,11 +19,11 @@
         <div class="row">
             <div class="col-xs-12">
             <h2 class="page-header">
-                <!-- <i class="fa fa-globe"></i>--> <?php echo SITE_NAME;?> 
+                <!-- <i class="fa fa-globe"></i>--> <?php echo SITE_NAME;?>
                 <small class="pull-right">Date: <?php echo date("m/d/Y");?></small>
-            
+
             </h2>
-            <!-- /.col --> 
+            <!-- /.col -->
         </div>
         <br>
         <div class="row invoice-info">
@@ -41,7 +41,8 @@
             </div>
         </div>
         <div class="row invoice-info">
-            <div class="col-sm-4 invoice-col">
+          <div class="col-sm-8 invoice-col">
+            <div class="col-sm-6 invoice-col">
                 <table class="table" id="listing">
                     <tr><th>Labor Cost</th><th>JP</th><th>Provided(C)</th></tr>
                     <tr><td>Resin Cast</td><td>(RA)</td><td><input type='number' id="provided_resin_cast" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_cast;}?>" class="form-control"></td></tr>
@@ -50,7 +51,7 @@
                     <tr><td>Artist Painting Material</td><td>(AP)</td><td></td></tr>
                 </table>
             </div>
-            <div class="col-sm-4 invoice-col">
+            <div class="col-sm-6 invoice-col">
             <table class="table" id="listing">
                     <tr><th>L.C PESO COSTING </th><th></th></tr>
                     <tr><td>Selling L.C.</td><td><input type='number' id="selling_lc" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->selling_lc; }?>" class="form-control"></td></tr>
@@ -60,6 +61,17 @@
                     <tr><td>PESO/US$Conversion</td><td><input type='number' id="peso_conversion" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->peso_conversion; }?>" class="form-control"></td></tr>
                 </table>
             </div>
+            <div class="col-sm-12 invoice-col">
+              <table class="table" id="listing">
+                  <tr><th>CBM (Standard Pack)</th><th>Content</th><th>Unit Cost</th></tr>
+                  <tr><td>Inner Box</td><td></td><td><input type='number' id="inner_box" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_box_cost;}?>" class="form-control"></td></tr>
+                  <tr><td>Master Box</td><td></td><td><input type='number' id="master_box" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->mstr_box_cost; }?>" class="form-control"></td></tr>
+                  <tr><td>Inner Polybag</td><td><input type='number' id="inner_polybag" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_poly_cont; }?>" class="form-control"></td><td><input type='number' id="in_poly_cost" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_poly_cost; }?>" class="form-control"></td></tr>
+                  <tr><td>Master Polybag</td><td><input type='number' id="master_polybag" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->mstr_poly_cont; }?>" class="form-control"></td><td><input type='number' id="mstr_poly_cost" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->mstr_poly_cost; }?>" class="form-control"></td></tr>
+              </table>
+            </div>
+          </div>
+
             <div class="col-sm-4 invoice-col">
             <table class="table" id="listing">
                     <tr><th>SUBCON JOB COST  </th><th>PROVIDED</th></tr>
@@ -82,8 +94,8 @@
                 &emsp;<button type="button" class="btn btn-primary" id="updateDetails">Update Product Profile Details</button></center>
 
                 <?php } ?>
-                
-                
+
+
                 <br>
                 <br>
             </div>
@@ -91,7 +103,7 @@
         <div class="row invoice-info">
             <div class="col-md-12 invoice-col">
                 <table id="material_list_tbl" class="table" style='width:100%;'>
-                <?php 
+                <?php
                     if($material_groups!=null)
                     {
                         //echo "<pre>";
@@ -111,7 +123,7 @@
                                         </thead>
                                         <tbody id="tbody_materialss">
                                             <?php
-                                            
+
                                                 if($material[0] != null)
                                                 {
                                                     foreach($material[0] as $material_items)
@@ -162,19 +174,19 @@
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-           
+
              <h3 class="modal-title">Add Product Profile Materials</h3>
             </div>
             <div class="modal-body">
                 <div>
                     <form class="form-horizontal" id="product_profilesForm" data-toggle="validator">
-                    
+
                         <input type="hidden" id="action">
                         <input type="hidden" name="net_weight"  id="net_weight">
-                        
+
                         <input type="hidden" name="product_profile_id"  id="product_profile_id">
                         <input type="hidden" name="provided_resin_cast_add" id="provided_resin_cast_add">
-                        <input type="hidden" name="provided_resin_clean_add" id="provided_resin_clean_add"> 
+                        <input type="hidden" name="provided_resin_clean_add" id="provided_resin_clean_add">
                         <input type="hidden" name="provided_finishing_add" id="provided_finishing_add">
                         <input type="hidden" name="selling_lc_add" id="selling_lc_add">
                         <input type="hidden" name="subcon_lc_add" id="subcon_lc_add">
@@ -188,8 +200,14 @@
                         <input type="hidden" name="provided_artist_mat_add" id="provided_artist_mat_add">
                         <input type="hidden" name="provided_artist_lab_add" id="provided_artist_lab_add">
                         <input type="hidden" name="provided_trading_add"  id="provided_trading_add">
+                        <input type="hidden" name="inner_box_add"  id="inner_box_add">
+                        <input type="hidden" name="master_box_add"  id="master_box_add">
+                        <input type="hidden" name="inner_polybag_add"  id="inner_polybag_add">
+                        <input type="hidden" name="master_polybag_add"  id="master_polybag_add">
+                        <input type="hidden" name="in_poly_cost_add"  id="in_poly_cost_add">
+                        <input type="hidden" name="mstr_poly_cost_add"  id="mstr_poly_cost_add">
                         <input type="hidden" name="product_variant_id" value="<?php echo $product_variants->id;?>">
-                        <div class="box-body"> 
+                        <div class="box-body">
                             <div class="form-group">
                                 <label for="group_name" class="col-sm-2 control-label">Material List Name</label>
 
@@ -238,7 +256,7 @@
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-           
+
              <h3 class="modal-title">Delete Materials</h3>
             </div>
             <div class="modal-body">
@@ -262,18 +280,18 @@
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-           
+
              <h3 class="modal-title">Edit Product Profile Materials</h3>
             </div>
             <div class="modal-body">
                 <div>
                     <form class="form-horizontal" id="product_profilesForm_edit" data-toggle="validator">
-                    
+
                         <input type="hidden" id="action">
                         <input type="hidden" name="material_list_id_edit"  id="material_list_id_edit">
                         <input type="hidden" name="product_profile_id_edit"  id="product_profile_id_edit">
                         <input type="hidden" name="provided_resin_cast_edit" id="provided_resin_cast_edit">
-                        <input type="hidden" name="provided_resin_clean_edit" id="provided_resin_clean_edit"> 
+                        <input type="hidden" name="provided_resin_clean_edit" id="provided_resin_clean_edit">
                         <input type="hidden" name="provided_finishing_edit" id="provided_finishing_edit">
                         <input type="hidden" name="selling_lc_edit" id="selling_lc_edit">
                         <input type="hidden" name="subcon_lc_edit" id="subcon_lc_edit">
@@ -289,7 +307,13 @@
                         <input type="hidden" name="provided_trading_edit"  id="provided_trading_edit">
                         <input type="hidden" name="product_variant_id_edit"  id="product_variant_id_edit">
                         <input type="hidden" name="net_weight_edit"  id="net_weight_edit">
-                        <div class="box-body"> 
+                        <input type="hidden" name="inner_box_edit"  id="inner_box_edit">
+                        <input type="hidden" name="master_box_edit"  id="master_box_edit">
+                        <input type="hidden" name="inner_polybag_edit"  id="inner_polybag_edit">
+                        <input type="hidden" name="master_polybag_edit"  id="master_polybag_edit">
+                        <input type="hidden" name="in_poly_cost_edit"  id="in_poly_cost_edit">
+                        <input type="hidden" name="mstr_poly_cost_edit"  id="mstr_poly_cost_edit">
+                        <div class="box-body">
                             <div class="form-group">
                                 <label for="group_name" class="col-sm-2 control-label">Material List Name</label>
 
@@ -337,7 +361,7 @@
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-           
+
              <h3 class="modal-title">Add Materials</h3>
              <input type="hidden" id="action">
              <input type="hidden" id="materialsID">
@@ -358,7 +382,7 @@
                                 <label for="jp" class="col-sm-2 control-label">JP</label>
 
                                 <div class="col-sm-10">
-                                
+
                                 <select class="form-control" id="jp" placeholder="JP" style="resize:none" required>
                                     <option value="FA">FA</option>
                                     <option value="FB">FB</option>
@@ -373,7 +397,7 @@
                                 <label for="unit" class="col-sm-2 control-label">Unit</label>
 
                                 <div class="col-sm-10">
-                                
+
                                 <select class="form-control" id="unit" placeholder="Unit" style="resize:none" required>
                                     <option value="GM">GM</option>
                                     <option value="ML">ML</option>
@@ -387,7 +411,7 @@
                                 <label for="cost" class="col-sm-2 control-label">Cost</label>
 
                                 <div class="col-sm-10">
-                                
+
                                 <input  type="number" min="0" step="any" class="form-control" id="cost" placeholder="Cost" required>
                                 <div class="help-block with-errors"></div>
                                 </div>
@@ -528,19 +552,19 @@ $("#add_new_material_btn_edit").click(function(){
             $("#materialsModal").modal("show");
 });
 
-$("#saveMaterials2").click(function(){ 
+$("#saveMaterials2").click(function(){
     $("#materialsForm").submit();
 });
 
 var image_correct = true;
         var image_error = "";
         $("#materialsForm").validator().on('submit', function (e) {
-           
+
             var btn = $("#saveMaterials2");
             var action = $("#action").val();
             btn.button("loading");
             if (e.isDefaultPrevented()) {
-                btn.button("reset"); 
+                btn.button("reset");
             } else {
                 e.preventDefault();
                 var material_name = $("#material_name").val();
@@ -552,7 +576,7 @@ var image_correct = true;
 
                 if(material_name == "" || cost == "")
                 {
-                    btn.button("reset"); 
+                    btn.button("reset");
                     return false;
                 }
 
@@ -564,7 +588,7 @@ var image_correct = true;
                 formData.append('status', status);
                 formData.append('jp', jp);
                 // Attach file
-                 //fromthis    
+                 //fromthis
                  var url = "<?php echo base_url()."portal/materials/add_materials";?>";
                 var message = "New materials successfully added";
                 if(action == "edit")
@@ -594,15 +618,15 @@ var image_correct = true;
                                     percent = Math.ceil(position / total * 100);
                                 }
                                 //update progressbar
-                                
+
                                 $('#progressBarMain').css('width',percent+'%').html(percent+'%');
-                                                                
+
                             }, true);
                         }
                         return xhr;
                     },
                     mimeType:"multipart/form-data"
-                }).done(function(data){ 
+                }).done(function(data){
                     if(!data)
                     {
                         btn.button("reset");
@@ -614,8 +638,8 @@ var image_correct = true;
                          btn.button("reset");
                          toastr.success(message);
                          $("#materialsForm").validator('destroy');
-                         $("#materialsModal").modal("hide"); 
-                         $('#uploadBoxMain').html('');          
+                         $("#materialsModal").modal("hide");
+                         $('#uploadBoxMain').html('');
                     }
                 });
             }
@@ -714,34 +738,40 @@ $("#deleteMaterials").click(function(){
 });
 
 $("#updateDetails").click(function(){
-    
-    
+
+
     var formData = new FormData();
     formData.append("net_weight",$("#weight").val());
-    formData.append("provided_resin_cast",$("#provided_resin_cast").val())
-    formData.append("provided_resin_clean",$("#provided_resin_clean").val())
-    formData.append("provided_finishing",$("#provided_finishing").val())
-    formData.append("selling_lc",$("#selling_lc").val())
-    formData.append("subcon_lc",$("#subcon_lc").val())
-    formData.append("derived_price_a",$("#derived_price_a").val())
-    formData.append("derived_price_b",$("#derived_price_b").val())
-    formData.append("peso_conversion",$("#peso_conversion").val())
-    formData.append("provided_resin_mat",$("#provided_resin_mat").val())
-    formData.append("provided_resin_lab",$("#provided_resin_lab").val())
-    formData.append("provided_finishing_mat",$("#provided_finishing_mat").val())
-    formData.append("provided_finishing_lab",$("#provided_finishing_lab").val())
-    formData.append("provided_artist_mat",$("#provided_artist_mat").val())
-    formData.append("provided_artist_lab",$("#provided_artist_lab").val())
-    formData.append("provided_trading",$("#provided_trading").val())
-    formData.append("product_profile_id","<?php if(isset($prod_profile_details)){ echo $prod_profile_details->id;}?>")
-    
+    formData.append("provided_resin_cast",$("#provided_resin_cast").val());
+    formData.append("provided_resin_clean",$("#provided_resin_clean").val());
+    formData.append("provided_finishing",$("#provided_finishing").val());
+    formData.append("selling_lc",$("#selling_lc").val());
+    formData.append("subcon_lc",$("#subcon_lc").val());
+    formData.append("derived_price_a",$("#derived_price_a").val());
+    formData.append("derived_price_b",$("#derived_price_b").val());
+    formData.append("peso_conversion",$("#peso_conversion").val());
+    formData.append("provided_resin_mat",$("#provided_resin_mat").val());
+    formData.append("provided_resin_lab",$("#provided_resin_lab").val());
+    formData.append("provided_finishing_mat",$("#provided_finishing_mat").val());
+    formData.append("provided_finishing_lab",$("#provided_finishing_lab").val());
+    formData.append("provided_artist_mat",$("#provided_artist_mat").val());
+    formData.append("provided_artist_lab",$("#provided_artist_lab").val());
+    formData.append("provided_trading",$("#provided_trading").val());
+    formData.append("inner_box",$("#inner_box").val());
+    formData.append("master_box",$("#master_box").val());
+    formData.append("inner_polybag",$("#inner_polybag").val());
+    formData.append("master_polybag",$("#master_polybag").val());
+    formData.append("in_poly_cost",$("#in_poly_cost").val());
+    formData.append("mstr_poly_cost",$("#mstr_poly_cost").val());
+    formData.append("product_profile_id","<?php if(isset($prod_profile_details)){ echo $prod_profile_details->id;}?>");
+
     $.ajax({
     data: formData,
     type: "post",
     processData: false,
     contentType: false,
     cache: false,
-    url: "<?php echo base_url()."portal/product_profiles/update_details";?>" , 
+    url: "<?php echo base_url()."portal/product_profiles/update_details";?>" ,
     xhr: function(){
         //upload Progress
         var xhr = $.ajaxSettings.xhr();
@@ -754,15 +784,15 @@ $("#updateDetails").click(function(){
                     percent = Math.ceil(position / total * 100);
                 }
                 //update progressbar
-                
+
                 $('#progressBarMain').css('width',percent+'%').html(percent+'%');
-                                                
+
             }, true);
         }
         return xhr;
     },
     mimeType:"multipart/form-data"
-}).done(function(data){ 
+}).done(function(data){
     if(!data)
     {
         //btn.button("reset");
@@ -776,14 +806,14 @@ $("#updateDetails").click(function(){
 
             setTimeout(() => {
                          window.location = "";
-                    }, 1000);       
+                    }, 1000);
     }
 });
 });
 $("#saveMaterials").click(function(){
     var btn=$("#saveMaterials");
     $("#net_weight").val($("#weight").val());
-    
+
     $("#provided_resin_cast_add").val($("#provided_resin_cast").val())
     $("#provided_resin_clean_add").val($("#provided_resin_clean").val())
     $("#provided_finishing_add").val($("#provided_finishing").val())
@@ -799,6 +829,12 @@ $("#saveMaterials").click(function(){
     $("#provided_artist_mat_add").val($("#provided_artist_mat").val())
     $("#provided_artist_lab_add").val($("#provided_artist_lab").val())
     $("#provided_trading_add").val($("#provided_trading").val())
+    $("#inner_box_add").val($("#inner_box").val());
+    $("#master_box_add").val($("#master_box").val());
+    $("#inner_polybag_add").val($("#inner_polybag").val());
+    $("#master_polybag_add").val($("#master_polybag").val());
+    $("#in_poly_cost_add").val($("#in_poly_cost").val());
+    $("#mstr_poly_cost_add").val($("#mstr_poly_cost").val());
     console.log($("#product_profilesForm_edit").serialize());
     console.log($("#product_profilesForm").serialize());
     $.ajax({
@@ -807,7 +843,7 @@ $("#saveMaterials").click(function(){
     processData: false,
     contentType: false,
     cache: false,
-    url: "<?php echo base_url()."portal/product_profiles/add_product_profiles";?>" , 
+    url: "<?php echo base_url()."portal/product_profiles/add_product_profiles";?>" ,
     xhr: function(){
         //upload Progress
         var xhr = $.ajaxSettings.xhr();
@@ -820,15 +856,15 @@ $("#saveMaterials").click(function(){
                     percent = Math.ceil(position / total * 100);
                 }
                 //update progressbar
-                
+
                 $('#progressBarMain').css('width',percent+'%').html(percent+'%');
-                                                
+
             }, true);
         }
         return xhr;
     },
     mimeType:"multipart/form-data"
-}).done(function(data){ 
+}).done(function(data){
     if(!data)
     {
         btn.button("reset");
@@ -843,8 +879,8 @@ $("#saveMaterials").click(function(){
                         window.location = "";
                     }, 1000);
             $("#colorsForm").validator('destroy');
-            $("#colorsModal").modal("hide"); 
-            $('#uploadBoxMain').html('');          
+            $("#colorsModal").modal("hide");
+            $('#uploadBoxMain').html('');
     }
 });
 });
@@ -853,7 +889,7 @@ $("#saveMaterials").click(function(){
 
 $("#saveMaterials_edit").click(function(){
     var btn=$("#saveMaterials_edit");
-    
+
     $("#net_weight_edit").val($("#weight").val());
     $("#provided_resin_cast_edit").val($("#provided_resin_cast").val())
     $("#provided_resin_clean_edit").val($("#provided_resin_clean").val())
@@ -870,6 +906,12 @@ $("#saveMaterials_edit").click(function(){
     $("#provided_artist_mat_edit").val($("#provided_artist_mat").val())
     $("#provided_artist_lab_edit").val($("#provided_artist_lab").val())
     $("#provided_trading_edit").val($("#provided_trading").val())
+    $("#inner_box_edit").val($("#inner_box").val());
+    $("#master_box_edit").val($("#master_box").val());
+    $("#inner_polybag_edit").val($("#inner_polybag").val());
+    $("#master_polybag_edit").val($("#master_polybag").val());
+    $("#in_poly_cost_edit").val($("#in_poly_cost").val());
+    $("#mstr_poly_cost_edit").val($("#mstr_poly_cost").val());
     console.log($("#product_profilesForm_edit").serialize());
     $.ajax({
     data: $("#product_profilesForm_edit").serialize(),
@@ -877,7 +919,7 @@ $("#saveMaterials_edit").click(function(){
     processData: false,
     contentType: false,
     cache: false,
-    url: "<?php echo base_url()."portal/product_profiles/update_product_profiles";?>" , 
+    url: "<?php echo base_url()."portal/product_profiles/update_product_profiles";?>" ,
     xhr: function(){
         //upload Progress
         var xhr = $.ajaxSettings.xhr();
@@ -890,15 +932,15 @@ $("#saveMaterials_edit").click(function(){
                     percent = Math.ceil(position / total * 100);
                 }
                 //update progressbar
-                
+
                 $('#progressBarMain').css('width',percent+'%').html(percent+'%');
-                                                
+
             }, true);
         }
         return xhr;
     },
     mimeType:"multipart/form-data"
-}).done(function(data){ 
+}).done(function(data){
     if(!data)
     {
         btn.button("reset");
@@ -914,8 +956,8 @@ $("#saveMaterials_edit").click(function(){
                         window.location = "";
                     }, 1000);
             $("#colorsForm").validator('destroy');
-            $("#colorsModal").modal("hide"); 
-            $('#uploadBoxMain').html('');          
+            $("#colorsModal").modal("hide");
+            $('#uploadBoxMain').html('');
     }
 });
 });
