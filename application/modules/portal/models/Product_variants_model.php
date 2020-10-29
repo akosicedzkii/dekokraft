@@ -43,23 +43,28 @@ class Product_variants_model extends CI_Model {
                 $data["proto"] = $this->proto;
                 $data["molds"] = $this->molds;
                 $upload_path = './uploads/product_variants/';  
-                if (!is_dir($upload_path)) 
-                {
-                        mkdir($upload_path, 0777, TRUE);
-                }
-                $path = $upload_path.$this->code."_".$this->color_abb.".png";
-                $img =  $this->cover_image;
-                $img = str_replace('data:image/png;base64,', '', $img);
-                $img = str_replace('data:image/png;base64,', '', $img);
-                $img = str_replace(' ', '+', $img);
-                $datas = base64_decode($img);
+               
                 
-                $data["cover_image"] = $this->code."_".$this->color_abb.".png";
                 echo $result = $this->db->insert('product_variants', $data);
                 if($result)
                 {
-                        file_put_contents($path, $datas);                        
+                                              
                         $insertId = $this->db->insert_id();
+                        if (!is_dir($upload_path)) 
+                        {
+                                mkdir($upload_path, 0777, TRUE);
+                        }
+                        $path = $upload_path.$this->code."_".$this->color_abb."_".$insertId.".png";
+                        $img =  $this->cover_image;
+                        $img = str_replace('data:image/png;base64,', '', $img);
+                        $img = str_replace('data:image/png;base64,', '', $img);
+                        $img = str_replace(' ', '+', $img);
+                        $datas = base64_decode($img);
+                        file_put_contents($path, $datas);  
+                        
+                        $dataImage["cover_image"] = $this->code."_".$this->color_abb."_".$insertId.".png";
+                        $this->db->where("id",$insertId);
+                        $this->db->update("product_variants",$dataImage);
                         $this->load->model("stocks_model");
                         $this->stocks_model->add_stock($this->count,$insertId);
                         $this->logs->log = "Created Product_variants - ID:". $insertId .", Product_variants Name: ".$this->title ;
@@ -90,7 +95,7 @@ class Product_variants_model extends CI_Model {
                 if( $cover_image != null)
                 {
                         $upload_path = './uploads/product_variants/'; 
-                        $path = $upload_path.$this->code."_".$this->color_abb.".png";
+                        $path = $upload_path.$this->code."_".$this->color_abb."_".$this->id.".png";
                         if(file_exists($path))
                         {
                                 unlink($path);
@@ -106,7 +111,7 @@ class Product_variants_model extends CI_Model {
                         $img = str_replace(' ', '+', $img);
                         $datas = base64_decode($img);
                         file_put_contents($path, $datas);
-                        $data["cover_image"] = $this->code."_".$this->color_abb.".png";
+                        $data["cover_image"] = $this->code."_".$this->color_abb."_".$this->id.".png";
                  }       
                 $data["modified_by"] =  $this->session->userdata("USERID");
                 $data["date_modified"] = date("Y-m-d H:i:s A");

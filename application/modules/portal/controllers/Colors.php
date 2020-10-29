@@ -68,7 +68,7 @@ class Colors extends CI_Controller {
         $this->db->where("status",1);  
         $this->db->select("name as text"); 
         $this->db->select("code as id");
-        $filteredValues=$this->db->get("colors")->result_array();
+        $filteredValues=$this->db->order_by("name","asc")->get("colors")->result_array();
 
         echo json_encode(array(
             'items' => $filteredValues
