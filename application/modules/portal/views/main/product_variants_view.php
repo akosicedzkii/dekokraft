@@ -1074,7 +1074,9 @@ $('.actionDone').on('click', function(){
                 
                 if(is_edit==1)
                 {
+                    if($('#imagebase64').val()!= null){
                     formData.append('cover_image', $('#imagebase64').val());
+                    }
                 }
                 var url = "<?php echo base_url()."portal/product_variants/add_product_variants";?>";
                 var message = "New product successfully added";
@@ -1260,6 +1262,7 @@ $('.actionDone').on('click', function(){
             $("#saveProduct_variants").html("Save Product").show();
             $("#add_color").removeAttr("disabled");
             $("#edit_image").removeAttr("disabled");
+            $("#imagebase64").val("");
         });
 
         $('#inputStatus').select2(inputRoleConfig);
@@ -1323,7 +1326,7 @@ $('.actionDone').on('click', function(){
                     $("#inputProduct_variantsEmailAddress").val(data.product_variants.email_address);
 
                     $("#coverImgPrev").show();
-                    $("#coverImgPrev").attr("src","<?php echo base_url()."/uploads/product_variants/"; ?>" + data.product_variants.cover_image);
+                    $("#coverImgPrev").attr("src","<?php echo base_url()."/uploads/product_variants/"; ?>" + data.product_variants.cover_image + "?test=" + Math.random().toString(36).substring(7));
                     $("#main-cropper , .actionUpload, #cancel_edit").hide();
                     $("#edit_image").show();
                     $("#code").attr("disabled","disabled");

@@ -91,27 +91,30 @@ class Product_variants_model extends CI_Model {
                 $data["location"] = $this->location;
                 $data["proto"] = $this->proto;
                 $data["molds"] = $this->molds;
-         
                 if( $cover_image != null)
                 {
-                        $upload_path = './uploads/product_variants/'; 
-                        $path = $upload_path.$this->code."_".$this->color_abb."_".$this->id.".png";
-                        if(file_exists($path))
+                        if ($cover_image != "data:,")
                         {
-                                unlink($path);
-                        } 
-                        if (!is_dir($upload_path)) 
-                        {
-                                mkdir($upload_path, 0777, TRUE);
+
+                                $upload_path = './uploads/product_variants/'; 
+                                $path = $upload_path.$this->code."_".$this->color_abb."_".$this->id.".png";
+                                if(file_exists($path))
+                                {
+                                        unlink($path);
+                                } 
+                                if (!is_dir($upload_path)) 
+                                {
+                                        mkdir($upload_path, 0777, TRUE);
+                                        
+                                }
                                 
+                                $img =  $cover_image ;
+                                $img = str_replace('data:image/png;base64,', '', $img);
+                                $img = str_replace(' ', '+', $img);
+                                $datas = base64_decode($img);
+                                file_put_contents($path, $datas);
+                                $data["cover_image"] = $this->code."_".$this->color_abb."_".$this->id.".png";
                         }
-                        
-                        $img =  $cover_image ;
-                        $img = str_replace('data:image/png;base64,', '', $img);
-                        $img = str_replace(' ', '+', $img);
-                        $datas = base64_decode($img);
-                        file_put_contents($path, $datas);
-                        $data["cover_image"] = $this->code."_".$this->color_abb."_".$this->id.".png";
                  }       
                 $data["modified_by"] =  $this->session->userdata("USERID");
                 $data["date_modified"] = date("Y-m-d H:i:s A");
