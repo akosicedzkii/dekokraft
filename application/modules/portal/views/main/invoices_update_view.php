@@ -65,10 +65,10 @@
             <b>Payment Due:</b> 2/22/2014<br>
             <b>Account:</b> 968-34567 -->
             
-            <textarea class="form-control" style="width:70%;"  value="<?php echo $invoice->invoice_remarks;?>" placeholder="Remarks" id="invoice_remarks"/></textarea>
+            <textarea class="form-control" style="width:70%;"   placeholder="Remarks" id="invoice_remarks"/><?php echo $invoice->invoice_remarks;?></textarea>
 
 
-            </div>
+            </div> 
             <!-- /.col -->
         </div>
         <!-- /.row -->
@@ -481,6 +481,8 @@
             });
            
             $("#invoice_form").submit(function(e){
+                
+                $("#save_invoice").button("loading");
                 var values = [];
                 $("input[name='product_selected[]']").each(function( index, currentElement  ) {
                     console.log(index);
@@ -510,7 +512,7 @@
                 formData.append('invoice_number',$("#invoice_number").val());
                 formData.append('mo_number',$("#mo_number").val());
                 formData.append('iq',$("#iq").val());
-                formData.append('remarks',$("#invoice_remarks").val());
+                formData.append('remarks',$("#remarks").val());
                 formData.append('packing_instruction',$("#packing_instruction").val());
                 formData.append('invoice_type',$("#invoice_type").val());
                 formData.append('bank',$("#bank").val());

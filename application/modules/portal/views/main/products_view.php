@@ -131,7 +131,7 @@ $module_name = rtrim($module_name,"s");?>
                                     </div>-->
                                    
                                     <div class="form-group">
-                                        <label for="in_" class="col-sm-2 control-label">IN</label>
+                                        <label for="in_" class="col-sm-2 control-label">Packing</label>
 
                                         <div class="col-sm-5">
                                         <input type="text" style="width:150px;" class="form-control" id="in_" placeholder="IN" required>
@@ -146,19 +146,19 @@ $module_name = rtrim($module_name,"s");?>
                                     </div>
                                     
                                     <div class="form-group">
-                                        <label for="inner_carton" class="col-sm-2 control-label">Inner Carton</label>
+                                        <label for="inner_carton" class="col-sm-2 control-label">Inner Box</label>
 
                                         <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inner_carton" placeholder="Inner Carton" >
+                                        <input type="text" class="form-control" id="inner_carton" placeholder="Inner Box" >
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="master_carton" class="col-sm-2 control-label">Master Carton</label>
+                                        <label for="master_carton" class="col-sm-2 control-label">Master Box</label>
 
                                         <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="master_carton" placeholder="Master Carton" >
+                                        <input type="text" class="form-control" id="master_carton" placeholder="Master Box" >
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
