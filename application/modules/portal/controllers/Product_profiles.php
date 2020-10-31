@@ -43,6 +43,8 @@ class Product_profiles extends CI_Controller {
         $this->product_profiles_model->master_polybag = $this->input->get("master_polybag_add");
         $this->product_profiles_model->in_poly_cost = $this->input->get("in_poly_cost_add");
         $this->product_profiles_model->mstr_poly_cost = $this->input->get("mstr_poly_cost_add");
+        $this->product_profiles_model->in_poly_size = $this->input->get("in_poly_size_add");
+        $this->product_profiles_model->mstr_poly_size = $this->input->get("mstr_poly_size_add");
         echo $this->product_profiles_model->insert_product_profiles();
 	}
     public function update_product_profiles()
@@ -75,6 +77,8 @@ class Product_profiles extends CI_Controller {
         $this->product_profiles_model->master_polybag = $this->input->get("master_polybag_edit");
         $this->product_profiles_model->in_poly_cost = $this->input->get("in_poly_cost_edit");
         $this->product_profiles_model->mstr_poly_cost = $this->input->get("mstr_poly_cost_edit");
+        $this->product_profiles_model->in_poly_size = $this->input->get("in_poly_size_edit");
+        $this->product_profiles_model->mstr_poly_size = $this->input->get("mstr_poly_size_edit");
         echo $this->product_profiles_model->update_material_list();
     }
 
@@ -104,6 +108,8 @@ class Product_profiles extends CI_Controller {
         $this->product_profiles_model->master_polybag = $this->input->post("master_polybag");
         $this->product_profiles_model->in_poly_cost = $this->input->post("in_poly_cost");
         $this->product_profiles_model->mstr_poly_cost = $this->input->post("mstr_poly_cost");
+        $this->product_profiles_model->in_poly_size = $this->input->post("in_poly_size");
+        $this->product_profiles_model->mstr_poly_size = $this->input->post("mstr_poly_size");
         echo $this->product_profiles_model->update_details();
     }
 

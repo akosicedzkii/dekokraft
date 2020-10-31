@@ -235,7 +235,7 @@ class Main extends CI_Controller
             $module["menu"] = $this->user_access;
 
             $product_variant_id = $this->input->get("product_variant_id");
-            $this->db->select("product_variants.*,products.class,products.code,products.description");
+            $this->db->select("product_variants.*,products.class,products.code,products.description,products.in_,products.mstr,products.inner_carton,products.master_carton");
             $this->db->join("products", "products.id=product_variants.product_id");
             $this->db->where("product_variants.id", $product_variant_id);
             $module["product_variants"] = $this->db->get("product_variants")->row();
@@ -454,7 +454,7 @@ class Main extends CI_Controller
         $this->db->where("pol.po_id", $id);
         $module['p_o'] = $this->db->get("purchase_order_lines as pol")->result();
 
-        $this->db->select("s.name");
+        $this->db->select("s.name,po.id");
         $this->db->join('subcon as s', 'po.subcon_id=s.id', 'left');
         $this->db->where("po.id", $id);
         $module['detail'] = $this->db->get("purchase_orders as po")->result();

@@ -6,7 +6,7 @@ td { font-size: 11px; }
 </style>
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
-<?php 
+<?php
 $module_name = "Product Category";
 $module_name = rtrim($module_name,"s");?>
 <section class="content-header">
@@ -36,7 +36,7 @@ $module_name = rtrim($module_name,"s");?>
             <th>ID</th>
             <th>CLASS</th>
             <th>CODE</th>
-            <th>DESCRIPTION</th>  
+            <th>DESCRIPTION</th>
             <th>I(INNER)</th>
             <th>M(MASTER)</th>
             <th>CBM</th>
@@ -70,7 +70,7 @@ $module_name = rtrim($module_name,"s");?>
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-           
+
              <h3 class="modal-title">Add Products</h3>
              <input type="hidden" id="action">
              <input type="hidden" id="productsID">
@@ -94,7 +94,7 @@ $module_name = rtrim($module_name,"s");?>
                                         <a class='btn btn-warning' id="cancel_edit">Cancel</a></center>
                                     <center><div class="help-block with-errors" id="coverError"></div></center>
                                 </div>
-                                
+
                                 <input type="hidden" id="imagebase64">
                             </div>-->
                             <div class="form-group">
@@ -104,7 +104,7 @@ $module_name = rtrim($module_name,"s");?>
                                         <input type="text" class="form-control" onkeyup="this.value = this.value.toUpperCase();" id="inputProductsTitle" placeholder="Product Name" required>
                                         <div class="help-block with-errors"></div>
                                         </div>
-                                    </div> 
+                                    </div>
                                     <div class="form-group">
                                         <label for="class" class="col-sm-2 control-label">Class</label>
 
@@ -129,36 +129,36 @@ $module_name = rtrim($module_name,"s");?>
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>-->
-                                   
+
                                     <div class="form-group">
-                                        <label for="in_" class="col-sm-2 control-label">IN</label>
+                                        <label for="in_" class="col-sm-2 control-label">Packing</label>
 
                                         <div class="col-sm-5">
                                         <input type="text" style="width:150px;" class="form-control" id="in_" placeholder="IN" required>
                                         <div class="help-block with-errors"></div>
-                                       
+
                                         </div>
-                                        
+
                                         <div class="col-sm-5">
                                         <input type="text"  style="width:150px;"class="form-control" id="mstr" placeholder="MSTR" required>
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="form-group">
-                                        <label for="inner_carton" class="col-sm-2 control-label">Inner Carton</label>
+                                        <label for="inner_carton" class="col-sm-2 control-label">Inner Box</label>
 
                                         <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="inner_carton" placeholder="Inner Carton" >
+                                        <input type="text" class="form-control" id="inner_carton" placeholder="Inner Box" >
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="master_carton" class="col-sm-2 control-label">Master Carton</label>
+                                        <label for="master_carton" class="col-sm-2 control-label">Master Box</label>
 
                                         <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="master_carton" placeholder="Master Carton" >
+                                        <input type="text" class="form-control" id="master_carton" placeholder="Master Box" >
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
@@ -208,7 +208,7 @@ $module_name = rtrim($module_name,"s");?>
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         <label for="best_price" class="col-sm-2 control-label">Best Price</label>
 
@@ -241,8 +241,8 @@ $module_name = rtrim($module_name,"s");?>
 
                                 </div>
                             </div>
-                            
-                           
+
+
                             <div class="form-group">
                                 <div id="uploadBoxMain" class="col-md-12">
                                 </div>
@@ -268,7 +268,7 @@ $module_name = rtrim($module_name,"s");?>
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-           
+
              <h3 class="modal-title">Delete Products</h3>
             </div>
             <div class="modal-body">
@@ -293,7 +293,7 @@ $module_name = rtrim($module_name,"s");?>
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-           
+
              <h3 class="modal-title">Cover Image Preview</h3>
             </div>
             <div class="modal-body">
@@ -314,7 +314,7 @@ $module_name = rtrim($module_name,"s");?>
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-           
+
              <h3 class="modal-title">Add Colors</h3>
              <input type="hidden" id="action">
              <input type="hidden" id="colorsID">
@@ -335,7 +335,7 @@ $module_name = rtrim($module_name,"s");?>
                                 <label for="code" class="col-sm-2 control-label">Color Code</label>
 
                                 <div class="col-sm-10">
-                                
+
                                 <input type="text" class="form-control" id="code_" placeholder="Color Code" required>
                                 <div class="help-block with-errors"></div>
                                 </div>
@@ -392,11 +392,11 @@ $("#saveColors").click(function(){
     $("#colorsForm").submit();
 });
 $("#colorsForm").validator().on('submit', function (e) {
-    
+
     var btn = $("#saveColors");
     btn.button("loading");
     if (e.isDefaultPrevented()) {
-        btn.button("reset"); 
+        btn.button("reset");
     } else {
         e.preventDefault();
         var name = $("#name").val();
@@ -406,7 +406,7 @@ $("#colorsForm").validator().on('submit', function (e) {
 
         if(name == "" || code == "")
         {
-            btn.button("reset"); 
+            btn.button("reset");
             return false;
         }
 
@@ -416,7 +416,7 @@ $("#colorsForm").validator().on('submit', function (e) {
         formData.append('code', code);
         formData.append('status', status);
         // Attach file
-        //fromthis    
+        //fromthis
         var url = "<?php echo base_url()."portal/colors/add_colors";?>";
         var message = "New colors successfully added";
 
@@ -441,15 +441,15 @@ $("#colorsForm").validator().on('submit', function (e) {
                             percent = Math.ceil(position / total * 100);
                         }
                         //update progressbar
-                        
+
                         $('#progressBarMain').css('width',percent+'%').html(percent+'%');
-                                                        
+
                     }, true);
                 }
                 return xhr;
             },
             mimeType:"multipart/form-data"
-        }).done(function(data){ 
+        }).done(function(data){
             if(!data)
             {
                 btn.button("reset");
@@ -461,8 +461,8 @@ $("#colorsForm").validator().on('submit', function (e) {
                 btn.button("reset");
                 toastr.success(message);
                 $("#colorsForm").validator('destroy');
-                $("#colorsModal").modal("hide"); 
-                $('#uploadBoxMain').html('');          
+                $("#colorsModal").modal("hide");
+                $('#uploadBoxMain').html('');
             }
         });
     }
@@ -518,7 +518,7 @@ $('.actionDone').on('click', function(){
         placeholder: "--- Select Item ---"
     };
     $("#inputProductsEventDate").datepicker({
-            
+
         autoclose: true,format: 'yyyy-mm-dd'
             });
     $("#inputProductsEventTime").clockpicker({
@@ -530,12 +530,12 @@ $('.actionDone').on('click', function(){
 
     var main = function(){
         var table = $('#productsList').DataTable({
-            "language": {                
+            "language": {
                 "infoFiltered": ""
-            },    
+            },
             'autoWidth'   : true,
             "processing" : true,
-            "serverSide" : true, 
+            "serverSide" : true,
             "ajax" : "<?php if($this->session->userdata("USERTYPE")!=0){ echo base_url()."portal/products/get_products_list"; }else{ echo base_url()."portal/products/get_my_products_list";}?>",
             "initComplete": function(settings,json){
                 $('[data-toggle="tooltip"]').tooltip()
@@ -544,7 +544,7 @@ $('.actionDone').on('click', function(){
             { "visible": false,  "targets": [ 0 ] },
             { "width": "20%",  "targets": [ 3 ] }
         ], "order": [[ 0, 'desc' ]]
-        }); 
+        });
         $("#addBtn").click(function(){
             $("#productsModal .modal-title").html("Add <?php echo ucfirst($module_name);?>");
             $("#action").val("add");
@@ -553,7 +553,7 @@ $('.actionDone').on('click', function(){
             $("#productsModal").modal("show");
             $("#main-cropper , .actionUpload").show();
             $("#edit_image , #cancel_edit, #coverImgPrev").hide();
-            
+
             $("#code").removeAttr("disabled");
             is_edit = 1;
             /*$uploadCrop.croppie('bind', {
@@ -578,7 +578,7 @@ $('.actionDone').on('click', function(){
             }else{
                 $("#productsForm").submit();
             }
-          
+
         });
 
         var image_correct = true;
@@ -588,7 +588,7 @@ $('.actionDone').on('click', function(){
             var action = $("#action").val();
             btn.button("loading");
             if (e.isDefaultPrevented()) {
-                btn.button("reset"); 
+                btn.button("reset");
             } else {
                 e.preventDefault();
                 var title = $("#inputProductsTitle").val();
@@ -608,7 +608,7 @@ $('.actionDone').on('click', function(){
                 var minimum_of_quantity = $("#minimum_of_quantity").val();
                 var lowest_cost = $("#lowest_cost").val();
                 var best_price = $("#best_price").val();
-                var old_price = $("#old_price").val(); 
+                var old_price = $("#old_price").val();
                 var location = $("#location").val();
                 //var proto = $("#proto").val();
                 var fob = $("#fob").val();
@@ -633,7 +633,7 @@ $('.actionDone').on('click', function(){
                 //formData.append('location', location);
                 formData.append('code', code);
                 formData.append('fob', fob);
-                
+
                 if(is_edit==1)
                 {
                     formData.append('cover_image', $('#imagebase64').val());
@@ -644,10 +644,10 @@ $('.actionDone').on('click', function(){
                 {
                     url =  "<?php echo base_url()."portal/products/edit_products";?>";
                     message = "Product successfully updated";
-                
+
                 }
-               
-               
+
+
                 $('#uploadBoxMain').html('<div class="progress"><div class="progress-bar progress-bar-aqua" id = "progressBarMain" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 0%"><span class="sr-only">20% Complete</span></div></div>');
                 $.ajax({
                     data: formData,
@@ -668,22 +668,22 @@ $('.actionDone').on('click', function(){
                                     percent = Math.ceil(position / total * 100);
                                 }
                                 //update progressbar
-                                
+
                                 $('#progressBarMain').css('width',percent+'%').html(percent+'%');
-                                                                
+
                             }, true);
                         }
                         return xhr;
                     },
                     mimeType:"multipart/form-data"
-                }).done(function(data){ 
+                }).done(function(data){
                     console.log(data)
                     if(data!=true)
                     {
                         btn.button("reset");
                         toastr.error(data);
                          $("#productsForm").validator('destroy');
-                         $("#productsModal").modal("hide"); 
+                         $("#productsModal").modal("hide");
                     }
                     else
                     {
@@ -706,7 +706,7 @@ $('.actionDone').on('click', function(){
                          }
                          toastr.success(message);
                          $("#productsForm").validator('destroy');
-                         $("#productsModal").modal("hide"); 
+                         $("#productsModal").modal("hide");
                     }
                 });
 
@@ -788,8 +788,8 @@ $('.actionDone').on('click', function(){
     function _edit(id)
     {
         $("#productsModal .modal-title").html("Edit <?php echo ucfirst($module_name);?>");
-        $(".add").hide();    
-        $('#productsForm').validator();    
+        $(".add").hide();
+        $('#productsForm').validator();
         $("#action").val("edit");
         $("#upload").removeAttr("required");
         $("#inputProductsname").attr("data-remote","<?php echo base_url()."products/check_productsname_exist?method=edit&products_id=";?>" + id);
@@ -808,12 +808,12 @@ $('.actionDone').on('click', function(){
                     $("#inputProductsTitle").val(data.products.title);
                     //$("#inputDescription").val(data.products.description);
                     $("#inputStatus").val(data.products.status).trigger('change');
-                    
+
                     $("#class").val(data.products.class);
                     $("#code").val(data.products.code);
                     //$("#color").select2('data', { id:data.products.color_abb, label: data.products.color});
                     $("#color").append(new Option(data.products.color,data.products.color_abb,  true, true)).trigger('change');
-                    
+
                     $("#color_abb").val(data.products.color_abb);
                     $("#in_").val(data.products.in_);
                     $("#mstr").val(data.products.mstr);
@@ -849,8 +849,8 @@ $('.actionDone').on('click', function(){
     function _view(id)
     {
         $("#productsModal .modal-title").html("View <?php echo ucfirst($module_name);?>");
-        $(".add").hide();    
-        $('#productsForm').validator();    
+        $(".add").hide();
+        $('#productsForm').validator();
         $("#action").val("edit");
         $("#upload").removeAttr("required");
         $("#inputProductsname").attr("data-remote","<?php echo base_url()."products/check_productsname_exist?method=edit&products_id=";?>" + id);
@@ -926,14 +926,14 @@ $('.actionDone').on('click', function(){
         $("#deleteKey").val(id);
         $("#deleteProductsModal").modal("show");
     }
-    
+
     function img_preview(img_src)
     {
         $("#imgPreview").attr("src","<?php echo base_url()."uploads/products/"?>"+img_src);
         $("#imgPreviewModal").modal("show");
     }
 
-    
+
     function set_image_loader(var_holder,file_holder)
     {
         $("#var_holder").val(var_holder);
