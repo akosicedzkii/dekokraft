@@ -104,13 +104,13 @@
           foreach ($jopo as $list) {
             switch ($list->job_type) {
               case 'resin':
-                $res=date("F d, Y", strtotime($list->deadline));
+                $res=date("m/d/y", strtotime($list->deadline));
                 break;
               case 'spray':
-                $spry=date("F d, Y", strtotime($list->deadline));
+                $spry=date("m/d/y", strtotime($list->deadline));
                 break;
               case 'finishing':
-                $fnsh=date("F d, Y", strtotime($list->deadline));
+                $fnsh=date("m/d/y", strtotime($list->deadline));
                 break;
               // default:
               //   // code...
@@ -119,9 +119,9 @@
           }
         }
          ?>
-        <p class="m-b">Resin: <?php echo ($res=='')?'_______________':$res; ?></p>
-        <p class="m-b">Spray: <?php echo ($spry=='')?'_______________':$spry; ?></p>
-        <p>Finish: <?php echo ($fnsh=='')?'_______________':$fnsh; ?></p>
+        <p class="m-b">Resin: <?php echo ($res=='')?'_______________':'JO#'.$list->id.' ('.$res.')'; ?></p>
+        <p class="m-b">Spray: <?php echo ($spry=='')?'_______________':'JO#'.$list->id.' ('.$spry.')'; ?></p>
+        <p>Finish: <?php echo ($fnsh=='')?'_______________':'JO#'.$list->id.' ('.$fnsh.')'; ?></p>
       </div>
       <div class="col-sm-4 invoice-col">
 

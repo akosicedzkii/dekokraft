@@ -182,7 +182,7 @@ class Main extends CI_Controller
               $module["menu"] = $this->user_access;
 
               if($with=='1'){
-                $this->db->select("job_type,deadline");
+                $this->db->select("job_type,deadline,id");
                 $this->db->where("mo_id", $module["mo"]->id);
                 $module["jopo"]= $this->db->get("job_orders")->result();
                 $module["with"]='1';
