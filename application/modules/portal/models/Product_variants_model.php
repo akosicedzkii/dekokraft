@@ -43,8 +43,6 @@ class Product_variants_model extends CI_Model {
                 $data["proto"] = $this->proto;
                 $data["molds"] = $this->molds;
                 $upload_path = './uploads/product_variants/';  
-               
-                
                 echo $result = $this->db->insert('product_variants', $data);
                 if($result)
                 {
@@ -54,14 +52,15 @@ class Product_variants_model extends CI_Model {
                         {
                                 mkdir($upload_path, 0777, TRUE);
                         }
-                        $path = $upload_path.$this->code."_".$this->color_abb."_".$insertId.".png";
+                        $path = $upload_path.$this->code."_".$this->color_abb."_".$insertId.".png"; 
+                        $thumbpath = $upload_path.'thumb/'.$this->code."_".$this->color_abb."_".$insertId.".png";        
                         $img =  $this->cover_image;
                         $img = str_replace('data:image/png;base64,', '', $img);
                         $img = str_replace('data:image/png;base64,', '', $img);
                         $img = str_replace(' ', '+', $img);
                         $datas = base64_decode($img);
-                        file_put_contents($path, $datas);  
-                        
+                        file_put_contents($path, $datas); 
+                        $this->make_thumbnail($path  ,$thumbpath); 
                         $dataImage["cover_image"] = $this->code."_".$this->color_abb."_".$insertId.".png";
                         $this->db->where("id",$insertId);
                         $this->db->update("product_variants",$dataImage);
@@ -98,6 +97,7 @@ class Product_variants_model extends CI_Model {
 
                                 $upload_path = './uploads/product_variants/'; 
                                 $path = $upload_path.$this->code."_".$this->color_abb."_".$this->id.".png";
+                                $thumbpath = $upload_path.'thumb/'.$this->code."_".$this->color_abb."_".$this->id.".png";
                                 if(file_exists($path))
                                 {
                                         unlink($path);
@@ -113,6 +113,7 @@ class Product_variants_model extends CI_Model {
                                 $img = str_replace(' ', '+', $img);
                                 $datas = base64_decode($img);
                                 file_put_contents($path, $datas);
+                                $this->make_thumbnail($path  ,$thumbpath); 
                                 $data["cover_image"] = $this->code."_".$this->color_abb."_".$this->id.".png";
                         }
                  }       
@@ -130,6 +131,27 @@ class Product_variants_model extends CI_Model {
                 $this->logs->created_by = $this->session->userdata("USERID");
                 $this->logs->insert_log();
 
+        }
+
+        public function make_thumbnail($filename,$destination_img)
+        {
+                $im = imagecreatefrompng($filename);
+                $source_width = imagesx($im);
+                $source_height = imagesy($im);
+                $ratio =  $source_height / $source_width;
+
+                $new_width = 300; // assign new width to new resized image
+                $new_height = $ratio * 300;
+
+                $thumb = imagecreatetruecolor($new_width, $new_height);
+
+                $transparency = imagecolorallocatealpha($thumb, 255, 255, 255, 127);
+                imagefilledrectangle($thumb, 0, 0, $new_width, $new_height, $transparency);
+
+                imagecopyresampled($thumb, $im, 0, 0, 0, 0, $new_width, $new_height, $source_width, $source_height);
+
+                imagepng($thumb, $destination_img, 9);
+                imagedestroy($im);
         }
 
 }

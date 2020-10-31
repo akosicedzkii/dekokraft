@@ -1426,7 +1426,7 @@ $('.actionDone').on('click', function(){
     
     function img_preview(img_src)
     {
-        $("#imgPreview").attr("src","<?php echo base_url()."uploads/product_variants/"?>"+img_src);
+        $("#imgPreview").attr("src","<?php echo base_url()."uploads/product_variants/"?>"+img_src+"?text="+Math.random().toString(36).substring(7));
         $("#imgPreviewModal").modal("show");
     }
 

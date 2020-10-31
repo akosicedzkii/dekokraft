@@ -168,7 +168,7 @@ class Product_variants extends CI_Controller {
                     {
                         if($aRow[$col] != null)
                         {    
-                            $row[] = "<center><a href=\"#\" onclick='return false;'><img class='img-thumbnail' src='".base_url()."uploads/product_variants/".$aRow[$col]."?dummy=".time()."' style='height:70px;' onclick='img_preview(\"".$aRow[$col]."\");return false;'></a></center>";
+                            $row[] = "<center><a href=\"#\" onclick='return false;'><img class='img-thumbnail' src='".base_url()."uploads/product_variants/thumb/".$aRow[$col]."?dummy=".time()."' style='height:70px;' onclick='img_preview(\"".$aRow[$col]."\");return false;'></a></center>";
                         }
                         else
                         {
