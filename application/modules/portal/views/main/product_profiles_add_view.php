@@ -63,11 +63,36 @@
             </div>
             <div class="col-sm-12 invoice-col">
               <table class="table" id="listing">
-                  <tr><th>CBM (Standard Pack)</th><th>Content</th><th>Unit Cost</th></tr>
-                  <tr><td>Inner Box</td><td></td><td><input type='number' id="inner_box" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_box_cost;}?>" class="form-control"></td></tr>
-                  <tr><td>Master Box</td><td></td><td><input type='number' id="master_box" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->mstr_box_cost; }?>" class="form-control"></td></tr>
-                  <tr><td>Inner Polybag</td><td><input type='number' id="inner_polybag" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_poly_cont; }?>" class="form-control"></td><td><input type='number' id="in_poly_cost" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_poly_cost; }?>" class="form-control"></td></tr>
-                  <tr><td>Master Polybag</td><td><input type='number' id="master_polybag" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->mstr_poly_cont; }?>" class="form-control"></td><td><input type='number' id="mstr_poly_cost" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->mstr_poly_cost; }?>" class="form-control"></td></tr>
+                  <tr>
+                    <th>CBM (Standard Pack)</th>
+                    <th>LxWxH</th>
+                    <th>Content</th>
+                    <th>Unit Cost</th>
+                  </tr>
+                  <tr>
+                    <td>Inner Box</td>
+                    <td><?php echo $product_variants->inner_carton; ?></td>
+                    <td><?php echo $product_variants->in_; ?></td>
+                    <td><input type='number' id="inner_box" style="width:150px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_box_cost;}?>" class="form-control"></td>
+                    </tr>
+                  <tr>
+                    <td>Master Box</td>
+                    <td><?php echo $product_variants->master_carton; ?></td>
+                    <td><?php echo $product_variants->mstr; ?></td>
+                    <td><input type='number' id="master_box" style="width:150px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->mstr_box_cost; }?>" class="form-control"></td>
+                    </tr>
+                  <tr>
+                    <td>Inner Polybag</td>
+                    <td><input type='text' id="inner_poly_size" style="width:150px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_poly_size; }?>" class="form-control"></td>
+                    <td><input type='number' id="inner_polybag" style="width:150px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_poly_cont; }?>" class="form-control"></td>
+                    <td><input type='number' id="in_poly_cost" style="width:150px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_poly_cost; }?>" class="form-control"></td>
+                  </tr>
+                  <tr>
+                    <td>Master Polybag</td>
+                    <td><input type='text' id="master_poly_size" style="width:150px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->mstr_poly_size; }?>" class="form-control"></td>
+                    <td><input type='number' id="master_polybag" style="width:150px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->mstr_poly_cont; }?>" class="form-control"></td>
+                    <td><input type='number' id="mstr_poly_cost" style="width:150px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->mstr_poly_cost; }?>" class="form-control"></td>
+                    </tr>
               </table>
             </div>
           </div>
@@ -206,6 +231,8 @@
                         <input type="hidden" name="master_polybag_add"  id="master_polybag_add">
                         <input type="hidden" name="in_poly_cost_add"  id="in_poly_cost_add">
                         <input type="hidden" name="mstr_poly_cost_add"  id="mstr_poly_cost_add">
+                        <input type="hidden" name="in_poly_size_add"  id="in_poly_size_add">
+                        <input type="hidden" name="mstr_poly_size_add"  id="mstr_poly_size_add">
                         <input type="hidden" name="product_variant_id" value="<?php echo $product_variants->id;?>">
                         <div class="box-body">
                             <div class="form-group">
@@ -313,6 +340,8 @@
                         <input type="hidden" name="master_polybag_edit"  id="master_polybag_edit">
                         <input type="hidden" name="in_poly_cost_edit"  id="in_poly_cost_edit">
                         <input type="hidden" name="mstr_poly_cost_edit"  id="mstr_poly_cost_edit">
+                        <input type="hidden" name="in_poly_size_edit"  id="in_poly_size_edit">
+                        <input type="hidden" name="mstr_poly_size_edit"  id="mstr_poly_size_edit">
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="group_name" class="col-sm-2 control-label">Material List Name</label>
@@ -763,6 +792,8 @@ $("#updateDetails").click(function(){
     formData.append("master_polybag",$("#master_polybag").val());
     formData.append("in_poly_cost",$("#in_poly_cost").val());
     formData.append("mstr_poly_cost",$("#mstr_poly_cost").val());
+    formData.append("in_poly_size",$("#inner_poly_size").val());
+    formData.append("mstr_poly_size",$("#master_poly_size").val());
     formData.append("product_profile_id","<?php if(isset($prod_profile_details)){ echo $prod_profile_details->id;}?>");
 
     $.ajax({
@@ -835,6 +866,8 @@ $("#saveMaterials").click(function(){
     $("#master_polybag_add").val($("#master_polybag").val());
     $("#in_poly_cost_add").val($("#in_poly_cost").val());
     $("#mstr_poly_cost_add").val($("#mstr_poly_cost").val());
+    $("#in_poly_size_add").val($("#inner_poly_size").val());
+    $("#mstr_poly_size_add").val($("#master_poly_size").val());
     console.log($("#product_profilesForm_edit").serialize());
     console.log($("#product_profilesForm").serialize());
     $.ajax({
@@ -912,6 +945,8 @@ $("#saveMaterials_edit").click(function(){
     $("#master_polybag_edit").val($("#master_polybag").val());
     $("#in_poly_cost_edit").val($("#in_poly_cost").val());
     $("#mstr_poly_cost_edit").val($("#mstr_poly_cost").val());
+    $("#in_poly_size_edit").val($("#inner_poly_size").val());
+    $("#mstr_poly_size_edit").val($("#master_poly_size").val());
     console.log($("#product_profilesForm_edit").serialize());
     $.ajax({
     data: $("#product_profilesForm_edit").serialize(),

@@ -58,6 +58,8 @@ class Product_profiles_model extends CI_Model {
                 $data["mstr_poly_cont"] = $this->master_polybag;
                 $data["in_poly_cost"] = $this->in_poly_cost;
                 $data["mstr_poly_cost"] = $this->mstr_poly_cost;
+                $data["in_poly_size"] = $this->in_poly_size;
+                $data["mstr_poly_size"] = $this->mstr_poly_size;
                 $this->db->insert("product_profiles",$data);
                 $insertId = $this->db->insert_id();
                 $this->id = $insertId;
@@ -87,6 +89,8 @@ class Product_profiles_model extends CI_Model {
                 $data4["mstr_poly_cont"] = $this->master_polybag;
                 $data4["in_poly_cost"] = $this->in_poly_cost;
                 $data4["mstr_poly_cost"] = $this->mstr_poly_cost;
+                $data4["in_poly_size"] = $this->in_poly_size;
+                $data4["mstr_poly_size"] = $this->mstr_poly_size;
 
                 $this->db->where("id",$this->id);
                 $this->db->update("product_profiles",$data4);
@@ -165,6 +169,8 @@ class Product_profiles_model extends CI_Model {
             $data4["mstr_poly_cont"] = $this->master_polybag;
             $data4["in_poly_cost"] = $this->in_poly_cost;
             $data4["mstr_poly_cost"] = $this->mstr_poly_cost;
+            $data4["in_poly_size"] = $this->in_poly_size;
+            $data4["mstr_poly_size"] = $this->mstr_poly_size;
             $this->db->where("id",$this->product_profile_id);
             $this->db->update("product_profiles",$data4);
             $this->logs->log = "Updated Product Profile - ID:". $this->product_profile_id ;
@@ -199,6 +205,8 @@ class Product_profiles_model extends CI_Model {
             $data4["mstr_poly_cont"] = $this->master_polybag;
             $data4["in_poly_cost"] = $this->in_poly_cost;
             $data4["mstr_poly_cost"] = $this->mstr_poly_cost;
+            $data4["in_poly_size"] = $this->in_poly_size;
+            $data4["mstr_poly_size"] = $this->mstr_poly_size;
             $this->db->where("id",$this->product_profile_id);
             $this->db->update("product_profiles",$data4);
             $this->logs->log = "Updated Product Profile - ID:". $this->product_profile_id ;

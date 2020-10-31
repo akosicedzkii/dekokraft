@@ -436,13 +436,13 @@
               <tbody>
                 <tr>
                   <td class="tbl-pad">Inner Polybag</td>
-                  <td class="tbl-pad"><!--BUBBLE BAG 00 X 00--></td>
+                  <td class="tbl-pad"><?php echo $prod_profile->in_poly_size; ?><!--BUBBLE BAG 00 X 00--></td>
                   <td class="tbl-pad"><?php echo $prod_profile->in_poly_cont; ?> pcs.</td>
                   <td class="tbl-pad">P <?php echo number_format(floatval($prod_profile->in_poly_cost),2); ?></td>
                 </tr>
                 <tr>
                   <td class="tbl-pad">Master Polybag</td>
-                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"><?php echo $prod_profile->mstr_poly_size; ?></td>
                   <td class="tbl-pad"><?php echo $prod_profile->mstr_poly_cont; ?> pcs.</td>
                   <td class="tbl-pad">P <?php echo number_format(floatval($prod_profile->mstr_poly_cost),2); ?></td>
                 </tr>

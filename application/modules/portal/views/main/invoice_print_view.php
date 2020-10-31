@@ -2,7 +2,7 @@
 <html lang="en"><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?php echo "INVOINCE:#".$invoice->id;?></title>
+  <title><?php echo "INVOICE:#".$invoice->id;?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -38,7 +38,7 @@
   padding: 1px !important;
 }
 </style>
-<body onload="window.print();" style="font-size: 10px;line-height: 1;">
+<body onload="window.print();" style="font-size: 12px;line-height: 1;">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
@@ -79,7 +79,7 @@
     <!-- Table row -->
     <div class="row">
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:8px;border-bottom: 1px solid black;border-top: 1px solid black;margin-bottom:10px">
+        <table class="table table-striped table-condensed" style="font-size:10px;border-bottom: 1px solid black;border-top: 1px solid black;margin-bottom:10px">
         <thead>
           <tr>
             <th colspan="3" class="text-center tbl-pad"></th>
@@ -103,6 +103,7 @@
           <tbody>
           <?php
             $total_price = 0;
+            $total_prod_price=0;
             $total_discounted = 0;
             $item_no=1;
             $total_quntity=0;
@@ -111,6 +112,7 @@
           <?php foreach ($invoice_lines as $line) {
               $total_quntity=$total_quntity+$line->quantity;
               $total_price = $total_price + ($line->quantity* $line->product_price);
+              $total_prod_price=$total_prod_price+$line->product_price;
               $total_discounted = $total_discounted + (($line->quantity*$line->product_price)-($line->quantity*$line->product_price)*($line->discount/100));
 
               $res_mstr=0;
@@ -145,7 +147,9 @@
               <td style="border-top: 1px solid black;" class="text-center tbl-pad">/</td>
               <td colspan="2" style="border-top: 1px solid black;" class="text-left tbl-pad">EST CBM= <?php echo number_format($est_cbm,4); ?></td>
               <td style="border-top: 1px solid black;" class="text-center tbl-pad"><?php echo number_format($total_quntity); ?></td>
-              <td colspan="3" class="tbl-pad" style="border-top: 1px solid black;"></td>
+              <td class="tbl-pad" style="border-top: 1px solid black;"></td>
+              <td class="tbl-pad text-center" style="border-top: 1px solid black;"><?php echo number_format($total_prod_price,2); ?></td>
+              <td class="tbl-pad text-center" style="border-top: 1px solid black;"><?php echo number_format($total_price,2); ?></td>
             </tr>
           </tbody>
         </table>
