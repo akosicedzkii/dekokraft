@@ -39,7 +39,7 @@
 
     body
     {
-        font-size:10px;
+        font-size:11px;
     }
 
 }
@@ -62,7 +62,7 @@
     margin-bottom:0px;
   }
 </style>
-<body onload="window.print();" style="font-size: 10px;line-height: 1;">
+<body onload="window.print();" style="font-size: 11px;line-height: 1;">
 
 <div class="wrapper">
   <!-- Main content -->
@@ -108,7 +108,7 @@
         <div class="row">
           <div class="col-sm-12 table-responsive">
             <p class="m-b">MATERIAL REQUIREMENT SUMMARY :</p>
-            <table class="table table-striped table-condensed" style="font-size:9px;border-bottom: 1px solid black;margin-bottom:10px">
+            <table class="table table-striped table-condensed" style="font-size:10px;border-bottom: 1px solid black;margin-bottom:10px">
               <thead>
                 <tr>
                   <th class="tbl-pad bb"></th>
@@ -129,9 +129,6 @@
                   if ($material_groups!=null) {
                       $counts=0;
                       foreach ($material_groups as $material_items) {
-                          // foreach ($material_groups as $material) {
-                          //if ($material[0] != null) {
-                          //foreach ($material[0] as $material_items) {
                           switch ($material_items['jp']) {
                                   case 'R':
                                     $total_r=$total_r+floatval($material_items['qty'])*floatval($material_items['cost']);

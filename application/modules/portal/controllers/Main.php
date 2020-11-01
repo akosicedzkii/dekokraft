@@ -243,6 +243,10 @@ class Main extends CI_Controller
             $module["material_groups"] = null;
             $ret = array();
             $module["net_weight"] = "";
+            $total_r=0;
+            $total_m=0;
+            $total_f=0;
+            $total_ap=0;
             if (!$product_profile_id == null) {
                 $this->db->where("product_profile_id", $product_profile_id->id);
                 $result =  $this->db->get("product_material_group")->result_array();
@@ -256,7 +260,32 @@ class Main extends CI_Controller
                         array_push($ret, $res);
                     }
                 }
+
+                foreach ($ret as $material_items) {
+                  switch ($material_items[0][0]['jp']) {
+                          case 'R':
+                            $total_r=$total_r+floatval($material_items[0][0]['qty'])*floatval($material_items[0][0]['cost']);
+                            break;
+
+                          case 'M':
+                            $total_m=$total_m+floatval($material_items[0][0]['qty'])*floatval($material_items[0][0]['cost']);
+                            break;
+
+                          case ('F' || 'FA' || 'FB' || 'FC'):
+                            $total_f=$total_f+floatval($material_items[0][0]['qty'])*floatval($material_items[0][0]['cost']);
+                            break;
+
+                          case 'AP':
+                            $total_ap=$total_ap+floatval($material_items[0][0]['qty'])*floatval($material_items[0][0]['cost']);
+                            break;
+
+                          default:
+                            // code...
+                            break;
+                        }
+                }
             }
+            $module["total_material"] = array('total_r'=>$total_r,'total_m'=>$total_m,'total_f'=>$total_f,'total_ap'=>$total_ap);
             $module["material_groups"] = $ret;
             $this->load->view('main/template/header', $module);
             $this->load->view('main/product_profiles_add_view', $module);

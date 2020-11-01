@@ -42,24 +42,67 @@
         </div>
         <div class="row invoice-info">
           <div class="col-sm-8 invoice-col">
-            <div class="col-sm-6 invoice-col">
-                <table class="table" id="listing">
-                    <tr><th>Labor Cost</th><th>JP</th><th>Provided(C)</th></tr>
-                    <tr><td>Resin Cast</td><td>(RA)</td><td><input type='number' id="provided_resin_cast" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_cast;}?>" class="form-control"></td></tr>
-                    <tr><td>Resin Clean</td><td>(RL)</td><td><input type='number' id="provided_resin_clean" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_clean; }?>" class="form-control"></td></tr>
-                    <tr><td>Finishing</td><td>(F)</td><td><input type='number' id="provided_finishing" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_finishing; }?>" class="form-control"></td></tr>
-                    <tr><td>Artist Painting Material</td><td>(AP)</td><td></td></tr>
-                </table>
-            </div>
-            <div class="col-sm-6 invoice-col">
-            <table class="table" id="listing">
-                    <tr><th>L.C PESO COSTING </th><th></th></tr>
-                    <tr><td>Selling L.C.</td><td><input type='number' id="selling_lc" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->selling_lc; }?>" class="form-control"></td></tr>
-                    <tr><td>Sub-con L.C.</td><td><input type='number' id="subcon_lc" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->subcon_lc; }?>" class="form-control"></td></tr>
-                    <tr><td>Derived Price (A)</td><td><input type='number' id="derived_price_a" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->derived_price_a; }?>" class="form-control"></td></tr>
-                    <tr><td>Derived Price (B)</td><td><input type='number' id="derived_price_b" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->derived_price_b; }?>" class="form-control"></td></tr>
-                    <tr><td>PESO/US$Conversion</td><td><input type='number' id="peso_conversion" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->peso_conversion; }?>" class="form-control"></td></tr>
-                </table>
+            <div class="col-sm-12 invoice-col">
+              <?php
+               $subcon_resin_cast=0;
+               $subcon_resin_clean=0;
+               $subcon_finishing=0;
+                if(isset($prod_profile_details)){
+                  $subcon_resin_cast=$prod_profile_details->provided_resin_cast==''?0:$prod_profile_details->provided_resin_cast;
+                  $subcon_resin_clean=$prod_profile_details->provided_resin_clean==''?0:$prod_profile_details->provided_resin_clean;
+                  $subcon_finishing=$prod_profile_details->provided_finishing==''?0:$prod_profile_details->provided_finishing;
+                }
+               ?>
+              <table class="table" id="listing">
+                      <tr>
+                        <th>SUBCON JOB COST  </th>
+                        <th>DERIVED (A+B)</th>
+                        <th>DERIVED (A+C)</th>
+                        <th>PROVIDED</th>
+                      </tr>
+                      <tr>
+                        <td>Resin - Subcon Mat’l Mold and Labor</td>
+                        <td><?php echo $resin_sub_mat=number_format($total_material['total_r']+$total_material['total_m'],2); ?></td>
+                        <td><?php echo $resin_derived_ac=number_format(str_replace(',', '', $resin_sub_mat)+($subcon_resin_cast+$subcon_resin_clean), 2); ?></td>
+                        <td><input type='number' id="provided_resin_mat" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_mat; }?>" class="form-control"></td>
+                      </tr>
+                      <tr>
+                        <td>Resin - Subcon Labor, Dekokraft Mat’l</td>
+                        <td>0.00</td>
+                        <td><?php echo number_format($subcon_resin_cast+$subcon_resin_clean,2); ?></td>
+                        <td><input type='number' id="provided_resin_lab" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_lab; }?>" class="form-control"></td>
+                      </tr>
+                      <tr>
+                        <td>Finishing - Subcon Materials and Labor</td>
+                        <td><?php echo number_format($total_material['total_f'],2); ?></td>
+                        <td><?php echo $finishing_ac=number_format($total_material['total_f']+$subcon_finishing,2); ?></td>
+                        <td><input type='number' id="provided_finishing_mat" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_finishing_mat; }?>" class="form-control"></td>
+                      </tr>
+                      <tr>
+                        <td>Finishing - Subcon Labor, Dekokraft Mat’l</td>
+                        <td>0.00</td>
+                        <td><?php echo number_format($subcon_finishing,2); ?></td>
+                        <td><input type='number' id="provided_finishing_lab" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_finishing_lab; }?>" class="form-control"></td>
+                      </tr>
+                      <tr>
+                        <td>Artist - Subcon Materials and Labor</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td><input type='number' id="provided_artist_mat" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_artist_mat; }?>" class="form-control"></td>
+                      </tr>
+                      <tr>
+                        <td>Artist - Subcon Labor, Dekokraft Mat’l</td>
+                        <td>0.00</td>
+                        <td>0.00</td>
+                        <td><input type='number' id="provided_artist_lab" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_artist_lab; }?>" class="form-control"></td>
+                      </tr>
+                      <tr>
+                        <td>Trading </td>
+                        <td><?php echo number_format(str_replace(',', '', $resin_sub_mat)+$total_material['total_f'], 2); ?></td>
+                        <td><?php echo number_format(str_replace(',', '', $finishing_ac)+str_replace(',', '', $resin_derived_ac), 2); ?></td>
+                        <td><input type='number' id="provided_trading" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_trading; }?>" class="form-control"></td>
+                      </tr>
+                  </table>
             </div>
             <div class="col-sm-12 invoice-col">
               <table class="table" id="listing">
@@ -98,16 +141,26 @@
           </div>
 
             <div class="col-sm-4 invoice-col">
-            <table class="table" id="listing">
-                    <tr><th>SUBCON JOB COST  </th><th>PROVIDED</th></tr>
-                    <tr><td>Resin - Subcon Mat’l Mold and Labor</td><td><input type='number' id="provided_resin_mat" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_mat; }?>" class="form-control"></td></tr>
-                    <tr><td>Resin - Subcon Labor, Dekokraft Mat’l</td><td><input type='number' id="provided_resin_lab" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_lab; }?>" class="form-control"></td></tr>
-                    <tr><td>Finishing - Subcon Materials and Labor</td><td><input type='number' id="provided_finishing_mat" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_finishing_mat; }?>" class="form-control"></td></tr>
-                    <tr><td>Finishing - Subcon Labor, Dekokraft Mat’l</td><td><input type='number' id="provided_finishing_lab" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_finishing_lab; }?>" class="form-control"></td></tr>
-                    <tr><td>Artist - Subcon Materials and Labor</td><td><input type='number' id="provided_artist_mat" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_artist_mat; }?>" class="form-control"></td></tr>
-                    <tr><td>Artist - Subcon Labor, Dekokraft Mat’l</td><td><input type='number' id="provided_artist_lab" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_artist_lab; }?>" class="form-control"></td></tr>
-                    <tr><td>Trading </td><td><input type='number' id="provided_trading" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_trading; }?>" class="form-control"></td></tr>
-                </table>
+              <div class="col-sm-12 invoice-col">
+                  <table class="table" id="listing">
+                      <tr><th>Labor Cost</th><th>JP</th><th>Provided(C)</th></tr>
+                      <tr><td>Resin Cast</td><td>(RA)</td><td><input type='number' id="provided_resin_cast" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_cast;}?>" class="form-control"></td></tr>
+                      <tr><td>Resin Clean</td><td>(RL)</td><td><input type='number' id="provided_resin_clean" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_resin_clean; }?>" class="form-control"></td></tr>
+                      <tr><td>Finishing</td><td>(F)</td><td><input type='number' id="provided_finishing" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->provided_finishing; }?>" class="form-control"></td></tr>
+                      <tr><td>Artist Painting Material</td><td>(AP)</td><td></td></tr>
+                  </table>
+              </div>
+              <div class="col-sm-12 invoice-col">
+              <table class="table" id="listing">
+                      <tr><th>L.C PESO COSTING </th><th></th></tr>
+                      <tr><td>Selling L.C.</td><td><input type='number' id="selling_lc" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->selling_lc; }?>" class="form-control"></td></tr>
+                      <tr><td>Sub-con L.C.</td><td><input type='number' id="subcon_lc" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->subcon_lc; }?>" class="form-control"></td></tr>
+                      <tr><td>Derived Price (A)</td><td><input type='number' id="derived_price_a" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->derived_price_a; }?>" class="form-control"></td></tr>
+                      <tr><td>Derived Price (B)</td><td><input type='number' id="derived_price_b" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->derived_price_b; }?>" class="form-control"></td></tr>
+                      <tr><td>PESO/US$Conversion</td><td><input type='number' id="peso_conversion" style="width:200px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->peso_conversion; }?>" class="form-control"></td></tr>
+                  </table>
+              </div>
+
             </div>
         </div>
         <div class="row">

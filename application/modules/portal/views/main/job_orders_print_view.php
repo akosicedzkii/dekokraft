@@ -43,7 +43,7 @@
   border-bottom: 1px solid black !important;
 }
 </style>
-<body onload="window.print();" style="font-size: 10px;" class="l-h">
+<body onload="window.print();" style="font-size: 11px;" class="l-h">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
@@ -89,7 +89,7 @@
     <!-- Table row -->
     <div class="row">
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:8px;border-top: 1px solid black;">
+        <table class="table table-striped table-condensed" style="font-size:9px;border-top: 1px solid black;">
         <thead>
                 <tr>
                 <th class="tbl-pad bb">Stock #</th>
@@ -238,9 +238,9 @@
             <p>P______________</p>
           </div>
           <div class="col-xs-5">
-            <p>Check # ______________</p>
-            <p>Check # ______________</p>
-            <p>Check # ______________</p>
+            <p>Check # _____________</p>
+            <p>Check # _____________</p>
+            <p>Check # _____________</p>
           </div>
         </div>
         <div class="col-xs-6">
@@ -260,7 +260,7 @@
     <div class="row">
       <p class="text-center">*** JOB ORDER LIST ***</p>
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:8px;">
+        <table class="table table-striped table-condensed" style="font-size:9px;">
         <thead>
           <tr>
             <th class="tbl-pad bb">Stock #</th>

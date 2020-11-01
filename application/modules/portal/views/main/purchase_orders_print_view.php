@@ -120,7 +120,7 @@
     <!-- Table row -->
     <div class="row">
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:8px;border-top: 1px solid black;margin-bottom:10px;">
+        <table class="table table-striped table-condensed" style="font-size:9px;border-top: 1px solid black;margin-bottom:10px;">
         <thead>
                 <tr>
                 <th class="tbl-pad bb">Item No.</th>
