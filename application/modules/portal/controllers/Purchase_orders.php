@@ -22,9 +22,10 @@ class Purchase_orders extends CI_Controller {
             echo "Please select an item!";
             die();
         }
-        $jo_items = explode(",",$this->input->post("selected_items"));
+        $po_items = explode(",",$this->input->post("selected_items")); 
+        $po_count = explode(",", $this->input->post("po_count_values"));
         $counter = 1;
-        foreach($jo_items as $item)
+        foreach($po_items as $item)
         {
             $result = $this->purchase_orders_model->validate_jo_item($item,$this->input->post("job_type"));
             if($result != null)
@@ -38,6 +39,7 @@ class Purchase_orders extends CI_Controller {
         }
         $this->purchase_orders_model->mo_id = $this->input->post("marketing_order");
         $this->purchase_orders_model->subcon_id = $this->input->post("subcon");
+        $this->purchase_orders_model->deadline = $this->input->post("deadline");
         $this->purchase_orders_model->status = 0;
         $this->purchase_orders_model->remarks = $this->input->post("remarks");
         $this->purchase_orders_model->job_type = $this->input->post("job_type");
@@ -45,7 +47,7 @@ class Purchase_orders extends CI_Controller {
         $this->purchase_orders_model->date_created = date("Y-m-d H:i:s A");
         $this->purchase_orders_model->created_by =  $this->session->userdata("USERID");
 
-        echo $this->purchase_orders_model->insert_purchase_orders($jo_items);
+        echo $this->purchase_orders_model->insert_purchase_orders($po_items,$po_count);
 	}
 
 	public function edit_purchase_orders()
@@ -57,14 +59,15 @@ class Purchase_orders extends CI_Controller {
             echo "Please select an item!";
             die();
         }
-        $jo_items = explode(",",$this->input->post("selected_items"));
+        $po_items = explode(",",$this->input->post("selected_items"));
+        $po_count = explode(",", $this->input->post("po_count_values"));
         $counter = 1;
-        foreach($jo_items as $item)
+        foreach($po_items as $item)
         {
-            $result = $this->purchase_orders_model->validate_jo_item($item,$this->input->post("job_type"));
+            $result = $this->purchase_orders_model->validate_po_item($item,$this->input->post("job_type"),$purchase_orders_id);
             if($result != null)
             {
-                $results["warning"] = "Line # ". $counter ." already exist on other JO#:". $result->po_id;
+                $results["warning"] = "Line # ". $counter ." already exist on other PO#:". $result->po_id;
                 echo json_encode($results);
                 die();
             }
@@ -73,6 +76,7 @@ class Purchase_orders extends CI_Controller {
         $this->purchase_orders_model->mo_id = $this->input->post("marketing_order");
         $this->purchase_orders_model->subcon_id = $this->input->post("subcon");
         $this->purchase_orders_model->status = 0;
+        $this->purchase_orders_model->deadline = $this->input->post("deadline");
         $this->purchase_orders_model->remarks = $this->input->post("remarks");
         $this->purchase_orders_model->job_type = $this->input->post("job_type");
 
@@ -81,7 +85,7 @@ class Purchase_orders extends CI_Controller {
         $this->purchase_orders_model->id = $purchase_orders_id;
         $this->db->where("po_id", $purchase_orders_id);
         $this->db->delete("purchase_order_lines");
-        echo $this->purchase_orders_model->update_purchase_orders($jo_items);
+        echo $this->purchase_orders_model->update_purchase_orders($po_items,$po_count);
 	}
 
 	public function delete_purchase_orders()
@@ -132,15 +136,21 @@ class Purchase_orders extends CI_Controller {
         $result = $this->db->get("purchase_orders");
         $purchase_orders = $result->row();
         $return["purchase_orders"] = $purchase_orders;
+        $return["purchase_orders"]->deadline = date("Y-m-d", strtotime($purchase_orders->deadline));
         $return["subcon"] = $this->db->where("id", $purchase_orders->subcon_id)->get("subcon")->row();
         $return["marketing_order"] =  $this->db->where("id", $purchase_orders->mo_id)->get("marketing_order")->row();
 
-        $this->db->select("purchase_order_lines.id as jo_line_id,purchase_order_lines.po_id,product_variants.color,invoice_lines.*,products.description,products.code,products.fob");
-        $this->db->join("purchase_order_lines"," purchase_order_lines.invoice_line_id=invoice_lines.id", 'left');
-        $this->db->join("product_variants"," product_variants.id=invoice_lines.product_id");
-        $this->db->join("products"," products.id=product_variants.product_id");
-        $this->db->where("invoice_lines.invoice_id",$return["marketing_order"]->invoice_id);
+        // $this->db->select("job_order_lines.id as jo_line_id,job_order_lines.jo_id,product_variants.color,invoice_lines.*,products.description,products.code,products.fob");
+        //$this->db->join("job_order_lines"," job_order_lines.invoice_line_id=invoice_lines.id", 'left');
+        $this->db->select("product_variants.color,invoice_lines.*,products.description,products.code,products.fob");
+        $this->db->join("product_variants", " product_variants.id=invoice_lines.product_id");
+        $this->db->join("products", " products.id=product_variants.product_id");
+        $this->db->where("invoice_lines.invoice_id", $return["marketing_order"]->invoice_id);
         $return["invoice_lines"] = $this->db->order_by("id")->get("invoice_lines")->result();
+        $this->db->where("po_id", $id);
+        $this->db->where("job_type", $purchase_orders->job_type);
+        $this->db->where("subcon_id", $purchase_orders->subcon_id);
+        $return["po_lines"] =  $this->db->order_by("id")->get("purchase_order_lines")->result();
         echo json_encode($return);
     }
 
@@ -173,9 +183,9 @@ class Purchase_orders extends CI_Controller {
     public function get_purchase_orders_list()
     {
         $this->load->model("portal/data_table_model","dt_model");
-        $this->dt_model->select_columns = array("t1.id","t1.id","(SELECT name from subcon WHERE ID = t1.subcon_id) as subcon_id","t1.mo_id","t1.remarks","t1.job_type","IF(t1.status=1,'Complete','Pending') as status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");
-        $this->dt_model->where  = array("t1.id","t1.id","t1.subcon_id","t1.mo_id","t1.remarks","t1.job_type","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");
-        $select_columns = array("id","id","subcon_id","mo_id","remarks","job_type","status","date_created","created_by","date_modified","modified_by");
+        $this->dt_model->select_columns = array("t1.id","t1.id","(SELECT name from subcon WHERE ID = t1.subcon_id) as subcon_id","t1.mo_id","t1.deadline","t1.remarks","t1.job_type","IF(t1.status=1,'Complete','Pending') as status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");
+        $this->dt_model->where  = array("t1.id","t1.id","t1.subcon_id","t1.mo_id","t1.deadline","t1.remarks","t1.job_type","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");
+        $select_columns = array("id","id","subcon_id","mo_id","deadline","remarks","job_type","status","date_created","created_by","date_modified","modified_by");
         $this->dt_model->table = "purchase_orders AS t1 LEFT JOIN user_accounts AS t2 ON t2.id = t1.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t1.modified_by ";
         $this->dt_model->index_column = "t1.id";
         $this->dt_model->staticWhere = "t1.status != 3";

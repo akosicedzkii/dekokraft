@@ -29,6 +29,7 @@
             <th>Purchase Order Number</th>
             <th>Subcon</th>
             <th>MO#</th>
+            <th>Deadline</th>
             <th>Remarks</th>
             <th>Purchase Order Type</th>
             <th>Status</th>
@@ -99,8 +100,21 @@
                                 </select>
                                 <div class="help-block with-errors"></div>
                                 </div>
+                                
                             </div>
                                 </div>
+                                <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="deadline" class="col-sm-6 control-label">Deadline</label>
+
+                                        <div class="col-sm-6">
+                                        <input type="date" style="width:150px;" class="form-control" id="deadline" placeholder="Deadline" required>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+
+                            </div>
                             </div>
                            
 
@@ -113,6 +127,7 @@
                                         <th>Quantity</th>
                                         <th>Product Name</th>
                                         <th>Product Color</th>
+                                        <th>PO Count</th>
                                     </thead>
                                     <tbody id="table_body">
                                     </tbody>
@@ -222,7 +237,7 @@
             ,"columnDefs": [
             { "visible": false,  "targets": [ 0 ] },
             { "width": "20%",  "targets": [ 4 ] }
-        ], "order": [[ 4, 'desc' ]]
+        ], "order": [[ 8, 'desc' ]]
         });
         $("#addBtn").click(function(){
             $("#purchase_ordersModal .modal-title").html("Add <?php echo ucfirst($module_name);?>");
@@ -240,8 +255,10 @@
         var image_error = "";
         $("#purchase_ordersForm").validator().on('submit', function (e) {
             var selected = [];
+            var po_count_values = [];
             $.each($("input[name='jo_item']:checked"), function(){            
                 selected.push($(this).val());
+                po_count_values.push($(this).parent().parent().find('input[type=number]').val());
             });
             var btn = $("#savePurchase_order");
             var action = $("#action").val();
@@ -258,13 +275,15 @@
                 formData.append('id', purchase_orders_id);
                 formData.append('marketing_order', $("#marketing_order").val());
                 formData.append('subcon', $("#subcon").val());
+                formData.append('deadline', $("#deadline").val());
                 formData.append('job_type', $("#job_type").val());
                 formData.append('remarks', $("#remarks").val());
                 formData.append('selected_items',selected)
+                formData.append('po_count_values',po_count_values)
                 // Attach file
                  //fromthis    
                  var url = "<?php echo base_url()."portal/purchase_orders/add_purchase_orders";?>";
-                var message = "New job order successfully added";
+                var message = "New purchase order successfully added";
                 if(action == "edit")
                 {
                     url =  "<?php echo base_url()."portal/purchase_orders/edit_purchase_orders";?>";
@@ -463,7 +482,7 @@
                         data = JSON.parse(data);
                         data.forEach(function(e){
                             console.log(e["color"])
-                            $("#table_body").append("<tr><td><input type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td></tr>");
+                            $("#table_body").append("<tr><td><input type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td><td><input class='form-control' type=number name='jo_count' value="+e["quantity"]+" min=1 max="+e["jo_count"]+" /></td></tr>");
                         });
                         
                     },
@@ -476,42 +495,48 @@
     function _edit(id)
     {
         $("#purchase_ordersModal .modal-title").html("Edit <?php echo ucfirst($module_name);?>");
-        $(".add").hide();    
-        $('#purchase_ordersForm').validator();    
+        $(".add").hide();
+        $('#purchase_ordersForm').validator();
         $("#action").val("edit");
         $("#inputCoverImage").removeAttr("required");
-        var data = { "id" : id }
+        var data = { "id" : id ,"job_type":$("#job_type_option").val()}
         $.ajax({
                 data: data,
                 type: "post",
                 url: "<?php echo base_url()."portal/purchase_orders/get_purchase_orders_data";?>",
                 success: function(data){
                     data = JSON.parse(data);
-                    console.log(data);
+                    //console.log(data);
                         $("#table_body").html("");
-                    $("#marketing_order").append(new Option(data.marketing_order.id,data.marketing_order.invoice_id,  true, true)).trigger('change');
+                    $("#marketing_order").append(new Option(data.marketing_order.id,data.marketing_order.id,  true, true)).trigger('change');
+
                     $("#subcon").append(new Option(data.subcon.name,data.subcon.id,  true, true)).trigger('change');
                     $("#purchase_ordersID").val(data.purchase_orders.id);
                     $("#remarks").val(data.purchase_orders.remarks);
+                    $("#deadline").val(data.purchase_orders.deadline);
                     $("#job_type").val(data.purchase_orders.job_type).trigger('change');
                         data2 = data.invoice_lines;
-                        
+                        data3 = data.po_lines;
                         data2.forEach(function(e){
-                            console.log(e["color"])
-                            if(e["jo_line_id"] != null)
-                            {
-                                if(data.purchase_orders.id == e["po_id"])
+                            selected = 0;
+                            data3.forEach(function(e2){
+                                if(e["id"] == e2["invoice_line_id"])
                                 {
-                                     $("#table_body").append("<tr><td><input checked type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td></tr>");
-                                }else{
-                                
-                                $("#table_body").append("<tr><td><input type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td></tr>");
+                                    counts = e2["po_count"];
+                                    if(e2["po_count"] == 0)
+                                    {
+                                        counts = e["quantity"];
+                                    }
+                                     $("#table_body").append("<tr><td><input checked type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td><td><input class='form-control' type=number name='jo_count' min=1  value="+counts+" max="+ e["quantity"]+" /></td></tr>");
+                                        selected = 1;
+                                        return false;
+                                }
+                            });
+                            if(selected == 0)
+                            {
+                                $("#table_body").append("<tr><td><input type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td><td><input class='form-control' value="+ e["quantity"]+" type=number name='jo_count' min=1 max="+ e["quantity"]+" /></td></tr>");
                             }
-                               
-                            }else{
-                                
-                                $("#table_body").append("<tr><td><input type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td></tr>");
-                            }
+
                         });
                     $("#purchase_ordersModal").modal("show");
                 },

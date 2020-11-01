@@ -22,6 +22,7 @@ class Job_orders extends CI_Controller
             die();
         }
         $jo_items = explode(",", $this->input->post("selected_items"));
+        $jo_count = explode(",", $this->input->post("jo_count_values"));
         $counter = 1;
         foreach ($jo_items as $item) {
             $result = $this->job_orders_model->validate_jo_item($item, $this->input->post("job_type"));
@@ -43,7 +44,7 @@ class Job_orders extends CI_Controller
         $this->job_orders_model->date_created = date("Y-m-d H:i:s A");
         $this->job_orders_model->created_by =  $this->session->userdata("USERID");
 
-        echo $this->job_orders_model->insert_job_orders($jo_items);
+        echo $this->job_orders_model->insert_job_orders($jo_items,$jo_count);
     }
 
     public function edit_job_orders()
@@ -56,6 +57,7 @@ class Job_orders extends CI_Controller
             die();
         }
         $jo_items = explode(",", $this->input->post("selected_items"));
+        $jo_count = explode(",", $this->input->post("jo_count_values"));
         $counter = 1;
         foreach ($jo_items as $item) {
             $result = $this->job_orders_model->validate_jo_item($item, $this->input->post("job_type"), $job_orders_id);
@@ -78,7 +80,7 @@ class Job_orders extends CI_Controller
         $this->job_orders_model->id = $job_orders_id;
         $this->db->where("jo_id", $job_orders_id);
         $this->db->delete("job_order_lines");
-        echo $this->job_orders_model->update_job_orders($jo_items);
+        echo $this->job_orders_model->update_job_orders($jo_items,$jo_count);
     }
 
     public function delete_job_orders()

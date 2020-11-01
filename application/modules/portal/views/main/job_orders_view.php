@@ -132,6 +132,7 @@
                                         <th>Quantity</th>
                                         <th>Product Name</th>
                                         <th>Product Color</th>
+                                        <th>JO Count</th>
                                     </thead>
                                     <tbody id="table_body">
                                     </tbody>
@@ -241,7 +242,7 @@
             ,"columnDefs": [
             { "visible": false,  "targets": [ 0 ] },
             { "width": "20%",  "targets": [ 5 ] }
-        ], "order": [[ 4, 'desc' ]]
+        ], "order": [[ 8, 'desc' ]]
         });
         $("#addBtn").click(function(){
             $("#job_ordersModal .modal-title").html("Add <?php echo ucfirst($module_name);?>");
@@ -259,9 +260,12 @@
         var image_error = "";
         $("#job_ordersForm").validator().on('submit', function (e) {
             var selected = [];
-            $.each($("input[name='jo_item']:checked"), function(){
+            var jo_count_values = [];
+            $.each($("input[name='jo_item']:checked"), function(e){
                 selected.push($(this).val());
+                jo_count_values.push($(this).parent().parent().find('input[type=number]').val());
             });
+
             var btn = $("#saveJob_order");
             var action = $("#action").val();
             btn.button("loading");
@@ -281,6 +285,7 @@
                 formData.append('job_type', $("#job_type").val());
                 formData.append('remarks', $("#remarks").val());
                 formData.append('selected_items',selected)
+                formData.append('jo_count_values',jo_count_values)
                 // Attach file
                  //fromthis
                  var url = "<?php echo base_url()."portal/job_orders/add_job_orders";?>";
@@ -484,7 +489,7 @@
                         data = JSON.parse(data);
                         data.forEach(function(e){
                             //console.log(e["color"])
-                            $("#table_body").append("<tr><td><input type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td></tr>");
+                            $("#table_body").append("<tr><td><input type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td><td><input class='form-control' type=number name='jo_count' value="+e["quantity"]+" min=1 max="+e["jo_count"]+" /></td></tr>");
                         });
 
                     },
@@ -524,14 +529,19 @@
                             data3.forEach(function(e2){
                                 if(e["id"] == e2["invoice_line_id"])
                                 {
-                                     $("#table_body").append("<tr><td><input checked type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td></tr>");
+                                    counts = e2["jo_count"];
+                                    if(e2["jo_count"] == 0)
+                                    {
+                                        counts = e["quantity"];
+                                    }
+                                     $("#table_body").append("<tr><td><input checked type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td><td><input class='form-control' type=number name='jo_count' min=1  value="+counts+" max="+ e["quantity"]+" /></td></tr>");
                                         selected = 1;
                                         return false;
                                 }
                             });
                             if(selected == 0)
                             {
-                                $("#table_body").append("<tr><td><input type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td></tr>");
+                                $("#table_body").append("<tr><td><input type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td><td><input class='form-control' value="+ e["quantity"]+" type=number name='jo_count' min=1 max="+ e["quantity"]+" /></td></tr>");
                             }
 
                         });
