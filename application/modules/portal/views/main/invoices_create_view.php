@@ -478,6 +478,7 @@
                         success: function(data){
                             //data = JSON.parse(data);
                             $("#name").val("");
+                            $("#color").val("");
                             $("#stock").val("");
                             $("#color_abb").val("");
                             $("#prod_id_color").val("");

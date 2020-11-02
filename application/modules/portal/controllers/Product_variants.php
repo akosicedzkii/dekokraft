@@ -109,12 +109,20 @@ class Product_variants extends CI_Controller {
             unset($result->color);
             unset($result->color_abb);
             unset($result->cover_image);
+            unset($result->created_by);
+            unset($result->modified_by);
+            unset($result->date_created);
+            unset($result->date_modified);
+            unset($result->location);
             $this->db->where("color",$name);
             $this->db->where("product_id",$result->product_id);
             $validation = $this->db->get("product_variants")->row();
             if($validation == null)
             {
                 $result->color = $name;
+                $result->color_abb = $code;
+                $result->date_created = date("Y-m-d h:i:s A");
+                $result->created_by = $this->session->userdata("USERID");
                 $result->color_abb = $code;
                 $this->db->insert("product_variants",(array) $result);
                 $insertId = $this->db->insert_id();
