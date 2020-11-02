@@ -192,12 +192,131 @@
     <div class="clearfix"></div>
   </div>
 
+<!-- /.modal -->
+<div class="modal fade" id="addProductColorModal" z-index=9999 role="dialog"  data-backdrop="static">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span></button>
+            
+                <h3 class="modal-title">Add Product Color: <label id="prod_name_add_color"></label></h3>
+                </div>
+                <div class="modal-body">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <input type="hidden" id="prod_id_color">
+                            <div class="form-group">
+                                <label for="color" class="col-sm-2 control-label">Color</label>
+
+                                <div class="col-sm-10">
+                                <select  style="width:100%;" class="form-control" id="color" placeholder="Color" required></select>
+                                <a class="btn btn-info" id="add_color">+</a>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="color_abb" class="col-sm-2 control-label">Color Abbrieviation</label>
+
+                                <div class="col-sm-10">
+                                <input type="text" disabled class="form-control" id="color_abb" placeholder="Color Abbrieviation" required>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+
+                                <div class="col-sm-10">
+                                <input type="number" min="1" class="form-control" id="stock" placeholder="Stock" required>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div id="uploadBoxMain" class="col-md-12">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="addProductColor">Add Product Color</button>
+                <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        <!-- /.modal-content -->
+        </div>
+    <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->  
+<div class="modal fade" id="colorsModal"  z-index=99999 role="dialog"  data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+           
+             <h3 class="modal-title">Add Colors</h3>
+             <input type="hidden" id="action">
+             <input type="hidden" id="colorsID">
+            </div>
+            <div class="modal-body">
+                <div>
+                    <form class="form-horizontal" id="colorsForm" data-toggle="validator">
+                        <div class="box-body">
+                            <div class="form-group">
+                                <label for="name" class="col-sm-2 control-label">Color Name</label>
+
+                                <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name" placeholder="Color Name" required>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="code" class="col-sm-2 control-label">Color Code</label>
+
+                                <div class="col-sm-10">
+                                
+                                <input type="text" class="form-control" id="code_" placeholder="Color Code" required>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="inputStatus_" class="col-sm-2 control-label">Status</label>
+
+                                <div class="col-sm-10">
+                                <select class="form-control" id="inputStatus_" placeholder="Content" style="resize:none" required>
+                                    <option value="1">Enable</option>
+                                    <option value="0">Disable</option>
+                                </select>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div id="uploadBoxMain" class="col-md-12">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="saveColors">Save Colors</button>
+            </div>
+        </div>
+    <!-- /.modal-content -->
+    </div>
+<!-- /.modal-dialog -->
+</div>
+
+    
   <script> 
         let lineNo = 1; 
         $(document).ready(function () { 
             
             $("#add_new_product").click(function () { 
-                markup =  "<tr><td><input type='hidden' name='total_discount_percentage[]'><input type='hidden' name='base_amount[]'><input type='hidden' name='total_discount[]'><input type='hidden' name='total_amount[]'><input type='hidden' name='total_quantity[]'><input type='hidden' name='product_selected[]'><input required value=1 type='number' min=0 class='form-control quantity' style='width:100px;' ><td><input type='text' min=0 class='form-control article' name='article[]' style='width:100px;' ></td></td><td><select type='text' style='width:300px;' required id='product"+ lineNo+"'></select></td><td><label class='product_code'></label></td><td><label class='product_color'></label></td><td><label class='product_desc'></label></td><td><label class='product_price'></td><td><input required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'></td><td><label class='discounted_price'></td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>"; 
+                markup =  "<tr><td><input type='hidden' name='total_discount_percentage[]'><input type='hidden' name='base_amount[]'><input type='hidden' name='total_discount[]'><input type='hidden' name='total_amount[]'><input type='hidden' name='total_quantity[]'><input type='hidden' name='product_selected[]'><input required value=1 type='number' min=0 class='form-control quantity' style='width:100px;' ><td><input type='text' min=0 class='form-control article' name='article[]' style='width:100px;' ></td></td><td><select type='text' style='width:200px;' required id='product"+ lineNo+"'></select><input type='button' id='AddColor' name='addColor[]' value='+' class='btn btn-info'></td><td><label class='product_code'></label></td><td><label class='product_color'></label></td><td><label class='product_desc'></label></td><td><label class='product_price'></td><td><input required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'></td><td><label class='discounted_price'></td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>"; 
                 tableBody = $("#product_table tbody"); 
                 tableBody.append(markup); 
                 $("#product"+lineNo).select2({
@@ -236,6 +355,8 @@
                     $row.find(".article").html(data.article);
                     $row.find(".product_price").html(data.fob);
                     $row.find('input[name="base_amount[]"]').val(data.fob);
+                    $row.find('input[name="addColor[]"]').attr("data",data.id)
+                    $row.find('input[name="addColor[]"]').attr("data-description",data.description)
                     //alert( $row.find("#quantity").val()*$row.find("#base_amount").val())
                     $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(2))
                     $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
@@ -304,6 +425,13 @@
             $("#product_table").on("click", "#DeleteButton", function() {
                 $(this).closest("tr").remove();
             });
+
+            $("#product_table").on("click", "#AddColor", function() {
+                console.log($(this).attr("data"));
+                $("#prod_name_add_color").html($(this).attr("data-description"))
+                $("#prod_id_color").val($(this).attr("data"))
+                $("#addProductColorModal").modal("show");
+            });
             $("#customer_name").select2({
                 minimumInputLength: 1,
                 ajax: {
@@ -322,6 +450,44 @@
                     }
 
                 }
+            });
+            $('#color').on('select2:select', function (e) {
+                var data = $('#color').select2('data');
+                console.log(data)
+                $("#color_abb").val(data[0].id);
+            });
+            $("#addProductColor").click(function(){
+                $(this).button("loading");
+                var name = $("#color").text();
+                var code = $("#color_abb").val();
+                var prod_var_id = $("#prod_id_color").val();
+                var stock = $("#stock").val();
+                console.log(name)
+                console.log(code)
+                console.log(prod_var_id)
+                    // Attach file
+                    //fromthis    
+                    data = { "id" : prod_var_id, "code" : code , "name" : name , "stock" : stock};
+                    var url = "<?php echo base_url()."portal/product_variants/add_prod_colors";?>";
+                    var message = "New product color successfully added";
+                    $.ajax({
+                        data: data,
+                        type: "post",
+                        url: "<?php echo base_url()."portal/product_variants/add_prod_colors";?>",
+                        success: function(data){
+                            //data = JSON.parse(data);
+                            $("#name").val("");
+                            $("#stock").val("");
+                            $("#color_abb").val("");
+                            $("#prod_id_color").val("");
+                            $(this).button("reset");
+                            $("#addProductColorModal").modal("hide");
+                        },
+                        error: function (request, status, error) {
+                            alert(request.responseText);
+                        }
+                });
+                
             });
             $("#bank").select2({
                 minimumInputLength: 1,
@@ -367,6 +533,111 @@
                 }
             });
            
+            $("#add_color").click(function(){
+                $("#colorsModal .modal-title").html("Add New Color");
+                $('#colorsForm').validator();
+                $("#colorsModal").modal("show");
+            });
+            $("#saveColors").click(function(){
+                //alert("yeah");
+                $("#colorsForm").submit();
+            });
+            $("#colorsForm").validator().on('submit', function (e) {
+                
+                var btn = $("#saveColors");
+                btn.button("loading");
+                if (e.isDefaultPrevented()) {
+                    btn.button("reset"); 
+                } else {
+                    e.preventDefault();
+                    var name = $("#name").val();
+                    var code = $("#code_").val();
+                    var status = $("#inputStatus_").val();
+                    var colors_id = $("#colorsID").val();
+
+                    if(name == "" || code == "")
+                    {
+                        btn.button("reset"); 
+                        return false;
+                    }
+
+                    var formData = new FormData();
+                    formData.append('id', colors_id);
+                    formData.append('name', name);
+                    formData.append('code', code);
+                    formData.append('status', status);
+                    // Attach file
+                    //fromthis    
+                    var url = "<?php echo base_url()."portal/colors/add_colors";?>";
+                    var message = "New colors successfully added";
+
+
+                    $('#uploadBoxMain').html('<div class="progress"><div class="progress-bar progress-bar-aqua" id = "progressBarMain" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 0%"><span class="sr-only">20% Complete</span></div></div>');
+                    $.ajax({
+                        data: formData,
+                        type: "post",
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        url: url ,
+                        xhr: function(){
+                            //upload Progress
+                            var xhr = $.ajaxSettings.xhr();
+                            if (xhr.upload) {
+                                xhr.upload.addEventListener('progress', function(event) {
+                                    var percent = 0;
+                                    var position = event.loaded || event.position;
+                                    var total = event.total;
+                                    if (event.lengthComputable) {
+                                        percent = Math.ceil(position / total * 100);
+                                    }
+                                    //update progressbar
+                                    
+                                    $('#progressBarMain').css('width',percent+'%').html(percent+'%');
+                                                                    
+                                }, true);
+                            }
+                            return xhr;
+                        },
+                        mimeType:"multipart/form-data"
+                    }).done(function(data){ 
+                        if(!data)
+                        {
+                            btn.button("reset");
+                            toastr.error(data);
+                        }
+                        else
+                        {
+                            //alert("Data Save: " + data);
+                            btn.button("reset");
+                            toastr.success(message);
+                            $("#colorsForm").validator('destroy');
+                            $("#colorsModal").modal("hide"); 
+                            $('#uploadBoxMain').html('');          
+                        }
+                    });
+                }
+                    return false;
+            });
+            $("#color").select2({
+                minimumInputLength: 2,
+                ajax: {
+                    url: "<?php echo base_url()."portal/colors/get_colors_selection";?>",
+                    dataType: 'json',
+                    type: "GET",
+                    data: function (term) {
+                        return {
+                            term: term
+                        };
+                    },
+                    processResults: function (data) {
+                        return {
+                            results: data.items
+                        };
+                    }
+
+                }
+            });
             $("#invoice_form").submit(function(e){
 
                 $("#save_invoice").button("loading");

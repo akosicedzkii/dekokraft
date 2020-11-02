@@ -92,6 +92,31 @@ class Product_variants extends CI_Controller {
         $return["product_variants"] = $product_variants;
         $return["products"]= $products;
         echo json_encode($return); 
+        
+    }
+
+    public function add_prod_colors()
+    {
+        $id = $this->input->post("id");
+        $name = $this->input->post("name");
+        $code = $this->input->post("code");
+        $stock = $this->input->post("stock");
+
+        $result = $this->db->where("id",$id)->get("product_variants")->row();
+        if($result!=null)
+        {
+            unset($result->id);
+            unset($result->color);
+            unset($result->color_abb);
+            unset($result->cover_image);
+            var_dump($result);
+            $result->color = $name;
+            $result->color_abb = $code;
+            $this->db->insert("product_variants",(array) $result);
+            $insertId = $this->db->insert_id();
+            $this->load->model("stocks_model");
+            $this->stocks_model->add_stock(1,$insertId);
+        }
     }
     public function get_product_variants_selection()
     {
