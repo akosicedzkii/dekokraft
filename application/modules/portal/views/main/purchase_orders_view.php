@@ -97,6 +97,9 @@
                                 <select class="form-control" id="job_type" placeholder="Job Type" style="resize:none" required>
                                     
                                     <option value="resin">Resin</option>
+                                    <option value="finishing">Finishing</option>
+                                    <option value="spray">Spray</option>
+                                    <option value="hand paint">Hand Paint</option>
                                 </select>
                                 <div class="help-block with-errors"></div>
                                 </div>
