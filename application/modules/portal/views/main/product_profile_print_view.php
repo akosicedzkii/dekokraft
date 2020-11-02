@@ -39,7 +39,7 @@
 
     body
     {
-        font-size:11px;
+        font-size:13px;
     }
 
 }
@@ -62,7 +62,7 @@
     margin-bottom:0px;
   }
 </style>
-<body onload="window.print();" style="font-size: 11px;line-height: 1;">
+<body onload="window.print();" style="font-size: 13px;line-height: 1;">
 
 <div class="wrapper">
   <!-- Main content -->
@@ -108,7 +108,7 @@
         <div class="row">
           <div class="col-sm-12 table-responsive">
             <p class="m-b">MATERIAL REQUIREMENT SUMMARY :</p>
-            <table class="table table-striped table-condensed" style="font-size:10px;border-bottom: 1px solid black;margin-bottom:10px">
+            <table class="table table-striped table-condensed" style="font-size:12px;border-bottom: 1px solid black;margin-bottom:10px">
               <thead>
                 <tr>
                   <th class="tbl-pad bb"></th>
@@ -451,71 +451,26 @@
         <div class="row">
           <div class="col-xs-3">
             <p>Prepared by :</p>
-            <p>______________________________</p>
-            <p>Date: ________________________</p>
+            <p>__________________________</p>
+            <p>Date: ____________________</p>
           </div>
           <div class="col-xs-3">
             <p>Approved by :</p>
-            <p>______________________________</p>
-            <p>Date: ________________________</p>
+            <p>__________________________</p>
+            <p>Date: ____________________</p>
           </div>
           <div class="col-xs-3">
             <p>Computer Entry by :</p>
-            <p>______________________________</p>
-            <p>Date: ________________________</p>
+            <p>__________________________</p>
+            <p>Date: ____________________</p>
           </div>
           <div class="col-xs-3">
             <p>Computer Checked by :</p>
-            <p>______________________________</p>
-            <p>Date: ________________________</p>
+            <p>__________________________</p>
+            <p>Date: ____________________</p>
           </div>
         </div>
-        <!-- <div class="row invoice-info">
-            <div class="col-md-12">
-                <table id="material_list_tbl" class="table" style='width:100%;'>
-                <?php
-                    if ($material_groups!=null) {
-                        //echo "<pre>";
-                        //var_dump($material_groups);
-                        foreach ($material_groups as $material) {
-                            ?>
-                            <tr>
-                                <td><h4><?php echo $material["material_group_name"]; ?><span class="pull-right"></span></h4>
-                                <table  class="table" style='width:100%;'>
-                                        <thead>
-                                            <tr>
-                                            <th style="width:55%;">Material</th>
-                                            <th style="width:15%;">JP</th>
-                                            <th style="width:15%;">QTY</th>
-                                            <th style="width:15%;">Unit</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="tbody_materialss">
-                                            <?php
 
-                                                if ($material[0] != null) {
-                                                    foreach ($material[0] as $material_items) {
-                                                        ?>
-                                                        <tr>
-                                                        <td><?php echo $material_items["material_name"]?></td>
-                                                        <td><?php echo $material_items["jp"]?></td>
-                                                        <td><?php echo $material_items["qty"]?></td>
-                                                        <td><?php echo $material_items["unit"]?></td>
-                                                        </tr>
-                                                        <?php
-                                                    }
-                                                } ?>
-                                        </tbody>
-                                </table>
-                                </td>
-                            </tr>
-                            <?php
-                        }
-                    }
-                ?>
-                </table>
-            </div>
-        </div> -->
         <!-- /.row -->
 
   </section>

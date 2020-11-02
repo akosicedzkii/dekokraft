@@ -43,7 +43,7 @@
   border-bottom: 1px solid black !important;
 }
 </style>
-<body onload="window.print();" style="font-size: 11px;" class="l-h">
+<body onload="window.print();" style="font-size: 14px;" class="l-h">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
@@ -89,7 +89,7 @@
     <!-- Table row -->
     <div class="row">
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:9px;border-top: 1px solid black;">
+        <table class="table table-striped table-condensed" style="font-size:12px;border-top: 1px solid black;">
         <thead>
                 <tr>
                 <th class="tbl-pad bb">Stock #</th>
@@ -141,7 +141,7 @@
           <div class="col-xs-2">
 
           </div>
-          <div class="col-xs-6" style="font-size: 8px;">
+          <div class="col-xs-6" style="font-size: 10px;">
             <?php if ($job_orders->job_type=='resin') { ?>
             <p class="m-b"><b>Note: Resin - Materials, Moulds & Labor</b></p>
             <p>PRICES INCLUSIVE OF LABOR & MATLS.</p>
@@ -187,13 +187,13 @@
       <div class="col-xs-6">
         <p>I hereby accept this J.O. subject to the foregoing terms and conditions which we have read and fully understood.</p>
         <div class="col-xs-6">
-          <p class="text-center m-b">_________________________</p>
+          <p class="text-center m-b">_______________________</p>
           <p class="text-center m-b">( Firm )</p><br>
           <p class="text-center m-b">_________________________</p>
           <p class="text-center">( Designation )</p>
         </div>
         <div class="col-xs-6">
-          <p class="text-center m-b">_________________________</p>
+          <p class="text-center m-b">_______________________</p>
           <p class="text-center">( Signature )</p>
         </div>
       </div>
@@ -202,7 +202,7 @@
         <p class="text-center m-b">___________________________________</p>
         <p class="text-center">AUTHORIZED SIGNATURE AND DATE</p>
         <p class="m-b">PENALTY FOR LATE DELIVERIES SHALL BE SHOULDERED 50% BY SUB-CON AND 50% BY COMPANY STAFF RESPONSIBLE FOR THE TRANSACTION BASED ON P.O. VALUE</p>
-        <div class="" style="font-size:9px;">
+        <div class="" style="font-size:10px;">
           <div class="col-xs-3">
             <p class="m-b">1-5 DAYS,</p>
             <p class="m-b">6-10 DAYS,</p>
@@ -226,16 +226,16 @@
       <?php if ($job_orders->job_type=='resin') { ?>
       <div class="col-xs-12">
         <p>*** <?php echo $job_orders->customer_name; ?> ***</p>
-        <div class="col-xs-6">
-          <div class="col-xs-3" style="font-size:9px;">
+        <div class="col-xs-7">
+          <div class="col-xs-3" style="font-size:10px;">
             <p>25% D/P</p>
             <p>25% D/P Add'l</p>
             <p>Full Pay't</p>
           </div>
           <div class="col-xs-4">
-            <p>P______________</p>
-            <p>P______________</p>
-            <p>P______________</p>
+            <p>P____________</p>
+            <p>P____________</p>
+            <p>P____________</p>
           </div>
           <div class="col-xs-5">
             <p>Check # _____________</p>
@@ -243,13 +243,13 @@
             <p>Check # _____________</p>
           </div>
         </div>
-        <div class="col-xs-6">
+        <div class="col-xs-5">
           <div class="col-xs-2">
           </div>
           <div class="col-xs-10">
-            <p>App'd Ctrl Sample: _______________</p>
-            <p>J.O. Recieved : __________________</p>
-            <p>Resin Received : _________________</p>
+            <p>App'd Ctrl Sample: _____________</p>
+            <p>J.O. Recieved : _________________</p>
+            <p>Resin Received : _______________</p>
           </div>
         </div>
       </div>
@@ -260,7 +260,7 @@
     <div class="row">
       <p class="text-center">*** JOB ORDER LIST ***</p>
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:9px;">
+        <table class="table table-striped table-condensed" style="font-size:12px;">
         <thead>
           <tr>
             <th class="tbl-pad bb">Stock #</th>
@@ -298,7 +298,7 @@
     <div class="row">
       <p class="text-center">*** SUB-BQ ( BILL OF QUANTITY ) ***</p>
       <div class="col-xs-12 table-responsive">
-        <table class="table table-condensed" style="font-size:10px;">
+        <table class="table table-condensed" style="font-size:12px;">
         <thead>
           <tr>
             <th class="bb text-center">Item Name</th>

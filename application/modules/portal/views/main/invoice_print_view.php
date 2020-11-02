@@ -38,7 +38,7 @@
   padding: 1px !important;
 }
 </style>
-<body onload="window.print();" style="font-size: 12px;line-height: 1;">
+<body onload="window.print();" style="font-size: 14px;line-height: 1;">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
@@ -79,7 +79,7 @@
     <!-- Table row -->
     <div class="row">
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:10px;border-bottom: 1px solid black;border-top: 1px solid black;margin-bottom:10px">
+        <table class="table table-striped table-condensed" style="font-size:11px;border-bottom: 1px solid black;border-top: 1px solid black;margin-bottom:10px">
         <thead>
           <tr>
             <th colspan="3" class="text-center tbl-pad"></th>
