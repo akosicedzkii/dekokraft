@@ -486,9 +486,11 @@
                             return false;
                         }
                         data = JSON.parse(data);
+                        counters = 1;
                         data.forEach(function(e){
                             //console.log(e["color"])
-                            $("#table_body").append("<tr><td><input type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td><td><input class='form-control' type=number name='jo_count' value="+e["quantity"]+" min=1 max="+e["jo_count"]+" /></td></tr>");
+                            $("#table_body").append("<tr><td>"+counters+".&emsp;<input type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td><td><input class='form-control' type=number name='jo_count' value="+e["quantity"]+" min=1 max="+e["jo_count"]+" /></td></tr>");
+                            counters++;
                         });
 
                     },
@@ -523,6 +525,7 @@
                     $("#job_type").val(data.job_orders.job_type).trigger('change');
                         data2 = data.invoice_lines;
                         data3 = data.jo_lines;
+                        counters = 1;
                         data2.forEach(function(e){
                             selected = 0;
                             data3.forEach(function(e2){
@@ -533,16 +536,16 @@
                                     {
                                         counts = e["quantity"];
                                     }
-                                     $("#table_body").append("<tr><td><input checked type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td><td><input class='form-control' type=number name='jo_count' min=1  value="+counts+" max="+ e["quantity"]+" /></td></tr>");
+                                     $("#table_body").append("<tr><td>"+counters+".&emsp;<input checked type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td><td><input class='form-control' type=number name='jo_count' min=1  value="+counts+" max="+ e["quantity"]+" /></td></tr>");
                                         selected = 1;
                                         return false;
                                 }
                             });
                             if(selected == 0)
                             {
-                                $("#table_body").append("<tr><td><input type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td><td><input class='form-control' value="+ e["quantity"]+" type=number name='jo_count' min=1 max="+ e["quantity"]+" /></td></tr>");
+                                $("#table_body").append("<tr><td>"+counters+".&emsp;<input type=checkbox name='jo_item' value='" + e["id"]+"' /></td><td>" + e["quantity"]+ "</td><td>" + e["description"]+ "</td><td>" + e["color"]+ "</td><td><input class='form-control' value="+ e["quantity"]+" type=number name='jo_count' min=1 max="+ e["quantity"]+" /></td></tr>");
                             }
-
+                            counters++;
                         });
                     $("#job_ordersModal").modal("show");
                 },

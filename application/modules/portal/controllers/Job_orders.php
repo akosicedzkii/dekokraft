@@ -135,6 +135,7 @@ class Job_orders extends CI_Controller
         $this->db->select("product_variants.color,invoice_lines.*,products.description,products.code,products.fob");
         $this->db->join("product_variants", " product_variants.id=invoice_lines.product_id");
         $this->db->join("products", " products.id=product_variants.product_id");
+        $this->db->order_by("products.description","asc");
         $this->db->where("invoice_lines.invoice_id", $return["marketing_order"]->invoice_id);
         $return["invoice_lines"] = $this->db->order_by("id")->get("invoice_lines")->result();
         $this->db->where("jo_id", $id);
