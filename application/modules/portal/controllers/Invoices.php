@@ -138,6 +138,7 @@ class Invoices extends CI_Controller {
         $this->db->select("product_variants.color,invoice_lines.*,products.description,products.code,products.fob");
         $this->db->join("product_variants"," product_variants.id=invoice_lines.product_id");
         $this->db->join("products"," products.id=product_variants.product_id");
+        $this->db->order_by("products.description");
         $this->db->where("invoice_id",$invoice_id);
         $result = $this->db->get("invoice_lines")->result();
         echo json_encode($result);
