@@ -110,7 +110,7 @@ class Main extends CI_Controller
             $this->db->join("product_variants", " product_variants.id=invoice_lines.product_id");
             $this->db->join("products", " products.id=product_variants.product_id");
             $this->db->where("invoice_id", $invoice_id);
-            $this->db->order_by("products.id", "asc");
+            $this->db->order_by("products.description", "asc");
             $module["invoice_lines"]= $this->db->get("invoice_lines")->result();
             $module["module_name"] = $this->router->fetch_method();
             $module["menu"] = $this->user_access;
@@ -177,6 +177,7 @@ class Main extends CI_Controller
               $this->db->join("product_variants", " product_variants.id=invoice_lines.product_id");
               $this->db->join("products", " products.id=product_variants.product_id");
               $this->db->where("invoice_id", $invoice_id);
+              $this->db->order_by("products.description", "asc");
               $module["invoice_lines"]= $this->db->get("invoice_lines")->result();
               $module["module_name"] = $this->router->fetch_method();
               $module["menu"] = $this->user_access;
@@ -352,6 +353,7 @@ class Main extends CI_Controller
             $this->db->join("product_profiles", "product_variants.id=product_profiles.product_variant_id","left");
             // $this->db->where("invoice_id", $module["job_orders"]->invoice_id);
             $this->db->where("job_order_lines.jo_id", $module["job_orders"]->id);
+            $this->db->order_by("products.description", "asc");
             $module["invoice_lines"]= $this->db->get("invoice_lines")->result();
             $arr=array();
             foreach ($module["invoice_lines"] as $mat) {
@@ -481,6 +483,7 @@ class Main extends CI_Controller
         $this->db->join('product_variants as pv', 'il.product_id=pv.id', 'left');
         $this->db->join('products as p', 'pv.product_id=p.id', 'left');
         $this->db->where("pol.po_id", $id);
+        $this->db->order_by("p.description", "asc");
         $module['p_o'] = $this->db->get("purchase_order_lines as pol")->result();
 
         $this->db->select("s.name,po.id");
