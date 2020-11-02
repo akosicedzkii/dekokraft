@@ -206,6 +206,7 @@
                     <div class="box-body">
                         <div class="form-group">
                             <input type="hidden" id="prod_id_color">
+                            <input type="hidden" id="line_number">
                             <div class="form-group">
                                 <label for="color" class="col-sm-2 control-label">Color</label>
 
@@ -316,7 +317,7 @@
         $(document).ready(function () { 
             
             $("#add_new_product").click(function () { 
-                markup =  "<tr><td><input type='hidden' name='total_discount_percentage[]'><input type='hidden' name='base_amount[]'><input type='hidden' name='total_discount[]'><input type='hidden' name='total_amount[]'><input type='hidden' name='total_quantity[]'><input type='hidden' name='product_selected[]'><input required value=1 type='number' min=0 class='form-control quantity' style='width:100px;' ><td><input type='text' min=0 class='form-control article' name='article[]' style='width:100px;' ></td></td><td><select type='text' style='width:200px;' required id='product"+ lineNo+"'></select><input type='button' id='AddColor' name='addColor[]' value='+' class='btn btn-info'></td><td><label class='product_code'></label></td><td><label class='product_color'></label></td><td><label class='product_desc'></label></td><td><label class='product_price'></td><td><input required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'></td><td><label class='discounted_price'></td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>"; 
+                markup =  "<tr><td><input type='hidden' name='total_discount_percentage[]'><input type='hidden' name='base_amount[]'><input type='hidden' name='total_discount[]'><input type='hidden' name='total_amount[]'><input type='hidden' name='total_quantity[]'><input type='hidden' name='product_selected[]'><input required value=1 type='number' min=0 class='form-control quantity' style='width:100px;' ><td><input type='text' min=0 class='form-control article' name='article[]' style='width:100px;' ></td></td><td><select type='text' style='width:200px;' required id='product"+ lineNo+"'></select><input type='button' id='AddColor' name='addColor[]' line-number='" + lineNo + "'  value='+' class='btn btn-info'></td><td><label class='product_code'></label></td><td><label class='product_color'></label></td><td><label class='product_desc'></label></td><td><label class='product_price'></td><td><input required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'></td><td><label class='discounted_price'></td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>"; 
                 tableBody = $("#product_table tbody"); 
                 tableBody.append(markup); 
                 $("#product"+lineNo).select2({
@@ -457,7 +458,7 @@
                 $("#color_abb").val(data[0].id);
             });
             $("#addProductColor").click(function(){
-                $(this).button("loading");
+                $("#addProductColor").button("loading");
                 var name = $("#color").text();
                 var code = $("#color_abb").val();
                 var prod_var_id = $("#prod_id_color").val();
@@ -480,8 +481,14 @@
                             $("#stock").val("");
                             $("#color_abb").val("");
                             $("#prod_id_color").val("");
-                            $(this).button("reset");
+                            $("#addProductColor").button("reset");
                             $("#addProductColorModal").modal("hide");
+                            if(data)
+                            {
+                                toastr.success("Product Variant Color Added Succesfully")
+                            }else{
+                                toastr.danger(data);
+                            }
                         },
                         error: function (request, status, error) {
                             alert(request.responseText);

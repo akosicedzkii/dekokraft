@@ -109,13 +109,28 @@ class Product_variants extends CI_Controller {
             unset($result->color);
             unset($result->color_abb);
             unset($result->cover_image);
-            var_dump($result);
-            $result->color = $name;
-            $result->color_abb = $code;
-            $this->db->insert("product_variants",(array) $result);
-            $insertId = $this->db->insert_id();
-            $this->load->model("stocks_model");
-            $this->stocks_model->add_stock(1,$insertId);
+            $this->db->where("color",$name);
+            $this->db->where("product_id",$result->product_id);
+            $validation = $this->db->get("product_variants")->row();
+            if($validation == null)
+            {
+                $result->color = $name;
+                $result->color_abb = $code;
+                $this->db->insert("product_variants",(array) $result);
+                $insertId = $this->db->insert_id();
+                $this->load->model("stocks_model");
+                $this->stocks_model->add_stock(1,$insertId);
+                $returns = array();
+                $returns["product_id"] = $insertId;
+                $returns["description"] = $result->description;
+                $returns["color"] = $result->color;
+                //echo json_encode($result);
+                echo true;
+            }
+            else
+            {
+                echo "Product Color Exists";
+            }
         }
     }
     public function get_product_variants_selection()
