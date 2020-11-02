@@ -27,7 +27,7 @@ class Purchase_orders extends CI_Controller {
         $counter = 1;
         foreach($po_items as $item)
         {
-            $result = $this->purchase_orders_model->validate_jo_item($item,$this->input->post("job_type"));
+            $result = $this->purchase_orders_model->validate_po_item($item,$this->input->post("job_type"));
             if($result != null)
             {
                 $results["warning"] = "Line # ". $counter ." already exist on other JO#:". $result->po_id;
