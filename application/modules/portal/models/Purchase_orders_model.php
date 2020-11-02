@@ -27,7 +27,7 @@ class Purchase_orders_model extends CI_Model {
                 $this->logs->created_by = $this->session->userdata("USERID");
                 $this->logs->insert_log();
         }
-        public function validate_po_item($invoice_line_id,$job_type,$po_id=null)
+        public function validate_po_item($invoice_line_id,$job_type,$po_id=null) 
         {
             $this->db->where("invoice_line_id",$invoice_line_id);
             $this->db->where("job_type",$job_type);
