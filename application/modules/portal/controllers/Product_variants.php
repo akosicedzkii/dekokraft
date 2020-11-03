@@ -59,7 +59,7 @@ class Product_variants extends CI_Controller {
         $this->db->where("id",$id);
         $data["status"] = 3; 
         echo $result = $this->db->update("product_variants",$data);
-        unlink($upload_path = './uploads/product_variants/'.$data_product_variants->row()->cover_image);
+        //unlink($upload_path = './uploads/product_variants/'.$data_product_variants->row()->cover_image);
         $data = json_encode($data_product_variants->row());
         $this->logs->log = "Deleted Product - ID:". $data_product_variants->row()->id .", Product Title: ".$data_product_variants->row()->title ;
         $this->logs->details = json_encode($data);
