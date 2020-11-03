@@ -124,6 +124,7 @@ class Product_variants extends CI_Controller {
                 $result->date_created = date("Y-m-d h:i:s A");
                 $result->created_by = $this->session->userdata("USERID");
                 $result->color_abb = $code;
+                $result->status = 1;
                 $this->db->insert("product_variants",(array) $result);
                 $insertId = $this->db->insert_id();
                 $this->load->model("stocks_model");
@@ -145,9 +146,16 @@ class Product_variants extends CI_Controller {
     {
         
         $search = $this->input->get("term[term]");
+        
+        $this->db->where("t2.status","1");  
         $this->db->like("t1.title",$search);  
         $this->db->or_like("t1.code",$search);  
-        $this->db->or_like("t1.class",$search);  
+        $this->db->or_like("t1.class",$search);
+        
+        $this->db->where("t1.status","1");   
+        $this->db->like("t1.title",$search);  
+        $this->db->or_like("t1.code",$search);  
+        $this->db->or_like("t1.class",$search); 
         $this->db->select("CONCAT(t1.title,' - ',T2.color) as text"); 
         $this->db->select("t1.class"); 
         $this->db->select("t1.code"); 
