@@ -45,7 +45,7 @@
   border-bottom: 1px solid black !important;
 }
 </style>
-<body onload="window.print();" style="font-size: 11px;" class="l-h">
+<body onload="window.print();" style="font-size: 14px;" class="l-h">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
@@ -115,12 +115,12 @@
       </div>
     </div>
     <p>Your Quotation No. ___________________________________ Dated ____________________</p>
-    <p>PLEASE SUPPLY AND DELIVER UNDERMENTIONED TO : __________________________________________________ ON or BEFORE ____________________ <?php  ?></p>
+    <p>PLEASE SUPPLY AND DELIVER UNDERMENTIONED TO : __________________________________ ON or BEFORE _______________ <?php  ?></p>
 
     <!-- Table row -->
     <div class="row">
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:9px;border-top: 1px solid black;margin-bottom:10px;">
+        <table class="table table-striped table-condensed" style="font-size:11px;border-top: 1px solid black;margin-bottom:10px;">
         <thead>
                 <tr>
                 <th class="tbl-pad bb">Item No.</th>
@@ -180,13 +180,13 @@
       <div class="col-xs-6" style="border-right: 1px solid black;">
         <p style="text-indent: 25px;">I hereby accept this P.O. subject to the foregoing terms and conditions which we have read and fully understood.</p>
         <div class="col-xs-6">
-          <p class="text-center m-b">_________________________</p>
+          <p class="text-center m-b">_______________________</p>
           <p class="text-center m-b">( Firm )</p><br>
           <p class="text-center m-b">_________________________</p>
           <p class="text-center">( Designation )</p>
         </div>
         <div class="col-xs-6">
-          <p class="text-center m-b">_________________________</p>
+          <p class="text-center m-b">_______________________</p>
           <p class="text-center">( Signature )</p>
         </div>
       </div>

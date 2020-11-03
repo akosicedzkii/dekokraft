@@ -38,7 +38,7 @@
   padding: 1px !important;
 }
 </style>
-<body onload="window.print();" style="font-size: 11px;line-height: 1;">
+<body onload="window.print();" style="font-size: 14px;line-height: 1;">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
@@ -132,7 +132,7 @@
     <!-- Table row -->
     <div class="row">
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:9px;border-bottom: 1px solid black;border-top: 1px solid black;margin-bottom:10px">
+        <table class="table table-striped table-condensed" style="font-size:10px;border-bottom: 1px solid black;border-top: 1px solid black;margin-bottom:10px">
         <thead>
                 <tr>
                 <th class="text-center tbl-pad">Item</th>
@@ -206,19 +206,19 @@
 
     <div class="row" style="display:flex;">
         <div class="col-xs-3">
-          <p>Other Instructions: <?php echo $invoice->shipping_instruction;?></p>
+          <p>Other Instructions:<br> <?php echo $invoice->shipping_instruction;?></p>
         </div>
         <div class="col-xs-3" style="border-left: 1px dashed black;border-right: 1px dashed black;">
-          <p>Packing Instruction: <?php echo $invoice->packing_instruction;?></p>
-          <p>Markings: <?php echo $invoice->markings;?></p>
-          <p>Label Instructions: <?php echo $invoice->label_instructions;?></p>
+          <p>Packing Instruction:<br> <?php echo $invoice->packing_instruction;?></p>
+          <p>Markings:<br> <?php echo $invoice->markings;?></p>
+          <p>Label Instructions:<br> <?php echo $invoice->label_instructions;?></p>
         </div>
         <div class="col-xs-3" style="border-right: 1px dashed black;">
-          <p>Remarks: <?php echo $invoice->remarks;?></p>
+          <p>Remarks:<br> <?php echo $invoice->remarks;?></p>
         </div>
         <div class="col-xs-3">
-          <p>Delivery Time: <?php echo date("F d,Y", strtotime($invoice->delivery_time));?></p>
-          <p>Payment Terms: <?php echo (isset($payment_terms->code))?$payment_terms->code:'';?></p>
+          <p>Delivery Time:<br> <?php echo date("F d,Y", strtotime($invoice->delivery_time));?></p>
+          <p>Payment Terms:<br> <?php echo (isset($payment_terms->code))?$payment_terms->code:'';?></p>
         </div>
     </div>
     <hr style="border-top: 1px dashed black;margin:5px 0 5px 0;">
