@@ -3,7 +3,7 @@
     <section class="content-header">
       <h1>
         Invoice
-        <!-- <small>#007612</small> --> 
+        <!-- <small>#007612</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -11,7 +11,7 @@
       </ol>
     </section>
 
-  
+
     <form id="invoice_form">
         <!-- Main content -->
         <section class="invoice">
@@ -19,11 +19,11 @@
         <div class="row">
             <div class="col-xs-12">
             <h2 class="page-header">
-                <!-- <i class="fa fa-globe"></i>--> <?php echo SITE_NAME;?> 
+                <!-- <i class="fa fa-globe"></i>--> <?php echo SITE_NAME;?>
                 <input type="hidden" value="<?php echo $invoice->id;?>" id="id">
                 <small class="pull-right"> <b>Invoice #<?php echo $invoice->id;?><b>&emsp;MO #<?php if(isset($mo->id)) {echo $mo->id;}else{ echo "No MO yet";}?></b>&emsp;Invoice Date: <?php echo date("m/d/Y",strtotime($invoice->invoice_date));?></small>
-                
-            
+
+
             </h2>
             <select id="invoice_type" style="width:200px;" class="form-control pull-left">
                     <option value="proforma">Proforma Invoice</option>
@@ -36,7 +36,7 @@
         <br>
         <!-- info row -->
         <div class="row invoice-info">
-        
+
             <div class="col-sm-4 invoice-col">
             From
             <address>
@@ -52,6 +52,8 @@
                 <br>
                 <br>
                 <textarea class="form-control"  value="" style="width:70%;"  required placeholder="Customer Address" id="customer_address"/><?php echo $customer_address->customer_address;?></textarea>
+                <br>
+                <input type="text" class="form-control" style="width:70%;" value="<?php echo $invoice->attn;?>" placeholder="ATTN" id="attn"/>
             </address>
             </div>
             <!-- /.col -->
@@ -64,11 +66,11 @@
             <!-- <b>Order ID:</b> 4F3S8J<br>
             <b>Payment Due:</b> 2/22/2014<br>
             <b>Account:</b> 968-34567 -->
-            
+
             <textarea class="form-control" style="width:70%;"   placeholder="Remarks" id="invoice_remarks"/><?php echo $invoice->invoice_remarks;?></textarea>
 
 
-            </div> 
+            </div>
             <!-- /.col -->
         </div>
         <!-- /.row -->
@@ -94,7 +96,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                
+
                 </tbody>
                 <tfoot>
                     <tr>
@@ -178,7 +180,7 @@
             <div class="col-xs-12">
             <div id="uploadBoxMain" class="col-md-12">
                                 </div>
-                                
+
             <a href="<?php echo base_url();?>portal/main/invoices/print?invoice_id=<?php echo $invoice->id;?>" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
             <a  href="<?php echo base_url();?>portal/main/invoices/list" class="btn btn-success"><i class="fa fa-credit-card"></i> Cancel</a>
             <button type="submit" id="save_invoice" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Save Invoice</button>
@@ -193,7 +195,7 @@
     <div class="clearfix"></div>
   </div>
 
-  
+
 <!-- /.modal -->
 <div class="modal fade" id="addProductColorModal" z-index=9999 role="dialog"  data-backdrop="static">
         <div class="modal-dialog modal-md">
@@ -201,7 +203,7 @@
                 <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-            
+
                 <h3 class="modal-title">Add Product Color: <label id="prod_name_add_color"></label></h3>
                 </div>
                 <div class="modal-body">
@@ -249,14 +251,14 @@
         </div>
     <!-- /.modal-dialog -->
     </div>
-    <!-- /.modal -->  
+    <!-- /.modal -->
 <div class="modal fade" id="colorsModal"  z-index=99999 role="dialog"  data-backdrop="static">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
-           
+
              <h3 class="modal-title">Add Colors</h3>
              <input type="hidden" id="action">
              <input type="hidden" id="colorsID">
@@ -277,7 +279,7 @@
                                 <label for="code" class="col-sm-2 control-label">Color Code</label>
 
                                 <div class="col-sm-10">
-                                
+
                                 <input type="text" class="form-control" id="code_" placeholder="Color Code" required>
                                 <div class="help-block with-errors"></div>
                                 </div>
@@ -312,9 +314,9 @@
     </div>
 <!-- /.modal-dialog -->
 </div>
-  <script> 
-        let lineNo = 1; 
-        $(document).ready(function () { 
+  <script>
+        let lineNo = 1;
+        $(document).ready(function () {
             $.ajax({
                 url: "<?php echo base_url("portal/invoices/get_invoice_list?invoice_id=".$invoice->id)?>",
                 type: 'GET',
@@ -322,10 +324,10 @@
                 success: function(res) {
                     var arrayLength = res.length;
                     for (var i = 0; i < arrayLength; i++) {
-                       
-                        markup =  "<tr><td><input type='hidden' value='" + res[i]["product_price"] + "' name='base_amount[]'><input type='hidden'  value='" + res[i]["discount"] + "' name='total_discount[]'><input type='hidden'  value='" +(res[i]["product_price"]*res[i]["quantity"])  + "'name='total_amount[]'><input type='hidden' value='" + res[i]["quantity"] + "'name='total_quantity[]'><input type='hidden' name='product_selected[]' value='" + res[i]["product_id"] + "'><input required type='number' min=0 class='form-control quantity' style='width:100px;' value='" + res[i]["quantity"] + "'></td><td><input name='article[]' value='"+res[i]["article"]+"'  type='text' class='form-control article' style='width:100px;' ></td><td><select type='text' style='width:300px;' required id='product"+ lineNo+"'></select><input type='button' id='AddColor' name='addColor[]' value='+' line-number='" + lineNo + "' data='" + res[i]["product_id"] + "' data-description='"+res[i]["description"]+"' class='btn btn-info'></td><td><label class='product_code'>"+res[i]["code"]+"</label></td><td><label class='product_color'>"+res[i]["color"]+"</label></td><td><label class='product_desc'>"+res[i]["description"]+"</label></td><td><label class='product_price'>"+res[i]["product_price"]+"</td><td><input value='"+res[i]["discount"]+"' required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'>" + (res[i]["product_price"]*res[i]["quantity"]).toFixed(2)+ "</td><td><label class='discounted_price'>" + ((res[i]["quantity"]*res[i]["product_price"]) - (res[i]["discount"]/100)*(res[i]["quantity"]*res[i]["product_price"])).toFixed(2)+ "</td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>"; 
-                            tableBody = $("#product_table tbody"); 
-                            tableBody.append(markup); 
+
+                        markup =  "<tr><td><input type='hidden' value='" + res[i]["product_price"] + "' name='base_amount[]'><input type='hidden'  value='" + res[i]["discount"] + "' name='total_discount[]'><input type='hidden'  value='" +(res[i]["product_price"]*res[i]["quantity"])  + "'name='total_amount[]'><input type='hidden' value='" + res[i]["quantity"] + "'name='total_quantity[]'><input type='hidden' name='product_selected[]' value='" + res[i]["product_id"] + "'><input required type='number' min=0 class='form-control quantity' style='width:100px;' value='" + res[i]["quantity"] + "'></td><td><input name='article[]' value='"+res[i]["article"]+"'  type='text' class='form-control article' style='width:100px;' ></td><td><select type='text' style='width:300px;' required id='product"+ lineNo+"'></select><input type='button' id='AddColor' name='addColor[]' value='+' line-number='" + lineNo + "' data='" + res[i]["product_id"] + "' data-description='"+res[i]["description"]+"' class='btn btn-info'></td><td><label class='product_code'>"+res[i]["code"]+"</label></td><td><label class='product_color'>"+res[i]["color"]+"</label></td><td><label class='product_desc'>"+res[i]["description"]+"</label></td><td><label class='product_price'>"+res[i]["product_price"]+"</td><td><input value='"+res[i]["discount"]+"' required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'>" + (res[i]["product_price"]*res[i]["quantity"]).toFixed(2)+ "</td><td><label class='discounted_price'>" + ((res[i]["quantity"]*res[i]["product_price"]) - (res[i]["discount"]/100)*(res[i]["quantity"]*res[i]["product_price"])).toFixed(2)+ "</td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>";
+                            tableBody = $("#product_table tbody");
+                            tableBody.append(markup);
                             $("#product"+lineNo).select2({
                                 minimumInputLength: 2,
                                 ajax: {
@@ -372,7 +374,7 @@
                                     get_total_quantity(total_quantity)
                                     get_total_discount(total_discount)
                                 });
-                                
+
                                 $row.find(".discount").on('input',function (e) {
                                     var $row = $(this).closest("tr");
                                     $row.find('input[name="total_discount[]"]').val($row.find(".discount").val())
@@ -392,7 +394,7 @@
                                 get_total_quantity(total_quantity)
                                 get_total_discount(total_discount)
                             });
-                            
+
                             $('#product'+ lineNo).append(new Option(res[i]["description"] +" - " +res[i]["color"],res[i]["product_id"],  true, true)).trigger('change');
                             /*$('#quantity').on('input',function (e) {
                                 var $row = $(this).closest("tr");
@@ -420,16 +422,16 @@
                                     get_total_quantity(total_quantity)
                                     get_total_discount(total_discount)
                                 });
-                                
+
                             get_total(total)
                             get_total_quantity(total_quantity)
                             get_total_discount(total_discount)
-                            lineNo++; 
-                            
+                            lineNo++;
+
                     }
                 }
             });
-            
+
             $("#product_table").on("click", "#AddColor", function() {
                 console.log($(this).attr("data"));
                 $("#line_number").val($(this).attr("line-number"));
@@ -437,10 +439,10 @@
                 $("#prod_id_color").val($(this).attr("data"))
                 $("#addProductColorModal").modal("show");
             });
-            $("#add_new_product").click(function () { 
-                markup =  "<tr><td><input type='hidden' name='total_discount_percentage[]'><input type='hidden' name='base_amount[]'><input type='hidden' name='total_discount[]'><input type='hidden' name='total_amount[]'><input type='hidden' name='total_quantity[]'><input type='hidden' name='product_selected[]'><input required value=1 type='number' min=0 class='form-control quantity' style='width:100px;' ></td><td><input type='text' min=0 class='form-control article' name='article[]' style='width:100px;' ></td><td><select type='text' style='width:300px;' required id='product"+ lineNo+"'></select><input type='button' id='AddColor' name='addColor[]' value='+'  line-number='" + lineNo + "' class='btn btn-info'></td><td><label class='product_code'></label></td><td><label class='product_color'></label></td><td><label class='product_desc'></label></td><td><label class='product_price'></td><td><input required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'></td><td><label class='discounted_price'></td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>"; 
-                tableBody = $("#product_table tbody"); 
-                tableBody.append(markup); 
+            $("#add_new_product").click(function () {
+                markup =  "<tr><td><input type='hidden' name='total_discount_percentage[]'><input type='hidden' name='base_amount[]'><input type='hidden' name='total_discount[]'><input type='hidden' name='total_amount[]'><input type='hidden' name='total_quantity[]'><input type='hidden' name='product_selected[]'><input required value=1 type='number' min=0 class='form-control quantity' style='width:100px;' ></td><td><input type='text' min=0 class='form-control article' name='article[]' style='width:100px;' ></td><td><select type='text' style='width:300px;' required id='product"+ lineNo+"'></select><input type='button' id='AddColor' name='addColor[]' value='+'  line-number='" + lineNo + "' class='btn btn-info'></td><td><label class='product_code'></label></td><td><label class='product_color'></label></td><td><label class='product_desc'></label></td><td><label class='product_price'></td><td><input required value=0 type='number' min=0 class='form-control discount' style='width:100px;' ></td><td><label class='total_price'></td><td><label class='discounted_price'></td><td><input type='button' id='DeleteButton' value='x' class='btn btn-danger'></td></tr>";
+                tableBody = $("#product_table tbody");
+                tableBody.append(markup);
                 $("#product"+lineNo).select2({
                     minimumInputLength: 2,
                     ajax: {
@@ -460,14 +462,14 @@
 
                     }
                 });
-                
+
                 var total = 0;
                 var total_quantity = 0;
                 var total_discount = 0;
                 $('#product'+ lineNo).on('select2:select', function (e) {
                     var data = e.params.data;
-        
-                  
+
+
                     var $row = $(this).closest("tr");
                     console.log($row)
                     $row.find('input[name="product_selected[]"]').val(data.id);
@@ -490,7 +492,7 @@
                         get_total_quantity(total_quantity)
                         get_total_discount(total_discount)
                     });
-                    
+
                     $row.find(".discount").on('input',function (e) {
                         var $row = $(this).closest("tr");
                         $row.find('input[name="total_discount[]"]').val($row.find(".discount").val())
@@ -515,8 +517,8 @@
                     alert($row.find("#base_amount").val())
                     ;
                  });*/
-                lineNo++; 
-            }); 
+                lineNo++;
+            });
 
             $('#color').on('select2:select', function (e) {
                 var data = $('#color').select2('data');
@@ -533,7 +535,7 @@
                 console.log(code)
                 console.log(prod_var_id)
                     // Attach file
-                    //fromthis    
+                    //fromthis
                     data = { "id" : prod_var_id, "code" : code , "name" : name , "stock" : stock};
                     var url = "<?php echo base_url()."portal/product_variants/add_prod_colors";?>";
                     var message = "New product color successfully added";
@@ -562,7 +564,7 @@
                             alert(request.responseText);
                         }
                 });
-                
+
             });
 
             function get_total(total){
@@ -633,6 +635,7 @@
             $('#customer_name').on('select2:select', function (e) {
                 var data = $('#customer_name').select2('data');
                 $("#customer_address").val(data[0].address);
+                $("#attn").val(data[0].attn);
             });
             $("#payment_terms").select2({
                 minimumInputLength:1,
@@ -663,11 +666,11 @@
                 $("#colorsForm").submit();
             });
             $("#colorsForm").validator().on('submit', function (e) {
-                
+
                 var btn = $("#saveColors");
                 btn.button("loading");
                 if (e.isDefaultPrevented()) {
-                    btn.button("reset"); 
+                    btn.button("reset");
                 } else {
                     e.preventDefault();
                     var name = $("#name").val();
@@ -677,7 +680,7 @@
 
                     if(name == "" || code == "")
                     {
-                        btn.button("reset"); 
+                        btn.button("reset");
                         return false;
                     }
 
@@ -687,7 +690,7 @@
                     formData.append('code', code);
                     formData.append('status', status);
                     // Attach file
-                    //fromthis    
+                    //fromthis
                     var url = "<?php echo base_url()."portal/colors/add_colors";?>";
                     var message = "New colors successfully added";
 
@@ -712,15 +715,15 @@
                                         percent = Math.ceil(position / total * 100);
                                     }
                                     //update progressbar
-                                    
+
                                     $('#progressBarMain').css('width',percent+'%').html(percent+'%');
-                                                                    
+
                                 }, true);
                             }
                             return xhr;
                         },
                         mimeType:"multipart/form-data"
-                    }).done(function(data){ 
+                    }).done(function(data){
                         if(!data)
                         {
                             btn.button("reset");
@@ -732,8 +735,8 @@
                             btn.button("reset");
                             toastr.success(message);
                             $("#colorsForm").validator('destroy');
-                            $("#colorsModal").modal("hide"); 
-                            $('#uploadBoxMain').html('');          
+                            $("#colorsModal").modal("hide");
+                            $('#uploadBoxMain').html('');
                         }
                     });
                 }
@@ -759,7 +762,7 @@
                 }
             });
             $("#invoice_form").submit(function(e){
-                
+
                 $("#save_invoice").button("loading");
                 var values = [];
                 $("input[name='product_selected[]']").each(function( index, currentElement  ) {
@@ -775,7 +778,7 @@
                     e.preventDefault();
                 });
                 if( $("#mega_total").html() == "")
-                {  
+                {
                     toastr.error("Please add a product");
                     e.preventDefault();
                     return false;
@@ -806,6 +809,7 @@
                 formData.append('status',$("#status").val());
                 formData.append('label_instructions',$("#label_instructions").val());
                 formData.append('invoice_remarks',$("#invoice_remarks").val());
+                formData.append('attn',$("#attn").val());
                 formData.append('invoice_items',JSON.stringify(values));
                 $.ajax({
                     data: formData,
@@ -826,15 +830,15 @@
                                     percent = Math.ceil(position / total * 100);
                                 }
                                 //update progressbar
-                                
+
                                 $('#progressBarMain').css('width',percent+'%').html(percent+'%');
-                                                                
+
                             }, true);
                         }
                         return xhr;
                     },
                     mimeType:"multipart/form-data"
-                }).done(function(data){ 
+                }).done(function(data){
                     if(!data)
                     {
                         btn.button("reset");
@@ -842,12 +846,12 @@
                     }
                     else
                     {
-                        
+
                          toastr.success(message);
-                         $('#uploadBoxMain').html('');  
+                         $('#uploadBoxMain').html('');
                          setTimeout(function(){
                             window.location = "<?php echo base_url()."portal/main/invoices/list";?>";
-                         }, 1000);        
+                         }, 1000);
                     }
                 });
                 e.preventDefault();
@@ -859,7 +863,7 @@
             });
             $("#customer_name").append(new Option("<?php echo $customer_address->company_name;?>","<?php echo $customer_address->id;?>",  true, true)).trigger('change');
             $("#bank").append(new Option("<?php echo $bank->code;?>","<?php echo $bank->id;?>",  true, true)).trigger('change');
-            $("#payment_terms").append(new Option("<?php echo $payment_terms->name;?>","<?php echo $payment_terms->id;?>",  true, true)).trigger('change');
+            $("#payment_terms").append(new Option("<?php echo isset($payment_terms->name)?$payment_terms->name:'';?>","<?php echo isset($payment_terms->id)?$payment_terms->id:'';?>",  true, true)).trigger('change');
             $("#invoice_type").val("<?php echo $invoice->invoice_type;?>")
-        });  
-    </script> 
+        });
+    </script>

@@ -38,7 +38,7 @@
   padding: 1px !important;
 }
 </style>
-<body onload="window.print();" style="font-size: 14px;line-height: 1;">
+<body onload="window.print();" style="font-size: 1.48rem;line-height: 1;">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
@@ -59,6 +59,8 @@
         <p class="m-b"><b>DATE:</b> <?php echo date("d F Y", strtotime($invoice->invoice_date));?></p>
         <dl class="row">
           <dt class="col-xs-2">TO:</dt>
+          <dd class="col-xs-10"><?php echo $customer_address->company_name;?></dd>
+          <dt class="col-xs-2"></dt>
           <dd class="col-xs-10"><?php echo $customer_address->customer_address;?></dd>
           <dt class="col-xs-2">ATTN:</dt>
           <dd class="col-xs-10"><?php echo $invoice->attn;?></dd>
@@ -79,13 +81,13 @@
     <!-- Table row -->
     <div class="row">
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:11px;border-bottom: 1px solid black;border-top: 1px solid black;margin-bottom:10px">
+        <table class="table table-striped table-condensed" style="font-size:1.15rem;border-bottom: 1px solid black;border-top: 1px solid black;margin-bottom:10px">
         <thead>
           <tr>
             <th colspan="3" class="text-center tbl-pad"></th>
             <th class="text-center tbl-pad">PACKING</th>
-            <th colspan="4" class="text-center tbl-pad"></th>
-            <th colspan="2" class="text-center tbl-pad">(STD FOB-MNL US$)</th>
+            <th colspan="3" class="text-center tbl-pad"></th>
+            <th colspan="3" class="text-right tbl-pad">(STD FOB-MNL US$)</th>
           </tr>
           <tr>
             <th class="text-center tbl-pad">ITEM</th>
@@ -108,11 +110,16 @@
             $item_no=1;
             $total_quntity=0;
             $est_cbm=0;
+            $totalIn=0;
+            $totalMstr=0;
           ?>
           <?php foreach ($invoice_lines as $line) {
               $total_quntity=$total_quntity+$line->quantity;
               $total_price = $total_price + ($line->quantity* $line->product_price);
               $total_prod_price=$total_prod_price+$line->product_price;
+              $lineQuantity=$line->quantity>0?$line->quantity:0;
+              $totalIn=$totalIn+($line->in_>0?$lineQuantity/$line->in_:0);
+              $totalMstr=$totalMstr+($line->mstr>0?$lineQuantity/$line->mstr:0);
               $total_discounted = $total_discounted + (($line->quantity*$line->product_price)-($line->quantity*$line->product_price)*($line->discount/100));
 
               $res_mstr=0;
@@ -124,13 +131,13 @@
                 }
                 $res_mstr=$res_mstr/61023;
               }
-              $est_cbm=$est_cbm+floatval($res_mstr);
+              $est_cbm=$est_cbm+($line->mstr>0?str_replace(',','',number_format(floatval($res_mstr),4))*$lineQuantity/$line->mstr:0);
           ?>
-          <tr class="text-center">
+          <tr class="text-left">
             <td class="tbl-pad"><?php echo  $item_no++; ?>.</td>
             <td class="tbl-pad"><?php echo  $line->class. "-" . $line->code."-".$line->color_abb; ?></td>
             <td class="tbl-pad"><?php echo  $line->article; ?></td>
-            <td class="tbl-pad"><?php echo  $line->in_."/".$line->mstr; ?></td>
+            <td class="tbl-pad text-center"><?php echo  $line->in_."/".$line->mstr; ?></td>
             <td class="tbl-pad"><?php echo  number_format($res_mstr,4); ?></td>
             <td class="tbl-pad"><?php echo  $line->color; ?></td>
             <td class="tbl-pad"><?php echo  $line->quantity; ?></td>
@@ -140,16 +147,16 @@
             <!-- <td><?php echo  number_format((float)(($line->quantity * $line->product_price) - (($line->quantity * $line->product_price)*($line->discount/100))), 2, '.', ''); ?></td> -->
           </tr>
           <?php
-          }?>
+        }?>
             <tr>
               <td colspan="2" class="tbl-pad" style="border-top: 1px solid black;">TOTAL</td>
               <td style="border-top: 1px solid black;" class="text-center tbl-pad">EST. CTN:</td>
-              <td style="border-top: 1px solid black;" class="text-center tbl-pad">/</td>
+              <td style="border-top: 1px solid black;" class="text-center tbl-pad"><?php echo number_format($totalIn); ?>/<?php echo number_format($totalMstr); ?></td>
               <td colspan="2" style="border-top: 1px solid black;" class="text-left tbl-pad">EST CBM= <?php echo number_format($est_cbm,4); ?></td>
               <td style="border-top: 1px solid black;" class="text-center tbl-pad"><?php echo number_format($total_quntity); ?></td>
               <td class="tbl-pad" style="border-top: 1px solid black;"></td>
-              <td class="tbl-pad text-center" style="border-top: 1px solid black;"><?php echo number_format($total_prod_price,2); ?></td>
-              <td class="tbl-pad text-center" style="border-top: 1px solid black;"><?php echo number_format($total_price,2); ?></td>
+              <!-- <td class="tbl-pad text-left" style="border-top: 1px solid black;"><?php echo number_format($total_prod_price,2); ?></td> -->
+              <td colspan="2" class="tbl-pad text-center" style="border-top: 1px solid black;">US$ <?php echo number_format($total_price,2); ?></td>
             </tr>
           </tbody>
         </table>
@@ -160,16 +167,16 @@
 
     <!-- /.row -->
     <div class="row" style="display:flex;">
-      <div class="col-xs-3">
-
-      </div>
-      <div class="col-xs-3">
-
+      <div class="col-xs-6">
+        <p>Banks:<br>
+          <?php echo $bank->name;?><br>
+          <?php echo $bank->address;?>
+        </p>
       </div>
       <div class="col-xs-3" style="border-left: 1px dashed black;border-right: 1px dashed black;">
-        <p>Packing Instruction: <?php echo $invoice->packing_instruction;?></p>
-        <p>Markings: <?php echo $invoice->markings;?></p>
-        <p>Label Instructions: <?php echo $invoice->label_instructions;?></p>
+        <p>Packing Instruction:<br> <?php echo $invoice->packing_instruction;?></p>
+        <p>Markings:<br> <?php echo $invoice->markings;?></p>
+        <p>Label Instructions:<br> <?php echo $invoice->label_instructions;?></p>
       </div>
       <div class="col-xs-3">
         <p>Remarks: <?php echo $invoice->remarks;?></p>
