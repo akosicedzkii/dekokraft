@@ -479,7 +479,7 @@ class Main extends CI_Controller
       $page = $this->uri->segment(4, 0);
       if ($page == "print") {
         $id = $this->input->get("po_id");
-        $this->db->select("pv.description,pv.color,pv.color_abb,p.class,p.code,il.quantity,il.discount,il.product_price");
+        $this->db->select("pv.description,pv.color,pv.color_abb,p.class,p.code,il.quantity,il.discount,il.product_price,pol.po_count");
         $this->db->join('invoice_lines as il', 'pol.invoice_line_id=il.id', 'left');
         $this->db->join('product_variants as pv', 'il.product_id=pv.id', 'left');
         $this->db->join('products as p', 'pv.product_id=p.id', 'left');
