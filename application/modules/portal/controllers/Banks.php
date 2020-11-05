@@ -21,6 +21,7 @@ class Banks extends CI_Controller {
         $this->banks_model->code = $this->input->post("code");
         $this->banks_model->status = $this->input->post("status");
         $this->banks_model->address = $this->input->post("address");
+        $this->banks_model->beneficiary_name = $this->input->post("beneficiary_name");
         $this->banks_model->bank_details = $this->input->post("bank_details");
         
         $this->banks_model->date_created = date("Y-m-d H:i:s A");
@@ -35,6 +36,7 @@ class Banks extends CI_Controller {
         $this->banks_model->code = $this->input->post("code");
         $this->banks_model->address = $this->input->post("address");
         $this->banks_model->bank_details = $this->input->post("bank_details");
+        $this->banks_model->beneficiary_name = $this->input->post("beneficiary_name");
         $this->banks_model->status = $this->input->post("status");
         $this->banks_model->date_modified = date("Y-m-d H:i:s A");
         $this->banks_model->modified_by =  $this->session->userdata("USERID");
@@ -87,9 +89,9 @@ class Banks extends CI_Controller {
     public function get_banks_list()
     {
         $this->load->model("portal/data_table_model","dt_model");  
-        $this->dt_model->select_columns = array("t1.id","t1.name","t1.code","t1.address","IF(t1.status=1,'Active','Inactive') as status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
-        $this->dt_model->where  = array("t1.id","t1.name","t1.code","t1.address","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");  
-        $select_columns = array("id","name","code","address","status","date_created","created_by","date_modified","modified_by");  
+        $this->dt_model->select_columns = array("t1.id","t1.name","t1.code","t1.address","t1.beneficiary_name","IF(t1.status=1,'Active','Inactive') as status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");  
+        $this->dt_model->where  = array("t1.id","t1.name","t1.code","t1.address","t1.beneficiary_name","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");  
+        $select_columns = array("id","name","code","address","beneficiary_name","status","date_created","created_by","date_modified","modified_by");  
         $this->dt_model->table = "banks AS t1 LEFT JOIN user_accounts AS t2 ON t2.id = t1.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t1.modified_by ";  
         $this->dt_model->index_column = "t1.id";
         $this->dt_model->staticWhere = "t1.status != 3"; 

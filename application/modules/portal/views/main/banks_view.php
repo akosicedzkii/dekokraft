@@ -29,6 +29,7 @@
             <th>Bank Name</th>
             <th>Bank Code</th>
             <th>Bank Location</th>
+            <th>Beneficiary Name</th>
             <th>Status</th>
             <th>Date Created</th>
             <th>Created By</th>
@@ -78,6 +79,15 @@
                                 <div class="col-sm-10">
                                 
                                 <input type="text" class="form-control" id="code" placeholder="Bank Code" required>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="beneficiary_name" class="col-sm-2 control-label">Beneficiary Name</label>
+
+                                <div class="col-sm-10">
+                                
+                                <input type="text" class="form-control" id="beneficiary_name" placeholder="Beneficiary Name" required>
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
@@ -182,7 +192,7 @@
             ,"columnDefs": [
             { "visible": false,  "targets": [ 0 ] },
             { "width": "20%",  "targets": [ 1 ] }
-        ], "order": [[ 4, 'desc' ]]
+        ], "order": [[ 5, 'desc' ]]
         });
         $("#addBtn").click(function(){
             $("#banksModal .modal-title").html("Add <?php echo ucfirst($module_name);?>");
@@ -211,6 +221,7 @@
                 var code = $("#code").val();
                 var status = $("#inputStatus").val();
                 var banks_id = $("#banksID").val();
+                var beneficiary_name = $("#beneficiary_name").val();
                 var bank_details  = $("#bank_details").val();
                 var bank_address  = $("#bank_address").val();
                 if(name == "" || code == "")
@@ -223,6 +234,7 @@
                 formData.append('id', banks_id);
                 formData.append('name', name);
                 formData.append('code', code);
+                formData.append('beneficiary_name', beneficiary_name);
                 formData.append('bank_details', bank_details);
                 formData.append('address', bank_address);
                 formData.append('status', status);
@@ -359,6 +371,7 @@
                     $("#banksID").val(data.banks.id);
                     $("#bank_details").val(data.banks.bank_details);
                     $("#bank_address").val(data.banks.address);
+                    $("#beneficiary_name").val(data.banks.beneficiary_name);
                     $("#banksModal").modal("show");
                 },
                 error: function (request, status, error) {
