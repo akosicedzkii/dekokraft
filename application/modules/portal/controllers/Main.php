@@ -347,7 +347,7 @@ class Main extends CI_Controller
             $this->db->where('jo.id', $id);
             $module["job_orders"]=$this->db->get("job_orders as jo")->row();
 
-            $this->db->select("product_variants.color,product_variants.color_abb,invoice_lines.*,products.description,products.weight_of_box,products.inner_carton,products.master_carton,products.class,products.code,products.fob,product_profiles.net_weight");
+            $this->db->select("product_variants.color,product_variants.color_abb,invoice_lines.*,products.description,products.weight_of_box,products.inner_carton,products.master_carton,products.class,products.code,products.fob,product_profiles.net_weight,job_order_lines.job_type as jo_type,job_order_lines.jo_count");
             $this->db->join("product_variants", "product_variants.id=invoice_lines.product_id","left");
             $this->db->join("products", "products.id=product_variants.product_id","left");
             $this->db->join("job_order_lines", "job_order_lines.invoice_line_id=invoice_lines.id","left");
