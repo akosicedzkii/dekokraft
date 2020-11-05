@@ -2,7 +2,7 @@
 <html><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?php echo "INVOICE:#".$invoice->id;?></title>
+  <title><?php echo "MARKETING ORDER:#".$mo->id;?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -38,7 +38,7 @@
   padding: 1px !important;
 }
 </style>
-<body onload="window.print();" style="font-size: 14px;line-height: 1;">
+<body onload="window.print();" style="font-size: 1.48rem;line-height: 1;">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
@@ -90,6 +90,8 @@
       <div class="col-sm-4 invoice-col">
         <dl class="row">
           <dt class="col-xs-2">TO:</dt>
+          <dd class="col-xs-10"><?php echo $customer_address->company_name;?></dd>
+          <dt class="col-xs-2"></dt>
           <dd class="col-xs-10"><?php echo $customer_address->customer_address;?></dd>
           <dt class="col-xs-2">ATTN:</dt>
           <dd class="col-xs-10"><?php echo $invoice->attn;?></dd>
@@ -132,7 +134,7 @@
     <!-- Table row -->
     <div class="row">
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:10px;border-bottom: 1px solid black;border-top: 1px solid black;margin-bottom:10px">
+        <table class="table table-striped table-condensed" style="font-size:1.07rem;border-bottom: 1px solid black;border-top: 1px solid black;margin-bottom:10px">
         <thead>
                 <tr>
                 <th class="text-center tbl-pad">Item</th>
@@ -143,8 +145,8 @@
                 <th class="text-center tbl-pad">COLOR</th>
                 <th class="text-center tbl-pad">QTY</th>
                 <th class="text-center tbl-pad">DESCRIPTION</th>
-                <th class="text-center tbl-pad">INNER BOX</th>
-                <th class="text-center tbl-pad">MASTER BOX</th>
+                <th class="text-center tbl-pad">INNER<br>BOX</th>
+                <th class="text-center tbl-pad">MASTER<br>BOX</th>
                 <th class="text-center tbl-pad">U. PRICE</th>
                 <th class="text-center tbl-pad">TOTAL</th>
                 <!-- <th>DISCOUNT(%)</th>
