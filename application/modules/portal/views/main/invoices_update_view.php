@@ -27,7 +27,6 @@
             </h2>
             <select id="invoice_type" style="width:200px;" class="form-control pull-left">
                     <option value="proforma">Proforma Invoice</option>
-                    <option value="marketing">Marketing Invoice</option>
                     <option value="sample">Sample Invoice</option>
                 </select>
             </div>
@@ -132,6 +131,9 @@
             <br>
             <br>
             <textarea class="form-control" style="width:70%;" placeholder="Label Instructions" id="label_instructions"/><?php echo $invoice->label_instructions;?></textarea>
+            <br>
+            <br>
+            <textarea class="form-control" style="width:70%;" placeholder="PDF Due" id="pdf_due"/><?php echo $invoice->pdf_due;?></textarea>
             <br>
             <br>
             <textarea class="form-control" style="width:70%;" placeholder="Markings" id="markings"/><?php echo $invoice->markings;?></textarea>
@@ -809,6 +811,7 @@
                 formData.append('status',$("#status").val());
                 formData.append('label_instructions',$("#label_instructions").val());
                 formData.append('invoice_remarks',$("#invoice_remarks").val());
+                formData.append('pdf_due',$("#pdf_due").val());
                 formData.append('attn',$("#attn").val());
                 formData.append('invoice_items',JSON.stringify(values));
                 $.ajax({

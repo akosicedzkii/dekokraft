@@ -132,6 +132,11 @@
             <br>
             <textarea class="form-control" style="width:70%;" placeholder="Label Instructions" id="label_instructions"/></textarea>
             <br>
+            
+            <br>
+            <textarea class="form-control" style="width:70%;" placeholder="PDF Due" id="pdf_due"/></textarea>
+            <br>
+
             <br>
             <textarea class="form-control" style="width:70%;" placeholder="Markings" id="markings"/></textarea>
             <br>
@@ -684,6 +689,7 @@
                 formData.append('bank',$("#bank").val());
                 formData.append('payment_terms',$("#payment_terms").val());
                 formData.append('delivery_time',$("#delivery_time").val());
+                formData.append('pdf_due',$("#pdf_due").val());
                 formData.append('shipping_instruction',$("#shipping_instruction").val());
                 formData.append('markings',$("#markings").val());
                 formData.append('date_created',$("#date_created").val());
