@@ -12,6 +12,7 @@ class Banks_model extends CI_Model {
         public $created_by;
         public $modified_by;
         public $date_modified;
+        public $beneficiary_name;
 
         public function insert_banks()
         {

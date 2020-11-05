@@ -36,6 +36,7 @@ class Invoices extends CI_Controller {
             'invoice_remarks' => $this->input->post('invoice_remarks'),
             'date_created' => date("Y-m-d h:i:s a"),
             'created_by' => $this->session->userdata("USERID"),
+            'pdf_due' => $this->input->post('pdf_due'),
             'status' => 0,
             
         );
@@ -63,6 +64,7 @@ class Invoices extends CI_Controller {
             'modified_by' => $this->session->userdata("USERID"),
             'invoice_remarks' => $this->input->post('invoice_remarks'),
             'label_instructions' => $this->input->post('label_instructions'),
+            'pdf_due' => $this->input->post('pdf_due'),
             'id' =>$this->input->post("id")
             
         );
