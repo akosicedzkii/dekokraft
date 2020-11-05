@@ -54,7 +54,7 @@
     <div class="row">
       <h4 class="text-center text-uppercase" style="letter-spacing: 3px;"><strong><?php echo $invoice->invoice_type;?> INVOICE</strong></h4>
       <div class="col-sm-5 invoice-col">
-        <p class="font-weight-bold m-b"><b>ID.#</b></p>
+        <p class="font-weight-bold m-b"><b>ID.#<?php echo $user->username; ?></b></p>
         <p class="m-b"><b>IQ.#<?php echo $invoice->iq;?></b></p>
         <p class="m-b"><b>DATE:</b> <?php echo date("d F Y", strtotime($invoice->invoice_date));?></p>
         <dl class="row">
@@ -170,8 +170,12 @@
       <div class="col-xs-6">
         <p>Banks:<br>
           <?php echo $bank->name;?><br>
-          <?php echo $bank->address;?>
+          <?php echo $bank->address;?><br>
+          <?php echo $bank->bank_details;?><br>
         </p>
+        <p>Swift Code:<?php echo $bank->code;?></p>
+        <p>Beneficiary Name:<?php echo $bank->beneficiary_name;?></p>
+        <p>Payment Terms:<?php echo $payment_terms->code; ?><br></p>
       </div>
       <div class="col-xs-3" style="border-left: 1px dashed black;border-right: 1px dashed black;">
         <p>Packing Instruction:<br> <?php echo $invoice->packing_instruction;?></p>
@@ -179,8 +183,8 @@
         <p>Label Instructions:<br> <?php echo $invoice->label_instructions;?></p>
       </div>
       <div class="col-xs-3">
-        <p>Remarks: <?php echo $invoice->remarks;?></p>
-        <p>PDF Due:</p>
+        <p>Remarks:<br> <?php echo $invoice->remarks;?></p>
+        <p>PDF Due:<br> <?php echo $invoice->pdf_due;?></p>
       </div>
     </div>
     <hr style="border-top: 1px dashed black;margin:5px 0 5px 0;">
