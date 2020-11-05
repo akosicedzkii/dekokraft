@@ -103,6 +103,7 @@ class Main extends CI_Controller
             $module["customer_address"] = $this->db->where("id", $module["invoice"]->customer_id)->get("customers")->row();
             $module["bank"] = $this->db->where("id", $module["invoice"]->bank)->get("banks")->row();
             $module["payment_terms"] = $this->db->where("id", $module["invoice"]->payment_terms)->get("payment_terms")->row();
+            $module["user"] = $this->db->select('username')->where("id", $module["invoice"]->created_by)->get("user_accounts")->row();
             if ($module["invoice"] == null) {
                 echo "invoice not found";
             }
