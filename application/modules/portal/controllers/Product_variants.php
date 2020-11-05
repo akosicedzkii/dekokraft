@@ -146,26 +146,10 @@ class Product_variants extends CI_Controller {
     {
         
         $search = $this->input->get("term[term]");
+         
         
-        $this->db->where("t2.status","1");  
-        $this->db->like("t1.title",$search);  
-        $this->db->or_like("t1.code",$search);  
-        $this->db->or_like("t1.class",$search);
-        
-        $this->db->where("t1.status","1");   
-        $this->db->like("t1.title",$search);  
-        $this->db->or_like("t1.code",$search);  
-        $this->db->or_like("t1.class",$search); 
-        $this->db->select("CONCAT(t1.title,' - ',T2.color) as text"); 
-        $this->db->select("t1.class"); 
-        $this->db->select("t1.code"); 
-        $this->db->select("t1.description"); 
-        $this->db->select("t1.fob"); 
-        $this->db->select("t2.color"); 
-        $this->db->select("t2.id");
-        $this->db->join('product_variants as t2', 't2.product_id = t1.id');
-        $filteredValues=$this->db->get("products as t1")->result_array();
-
+        $filteredValues=$this->db->query("SELECT CONCAT(t1.title, ' - ', t2.color) as text, `t1`.`class`, `t1`.`code`, `t1`.`description`, `t1`.`fob`, `t2`.`color`, `t2`.`id`, `t1`.`status`,`t2`.`status` FROM `products` as `t1` JOIN `product_variants` as `t2` ON `t2`.`product_id` = `t1`.`id` WHERE `t1`.`status` = '1' AND `t2`.`status` = '1' AND( `t1`.`title` LIKE '%$search%' ESCAPE '!' OR `t1`.`code` LIKE '%$search%' ESCAPE '!' OR `t1`.`class` LIKE '%$search%' ESCAPE '!')")->result_array();
+        //print_r($this->db->last_query());   
         echo json_encode(array(
             'items' => $filteredValues
         ));
