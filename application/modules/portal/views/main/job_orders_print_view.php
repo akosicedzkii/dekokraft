@@ -109,17 +109,17 @@
             $total_price=0;
             $total_quantity=0;
               foreach ($invoice_lines as $line) {
-                  $total_price = $total_price + ($line->quantity* $line->product_price);
-                  $total_quantity=$total_quantity + $line->quantity ?>
+                  $total_price = $total_price + ($line->jo_count* $line->product_price);
+                  $total_quantity=$total_quantity + $line->jo_count ?>
                 <tr>
                   <td class="tbl-pad"><?php echo  $line->class. "-" . $line->code."-".$line->color_abb; ?></td>
                   <td class="tbl-pad"><?php echo  $line->color; ?></td>
-                  <td class="tbl-pad"><?php echo  $line->quantity; ?> pcs.</td>
+                  <td class="tbl-pad"><?php echo  $line->jo_count; ?> pcs.</td>
                   <td class="tbl-pad"><?php echo  $line->description; ?></td>
                   <td class="tbl-pad"><?php echo $line->net_weight; ?></td>
-                  <td class="tbl-pad"></td>
+                  <td class="tbl-pad"><?php echo $line->jo_type; ?></td>
                   <td class="tbl-pad"><?php echo  $line->product_price; ?></td>
-                  <td class="tbl-pad"><?php echo  number_format((float)($line->quantity * $line->product_price), 2, '.', '') ; ?></td>
+                  <td class="tbl-pad"><?php echo  number_format((float)($line->jo_count * $line->product_price), 2, '.', '') ; ?></td>
                 </tr>
             <?php
               }
@@ -273,12 +273,12 @@
             <?php
             $total_quantity=0;
               foreach ($invoice_lines as $line) {
-                  $total_quantity=$total_quantity + $line->quantity ?>
+                  $total_quantity=$total_quantity + $line->jo_count; ?>
                 <tr>
                   <td class="tbl-pad"><?php echo  $line->class. "-" . $line->code."-".$line->color_abb; ?></td>
                   <td class="tbl-pad"><?php echo  $line->color; ?></td>
                   <td class="tbl-pad"><?php echo  $line->description; ?></td>
-                  <td class="tbl-pad"><?php echo  $line->quantity; ?></td>
+                  <td class="tbl-pad"><?php echo  $line->jo_count; ?></td>
                 </tr>
             <?php
               }

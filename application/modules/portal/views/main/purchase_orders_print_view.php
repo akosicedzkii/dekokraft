@@ -138,17 +138,17 @@
             $total_quntity=0;
             $total_price=0;
               foreach ($p_o as $po_line) {
-                $total_quntity=$total_quntity+$po_line->quantity;
-                $total_price=$total_price+($po_line->quantity * $po_line->product_price);
+                $total_quntity=$total_quntity+$po_line->po_count;
+                $total_price=$total_price+($po_line->po_count * $po_line->product_price);
             ?>
             <tr>
               <td class="tbl-pad"><?php echo $no++; ?></td>
               <td class="tbl-pad"><?php echo $po_line->class.' '.$po_line->code.' '.$po_line->color; ?></td>
               <td class="tbl-pad"><?php echo $po_line->description; ?></td>
-              <td class="tbl-pad"><?php echo $po_line->quantity; ?></td>
+              <td class="tbl-pad"><?php echo $po_line->po_count; ?></td>
               <td class="tbl-pad">PCS</td>
               <td class="tbl-pad"><?php echo $po_line->product_price; ?></td>
-              <td class="tbl-pad"><?php echo number_format($po_line->quantity * $po_line->product_price, 2); ?></td>
+              <td class="tbl-pad"><?php echo number_format($po_line->po_count * $po_line->product_price, 2); ?></td>
             </tr>
             <?php
               }
