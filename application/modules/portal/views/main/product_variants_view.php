@@ -441,10 +441,10 @@ https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
                                         </div>
                                     </div> 
                                     <div class="form-group">
-                                        <label for="class" class="col-sm-2 control-label">Class</label>
+                                        <label for="class2" class="col-sm-2 control-label">Class</label>
 
                                         <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="class" placeholder="Class" required>
+                                        <input type="text" class="form-control" id="class2" placeholder="Class" required>
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
@@ -568,7 +568,7 @@ https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
                                         <label for="inputStatus" class="col-sm-2 control-label">Status</label>
 
                                         <div class="col-sm-10">
-                                        <select class="form-control" id="inputStatus" placeholder="Content" style="resize:none" required>
+                                        <select class="form-control" id="inputStatus2" placeholder="Content" style="resize:none" required>
                                             <option value="1">Enable</option>
                                             <option value="0">Disable</option>
                                         </select>
@@ -659,10 +659,10 @@ var image_correct = true;
                 e.preventDefault();
                 var title = $("#inputProductsTitle2").val();
                 var description = $("#inputDescription2").val();
-                var status = $("#inputStatus").val();
+                var status = $("#inputStatus2").val();
                 var products_id = $("#productsID").val();
                 var cover_image = $("#cover_image").val();
-                var classs = $("#class").val();
+                var classs = $("#class2").val();
                 //var data = $('#color').select2('data');
                 //var color  = data[0].text;
                 var code = $("#code__").val();
