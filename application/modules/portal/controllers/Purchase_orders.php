@@ -118,8 +118,8 @@ class Purchase_orders extends CI_Controller {
         $data["status"] = 1;
         echo $result = $this->db->update("purchase_orders",$data);
 
-        $this->db->where("po_id",$id);
-        $result = $this->db->delete("purchase_order_lines");
+        //$this->db->where("po_id",$id);
+        //$result = $this->db->delete("purchase_order_lines");
         $data = json_encode($data_purchase_orders->row());
         $this->logs->log = "Completed purchase_orders - ID:". $data_purchase_orders->row()->id  ;
         $this->logs->details = json_encode($data);

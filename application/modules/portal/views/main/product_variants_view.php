@@ -433,10 +433,10 @@ https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
                                 <input type="hidden" id="imagebase64">
                             </div>-->
                             <div class="form-group">
-                                        <label for="inputProductsTitle"  class="col-sm-2 control-label">Product Name</label>
+                                        <label for="inputProductsTitle2"  class="col-sm-2 control-label">Product Name</label>
 
                                         <div class="col-sm-10">
-                                        <input type="text" class="form-control" onkeyup="this.value = this.value.toUpperCase();" id="inputProductsTitle" placeholder="Product Name" required>
+                                        <input type="text" class="form-control" onkeyup="this.value = this.value.toUpperCase();" id="inputProductsTitle2" placeholder="Product Name" required>
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div> 
@@ -452,7 +452,7 @@ https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
                                         <label for="Code" class="col-sm-2 control-label">Code</label>
 
                                         <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="code" placeholder="Code" required>
+                                        <input type="text" class="form-control" id="code__" placeholder="Code" required>
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
@@ -657,7 +657,7 @@ var image_correct = true;
                 btn.button("reset"); 
             } else {
                 e.preventDefault();
-                var title = $("#inputProductsTitle").val();
+                var title = $("#inputProductsTitle2").val();
                 var description = $("#inputDescription2").val();
                 var status = $("#inputStatus").val();
                 var products_id = $("#productsID").val();
@@ -665,7 +665,7 @@ var image_correct = true;
                 var classs = $("#class").val();
                 //var data = $('#color').select2('data');
                 //var color  = data[0].text;
-                var code = $("#code").val();
+                var code = $("#code__").val();
                 //var color_abb = $("#color_abb").val();
                 var inner_carton = $("#inner_carton").val();
                 var master_carton = $("#master_carton").val();

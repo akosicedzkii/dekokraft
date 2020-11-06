@@ -110,8 +110,8 @@ class Job_orders extends CI_Controller
         $data["status"] = 1;
         echo $result = $this->db->update("job_orders", $data);
 
-        $this->db->where("jo_id", $id);
-        $result = $this->db->delete("job_order_lines");
+        //$this->db->where("jo_id", $id);
+        //$result = $this->db->delete("job_order_lines");
         $data = json_encode($data_job_orders->row());
         $this->logs->log = "Completed job orders - ID:". $data_job_orders->row()->id  ;
         $this->logs->details = json_encode($data);
