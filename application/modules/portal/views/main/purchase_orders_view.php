@@ -106,17 +106,17 @@
                                 
                             </div>
                                 </div>
-                                <div class="row">
+                            <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label for="deadline" class="col-sm-6 control-label">Deadline</label>
 
                                         <div class="col-sm-6">
-                                        <input type="date" style="width:150px;" class="form-control" id="deadline" placeholder="Deadline" required>
-                                        <div class="help-block with-errors"></div>
+                                            <input type="date" style="width:150px;" class="form-control" id="deadline" placeholder="Deadline" required>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
                                     </div>
                                 </div>
-
                             </div>
                             </div>
                            
