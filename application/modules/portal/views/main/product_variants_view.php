@@ -895,6 +895,7 @@ $("#product").select2({
             };
         },
         processResults: function (data) {
+            console.log(data)
             return {
                 results: data.items
             };
