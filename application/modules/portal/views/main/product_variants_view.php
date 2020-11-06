@@ -460,7 +460,7 @@ https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
                                         <label for="inputDescription" class="col-sm-2 control-label">Description</label>
 
                                         <div class="col-sm-10">
-                                        <textarea class="form-control" id="inputDescription" placeholder="Description" style="resize:none" required></textarea>
+                                        <textarea class="form-control" id="inputDescription2" placeholder="Description" style="resize:none" required></textarea>
                                         <div class="help-block with-errors"></div>
                                         </div>
                                     </div>
@@ -658,7 +658,7 @@ var image_correct = true;
             } else {
                 e.preventDefault();
                 var title = $("#inputProductsTitle").val();
-                var description = $("#inputDescription").val();
+                var description = $("#inputDescription2").val();
                 var status = $("#inputStatus").val();
                 var products_id = $("#productsID").val();
                 var cover_image = $("#cover_image").val();
