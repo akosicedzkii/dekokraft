@@ -39,6 +39,7 @@ class Main extends CI_Controller
         $module["unique_visitors"] = $this->db->get("visit_counts")->num_rows();
         $query = "SELECT t2.code,t2.description,CONCAT(t1.color,' (',t1.color_abb,')') as color,t1.cover_image FROM product_variants as t1 LEFT JOIN products as t2 ON t2.id = t1.product_id ORDER BY t1.date_created DESC LIMIT 4";
         $module["product_variants"] = $this->db->query($query)->result();
+        $module["product_category"] = $this->db->get("products")->result();
 
         $this->db->order_by("user_accounts.id", "desc");
         $this->db->select('*');

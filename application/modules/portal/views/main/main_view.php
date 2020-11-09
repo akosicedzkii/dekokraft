@@ -78,18 +78,12 @@
 
       <!-- Main row -->
       <div class="row">
-        <!-- Left col -->
         <div class="col-md-8">
-          <!-- MAP & BOX PANE -->
-          <div class="box box-success">
+               <!-- DIRECT CHAT -->
+          <!-- PRODUCT LIST -->
+          <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Invoices
-                <select id="filter">
-                  <option value="today">Today</option>
-                  <option value="this_month">This month</option>
-                  <option value="all">All</option>
-                </select>
-              </h3>
+              <h3 class="box-title">Recently Added Product Category</h3>
 
               <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -98,23 +92,49 @@
               </div>
             </div>
             <!-- /.box-header -->
-            <div class="box-body no-padding">
-              <div class="row">
-                <div class="col-md-12 col-sm-12">
-                  <div class="pad">
-                    <!-- Map will be created here -->
-                    <div id="world-map-markers" style="height: 325px;"></div>
-                  </div>
-                </div>
-                <!-- /.col -->
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
+            <div class="box-body">
+              <ul class="products-list product-list-in-box">
+              <?php 
+                      if($product_category != null)
+                      {
+                        $count = 0;
+                        foreach($product_category as $row)
+                        {
+                          if($count==4)
+                          {
+                            break;
+                          }
+                            ?>
+                               <li class="item" data-toggle="tooltip"  title="<?php echo ucfirst($row->description);?>">
+                                <div class="product-img">
+                                  <img onerror="this.onerror=null;this.src='<?php echo base_url("uploads/profile_image/default_dp.png");?>';" src="<?php echo base_url("uploads/product_variants/".$row->cover_image);?>" alt="Cover Image">
+                                </div>
+                                <div class="product-info">
+                                  <a href="javascript:void(0)"  class="product-title"><?php echo ucfirst($row->description)." ".$row->color;?>
+                                   
+                                  <span class="product-description">
+                                        <?php echo substr(ucfirst($row->description),0,80);?>
+                                      </span>
+                                </div>
+                              </li>
+                            <?php
+                            $count++;
+                        }
+                      }
+                      ?>
+                
+              </ul>
             </div>
             <!-- /.box-body -->
+            <div class="box-footer text-center">
+            <?php 
+              if (in_array("products", $menu)) {
+              ?>
+                  <a href="<?php echo base_url("portal/main/products");?>" class="uppercase">View All Product Categories</a>
+              <?php }?>
+            </div>
+            <!-- /.box-footer -->
           </div>
-          <!-- /.box -->
-       
 
         </div>
         <!-- /.col -->
