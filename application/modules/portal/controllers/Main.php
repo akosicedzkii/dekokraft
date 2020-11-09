@@ -367,6 +367,37 @@ class Main extends CI_Controller
             }
             $module["materials"]=$arr;
             $this->load->view('main/job_orders_print_view', $module);
+        } elseif ($page == "prints") {
+            $id = $this->input->get("job_id");
+
+            $this->db->select('jo.*,sub.name,sub.subcon_details,sub.address,sub.code,pt.code as payment_code,mo.invoice_id,c.customer_name');
+            $this->db->join('subcon as sub', 'jo.subcon_id=sub.id');
+            $this->db->join('marketing_order as mo', 'jo.mo_id=mo.id');
+            $this->db->join('invoices as inv', 'mo.invoice_id=inv.id', 'left');
+            $this->db->join('customers as c', 'inv.customer_id=c.id', 'left');
+            $this->db->join('payment_terms as pt', 'inv.payment_terms=pt.id', 'left');
+            $this->db->where('jo.id', $id);
+            $module["job_orders"]=$this->db->get("job_orders as jo")->row();
+
+            $this->db->select("product_variants.color,product_variants.color_abb,invoice_lines.*,products.description,products.weight_of_box,products.inner_carton,products.master_carton,products.class,products.code,products.fob,product_profiles.net_weight,job_order_lines.job_type as jo_type,job_order_lines.jo_count");
+            $this->db->join("product_variants", "product_variants.id=invoice_lines.product_id", "left");
+            $this->db->join("products", "products.id=product_variants.product_id", "left");
+            $this->db->join("job_order_lines", "job_order_lines.invoice_line_id=invoice_lines.id", "left");
+            $this->db->join("product_profiles", "product_variants.id=product_profiles.product_variant_id", "left");
+            // $this->db->where("invoice_id", $module["job_orders"]->invoice_id);
+            $this->db->where("job_order_lines.jo_id", $module["job_orders"]->id);
+            $this->db->order_by("products.description", "asc");
+            $module["invoice_lines"]= $this->db->get("invoice_lines")->result();
+            $arr=array();
+            foreach ($module["invoice_lines"] as $mat) {
+                $this->db->select("materials.material_name,materials.unit,materials.jp,ppm.qty,ppm.product_variant_id");
+                $this->db->join("materials", "ppm.material_id=materials.id");
+                $this->db->where("ppm.product_variant_id", $mat->product_id);
+                $material_list =  $this->db->order_by("materials.jp", "asc")->get("product_profile_materials as ppm")->result_array();
+                array_push($arr, $material_list);
+            }
+            $module["materials"]=$arr;
+            $this->load->view('main/jobOrders_listSubBq_print_view', $module);
         }
     }
 

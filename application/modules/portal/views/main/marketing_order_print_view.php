@@ -70,7 +70,7 @@
            </div>
 
             <div class="row">
-                <center><h5 style="letter-spacing: 3px;">MARKETING ORDER</h5></center>
+                <center><h4 style="letter-spacing: 3px;">MARKETING ORDER</h4></center>
             </div>
 
             <div class="row">
@@ -177,17 +177,17 @@
           ?>
           <tr>
             <td class="text-center tbl-pad"><?php echo  $count; ?></td>
-            <td class="text-center tbl-pad"><?php echo  $line->class."-".$line->code."-".$line->color_abb; ?></td>
+            <td class="text-left tbl-pad"><?php echo  $line->class."-".$line->code."-".$line->color_abb; ?></td>
             <td class="tbl-pad"><?php echo  $line->article; ?></td>
             <td class="text-center tbl-pad"><?php echo  $line->in_." / ".$line->mstr; ?></td>
             <td class="text-center tbl-pad"><?php echo  number_format($res_mstr,4); ?></td>
-            <td class="text-center tbl-pad"><?php echo  $line->color; ?></td>
+            <td class="text-left tbl-pad"><?php echo  $line->color; ?></td>
             <td class="text-center tbl-pad"><?php echo  $line->quantity; ?></td>
-            <td class="text-center tbl-pad"><?php echo  $line->description; ?></td>
-            <td class="text-center tbl-pad"><?php echo  $line->inner_carton; ?></td>
-            <td class="text-center tbl-pad"><?php echo  $line->master_carton; ?></td>
+            <td class="text-left tbl-pad"><?php echo  $line->description; ?></td>
+            <td class="text-left tbl-pad"><?php echo  $line->inner_carton; ?></td>
+            <td class="text-left tbl-pad"><?php echo  $line->master_carton; ?></td>
             <td class="text-center tbl-pad"><?php echo  $line->product_price; ?></td>
-            <td class="text-center tbl-pad"><?php echo  number_format((float)($line->quantity * $line->product_price), 2, '.', '') ; ?></td>
+            <td class="text-right tbl-pad"><?php echo  number_format((float)($line->quantity * $line->product_price), 2, '.', '') ; ?></td>
             <!-- <td><?php echo  number_format((float)$line->discount, 2, '.', ''); ?></td>
             <td><?php echo  number_format((float)(($line->quantity * $line->product_price) - (($line->quantity * $line->product_price)*($line->discount/100))), 2, '.', ''); ?></td> -->
           </tr>
@@ -197,7 +197,8 @@
             <td colspan="2" class="tbl-pad" style="border-top: 1px solid black;">TOTAL</td>
             <td colspan="4" class="tbl-pad" style="border-top: 1px solid black;"></td>
             <td style="border-top: 1px solid black;" class="text-center tbl-pad"><?php echo number_format($total_quntity); ?></td>
-            <td colspan="5" class="tbl-pad" style="border-top: 1px solid black;"></td>
+            <td colspan="4" class="tbl-pad" style="border-top: 1px solid black;"></td>
+            <td class="tbl-pad text-right" style="border-top: 1px solid black;">P <?php echo number_format($total_price,2); ?></td>
           </tr>
           </tbody>
         </table>

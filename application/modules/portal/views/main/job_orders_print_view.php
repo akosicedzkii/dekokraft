@@ -78,9 +78,15 @@
         </dl>
       </div>
       <div class="col-xs-6">
+        <?php
+        $totalPrice=0;
+          foreach ($invoice_lines as $line) {
+              $totalPrice = $totalPrice + ($line->jo_count* $line->product_price);
+          }
+         ?>
         <dl class="row">
           <dt class="col-xs-4 text-right">Payment Terms:</dt>
-          <dd class="col-xs-8" style="padding-left:0px;"><?php echo $job_orders->payment_code; ?> D/P Upon J.O. Issuance Balance upon completion of delivery.</dd>
+          <dd class="col-xs-8" style="padding-left:0px;"><?php echo $totalPrice<10000?'Full Payment Upon Completion of Delivery.':'D/P Upon J.O. Issuance Balance upon completion of delivery.'; ?></dd>
         </dl>
       </div>
     </div>
@@ -113,13 +119,13 @@
                   $total_quantity=$total_quantity + $line->jo_count ?>
                 <tr>
                   <td class="tbl-pad"><?php echo  $line->class. "-" . $line->code."-".$line->color_abb; ?></td>
-                  <td class="tbl-pad"><?php echo  $line->color; ?></td>
+                  <td class="tbl-pad"><?php echo  $job_orders->job_type=='resin'?'':$line->color; ?></td>
                   <td class="tbl-pad"><?php echo  $line->jo_count; ?> pcs.</td>
                   <td class="tbl-pad"><?php echo  $line->description; ?></td>
                   <td class="tbl-pad"><?php echo $line->net_weight; ?></td>
                   <td class="tbl-pad"><?php echo $line->jo_type; ?></td>
                   <td class="tbl-pad"><?php echo  $line->product_price; ?></td>
-                  <td class="tbl-pad"><?php echo  number_format((float)($line->jo_count * $line->product_price), 2, '.', '') ; ?></td>
+                  <td class="tbl-pad text-right"><?php echo  number_format((float)($line->jo_count * $line->product_price), 2, '.', '') ; ?></td>
                 </tr>
             <?php
               }
@@ -127,7 +133,7 @@
             <td colspan="2" class="text-center tbl-pad">TOTAL</td>
             <td class="tbl-pad"><?php echo number_format($total_quantity); ?> pcs.</td>
             <td colspan="4" class="tbl-pad"></td>
-            <td class="tbl-pad" style="border-top:1px solid black;border-bottom:1px solid black;"><?php echo number_format($total_price, 2); ?></td>
+            <td class="tbl-pad text-right" style="border-top:1px solid black;border-bottom:1px solid black;"><div class="" style="border-bottom:1px solid black;">P <?php echo number_format($total_price, 2); ?></div></td>
           </tr>
           </tbody>
         </table>
@@ -257,7 +263,7 @@
     </div>
     <br>
     <!-- Table row -->
-    <div class="row">
+    <!-- <div class="row">
       <p class="text-center">*** JOB ORDER LIST ***</p>
       <div class="col-xs-12 table-responsive">
         <table class="table table-striped table-condensed" style="font-size:12px;">
@@ -290,12 +296,11 @@
           </tbody>
         </table>
       </div>
-      <!-- /.col -->
-    </div>
+    </div> -->
     <!-- /.row -->
-    <br>
+    <!-- <br> -->
     <!-- Table row -->
-    <div class="row">
+    <!-- <div class="row">
       <p class="text-center">*** SUB-BQ ( BILL OF QUANTITY ) ***</p>
       <div class="col-xs-12 table-responsive">
         <table class="table table-condensed" style="font-size:12px;">
@@ -338,8 +343,8 @@
           </tbody>
         </table>
       </div>
-      <!-- /.col -->
-    </div>
+      
+    </div> -->
     <!-- /.row -->
 
   </section>
