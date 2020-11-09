@@ -58,7 +58,7 @@ class Main extends CI_Controller
         $module["pending_invoice"] = $this->db->where("status", 0)->get("invoices")->num_rows();
         $module["pending_products"] = $this->db->where("status", 4)->get("products")->num_rows();
         $module["total_customers"] = $this->db->get("customers")->num_rows();
-        $module["user_counts"] = $this->db->get("user_accounts")->num_rows();
+        $module["stock_counts"] = $this->db->where("status!=","1")->get("stocks")->num_rows();
 
         $this->load->view('main/template/header', $module);
         $this->load->view('main/main_view', $module);

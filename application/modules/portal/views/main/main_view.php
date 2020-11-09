@@ -65,8 +65,8 @@
             <span class="info-box-icon bg-yellow"><i class="ion ion-ios-glasses-outline"></i></span>
 
             <div class="info-box-content">
-              <span class="info-box-text">Total Users</span>
-              <span class="info-box-number"><?php echo $user_counts?></span>
+              <span class="info-box-text">Total Stocks</span>
+              <span class="info-box-number"><?php echo $stock_counts?></span>
             </div>
             <!-- /.info-box-content -->
           </div>
