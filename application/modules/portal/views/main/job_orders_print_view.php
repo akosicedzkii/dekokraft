@@ -86,7 +86,7 @@
          ?>
         <dl class="row">
           <dt class="col-xs-4 text-right">Payment Terms:</dt>
-          <dd class="col-xs-8" style="padding-left:0px;"><?php echo $totalPrice<10000?'Full Payment Upon Completion of Delivery.':'D/P Upon J.O. Issuance Balance upon completion of delivery.'; ?></dd>
+          <dd class="col-xs-8" style="padding-left:0px;"><?php echo $totalPrice<10000?'Full Payment Upon Completion of Delivery.':'25% D/P Upon J.O. Issuance Balance upon completion of delivery.'; ?></dd>
         </dl>
       </div>
     </div>
@@ -343,7 +343,7 @@
           </tbody>
         </table>
       </div>
-      
+
     </div> -->
     <!-- /.row -->
 
