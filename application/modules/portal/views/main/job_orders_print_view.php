@@ -116,14 +116,28 @@
             $total_quantity=0;
               foreach ($invoice_lines as $line) {
                   $total_price = $total_price + ($line->jo_count* $line->product_price);
-                  $total_quantity=$total_quantity + $line->jo_count ?>
+                  $total_quantity=$total_quantity + $line->jo_count;
+                  switch ($line->jo_type) {
+                          case 'resin':
+                            $jobType=1;
+                            break;
+
+                          case 'finishing':
+                            $jobType=4;
+                            break;
+
+                          default:
+                            $jobType='';
+                            break;
+                        }
+                  ?>
                 <tr>
                   <td class="tbl-pad"><?php echo  $line->class. "-" . $line->code."-".$line->color_abb; ?></td>
                   <td class="tbl-pad"><?php echo  $job_orders->job_type=='resin'?'':$line->color; ?></td>
                   <td class="tbl-pad"><?php echo  $line->jo_count; ?> pcs.</td>
                   <td class="tbl-pad"><?php echo  $line->description; ?></td>
                   <td class="tbl-pad"><?php echo $line->net_weight; ?></td>
-                  <td class="tbl-pad"><?php echo $line->jo_type; ?></td>
+                  <td class="tbl-pad">[<?php echo $jobType; ?> ]</td>
                   <td class="tbl-pad"><?php echo  $line->product_price; ?></td>
                   <td class="tbl-pad text-right"><?php echo  number_format((float)($line->jo_count * $line->product_price), 2, '.', '') ; ?></td>
                 </tr>
@@ -169,7 +183,8 @@
       <!-- </div> -->
       <div class="col-xs-12">
         <p class="m-b">RULES & REGULATIONS:</p>
-        <p>Subcontractor may not offer subject items which are the exclusive designs and sole property of DEKOKRAFT, INC. to any other individual, COMPANY or establishment. Should the Subcontractor violate the foregoing condition, he shall be liable to penalty for estafa and breach of contract.</p>
+        <p class="m-b">Subcontractor may not offer subject items which are the exclusive designs and sole property of DEKOKRAFT, INC. to any other individual.</p>
+        <p>COMPANY or establishment, Should the Subcontractor violate the foregoing condition, he shall be liable to penalty for estafa and breach of contract.</p>
         <?php if ($job_orders->job_type=='resin') {
           $dated=date_create(date("F d, Y", strtotime($job_orders->deadline)));
           date_sub($dated,date_interval_create_from_date_string("10 days"));
@@ -189,6 +204,7 @@
       <?php } ?>
       </div>
     </div>
+    <div class="" style="border-top: 4px double black;"></div>
     <div class="row">
       <div class="col-xs-6">
         <p>I hereby accept this J.O. subject to the foregoing terms and conditions which we have read and fully understood.</p>
