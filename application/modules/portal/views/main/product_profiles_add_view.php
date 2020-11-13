@@ -37,6 +37,8 @@
                     <tr><td>Desc: </td><td><?php echo $product_variants->description;?></td></tr>
                     <tr><td>Color: </td><td><?php echo $product_variants->color;?></td></tr>
                     <tr><td>Target Wgt.: </td><td><input type='text' id="weight" style="width:200px;" value="<?php echo $net_weight;?>" class="form-control"></td></tr>
+                    <tr><td>Resin Unit Price: </td><td><input type='text' id="resin_unit_price" style="width:200px;" value="<?php echo $resin_unit_price;?>" class="form-control"></td></tr>
+                    <tr><td>Finishing Unit Price: </td><td><input type='text' id="finishing_unit_price" style="width:200px;" value="<?php echo $finishing_unit_price;?>" class="form-control"></td></tr>
                 </table>
             </div>
         </div>
@@ -287,6 +289,8 @@
                         <input type="hidden" name="in_poly_size_add"  id="in_poly_size_add">
                         <input type="hidden" name="mstr_poly_size_add"  id="mstr_poly_size_add">
                         <input type="hidden" name="product_variant_id" value="<?php echo $product_variants->id;?>">
+                        <input type="hidden" name="resin_unit_price_add"  id="resin_unit_price_add">
+                        <input type="hidden" name="finishing_unit_price_add"  id="finishing_unit_price_add">
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="group_name" class="col-sm-2 control-label">Material List Name</label>
@@ -387,6 +391,8 @@
                         <input type="hidden" name="provided_trading_edit"  id="provided_trading_edit">
                         <input type="hidden" name="product_variant_id_edit"  id="product_variant_id_edit">
                         <input type="hidden" name="net_weight_edit"  id="net_weight_edit">
+                        <input type="hidden" name="resin_unit_price_edit"  id="resin_unit_price_edit">
+                        <input type="hidden" name="finishing_unit_price_edit"  id="finishing_unit_price_edit">
                         <input type="hidden" name="inner_box_edit"  id="inner_box_edit">
                         <input type="hidden" name="master_box_edit"  id="master_box_edit">
                         <input type="hidden" name="inner_polybag_edit"  id="inner_polybag_edit">
@@ -824,6 +830,8 @@ $("#updateDetails").click(function(){
 
     var formData = new FormData();
     formData.append("net_weight",$("#weight").val());
+    formData.append("resin_unit_price",$("#resin_unit_price").val());
+    formData.append("finishing_unit_price",$("#finishing_unit_price").val());
     formData.append("provided_resin_cast",$("#provided_resin_cast").val());
     formData.append("provided_resin_clean",$("#provided_resin_clean").val());
     formData.append("provided_finishing",$("#provided_finishing").val());
@@ -897,6 +905,8 @@ $("#updateDetails").click(function(){
 $("#saveMaterials").click(function(){
     var btn=$("#saveMaterials");
     $("#net_weight").val($("#weight").val());
+    $("#resin_unit_price_add").val($("#resin_unit_price").val());
+    $("#finishing_unit_price_add").val($("#finishing_unit_price").val());
 
     $("#provided_resin_cast_add").val($("#provided_resin_cast").val())
     $("#provided_resin_clean_add").val($("#provided_resin_clean").val())
@@ -921,6 +931,7 @@ $("#saveMaterials").click(function(){
     $("#mstr_poly_cost_add").val($("#mstr_poly_cost").val());
     $("#in_poly_size_add").val($("#inner_poly_size").val());
     $("#mstr_poly_size_add").val($("#master_poly_size").val());
+    
     console.log($("#product_profilesForm_edit").serialize());
     console.log($("#product_profilesForm").serialize());
     $.ajax({
@@ -977,6 +988,8 @@ $("#saveMaterials_edit").click(function(){
     var btn=$("#saveMaterials_edit");
 
     $("#net_weight_edit").val($("#weight").val());
+    $("#resin_unit_price_edit").val($("#resin_unit_price").val());
+    $("#finishing_unit_price_edit").val($("#finishing_unit_price").val());
     $("#provided_resin_cast_edit").val($("#provided_resin_cast").val())
     $("#provided_resin_clean_edit").val($("#provided_resin_clean").val())
     $("#provided_finishing_edit").val($("#provided_finishing").val())

@@ -24,6 +24,8 @@ class Product_profiles_model extends CI_Model {
         public $provided_artist_lab;
         public $provided_trading;
         public $material_group_id;
+        public $resin_unit_price;
+        public $finishing_unit_price;
         public function insert_product_profiles()
         {
             $insertId = "";
@@ -60,6 +62,8 @@ class Product_profiles_model extends CI_Model {
                 $data["mstr_poly_cost"] = $this->mstr_poly_cost;
                 $data["in_poly_size"] = $this->in_poly_size;
                 $data["mstr_poly_size"] = $this->mstr_poly_size;
+                $data["resin_unit_price"] = $this->resin_unit_price;
+                $data["finishing_unit_price"] = $this->finishing_unit_price;
                 $this->db->insert("product_profiles",$data);
                 $insertId = $this->db->insert_id();
                 $this->id = $insertId;
@@ -91,6 +95,8 @@ class Product_profiles_model extends CI_Model {
                 $data4["mstr_poly_cost"] = $this->mstr_poly_cost;
                 $data4["in_poly_size"] = $this->in_poly_size;
                 $data4["mstr_poly_size"] = $this->mstr_poly_size;
+                $data4["resin_unit_price"] = $this->resin_unit_price;
+                $data4["finishing_unit_price"] = $this->finishing_unit_price;
 
                 $this->db->where("id",$this->id);
                 $this->db->update("product_profiles",$data4);
@@ -148,6 +154,8 @@ class Product_profiles_model extends CI_Model {
                 $counter++;
             }
             $data4["net_weight"] = $this->net_weight;
+            $data4["resin_unit_price"] = $this->resin_unit_price;
+            $data4["finishing_unit_price"] = $this->finishing_unit_price;
             $data4["provided_resin_cast"] = $this->provided_resin_cast;
             $data4["provided_resin_clean"] = $this->provided_resin_clean;
             $data4["provided_finishing"] = $this->provided_finishing;
@@ -184,6 +192,8 @@ class Product_profiles_model extends CI_Model {
         public function update_details()
         {
             $data4["net_weight"] = $this->net_weight;
+            $data4["resin_unit_price"] = $this->resin_unit_price;
+            $data4["finishing_unit_price"] = $this->finishing_unit_price;
             $data4["provided_resin_cast"] = $this->provided_resin_cast;
             $data4["provided_resin_clean"] = $this->provided_resin_clean;
             $data4["provided_finishing"] = $this->provided_finishing;
@@ -210,7 +220,7 @@ class Product_profiles_model extends CI_Model {
             $this->db->where("id",$this->product_profile_id);
             $this->db->update("product_profiles",$data4);
             $this->logs->log = "Updated Product Profile - ID:". $this->product_profile_id ;
-            $this->logs->details = json_encode(array($data,$data3));
+            $this->logs->details = json_encode(array($data4,$data4));
             $this->logs->module = "product_profiles";
             $this->logs->created_by = $this->session->userdata("USERID");
             $this->logs->insert_log();
