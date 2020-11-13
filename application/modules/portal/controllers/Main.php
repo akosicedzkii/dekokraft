@@ -270,27 +270,30 @@ class Main extends CI_Controller
                 }
 
                 foreach ($ret as $material_items) {
-                  switch ($material_items[0][0]['jp']) {
-                          case 'R':
-                            $total_r=$total_r+floatval($material_items[0][0]['qty'])*floatval($material_items[0][0]['cost']);
-                            break;
-
-                          case 'M':
-                            $total_m=$total_m+floatval($material_items[0][0]['qty'])*floatval($material_items[0][0]['cost']);
-                            break;
-
-                          case ('F' || 'FA' || 'FB' || 'FC'):
-                            $total_f=$total_f+floatval($material_items[0][0]['qty'])*floatval($material_items[0][0]['cost']);
-                            break;
-
-                          case 'AP':
-                            $total_ap=$total_ap+floatval($material_items[0][0]['qty'])*floatval($material_items[0][0]['cost']);
-                            break;
-
-                          default:
-                            // code...
-                            break;
-                        }
+                  if($material_items[0] != null)
+                  {
+                    switch ($material_items[0][0]['jp']) {
+                            case 'R':
+                              $total_r=$total_r+floatval($material_items[0][0]['qty'])*floatval($material_items[0][0]['cost']);
+                              break;
+  
+                            case 'M':
+                              $total_m=$total_m+floatval($material_items[0][0]['qty'])*floatval($material_items[0][0]['cost']);
+                              break;
+  
+                            case ('F' || 'FA' || 'FB' || 'FC'):
+                              $total_f=$total_f+floatval($material_items[0][0]['qty'])*floatval($material_items[0][0]['cost']);
+                              break;
+  
+                            case 'AP':
+                              $total_ap=$total_ap+floatval($material_items[0][0]['qty'])*floatval($material_items[0][0]['cost']);
+                              break;
+  
+                            default:
+                              // code...
+                              break;
+                          }
+                  }
                 }
             }
             $module["total_material"] = array('total_r'=>$total_r,'total_m'=>$total_m,'total_f'=>$total_f,'total_ap'=>$total_ap);
