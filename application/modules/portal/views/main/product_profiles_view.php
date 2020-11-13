@@ -38,7 +38,7 @@ $module_name = rtrim($module_name,"s");?>
             <th>DESCRIPTION</th>  
             <th>COLOR</th>
             <th>Product Profile</th>
-            <th>Net Weight</th>
+            <th>Target Weight</th>
             <th>Resin Unit Price</th>
             <th>Finishing Unit Price</th>
             <?php if($this->session->userdata("USERTYPE") ==1){ ?><th>Date Created</th>
