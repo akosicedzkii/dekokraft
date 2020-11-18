@@ -115,21 +115,24 @@
             $total_price=0;
             $total_quantity=0;
               foreach ($invoice_lines as $line) {
-                  $total_price = $total_price + ($line->jo_count* $line->product_price);
-                  $total_quantity=$total_quantity + $line->jo_count;
                   switch ($line->jo_type) {
                           case 'resin':
-                            $jobType=1;
+                            $jobType = 1;
+                            $jobPrice = $line->resin_unit_price == '' ? 0 : floatval($line->resin_unit_price);
                             break;
 
                           case 'finishing':
-                            $jobType=4;
+                            $jobType = 4;
+                            $jobPrice = $line->finishing_unit_price == '' ? 0 : floatval($line->finishing_unit_price);
                             break;
 
                           default:
-                            $jobType='';
+                            $jobType = '';
+                            $jobPrice = 0;
                             break;
                         }
+                  $total_price = $total_price + ($line->jo_count * $jobPrice);
+                  $total_quantity=$total_quantity + $line->jo_count;
                   ?>
                 <tr>
                   <td class="tbl-pad"><?php echo  $line->class. "-" . $line->code."-".$line->color_abb; ?></td>
@@ -138,8 +141,8 @@
                   <td class="tbl-pad"><?php echo  $line->description; ?></td>
                   <td class="tbl-pad"><?php echo $line->net_weight; ?></td>
                   <td class="tbl-pad">[<?php echo $jobType; ?> ]</td>
-                  <td class="tbl-pad"><?php echo  $line->product_price; ?></td>
-                  <td class="tbl-pad text-right"><?php echo  number_format((float)($line->jo_count * $line->product_price), 2, '.', '') ; ?></td>
+                  <td class="tbl-pad"><?php echo  number_format($jobPrice, 2); ?></td>
+                  <td class="tbl-pad text-right"><?php echo  number_format((float)($line->jo_count * $jobPrice), 2, '.', '') ; ?></td>
                 </tr>
             <?php
               }

@@ -37,6 +37,9 @@
 .tbl-pad{
   padding: 1px !important;
 }
+.bb{
+  border-bottom: 1px solid black !important;
+}
 </style>
 <body onload="window.print();" style="font-size: 1.48rem;line-height: 1;">
 <div class="wrapper">
@@ -137,18 +140,18 @@
         <table class="table table-striped table-condensed" style="font-size:1.07rem;border-bottom: 1px solid black;border-top: 1px solid black;margin-bottom:10px">
         <thead>
                 <tr>
-                <th class="text-center tbl-pad">Item</th>
-                <th class="text-center tbl-pad">Stock #</th>
-                <th class="text-center tbl-pad">Article #</th>
-                <th class="text-center tbl-pad">Packing<br>IN/MSTR</th>
-                <th class="text-center tbl-pad">CBM</th>
-                <th class="text-center tbl-pad">COLOR</th>
-                <th class="text-center tbl-pad">QTY</th>
-                <th class="text-center tbl-pad">DESCRIPTION</th>
-                <th class="text-center tbl-pad">INNER<br>BOX</th>
-                <th class="text-center tbl-pad">MASTER<br>BOX</th>
-                <th class="text-center tbl-pad">U. PRICE</th>
-                <th class="text-center tbl-pad">TOTAL</th>
+                <th class="text-center tbl-pad"><div class="bb" style="width:90%">Item</div></th>
+                <th class="text-center tbl-pad"><div class="bb" style="width:90%">Stock #</div></th>
+                <th class="text-center tbl-pad"><div class="bb" style="width:90%">Article #</div></th>
+                <th class="text-center tbl-pad"><div class="bb" style="width:90%">Packing<br>IN/MSTR</div></th>
+                <th class="text-center tbl-pad"><div class="bb" style="width:90%">CBM</div></th>
+                <th class="text-center tbl-pad"><div class="bb" style="width:90%">COLOR</div></th>
+                <th class="text-center tbl-pad"><div class="bb" style="width:90%">QTY</div></th>
+                <th class="text-center tbl-pad"><div class="bb" style="width:90%">DESCRIPTION</div></th>
+                <th class="text-center tbl-pad"><div class="bb" style="width:90%">INNER<br>BOX</div></th>
+                <th class="text-center tbl-pad"><div class="bb" style="width:90%">MASTER<br>BOX</div></th>
+                <th class="text-center tbl-pad"><div class="bb" style="width:90%">U. PRICE</div></th>
+                <th class="text-center tbl-pad"><div class="bb" style="width:90%">TOTAL</div></th>
                 <!-- <th>DISCOUNT(%)</th>
                 <th>DISCOUNTED PRICE</th> -->
                 </tr>
