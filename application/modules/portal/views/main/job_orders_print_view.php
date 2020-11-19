@@ -90,7 +90,7 @@
         </dl>
       </div>
     </div>
-    <p>Please supply and deliver undermentioned to DEKODRAFT, INC. on or before <?php echo date("d F Y", strtotime($job_orders->deadline)); ?></p>
+    <p>Please supply and deliver undermentioned to DEKOKRAFT, INC. on or before <?php echo date("d F Y", strtotime($job_orders->deadline)); ?></p>
 
     <!-- Table row -->
     <div class="row">
