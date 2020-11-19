@@ -37,6 +37,9 @@
 .tbl-pad{
   padding: 1px !important;
 }
+.bb{
+  border-bottom: 1px solid black !important;
+}
 </style>
 <body onload="window.print();" style="font-size: 1.48rem;line-height: 1;">
 <div class="wrapper">
@@ -90,16 +93,16 @@
             <th colspan="3" class="text-right tbl-pad">(STD FOB-MNL US$)</th>
           </tr>
           <tr>
-            <th class="text-center tbl-pad">ITEM</th>
-            <th class="text-center tbl-pad">STOCK #</th>
-            <th class="text-center tbl-pad">ARTICLE#</th>
-            <th class="text-center tbl-pad">IN/MSTR</th>
-            <th class="text-center tbl-pad">CBM.</th>
-            <th class="text-center tbl-pad">COLOR</th>
-            <th class="text-center tbl-pad">QTY</th>
-            <th class="text-center tbl-pad">DESCRIPTION</th>
-            <th class="text-center tbl-pad">U. PRICE</th>
-            <th class="text-center tbl-pad">TOTAL</th>
+            <th class="text-center tbl-pad"><div class="bb" style="width:90%">ITEM</div></th>
+            <th class="text-center tbl-pad"><div class="bb" style="width:90%">STOCK #</div></th>
+            <th class="text-center tbl-pad"><div class="bb" style="width:90%">ARTICLE#</div></th>
+            <th class="text-center tbl-pad"><div class="bb" style="width:90%">IN/MSTR</div></th>
+            <th class="text-center tbl-pad"><div class="bb" style="width:90%">CBM.</div></th>
+            <th class="text-center tbl-pad"><div class="bb" style="width:90%">COLOR</div></th>
+            <th class="text-center tbl-pad"><div class="bb" style="width:90%">QTY</div></th>
+            <th class="text-center tbl-pad"><div class="bb" style="width:90%">DESCRIPTION</div></th>
+            <th class="text-center tbl-pad"><div class="bb" style="width:90%">U. PRICE</div></th>
+            <th class="text-center tbl-pad"><div class="bb" style="width:90%">TOTAL</div></th>
           </tr>
           </thead>
           <tbody>

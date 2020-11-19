@@ -112,7 +112,7 @@ class Main extends CI_Controller
             $this->db->join("product_variants", " product_variants.id=invoice_lines.product_id");
             $this->db->join("products", " products.id=product_variants.product_id");
             $this->db->where("invoice_id", $invoice_id);
-            $this->db->order_by("products.description", "asc");
+            //$this->db->order_by("products.description", "asc");
             $module["invoice_lines"]= $this->db->get("invoice_lines")->result();
             $module["module_name"] = $this->router->fetch_method();
             $module["menu"] = $this->user_access;
@@ -276,19 +276,19 @@ class Main extends CI_Controller
                             case 'R':
                               $total_r=$total_r+floatval($material_items[0][0]['qty'])*floatval($material_items[0][0]['cost']);
                               break;
-  
+
                             case 'M':
                               $total_m=$total_m+floatval($material_items[0][0]['qty'])*floatval($material_items[0][0]['cost']);
                               break;
-  
+
                             case ('F' || 'FA' || 'FB' || 'FC'):
                               $total_f=$total_f+floatval($material_items[0][0]['qty'])*floatval($material_items[0][0]['cost']);
                               break;
-  
+
                             case 'AP':
                               $total_ap=$total_ap+floatval($material_items[0][0]['qty'])*floatval($material_items[0][0]['cost']);
                               break;
-  
+
                             default:
                               // code...
                               break;
@@ -356,7 +356,7 @@ class Main extends CI_Controller
             $this->db->where('jo.id', $id);
             $module["job_orders"]=$this->db->get("job_orders as jo")->row();
 
-            $this->db->select("product_variants.color,product_variants.color_abb,invoice_lines.*,products.description,products.weight_of_box,products.inner_carton,products.master_carton,products.class,products.code,products.fob,product_profiles.net_weight,job_order_lines.job_type as jo_type,job_order_lines.jo_count");
+            $this->db->select("product_variants.color,product_variants.color_abb,invoice_lines.*,products.description,products.weight_of_box,products.inner_carton,products.master_carton,products.class,products.code,products.fob,product_profiles.net_weight,product_profiles.resin_unit_price,product_profiles.finishing_unit_price,job_order_lines.job_type as jo_type,job_order_lines.jo_count");
             $this->db->join("product_variants", "product_variants.id=invoice_lines.product_id","left");
             $this->db->join("products", "products.id=product_variants.product_id","left");
             $this->db->join("job_order_lines", "job_order_lines.invoice_line_id=invoice_lines.id","left");
