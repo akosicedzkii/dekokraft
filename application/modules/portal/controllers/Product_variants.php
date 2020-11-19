@@ -174,7 +174,11 @@ class Product_variants extends CI_Controller {
         }  
         $this->dt_model->table = "product_variants AS t1 LEFT JOIN user_accounts AS t2 ON t2.id = t1.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t1.modified_by LEFT JOIN products AS t4 ON t4.id = t1.product_id"; 
         $this->dt_model->index_column = "t1.id"; 
-        $this->dt_model->staticWhere = "t1.status != 3";  
+        if($this->session->userdata("USERTYPE") ==1){
+            $this->dt_model->staticWhere = "";
+        }else{
+            $this->dt_model->staticWhere = "t1.status != 3";
+        }
         $result = $this->dt_model->get_table_list();
         $output = $result["output"];
         $rResult = $result["rResult"];
