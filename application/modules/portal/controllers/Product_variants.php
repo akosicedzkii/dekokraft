@@ -206,6 +206,8 @@ class Product_variants extends CI_Controller {
                             $row[] = '<center><small class="label bg-green">Active</small></center>';
                         }else if($aRow[$col] == "4"){
                             $row[] = '<center><small class="label bg-orange">Pending</small></center>';
+                        }else if($aRow[$col] == "3"){
+                            $row[] = '<center><small class="label bg-red">Deleted</small></center>';
                         }
                     }
                     else if($col == "cover_image")
