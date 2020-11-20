@@ -44,6 +44,12 @@
 .bb{
   border-bottom: 1px solid black !important;
 }
+.bl{
+  border-left: 1px solid black;
+}
+.br{
+  border-right: 1px solid black;
+}
 </style>
 <body onload="window.print();" style="font-size: 14px;" class="l-h">
 <div class="wrapper">
@@ -63,10 +69,10 @@
       <div class="col-xs-12 text-center">
         <h4 style="letter-spacing: 3px;"><strong>PURCHASE ORDER</strong></h4>
       </div>
-      <div class="col-xs-7"></div>
-      <div class="col-xs-5">
+      <div class="col-xs-6"></div>
+      <div class="col-xs-6">
         <div class="row">
-          <p class="m-b"><?php  ?></p>
+          <p class="text-center">PO NO. <?php echo $detail[0]->id; ?></p>
           <p style="text-indent: 25px;">This number must appear on all Invoices, Receipts and Correspondences.</p>
         </div>
 
@@ -74,15 +80,6 @@
     </div>
     <div class="row">
       <div class="col-xs-5">
-        <!-- <div class="row col-xs-12" style="display: flex;">
-          <div class="">TO :</div>
-          <div class="" style="flex-grow: 1;border-bottom: 1px solid black;">sasa</div>
-        </div>
-        <br><br>
-        <div class="row col-xs-12" style="display: flex;">
-          <div class="">&nbsp;</div>
-          <div class="" style="flex-grow: 1;border-bottom: 1px solid black;"></div>
-        </div> -->
         <dl class="row" style="display: flex;margin-bottom: 10px;">
             <dt class="col-xs-2 l-h">TO:</dt>
             <dd class="col-xs-10 l-h" style="flex-grow: 1;border-bottom: 1px solid black;"><?php echo $detail[0]->name; ?></dd>
@@ -92,30 +89,43 @@
             <dd class="col-xs-10 l-h offset-xs-2" style="flex-grow: 1;border-bottom: 1px solid black;"></dd>
         </dl>
       </div>
-      <div class="col-xs-2">
+      <div class="col-xs-1">
 
       </div>
-      <div class="col-xs-5">
+      <div class="col-xs-6">
         <div class="row" style="display: flex;">
           <div class="">Date : </div>
           <div class="underline" style="flex-grow: 1;border-bottom: 1px solid black;"></div>
         </div>
         <br>
         <div class="row" style="display: flex;">
+            <?php
+            $totalPrice=0;
+            foreach ($p_o as $po_line) {
+                $totalPrice = $totalPrice + ($po_line->po_count * $po_line->product_price);
+            }
+            switch ($detail[0]->job_type) {
+                case 'resin':
+                    $payTerms = $totalPrice < 10000 ? 'Full Payment Upon Completion of Delivery.' : '25% D/P Upon J.O. Issuance Balance upon completion of delivery.';
+                    break;
+
+                case 'finishing':
+                    $payTerms = $totalPrice < 10000 ? 'Full Payment Upon Completion of Delivery.' : '25% D/P Upon J.O. Issuance Balance upon completion of delivery.';
+                    break;
+
+                default:
+                    $payTerms = 'Full Payment Upon Completion of Delivery.';
+                    break;
+            }
+            ?>
             <div class="">Payment Terms : </div>
-            <div class="underline" style="flex-grow: 1;border-bottom: 1px solid black;"></div>
+            <div class="underline" style="flex-grow: 1;border-bottom: 1px solid black;"> <?php echo $payTerms; ?></div>
         </div>
 
-        <!-- <dl class="row">
-          <dt class="col-xs-4 text-right">Date:</dt>
-          <dd class="col-xs-8" style="padding-left:0px;">_</dd>
-          <dt class="col-xs-4 text-right">Payment Terms:</dt>
-          <dd class="col-xs-8" style="padding-left:0px;">D/P Upon J.O. Issuance Balance upon completion of delivery.</dd>
-        </dl> -->
       </div>
     </div>
     <p>Your Quotation No. ___________________________________ Dated ____________________</p>
-    <p>PLEASE SUPPLY AND DELIVER UNDERMENTIONED TO : __________________________________ ON or BEFORE _______________ <?php  ?></p>
+    <p>PLEASE SUPPLY AND DELIVER UNDERMENTIONED TO : _________________________________ ON or BEFORE <?php echo date("M d, Y", strtotime($detail[0]->deadline)); ?></p>
 
     <!-- Table row -->
     <div class="row">
@@ -123,12 +133,12 @@
         <table class="table table-striped table-condensed" style="font-size:1.15rem;border-top: 4px double black;margin-bottom:10px;">
         <thead>
                 <tr>
-                <th class="tbl-pad bb">Item No.</th>
-                <th class="tbl-pad bb">Stock Number</th>
-                <th class="tbl-pad bb">DESCRIPTION</th>
-                <th class="tbl-pad bb">Quantity</th>
-                <th class="tbl-pad bb">Unit</th>
-                <th class="tbl-pad bb">Unit Price</th>
+                <th class="tbl-pad bb br">Item No.</th>
+                <th class="tbl-pad bb br">Stock Number</th>
+                <th class="tbl-pad bb br">DESCRIPTION</th>
+                <th class="tbl-pad bb br">Quantity</th>
+                <th class="tbl-pad bb br">Unit</th>
+                <th class="tbl-pad bb br">Unit Price</th>
                 <th class="tbl-pad bb">Amount Pesos</th>
                 </tr>
                 </thead>
@@ -142,26 +152,45 @@
                 $total_price=$total_price+($po_line->po_count * $po_line->product_price);
             ?>
             <tr>
-              <td class="tbl-pad"><?php echo $no++; ?></td>
-              <td class="tbl-pad"><?php echo $po_line->class.' '.$po_line->code.' '.$po_line->color; ?></td>
-              <td class="tbl-pad"><?php echo $po_line->description; ?></td>
-              <td class="tbl-pad"><?php echo $po_line->po_count; ?></td>
-              <td class="tbl-pad">PCS</td>
-              <td class="tbl-pad"><?php echo $po_line->product_price; ?></td>
+              <td class="tbl-pad br"><?php echo $no++; ?></td>
+              <td class="tbl-pad br"><?php echo $po_line->class.' '.$po_line->code.' '.$po_line->color; ?></td>
+              <td class="tbl-pad br"><?php echo $po_line->description; ?></td>
+              <td class="tbl-pad br"><?php echo $po_line->po_count; ?></td>
+              <td class="tbl-pad br">PCS</td>
+              <td class="tbl-pad br"><?php echo $po_line->product_price; ?></td>
               <td class="tbl-pad"><?php echo number_format($po_line->po_count * $po_line->product_price, 2); ?></td>
             </tr>
             <?php
               }
              ?>
              <tr>
-               <td colspan="3" class="tbl-pad"></td>
-               <td class="tbl-pad" style="border-top: 1px solid black;"><?php echo $total_quntity; ?> pcs.</td>
-               <td colspan="3" class="tbl-pad"></td>
+               <td class="tbl-pad br"></td>
+               <td class="tbl-pad br"></td>
+               <td class="tbl-pad br"></td>
+               <td class="tbl-pad br" style="border-top: 1px solid black;"><?php echo $total_quntity; ?> pcs.</td>
+               <td class="tbl-pad br"></td>
+               <td class="tbl-pad br"></td>
+               <td class="tbl-pad"></td>
+             </tr>
+             <tr>
+               <td class="tbl-pad br"></td>
+               <td class="tbl-pad br"></td>
+               <td class="tbl-pad text-center br">
+                 <p class="m-b">--------NOTHING FOLLOWS--------</p>
+                 <p class="m-b">FOR: <?php echo $detail[0]->company_name; ?></p>
+                 <p class="m-b">INV. NO. <?php echo $detail[0]->mo_id . '/' . $detail[0]->invoice_id; ?></p>
+                 <p>FOR:(<?php echo $detail[0]->job_type; ?>)</p>
+                 <p>ALL MATERIALS VS. CHARGED SLIP</p>
+               </td>
+               <td class="tbl-pad br"></td>
+               <td class="tbl-pad br"></td>
+               <td class="tbl-pad br"></td>
+               <td class="tbl-pad"></td>
              </tr>
             <tr>
               <td colspan="3" class="tbl-pad" style="border-top: 1px solid black;"></td>
-              <td class="tbl-pad" style="border-top: 1px solid black;"></td>
-              <td colspan="2" class="text-center tbl-pad" style="border-top: 1px solid black;">TOTAL AMOUNT</td>
+              <!-- <td class="tbl-pad" style="border-top: 1px solid black;"></td> -->
+              <td colspan="3" class="tbl-pad" style="border-top: 1px solid black;">TOTAL AMOUNT</td>
               <td class="tbl-pad" style="border-top: 1px solid black;"><?php echo number_format($total_price,2); ?></td>
           </tr>
           </tbody>
