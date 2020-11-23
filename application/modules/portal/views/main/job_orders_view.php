@@ -411,6 +411,8 @@
                         }
                 });
         });
+        
+        $("#date_created").val("<?php echo date("Y-m-d");?>");
         $('#job_ordersModal').on('hidden.bs.modal', function (e) {
             $(this)
                 .find("input,textarea,select")
