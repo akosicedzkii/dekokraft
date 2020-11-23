@@ -117,6 +117,16 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="date_created" class="col-sm-6 control-label">Date Created</label>
+
+                                        <div class="col-sm-6">
+                                            <input type="date" style="width:150px;" class="form-control" id="date_created" placeholder="Date Created" required>
+                                            <div class="help-block with-errors"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             </div>
                            
@@ -279,6 +289,7 @@
                 formData.append('marketing_order', $("#marketing_order").val());
                 formData.append('subcon', $("#subcon").val());
                 formData.append('deadline', $("#deadline").val());
+                formData.append('date_created', $("#date_created").val());
                 formData.append('job_type', $("#job_type").val());
                 formData.append('remarks', $("#remarks").val());
                 formData.append('selected_items',selected)
@@ -414,6 +425,8 @@
             $('#coverImgPrev').attr("src","");
             $("#table_body").html("");
             $("#remarks").val("");
+            $("#deadline").val("");
+            $("#date_created").val("");
             $("#purchase_ordersForm").validator('destroy');
             
             
@@ -519,6 +532,7 @@
                     $("#purchase_ordersID").val(data.purchase_orders.id);
                     $("#remarks").val(data.purchase_orders.remarks);
                     $("#deadline").val(data.purchase_orders.deadline);
+                    $("#date_created").val(data.purchase_orders.date_created);
                     $("#job_type").val(data.purchase_orders.job_type).trigger('change');
                         data2 = data.invoice_lines;
                         data3 = data.po_lines;

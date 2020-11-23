@@ -55,7 +55,7 @@ class Job_orders_model extends CI_Model {
         }
         public function update_job_orders($jo_items,$jo_count)
         {
-            unset($this->date_created);
+            //unset($this->date_created);
             unset($this->created_by);
             $this->db->where("id",$this->id);
             echo $result = $this->db->update('job_orders', $this);
