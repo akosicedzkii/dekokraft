@@ -426,7 +426,7 @@
             $("#table_body").html("");
             $("#remarks").val("");
             $("#deadline").val("");
-            $("#date_created").val("");
+            $("#date_created").val("<?php echo date("Y-m-d");?>");
             $("#purchase_ordersForm").validator('destroy');
             
             
