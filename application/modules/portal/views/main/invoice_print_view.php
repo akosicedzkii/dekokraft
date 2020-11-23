@@ -84,7 +84,7 @@
     <!-- Table row -->
     <div class="row">
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:1.15rem;border-bottom: 1px solid black;border-top: 1px solid black;margin-bottom:10px">
+        <table class="table table-striped table-condensed" style="font-size:1.15rem;border-bottom: 1px solid black;border-top: 4px double black;margin-bottom:10px">
         <thead>
           <tr>
             <th colspan="3" class="text-center tbl-pad"></th>

@@ -90,12 +90,12 @@
         </dl>
       </div>
     </div>
-    <p>Please supply and deliver undermentioned to DEKODRAFT, INC. on or before <?php echo date("d F Y", strtotime($job_orders->deadline)); ?></p>
+    <p>Please supply and deliver undermentioned to DEKOKRAFT, INC. on or before <?php echo date("d F Y", strtotime($job_orders->deadline)); ?></p>
 
     <!-- Table row -->
     <div class="row">
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:1.15rem;border-top: 1px solid black;">
+        <table class="table table-striped table-condensed" style="font-size:1.15rem;border-top: 4px double black;">
         <thead>
                 <tr>
                 <th class="tbl-pad bb">Stock #</th>
@@ -119,23 +119,26 @@
                           case 'resin':
                             $jobType = 1;
                             $jobPrice = $line->resin_unit_price == '' ? 0 : floatval($line->resin_unit_price);
+                            $color_abb = '';
                             break;
 
                           case 'finishing':
                             $jobType = 4;
                             $jobPrice = $line->finishing_unit_price == '' ? 0 : floatval($line->finishing_unit_price);
+                            $color_abb = $line->color_abb;
                             break;
 
                           default:
                             $jobType = '';
                             $jobPrice = 0;
+                            $color_abb = '';
                             break;
                         }
                   $total_price = $total_price + ($line->jo_count * $jobPrice);
                   $total_quantity=$total_quantity + $line->jo_count;
                   ?>
                 <tr>
-                  <td class="tbl-pad"><?php echo  $line->class. "-" . $line->code."-".$line->color_abb; ?></td>
+                  <td class="tbl-pad"><?php echo  $line->class. "-" . $line->code."-".$color_abb; ?></td>
                   <td class="tbl-pad"><?php echo  $job_orders->job_type=='resin'?'':$line->color; ?></td>
                   <td class="tbl-pad"><?php echo  $line->jo_count; ?> pcs.</td>
                   <td class="tbl-pad"><?php echo  $line->description; ?></td>
