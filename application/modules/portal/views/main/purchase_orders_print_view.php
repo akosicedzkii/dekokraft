@@ -57,11 +57,15 @@
   <section class="invoice">
     <!-- title row -->
     <div class="row">
-      <div class="col-xs-12 text-center">
+      <div class="col-xs-3"></div>
+      <div class="col-xs-6 text-center">
         <!-- title row -->
          <p class="font-weight-bold text-uppercase m-b" style="letter-spacing: 3px;"><?php echo SITE_NAME;?></p>
          <p class="m-b"><?php echo nl2br(COMPANY_ADDRESS);?></p>
+         <p class="m-b">Tel Nos, <?php echo str_replace(array("\n", "\r")," / ",CONTACT_NUMBER); ?></p>
+         <p>Fax Nos, <?php echo str_replace(array("\n", "\r")," / ",FAX_NUMBER); ?></p>
       </div>
+      <div class="col-xs-3"></div>
       <!-- /.col -->
     </div>
     <br>
