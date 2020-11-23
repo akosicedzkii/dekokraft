@@ -44,7 +44,7 @@ class Purchase_orders extends CI_Controller {
         $this->purchase_orders_model->remarks = $this->input->post("remarks");
         $this->purchase_orders_model->job_type = $this->input->post("job_type");
 
-        $this->purchase_orders_model->date_created = date("Y-m-d H:i:s A");
+        $this->purchase_orders_model->date_created = $this->input->post("date_created");
         $this->purchase_orders_model->created_by =  $this->session->userdata("USERID");
 
         echo $this->purchase_orders_model->insert_purchase_orders($po_items,$po_count);
@@ -80,6 +80,7 @@ class Purchase_orders extends CI_Controller {
         $this->purchase_orders_model->remarks = $this->input->post("remarks");
         $this->purchase_orders_model->job_type = $this->input->post("job_type");
 
+        $this->purchase_orders_model->date_created = $this->input->post("date_created");
         $this->purchase_orders_model->date_modified = date("Y-m-d H:i:s A");
         $this->purchase_orders_model->modified_by =  $this->session->userdata("USERID");
         $this->purchase_orders_model->id = $purchase_orders_id;
@@ -137,6 +138,7 @@ class Purchase_orders extends CI_Controller {
         $purchase_orders = $result->row();
         $return["purchase_orders"] = $purchase_orders;
         $return["purchase_orders"]->deadline = date("Y-m-d", strtotime($purchase_orders->deadline));
+        $return["purchase_orders"]->date_created = date("Y-m-d", strtotime($purchase_orders->date_created));
         $return["subcon"] = $this->db->where("id", $purchase_orders->subcon_id)->get("subcon")->row();
         $return["marketing_order"] =  $this->db->where("id", $purchase_orders->mo_id)->get("marketing_order")->row();
 
@@ -202,6 +204,9 @@ class Purchase_orders extends CI_Controller {
                     if($col == "username" || $col == "created_by" || $col == "modified_by")
                     {
                         $row[] = $aRow[$col];
+                    }else if($col == "date_created" || $col =="deadline")
+                    {
+                        $row[] = date("Y-m-d",strtotime($aRow[$col]));
                     }
                     else if($col == "status")
                     {

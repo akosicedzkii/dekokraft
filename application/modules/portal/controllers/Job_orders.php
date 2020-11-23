@@ -41,7 +41,7 @@ class Job_orders extends CI_Controller
         $this->job_orders_model->remarks = $this->input->post("remarks");
         $this->job_orders_model->job_type = $this->input->post("job_type");
 
-        $this->job_orders_model->date_created = date("Y-m-d H:i:s A");
+        $this->job_orders_model->date_created = $this->input->post("date_created");
         $this->job_orders_model->created_by =  $this->session->userdata("USERID");
 
         echo $this->job_orders_model->insert_job_orders($jo_items,$jo_count);
@@ -75,6 +75,7 @@ class Job_orders extends CI_Controller
         $this->job_orders_model->job_type = $this->input->post("job_type");
         $this->job_orders_model->deadline = $this->input->post("deadline");
 
+        $this->job_orders_model->date_created = $this->input->post("date_created");
         $this->job_orders_model->date_modified = date("Y-m-d H:i:s A");
         $this->job_orders_model->modified_by =  $this->session->userdata("USERID");
         $this->job_orders_model->id = $job_orders_id;
@@ -127,6 +128,7 @@ class Job_orders extends CI_Controller
         $job_orders = $result->row();
         $return["job_orders"] = $job_orders;
         $return["job_orders"]->deadline = date("Y-m-d", strtotime($job_orders->deadline));
+        $return["job_orders"]->date_created = date("Y-m-d", strtotime($job_orders->date_created));
         $return["subcon"] = $this->db->where("id", $job_orders->subcon_id)->get("subcon")->row();
         $return["marketing_order"] =  $this->db->where("id", $job_orders->mo_id)->get("marketing_order")->row();
 
@@ -197,19 +199,19 @@ class Job_orders extends CI_Controller
                     } elseif ($aRow[$col] == "Completed") {
                         $row[] = '<center><small class="label bg-green">'.$aRow[$col].'</small></center>';
                     }
+                } elseif ($col == "date_created") {
+                    if ($aRow[$col] != null) {
+                        $row[] = date("Y-m-d", strtotime($aRow[$col]));
+                    } else {
+                        $row[] = "None";
+                    }
                 } elseif ($col == "deadline") {
                     if ($aRow[$col] != null) {
                         $row[] = date("Y-m-d", strtotime($aRow[$col]));
                     } else {
                         $row[] = "None";
                     }
-                } elseif ($col == "cover_image") {
-                    if ($aRow[$col] != null) {
-                        $row[] = "<a href=\"#\" onclick='return false;'><img class='img-thumbnail' src='".base_url()."uploads/job_orders/".$aRow[$col]."' style='height:70px;' onclick='img_preview(\"".$aRow[$col]."\");return false;'></a>";
-                    } else {
-                        $row[] = "None";
-                    }
-                } else {
+                }  else {
                     $row[] = $aRow[$col] ;
                 }
             }

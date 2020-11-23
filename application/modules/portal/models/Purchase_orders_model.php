@@ -55,7 +55,7 @@ class Purchase_orders_model extends CI_Model {
         }
         public function update_purchase_orders($po_items,$po_count)
         {
-            unset($this->date_created);
+            //unset($this->date_created);
             unset($this->created_by);
             $this->db->where("id",$this->id);
             echo $result = $this->db->update('purchase_orders', $this);
