@@ -95,7 +95,7 @@
       <div class="col-xs-6">
         <div class="row" style="display: flex;">
           <div class="">Date : </div>
-          <div class="underline" style="flex-grow: 1;border-bottom: 1px solid black;"></div>
+          <div class="underline" style="flex-grow: 1;border-bottom: 1px solid black;"><?php echo date("F d, Y", strtotime($detail[0]->date_created)); ?></div>
         </div>
         <br>
         <div class="row" style="display: flex;">
@@ -125,7 +125,7 @@
       </div>
     </div>
     <p>Your Quotation No. ___________________________________ Dated ____________________</p>
-    <p>PLEASE SUPPLY AND DELIVER UNDERMENTIONED TO : _________________________________ ON or BEFORE <?php echo date("M d, Y", strtotime($detail[0]->deadline)); ?></p>
+    <p>PLEASE SUPPLY AND DELIVER UNDERMENTIONED TO : _________________________________ ON or BEFORE <?php echo $detail[0]->deadline==''?'____________':date("M d, Y", strtotime($detail[0]->deadline)); ?></p>
 
     <!-- Table row -->
     <div class="row">

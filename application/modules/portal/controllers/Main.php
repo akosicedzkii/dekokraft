@@ -527,7 +527,7 @@ class Main extends CI_Controller
         $this->db->order_by("p.description", "asc");
         $module['p_o'] = $this->db->get("purchase_order_lines as pol")->result();
 
-        $this->db->select("s.name,po.id,po.job_type,mo.invoice_id,po.deadline,mo.id as mo_id,c.company_name");
+        $this->db->select("s.name,po.id,po.job_type,mo.invoice_id,po.deadline,mo.id as mo_id,c.company_name,po.date_created");
         $this->db->join('subcon as s', 'po.subcon_id=s.id', 'left');
         $this->db->join('marketing_order as mo', 'po.mo_id=mo.id', 'left');
         $this->db->join('invoices as i', 'mo.invoice_id=i.id', 'left');
