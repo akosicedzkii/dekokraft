@@ -126,7 +126,7 @@ class Data_table_model extends CI_Model {
         * SQL queries
         * Get data to display
         */
-        echo $sQuery = "SELECT SQL_CALC_FOUND_ROWS " . str_replace(" , ", " ", implode(", ", $aColumns)) . "
+        $sQuery = "SELECT SQL_CALC_FOUND_ROWS " . str_replace(" , ", " ", implode(", ", $aColumns)) . "
         FROM $this->table
         $sWhere
         $sOrder
