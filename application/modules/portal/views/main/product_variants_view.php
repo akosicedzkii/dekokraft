@@ -983,7 +983,7 @@ $('.actionDone').on('click', function(){
                 $('[data-toggle="tooltip"]').tooltip()
             }
             ,"columnDefs": [
-            { "visible": false,  "targets": [ 0 ] },
+          
             { "width": "20%",  "targets": [ 1 ] }
         ], "order": [[ 0, 'desc' ]]
         });
