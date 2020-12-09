@@ -984,7 +984,6 @@ $('.actionDone').on('click', function(){
             }
             ,"columnDefs": [
             { "visible": false,  "targets": [ 0 ] },
-            { "width": "20%",  "targets": [ 4 ] },
             { "width": "20%",  "targets": [ 1 ] }
         ], "order": [[ 0, 'desc' ]]
         });
