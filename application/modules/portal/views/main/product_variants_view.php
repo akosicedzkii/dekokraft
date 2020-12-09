@@ -952,7 +952,7 @@ $('.actionDone').on('click', function(){
 
     var main = function(){
         var table = $('#product_variantsList').DataTable({
-            colReorder: true,
+            colReorder: false,
             "lengthMenu": [[10, 25, 50,100,250,500,1000, -1], [10, 25, 50,100,250, 500,1000,"All"]], 
             dom: 'Btli<"top"fp<"clear">>rt<"bottom"ip<"clear">>',
         buttons: [ 
@@ -983,7 +983,7 @@ $('.actionDone').on('click', function(){
                 $('[data-toggle="tooltip"]').tooltip()
             }
             ,"columnDefs": [
-          
+            { "visible": false,  "targets": [ 0 ] },
             { "width": "20%",  "targets": [ 1 ] }
         ], "order": [[ 0, 'desc' ]]
         });
