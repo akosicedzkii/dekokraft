@@ -43,6 +43,7 @@ $module_name = rtrim($module_name,"s");?>
             <th>MOQ</th>
             <th>LC(LOWEST COST)</th>
             <th>FOB</th>
+            <th>OLD PRICE</th>
             <th>QUANTITY</th>
              <th>STATUS</th>
             <?php if($this->session->userdata("USERTYPE") ==1){ ?><th>Date Created</th>
@@ -307,6 +308,31 @@ $module_name = rtrim($module_name,"s");?>
     </div>
 <!-- /.modal-dialog -->
 </div>
+
+<div class="modal fade" id="oldPriceModal"  role="dialog"  data-backdrop="static">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+
+             <h3 class="modal-title">Old Price</h3>
+            </div>
+            <div class="modal-body">
+                <center><table class="table table-bordered table-striped">
+                   <thead> <tr><th>Date</th><th>Price</th></tr> </thead> 
+                   <tbody id="price_body"> </tbody> 
+
+                </table></center>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default pull-right" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    <!-- /.modal-content -->
+    </div>
+<!-- /.modal-dialog -->
+</div>
 <!-- /.modal -->
 <div class="modal fade" id="colorsModal" role="dialog"  data-backdrop="static">
     <div class="modal-dialog modal-lg">
@@ -387,8 +413,20 @@ $("#add_color").click(function(){
     $('#colorsForm').validator();
     $("#colorsModal").modal("show");
 });
+function _get_price_list(id){
+    $("#oldPriceModal").modal("show");
+    data = { "id":id }
+    $.ajax({
+                data: data,
+                type: "post",
+                url: "<?php echo base_url()."portal/products/get_old_price";?>",
+                success: function(data){
+                    $("#price_body").html(data);
+                }
+            });
+}
 $("#saveColors").click(function(){
-    alert("yeah");
+    //alert("yeah");
     $("#colorsForm").submit();
 });
 $("#colorsForm").validator().on('submit', function (e) {

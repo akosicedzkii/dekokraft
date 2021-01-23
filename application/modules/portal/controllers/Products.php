@@ -86,6 +86,23 @@ class Products extends CI_Controller {
 
 	}
 
+    public function get_old_price()
+    {
+        $id = $this->input->post("id");
+        $this->db->where("product_id",$id);
+        $data_products = $this->db->get("product_price_history");
+        $result = $data_products->result();
+        $data_return = "";
+        if($result != null)
+        {
+            foreach($result as $row)
+            {
+                $data_return .= "<tr><td>". date("Y-m-d H:i:s A",strtotime($row->date_created)) ."</td><td>". $row->price."</td></tr>";
+            }
+        }
+        echo $data_return;
+
+    }
     public function get_products_data()
     {
         $id = $this->input->post("id");
@@ -129,10 +146,10 @@ class Products extends CI_Controller {
     {
         $this->load->model("portal/data_table_model","dt_model");
 
-        $this->dt_model->select_columns = array("t1.id","t1.class","t1.code","t1.description","t1.inner_carton","t1.master_carton","t1.weight_of_box","t1.minimum_of_quantity","t1.lowest_cost","t1.fob","t1.status","(SELECT COUNT(*) FROM STOCKS WHERE status = 0 and product_variant_id in(SELECT id from product_variants WHERE product_id = t1.id   and product_variants.status = 1)) as quantity");
+        $this->dt_model->select_columns = array("t1.id","t1.class","t1.code","t1.description","t1.inner_carton","t1.master_carton","t1.weight_of_box","t1.minimum_of_quantity","t1.lowest_cost","t1.fob","(SELECT price from product_price_history where product_id=t1.id order by id desc limit 1) as old_price","t1.status","(SELECT COUNT(*) FROM STOCKS WHERE status = 0 and product_variant_id in(SELECT id from product_variants WHERE product_id = t1.id   and product_variants.status = 1)) as quantity");
         if($this->session->userdata("USERTYPE") ==1)
         {
-            $this->dt_model->select_columns = array("t1.id","t1.class","t1.code","t1.description","t1.inner_carton","t1.master_carton","t1.weight_of_box","t1.minimum_of_quantity","t1.lowest_cost","t1.fob","t1.status","(SELECT COUNT(*) FROM STOCKS WHERE status = 0 and  product_variant_id in(SELECT id from product_variants WHERE product_id = t1.id   and product_variants.status = 1)) as quantity","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");
+            $this->dt_model->select_columns = array("t1.id","t1.class","t1.code","t1.description","t1.inner_carton","t1.master_carton","t1.weight_of_box","t1.minimum_of_quantity","t1.lowest_cost","t1.fob","(SELECT price from product_price_history where product_id=t1.id order by id desc limit 1) as old_price","t1.status","(SELECT COUNT(*) FROM STOCKS WHERE status = 0 and  product_variant_id in(SELECT id from product_variants WHERE product_id = t1.id   and product_variants.status = 1)) as quantity","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");
         }
 
         $this->dt_model->where  = array("t1.id","t1.class","t1.code","t1.description","t1.inner_carton","t1.master_carton","t1.weight_of_box","t1.minimum_of_quantity","t1.lowest_cost","t1.fob","t1.status");
@@ -141,9 +158,9 @@ class Products extends CI_Controller {
             $this->dt_model->where  = array("t1.id","t1.class","t1.code","t1.description","t1.inner_carton","t1.master_carton","t1.weight_of_box","t1.minimum_of_quantity","t1.lowest_cost","t1.fob","t1.status","t1.inner_carton","t1.date_created","t2.username","t1.date_modified","t3.username");
         }
 
-        $select_columns = array("id","class","code","description","inner_carton","master_carton","weight_of_box","minimum_of_quantity","lowest_cost","fob","quantity","status");
+        $select_columns = array("id","class","code","description","inner_carton","master_carton","weight_of_box","minimum_of_quantity","lowest_cost","fob","old_price","quantity","status");
         if($this->session->userdata("USERTYPE") ==1){
-            $select_columns = array("id","class","code","description","inner_carton","master_carton","weight_of_box","minimum_of_quantity","lowest_cost","fob","quantity","status","date_created","created_by","date_modified","modified_by");
+            $select_columns = array("id","class","code","description","inner_carton","master_carton","weight_of_box","minimum_of_quantity","lowest_cost","fob","old_price","quantity","status","date_created","created_by","date_modified","modified_by");
         }
         $this->dt_model->table = "products AS t1 LEFT JOIN user_accounts AS t2 ON t2.id = t1.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t1.modified_by";
         $this->dt_model->index_column = "t1.id";
@@ -176,6 +193,9 @@ class Products extends CI_Controller {
                         $row[] = number_format($res_mstr,4);
                     }
                     else if($col == "fob")
+                    {
+                        $row[] = "$ ". $aRow[$col] ;
+                    } else if($col == "old_price")
                     {
                         $row[] = "$ ". $aRow[$col] ;
                     }else if($col == "quantity")
@@ -220,6 +240,7 @@ class Products extends CI_Controller {
             }
 
             $btns = '<a href="#" onclick="_view('.$aRow['id'].');return false;" class="glyphicon glyphicon-search text-orange" data-toggle="tooltip" title="View Details"></a>
+            <a href="#" onclick="_get_price_list('.$aRow['id'].');return false;" class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" title="Show Old Prices"></a>
             <a href="#" onclick="_edit('.$aRow['id'].');return false;" class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" title="Edit"></a>
             <a href="#" onclick="_delete('.$aRow['id'].',\''.htmlentities($aRow["description"]).'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" title="Delete"></a>';
             array_push($row,$btns);

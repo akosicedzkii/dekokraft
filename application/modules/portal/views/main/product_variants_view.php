@@ -958,6 +958,11 @@ $('.actionDone').on('click', function(){
         buttons: [ 
             {
                 extend: 'print',
+                customize: function ( win ) {
+                    $(win.document.body).find( 'table' )
+                        .css( 'font-size', '50px' );
+                        
+                },
                 autoPrint: true,
                 exportOptions: {
                     columns: ':visible',
