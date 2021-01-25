@@ -197,6 +197,10 @@ class Products extends CI_Controller {
                         $row[] = "$ ". $aRow[$col] ;
                     } else if($col == "old_price")
                     {
+                        if($aRow[$col]==null)
+                        {
+                            $aRow[$col] = $aRow["fob"]; 
+                        }
                         $row[] = "$ ". $aRow[$col] ;
                     }else if($col == "quantity")
                     {
