@@ -492,8 +492,8 @@
                                     <option value="IN">IN</option>
                                     <option value="PC">PC</option>
                                     <option value="GAL">GAL</option>
-                                    <option value="LI">LITER</option>
-                                    <option value="RL">ROLL</option>
+                                    <option value="LI">LI</option>
+                                    <option value="RL">RL</option>
                                 </select>
                                 <div class="help-block with-errors"></div>
                                 </div>
