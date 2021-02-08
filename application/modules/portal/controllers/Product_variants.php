@@ -81,6 +81,7 @@ class Product_variants extends CI_Controller {
         $this->db->where("id",$prod_id);
         $result2 = $this->db->get("products");
         $products = $result2->row();
+        $product_variant->description = $this->db->where("id",$product_variant->product_id)->get("products")->row()->description;
         if($product_variants->cover_image != null)
         {
             if(is_numeric( $product_variants->cover_image ))
