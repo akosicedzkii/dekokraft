@@ -48,8 +48,8 @@ https://cdn.datatables.net/buttons/1.6.1/js/buttons.colVis.min.js"></script>
             <th>DESCRIPTION</th>
             <th>LOCATION</th>
             <th>COLOR</th>
-            <th>MOLD</th>
             <th>PROTO</th>
+            <th>MOLD</th>
             <th>PCS</th>
             <th>FOB</th>
             <th>Status</th>
