@@ -1052,8 +1052,8 @@ $('.actionDone').on('click', function(){
                 var product = $("#product").val();
                 var count = $("#count").val();
                 var code = $("#code").val();
-                var molds = $("#molds").val();
-                var proto = $("#proto").val();
+                //var molds = $("#molds").val();
+                //var proto = $("#proto").val();
                 values = [];
                 $("input[name='location[]']").each(function() {
                     values.push($(this).val());
@@ -1073,8 +1073,8 @@ $('.actionDone').on('click', function(){
                 }
                 formData.append('location', location);
                 formData.append('code', code);
-                formData.append('molds', molds);
-                formData.append('proto', proto);
+                //formData.append('molds', molds);
+                //formData.append('proto', proto);
                 
                 if(is_edit==1)
                 {
@@ -1260,8 +1260,8 @@ $('.actionDone').on('click', function(){
             $("#location").removeAttr("disabled");
             $("#tbl_location").html('<tr><td><input  class="form-control" id="location" name="location[]" placeholder="Location" type="text"></td></tr>')
             $("#count").removeAttr("disabled");
-            $("#proto").removeAttr("disabled");
-            $("#molds").removeAttr("disabled");
+            //$("#proto").removeAttr("disabled");
+            //$("#molds").removeAttr("disabled");
 
             $("#saveProduct_variants").html("Save Product").show();
             $("#add_color").removeAttr("disabled");
@@ -1324,8 +1324,8 @@ $('.actionDone').on('click', function(){
                     // Add additional code here, such as:
                         $("#tbl_location").append('<tr><td><input value="'+str_array[i]+'" class="form-control location" id="location" name="location[]" placeholder="Location" type="text"></td></tr>')
                     }
-                    $("#proto").val(data.product_variants.proto);
-                    $("#molds").val(data.product_variants.molds);
+                    //$("#proto").val(data.product_variants.proto);
+                    //$("#molds").val(data.product_variants.molds);
                     $("#count").val(data.product_variants.stock).attr("disabled","disabled");
                     $("#inputProduct_variantsEmailAddress").val(data.product_variants.email_address);
 
@@ -1390,8 +1390,8 @@ $('.actionDone').on('click', function(){
                     $("#main-cropper , .actionUpload, #cancel_edit").hide();
                     $("#edit_image").show();
                     $("#count").val(data.product_variants.stock).attr("disabled","disabled");
-                    $("#proto").val(data.product_variants.proto).attr("disabled","disabled");
-                    $("#molds").val(data.product_variants.molds).attr("disabled","disabled");
+                    //$("#proto").val(data.product_variants.proto).attr("disabled","disabled");
+                    //$("#molds").val(data.product_variants.molds).attr("disabled","disabled");
                     $("#product_variantsID").val(data.product_variants.id);
                     $("#product_variantsModal").modal("show");
                     $("#saveProduct_variants").html("Save Product").hide();

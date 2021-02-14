@@ -7,7 +7,7 @@ td { font-size: 11px; }
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
 <?php
-$module_name = "Product Category";
+$module_name = "Product Category Proto and Molds";
 $module_name = rtrim($module_name,"s");?>
 <section class="content-header">
     <h1>
@@ -19,9 +19,9 @@ $module_name = rtrim($module_name,"s");?>
     <li class="active"><?php echo ucfirst($module_name);?></li>
     </ol>
 </section>
-<button class="btn btn-success btn-circle btn-lg fix-btn" id="addBtn"  data-toggle="tooltip" title="Add New">
+<!-- <button class="btn btn-success btn-circle btn-lg fix-btn" id="addBtn"  data-toggle="tooltip" title="Add New">
     <span class="glyphicon glyphicon-plus"></span>
-</button>
+</button> -->
 <!-- Main content -->
 <section class="content">
 <div class="box" id="main-list">
@@ -429,7 +429,7 @@ function _get_price_list(id){
     $.ajax({
                 data: data,
                 type: "post",
-                url: "<?php echo base_url()."portal/products/get_old_price";?>",
+                url: "<?php echo base_url()."portal/proto_molds/get_old_price";?>",
                 success: function(data){
                     $("#price_body").html(data);
                 }
@@ -584,7 +584,7 @@ $('.actionDone').on('click', function(){
             'autoWidth'   : true,
             "processing" : true,
             "serverSide" : true,
-            "ajax" : "<?php if($this->session->userdata("USERTYPE")!=0){ echo base_url()."portal/products/get_products_list"; }else{ echo base_url()."portal/products/get_my_products_list";}?>",
+            "ajax" : "<?php if($this->session->userdata("USERTYPE")!=0){ echo base_url()."portal/proto_molds/get_products_list"; }else{ echo base_url()."portal/proto_molds/get_my_products_list";}?>",
             "initComplete": function(settings,json){
                 $('[data-toggle="tooltip"]').tooltip()
             }
@@ -688,11 +688,11 @@ $('.actionDone').on('click', function(){
                 {
                     formData.append('cover_image', $('#imagebase64').val());
                 }
-                var url = "<?php echo base_url()."portal/products/add_products";?>";
+                var url = "<?php echo base_url()."portal/proto_molds/add_products";?>";
                 var message = "New product successfully added";
                 if(action == "edit")
                 {
-                    url =  "<?php echo base_url()."portal/products/edit_products";?>";
+                    url =  "<?php echo base_url()."portal/proto_molds/edit_products";?>";
                     message = "Product successfully updated";
 
                 }
@@ -774,7 +774,7 @@ $('.actionDone').on('click', function(){
             $.ajax({
                         data: data,
                         type: "post",
-                        url: "<?php echo base_url()."portal/products/delete_products";?>",
+                        url: "<?php echo base_url()."portal/proto_molds/delete_products";?>",
                         success: function(data){
                             //alert("Data Save: " + data);
                             btn.button("reset");
@@ -802,30 +802,8 @@ $('.actionDone').on('click', function(){
             $("#productsForm").validator('destroy');
             $("#uploadBoxMain").hide();
             $("#inputStatus").val('').trigger('change');
-            $("#inputProductsTitle").removeAttr("disabled");
-            //$("#inputDescription").removeAttr("disabled");
-            $("#inputStatus").removeAttr("disabled");
-            $("#class").removeAttr("disabled");
-            $("#code").removeAttr("disabled");
-            //$("#color").select2('data', { id:data.products.color_abb, label: data.products.color});
-            $("#color").removeAttr("disabled");
-            $("#inner_carton").removeAttr("disabled");
-            $("#master_carton").removeAttr("disabled");
-            $("#weight_of_box").removeAttr("disabled");
-            $("#minimum_of_quantity").removeAttr("disabled");
-            $("#lowest_cost").removeAttr("disabled");
-            $("#best_price").removeAttr("disabled");
-            $("#old_price").removeAttr("disabled");
-            $("#location").removeAttr("disabled");
-            $("#in_").removeAttr("disabled");
-            $("#mstr").removeAttr("disabled");
-
-            $("#code").removeAttr("disabled");
-            $("#saveProducts").html("Save Product").show();
-            $("#add_color").removeAttr("disabled");
-            $("#edit_image").removeAttr("disabled");
-            //$("#proto").removeAttr("disabled");
-            $("#fob").removeAttr("disabled");
+            $("#proto").removeAttr("disabled");
+            $("#molds").removeAttr("disabled");
         });
 
         $('#inputStatus').select2(inputRoleConfig);
@@ -852,37 +830,37 @@ $('.actionDone').on('click', function(){
         $.ajax({
                 data: data,
                 type: "post",
-                url: "<?php echo base_url()."portal/products/get_products_data";?>",
+                url: "<?php echo base_url()."portal/proto_molds/get_products_data";?>",
                 success: function(data){
                     data = JSON.parse(data);
-                    $("#inputProductsTitle").val(data.products.title);
+                    $("#inputProductsTitle").val(data.products.title).attr("disabled","disabled");
                     //$("#inputDescription").val(data.products.description);
-                    $("#inputStatus").val(data.products.status).trigger('change');
+                    $("#inputStatus").val(data.products.status).trigger('change').attr("disabled","disabled");
 
-                    $("#class").val(data.products.class);
-                    $("#code").val(data.products.code);
+                    $("#class").val(data.products.class).attr("disabled","disabled");
+                    $("#code").val(data.products.code).attr("disabled","disabled");
                     //$("#color").select2('data', { id:data.products.color_abb, label: data.products.color});
-                    $("#color").append(new Option(data.products.color,data.products.color_abb,  true, true)).trigger('change');
+                    $("#color").append(new Option(data.products.color,data.products.color_abb,  true, true)).trigger('change').attr("disabled","disabled");
 
-                    $("#color_abb").val(data.products.color_abb);
-                    $("#in_").val(data.products.in_);
-                    $("#mstr").val(data.products.mstr);
-                    $("#inner_carton").val(data.products.inner_carton);
-                    $("#master_carton").val(data.products.master_carton);
-                    $("#weight_of_box").val(data.products.weight_of_box);
-                    $("#minimum_of_quantity").val(data.products.minimum_of_quantity);
-                    $("#lowest_cost").val(data.products.lowest_cost);
-                    $("#best_price").val(data.products.best_price);
-                    $("#old_price").val(data.products.old_price);
-                    $("#location").val(data.products.location);
+                    $("#color_abb").val(data.products.color_abb).attr("disabled","disabled");;
+                    $("#in_").val(data.products.in_).attr("disabled","disabled");;
+                    $("#mstr").val(data.products.mstr).attr("disabled","disabled");;
+                    $("#inner_carton").val(data.products.inner_carton).attr("disabled","disabled");;
+                    $("#master_carton").val(data.products.master_carton).attr("disabled","disabled");;
+                    $("#weight_of_box").val(data.products.weight_of_box).attr("disabled","disabled");;
+                    $("#minimum_of_quantity").val(data.products.minimum_of_quantity).attr("disabled","disabled");;
+                    $("#lowest_cost").val(data.products.lowest_cost).attr("disabled","disabled");;
+                    $("#best_price").val(data.products.best_price).attr("disabled","disabled");;
+                    $("#old_price").val(data.products.old_price).attr("disabled","disabled");;
+                    $("#location").val(data.products.location).attr("disabled","disabled");;
                     $("#proto").val(data.products.proto);
-                    $("#molds").val(data.products.molds);
-                    $("#inputProductsEmailAddress").val(data.products.email_address);
+                    $("#molds").val(data.products.molds)    ;
+                    $("#inputProductsEmailAddress").val(data.products.email_address).attr("disabled","disabled");;
                     //$("#proto").val(data.products.proto);
-                    $("#fob").val(data.products.fob);
+                    $("#fob").val(data.products.fob).attr("disabled","disabled");;
 
                     $("#coverImgPrev").show();
-                    $("#coverImgPrev").attr("src","<?php echo base_url()."/uploads/products/"; ?>" + data.products.cover_image);
+                    $("#coverImgPrev").attr("src","<?php echo base_url()."/uploads/proto_molds/"; ?>" + data.products.cover_image);
                     $("#main-cropper , .actionUpload, #cancel_edit").hide();
                     $("#edit_image").show();
                     $("#code").attr("disabled","disabled");
@@ -915,7 +893,7 @@ $('.actionDone').on('click', function(){
         $.ajax({
                 data: data,
                 type: "post",
-                url: "<?php echo base_url()."portal/products/get_products_data";?>",
+                url: "<?php echo base_url()."portal/proto_molds/get_products_data";?>",
                 success: function(data){
                     data = JSON.parse(data);
                     $("#inputProductsTitle").val(data.products.title).attr("disabled","disabled");
@@ -934,7 +912,7 @@ $('.actionDone').on('click', function(){
                     $("#minimum_of_quantity").val(data.products.minimum_of_quantity).attr("disabled","disabled");
                     $("#lowest_cost").val(data.products.lowest_cost).attr("disabled","disabled");
                     $("#best_price").val(data.products.best_price).attr("disabled","disabled");
-                    $("#old_price").val(data.products.old_price);
+                    $("#old_price").val(data.products.best_price);
                     $("#proto").val(data.products.proto).attr("disabled","disabled");;
                     $("#molds").val(data.products.molds).attr("disabled","disabled");;
                     $("#location").val(data.products.location).attr("disabled","disabled");
@@ -942,7 +920,7 @@ $('.actionDone').on('click', function(){
                     $("#inputProductsEmailAddress").val(data.products.email_address).attr("disabled","disabled");
 
                     $("#coverImgPrev").show();
-                    $("#coverImgPrev").attr("src","<?php echo base_url()."/uploads/products/"; ?>" + data.products.cover_image);
+                    $("#coverImgPrev").attr("src","<?php echo base_url()."/uploads/proto_molds/"; ?>" + data.products.cover_image);
                     $("#main-cropper , .actionUpload, #cancel_edit").hide();
                     $("#edit_image").show();
                     $("#code").attr("disabled","disabled");
@@ -983,7 +961,7 @@ $('.actionDone').on('click', function(){
 
     function img_preview(img_src)
     {
-        $("#imgPreview").attr("src","<?php echo base_url()."uploads/products/"?>"+img_src);
+        $("#imgPreview").attr("src","<?php echo base_url()."uploads/proto_molds/"?>"+img_src);
         $("#imgPreviewModal").modal("show");
     }
 

@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Products extends CI_Controller {
+class Proto_molds extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
         $this->settings_model->get_settings();
-        $this->load->model("portal/products_model");
+        $this->load->model("portal/proto_molds_model");
 
         if($this->session->userdata("USERID") == null)
         {
@@ -15,79 +15,16 @@ class Products extends CI_Controller {
         }
     }
 
-	public function add_products()
-	{
-        $this->products_model->title = $this->input->post("title");
-        $this->products_model->description = $this->input->post("description");
-        $this->products_model->status = $this->input->post("status");
-        $this->products_model->class = $this->input->post("class");
-        $this->products_model->code = $this->input->post("code");
-        //$this->products_model->cover_image = $this->input->post("cover_image");
-        $this->products_model->in_ = $this->input->post("in_");
-        $this->products_model->mstr = $this->input->post("mstr");
-        $this->products_model->inner_carton = $this->input->post("inner_carton");
-        $this->products_model->master_carton = $this->input->post("master_carton");
-        $this->products_model->weight_of_box = $this->input->post("weight_of_box");
-        $this->products_model->minimum_of_quantity = $this->input->post("minimum_of_quantity");
-        $this->products_model->lowest_cost = $this->input->post("lowest_cost");
-        $this->products_model->best_price = $this->input->post("best_price");
-        $this->products_model->product_year = $this->input->post("product_year");
-        $this->products_model->product_month = $this->input->post("product_month");
-        $this->products_model->fob = $this->input->post("fob");
-        $this->products_model->qty = $this->input->post("qty");
-        $this->products_model->proto = $this->input->post("proto");
-        $this->products_model->molds = $this->input->post("molds");
-        //$this->products_model->location = $this->input->post("location");
-
-        echo $this->products_model->insert_products();
-
-	}
 
 	public function edit_products()
 	{
-        $this->products_model->id = $this->input->post("id");
-        $this->products_model->title = $this->input->post("title");
-        $this->products_model->description = $this->input->post("description");
-        $this->products_model->status = $this->input->post("status");
-        $this->products_model->class = $this->input->post("class");
-        $this->products_model->code = $this->input->post("code");
-        //$this->products_model->cover_image = $this->input->post("cover_image");
-        $this->products_model->in_ = $this->input->post("in_");
-        $this->products_model->mstr = $this->input->post("mstr");
-        $this->products_model->inner_carton = $this->input->post("inner_carton");
-        $this->products_model->master_carton = $this->input->post("master_carton");
-        $this->products_model->weight_of_box = $this->input->post("weight_of_box");
-        $this->products_model->minimum_of_quantity = $this->input->post("minimum_of_quantity");
-        $this->products_model->lowest_cost = $this->input->post("lowest_cost");
-        $this->products_model->best_price = $this->input->post("best_price");
-        $this->products_model->old_price = $this->input->post("old_price");
-        $this->products_model->product_year = $this->input->post("product_year");
-        $this->products_model->product_month = $this->input->post("product_month");
-        $this->products_model->qty = $this->input->post("qty");
-        $this->products_model->fob = $this->input->post("fob");
-        $this->products_model->proto = $this->input->post("proto");
-        $this->products_model->molds = $this->input->post("molds");
-        echo $this->products_model->update_products();
+        $this->proto_molds_model->id = $this->input->post("id");
+        $this->proto_molds_model->proto = $this->input->post("proto");
+        $this->proto_molds_model->molds = $this->input->post("molds");
+        echo $this->proto_molds_model->update_proto_molds();
 	}
 
-	public function delete_products()
-	{
-        $id = $this->input->post("id");
-        $this->db->where("id",$id);
 
-        $data_products = $this->db->get("products");
-        $this->db->where("id",$id);
-        $data["status"] = 3;
-        echo $result = $this->db->update("products",$data);
-        unlink($upload_path = './uploads/products/'.$data_products->row()->cover_image);
-        $data = json_encode($data_products->row());
-        $this->logs->log = "Deleted Product - ID:". $data_products->row()->id .", Product Title: ".$data_products->row()->title ;
-        $this->logs->details = json_encode($data);
-        $this->logs->module = "products";
-        $this->logs->created_by = $this->session->userdata("USERID");
-        $this->logs->insert_log();
-
-	}
 
     public function get_old_price()
     {
@@ -247,9 +184,7 @@ class Products extends CI_Controller {
             }
 
             $btns = '<a href="#" onclick="_view('.$aRow['id'].');return false;" class="glyphicon glyphicon-search text-orange" data-toggle="tooltip" title="View Details"></a>
-            <a href="#" onclick="_get_price_list('.$aRow['id'].');return false;" class="glyphicon glyphicon-search text-green" data-toggle="tooltip" title="Show Old Prices"></a>
-            <a href="#" onclick="_edit('.$aRow['id'].');return false;" class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" title="Edit"></a>
-            <a href="#" onclick="_delete('.$aRow['id'].',\''.htmlentities($aRow["description"]).'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" title="Delete"></a>';
+            <a href="#" onclick="_edit('.$aRow['id'].');return false;" class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" title="Edit"></a>';
             array_push($row,$btns);
             $output['data'][] = $row;
         }

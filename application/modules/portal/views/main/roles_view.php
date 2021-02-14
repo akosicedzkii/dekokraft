@@ -110,6 +110,12 @@
                                     </div>
                                     <div class="checkbox">
                                         <label>
+                                        <input type="checkbox" id="modules" value="proto_molds">
+                                        Proto and Molds
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
                                         <input type="checkbox" id="modules" value="colors">
                                         Colors
                                         </label>
@@ -215,6 +221,7 @@
                                 <option value="products">Product Categories</option>
                                 <option value="product_variants">Product Variants</option>
                                 <option value="invoices">Invoices</option>
+                                <option value="proto_molds">Proto and Molds</option>
                                 <option value="colors">Colors</option>
                                 <option value="materials">Materials</option>
                                 <option value="roles">Roles</option>

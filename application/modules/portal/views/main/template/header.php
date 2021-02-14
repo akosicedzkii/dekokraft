@@ -355,6 +355,13 @@
          } 
        ?>
         <?php 
+          if (in_array("proto_molds", $menu)) {
+             ?>
+              <li <?php if($module_name == "proto_molds"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/proto_molds"?>"><i class="fa fa-list"></i><span>Proto and Molds</span></a></li>
+             <?php
+          } 
+        ?>
+        <?php 
          if (in_array("colors", $menu)) {
             ?>
              <li <?php if($module_name == "colors"){echo 'class="active"';}?>><a href="<?php echo base_url()."portal/main/page/colors"?>"><i class="glyphicon glyphicon-tint"></i><span>Colors</span></a></li>
