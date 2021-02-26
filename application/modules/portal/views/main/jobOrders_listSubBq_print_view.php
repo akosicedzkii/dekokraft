@@ -29,6 +29,15 @@
   body {
     height: auto;
   }
+  @page {
+      margin-top: 0;
+      margin-bottom: 0;
+  }
+  body {
+      padding-top: 10px;
+      padding-bottom: 10px ;
+      font-family: "Times New Roman", Times, serif;
+  }
 }
 .tbl-pad{
   padding:1px !important;

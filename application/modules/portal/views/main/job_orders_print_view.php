@@ -1,7 +1,7 @@
 <html><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?php echo "JOB ORDER:#".$job_orders->job_type;?></title>
+  <title><?php echo "JOB ORDER:#".$job_orders->id;?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -28,6 +28,15 @@
   * { overflow: visible !important; }
   body {
     height: auto;
+  }
+  @page {
+      margin-top: 0;
+      margin-bottom: 0;
+  }
+  body {
+      padding-top: 10px;
+      padding-bottom: 10px ;
+      /* font-family: "Times New Roman", Times, serif; */
   }
 }
 .tbl-pad{
@@ -251,11 +260,12 @@
       </div>
     </div>
     <div class="row">
-      <?php if ($job_orders->job_type=='resin') { ?>
+      <?php //if ($job_orders->job_type=='resin') { ?>
+        <?php if ($wClient == 'yes') { ?>
       <div class="col-xs-12">
         <p>*** <?php echo $job_orders->customer_name; ?> ***</p>
-        <div class="col-xs-7">
-          <div class="col-xs-3" style="font-size:10px;">
+        <div class="col-xs-7" style="font-size:1.15rem;">
+          <div class="col-xs-3">
             <p>25% D/P</p>
             <p>25% D/P Add'l</p>
             <p>Full Pay't</p>
@@ -270,14 +280,16 @@
             <p>Check # _____________</p>
             <p>Check # _____________</p>
           </div>
+          <p style="font-size:1.2rem;">*** J.O Saved ***</p>
         </div>
-        <div class="col-xs-5">
+        <div class="col-xs-5" style="font-size:1.2rem;">
           <div class="col-xs-2">
           </div>
           <div class="col-xs-10">
             <p>App'd Ctrl Sample: _____________</p>
-            <p>J.O. Recieved : _________________</p>
-            <p>Resin Received : _______________</p>
+            <p>J.O. Recieved : ________________</p>
+            <p><?php echo ($job_orders->job_type=='resin')?'Resin Received : _______________':'Finising Received : _____________'; ?></p>
+            <p>M.O. Received : _______________</p>
           </div>
         </div>
       </div>

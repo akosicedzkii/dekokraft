@@ -178,7 +178,7 @@
         </p>
         <p>Swift Code:<?php echo $bank->code;?></p>
         <p>Beneficiary Name:<?php echo $bank->beneficiary_name;?></p>
-        <p>Payment Terms:<?php echo $payment_terms->code; ?><br></p>
+        <p>Payment Terms: <?php echo (isset($payment_terms->code)) ? $payment_terms->code : ''; ?><br></p>
       </div>
       <div class="col-xs-3" style="border-left: 1px dashed black;border-right: 1px dashed black;">
         <p>Packing Instruction:<br> <?php echo $invoice->packing_instruction;?></p>

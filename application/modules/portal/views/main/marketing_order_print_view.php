@@ -30,6 +30,15 @@
   body {
     height: auto;
   }
+  @page {
+      margin-top: 0;
+      margin-bottom: 0;
+  }
+  body {
+      padding-top: 10px;
+      padding-bottom: 10px ;
+      font-family: "Times New Roman", Times, serif;
+  }
 }
 .m-b{
   margin-bottom: 0px;
@@ -41,7 +50,7 @@
   border-bottom: 1px solid black !important;
 }
 </style>
-<body onload="window.print();" style="font-size: 1.48rem;line-height: 1;">
+<body onload="window.print();" style="font-size: 1.4rem;line-height: 1;">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
@@ -137,21 +146,23 @@
     <!-- Table row -->
     <div class="row">
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:1.07rem;border-bottom: 1px solid black;border-top: 4px double black;margin-bottom:10px">
+        <table class="table table-striped table-condensed" style="font-size:0.905rem;border-bottom: 1px solid black;border-top: 4px double black;margin-bottom:10px">
         <thead>
                 <tr>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">Item</div></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">Stock #</div></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">Article #</div></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">Packing<br>IN/MSTR</div></th>
+                <th class="text-center tbl-pad" style="width:9%"></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">CBM</div></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">COLOR</div></th>
+                <th class="text-center tbl-pad" style="width:9%"></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">QTY</div></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">DESCRIPTION</div></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">INNER<br>BOX</div></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">MASTER<br>BOX</div></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">U. PRICE</div></th>
-                <th class="text-center tbl-pad"><div class="bb" style="width:90%">TOTAL</div></th>
+                <th class="text-center tbl-pad"><div class="bb" style="width:90%"> TOTAL </div></th>
                 <!-- <th>DISCOUNT(%)</th>
                 <th>DISCOUNTED PRICE</th> -->
                 </tr>
@@ -183,14 +194,16 @@
             <td class="text-left tbl-pad"><?php echo  $line->class."-".$line->code."-".$line->color_abb; ?></td>
             <td class="tbl-pad"><?php echo  $line->article; ?></td>
             <td class="text-center tbl-pad"><?php echo  $line->in_." / ".$line->mstr; ?></td>
+            <td class="text-center tbl-pad"></td>
             <td class="text-center tbl-pad"><?php echo  number_format($res_mstr,4); ?></td>
             <td class="text-left tbl-pad"><?php echo  $line->color; ?></td>
+            <td class="text-center tbl-pad"></td>
             <td class="text-center tbl-pad"><?php echo  $line->quantity; ?></td>
             <td class="text-left tbl-pad"><?php echo  $line->description; ?></td>
-            <td class="text-left tbl-pad"><?php echo  $line->inner_carton; ?></td>
-            <td class="text-left tbl-pad"><?php echo  $line->master_carton; ?></td>
-            <td class="text-center tbl-pad"><?php echo  $line->product_price; ?></td>
-            <td class="text-right tbl-pad"><?php echo  number_format((float)($line->quantity * $line->product_price), 2, '.', '') ; ?></td>
+            <td class="text-left tbl-pad"><div class="bb" style="width:85%"><?php echo  ($line->inner_carton=='')?'&nbsp;':$line->inner_carton; ?></div></td>
+            <td class="text-left tbl-pad"><div class="bb" style="width:85%"><?php echo ($line->master_carton=='')?'&nbsp;':$line->master_carton; ?></div></td>
+            <td class="text-center tbl-pad"><?php echo  (isset($noPrice))?'':$line->product_price; ?></td>
+            <td class="text-right tbl-pad"><?php echo  (isset($noPrice))?'':number_format((float)($line->quantity * $line->product_price), 2, '.', '') ; ?></td>
             <!-- <td><?php echo  number_format((float)$line->discount, 2, '.', ''); ?></td>
             <td><?php echo  number_format((float)(($line->quantity * $line->product_price) - (($line->quantity * $line->product_price)*($line->discount/100))), 2, '.', ''); ?></td> -->
           </tr>
@@ -198,10 +211,10 @@
           }?>
           <tr>
             <td colspan="2" class="tbl-pad" style="border-top: 1px solid black;">TOTAL</td>
-            <td colspan="4" class="tbl-pad" style="border-top: 1px solid black;"></td>
+            <td colspan="6" class="tbl-pad" style="border-top: 1px solid black;"></td>
             <td style="border-top: 1px solid black;" class="text-center tbl-pad"><?php echo number_format($total_quntity); ?></td>
             <td colspan="4" class="tbl-pad" style="border-top: 1px solid black;"></td>
-            <td class="tbl-pad text-right" style="border-top: 1px solid black;">P <?php echo number_format($total_price,2); ?></td>
+            <td class="tbl-pad text-right" style="border-top: 1px solid black;"><?php echo (isset($noPrice))?'':'P '.number_format($total_price,2); ?></td>
           </tr>
           </tbody>
         </table>

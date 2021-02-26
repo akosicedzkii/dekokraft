@@ -150,9 +150,11 @@ class Marketing_order extends CI_Controller {
             $jo_num = $this->db->get("job_orders")->row();
             $with='';
             if($jo_num->counts>0){
-              $with = '<a href="'.base_url("portal/main/marketing_order/print?invoice_id=".$aRow['invoice_id']).'&with=1" target=_blank class="glyphicon glyphicon-print text-blue" data-toggle="tooltip" title="Print Marketing Order with Details"></a>';
+              $with = '<a href="'.base_url("portal/main/marketing_order/print?invoice_id=".$aRow['invoice_id']).'&with=1" target=_blank class="glyphicon glyphicon-print text-orange" data-toggle="tooltip" title="Print Marketing Order with Details"></a> ';
             }
-            $btns = '<a href="'.base_url("portal/main/marketing_order/print?invoice_id=".$aRow['invoice_id']).'&with=0" target=_blank class="glyphicon glyphicon-print text-orange" data-toggle="tooltip" title="Print Marketing Order w/o Details"></a> '.$with;
+            $btns = '<a href="'.base_url("portal/main/marketing_order/print?invoice_id=".$aRow['invoice_id']).'&with=0" target=_blank class="glyphicon glyphicon-print text-blue" data-toggle="tooltip" title="Print Marketing Order w/o Details"></a> '.$with;
+            $btns .= '<a href="'.base_url("portal/main/marketing_order/print?invoice_id=".$aRow['invoice_id']).'&with=1&wo=1" target=_blank class="glyphicon glyphicon-print" style="color:#F95335" data-toggle="tooltip" title="MO Print without price"></a> ';
+            $btns .= '<a href="'.base_url("portal/main/marketing_order/prints?invoice_id=".$aRow['invoice_id']).'" target=_blank class="glyphicon glyphicon-print" style="color:#674A40" data-toggle="tooltip" title="MASTER BILL OF QUANTITY"></a>';
             // <!--<a href="'.base_url("portal/main/marketing_order/edit?invoice_id=".$aRow['id']).'"  class="glyphicon glyphicon-edit text-blue" data-toggle="tooltip" title="Edit"></a>-->
             // <!--<a href="#" onclick="_delete('.$aRow['id'].',\''.$aRow["customer_name"].'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" name="Delete"></a>-->
             array_push($row,$btns);

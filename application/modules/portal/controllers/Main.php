@@ -164,6 +164,10 @@ class Main extends CI_Controller
         } elseif ($page == "print") {
             $invoice_id = $this->input->get("invoice_id");
             $with = $this->input->get("with");
+            $wo = $this->input->get("wo");
+            if(isset($wo)){
+              $module["noPrice"] = 'true';
+            }
             if($invoice_id==''){
               echo "invoice not found";
             }else{
@@ -196,6 +200,10 @@ class Main extends CI_Controller
               $this->load->view('main/marketing_order_print_view', $module);
             }
 
+        } elseif ($page == "prints") {
+          $invoice_id = $this->input->get("invoice_id");
+          $module='';
+          $this->load->view('main/marketingOrder_mbq_printView', $module);
         } elseif ($page == "view") {
             $module["module_name"] = $this->router->fetch_method();
             $module["menu"] = $this->user_access;
@@ -346,6 +354,8 @@ class Main extends CI_Controller
         $page = $this->uri->segment(4, 0);
         if ($page == "print") {
             $id = $this->input->get("job_id");
+            $with = $this->input->get("with");
+            $module["wClient"] = ($with==1)?'yes':'no';
 
             $this->db->select('jo.*,sub.name,sub.subcon_details,sub.address,sub.code,pt.code as payment_code,mo.invoice_id,c.customer_name');
             $this->db->join('subcon as sub', 'jo.subcon_id=sub.id');
