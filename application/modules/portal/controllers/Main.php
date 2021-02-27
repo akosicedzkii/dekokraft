@@ -202,7 +202,24 @@ class Main extends CI_Controller
 
         } elseif ($page == "prints") {
           $invoice_id = $this->input->get("invoice_id");
-          $module='';
+          $module["mo"] = $this->db->where("invoice_id", $invoice_id)->get("marketing_order")->row();
+          $module["invoice"] = $this->db->where("id", $invoice_id)->get("invoices")->row();
+          $module["customer_address"] = $this->db->where("id", $module["invoice"]->customer_id)->get("customers")->row();
+          $this->db->select("products.weight_of_box,products.inner_carton,products.master_carton,products.class,product_variants.color_abb,product_variants.color,invoice_lines.*,products.description,products.code,products.fob,products.in_,products.mstr");
+          $this->db->join("product_variants", " product_variants.id=invoice_lines.product_id");
+          $this->db->join("products", " products.id=product_variants.product_id");
+          $this->db->where("invoice_id", $invoice_id);
+          $this->db->order_by("products.description", "asc");
+          $module["invoice_lines"]= $this->db->get("invoice_lines")->result();
+          $arr=array();
+          foreach ($module["invoice_lines"] as $mat) {
+              $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,ppm.qty,ppm.product_variant_id");
+              $this->db->join("materials", "ppm.material_id=materials.id");
+              $this->db->where("ppm.product_variant_id", $mat->product_id);
+              $material_list =  $this->db->order_by("materials.jp", "asc")->get("product_profile_materials as ppm")->result_array();
+              array_push($arr, $material_list);
+          }
+          $module["materials"]=$arr;
           $this->load->view('main/marketingOrder_mbq_printView', $module);
         } elseif ($page == "view") {
             $module["module_name"] = $this->router->fetch_method();
