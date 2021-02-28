@@ -90,36 +90,64 @@
           <tbody>
             <?php
             // $job_typ=$job_orders->job_type=='resin'?array('M','R'):array('FA','FB','FC');
+            $materialArray = array();
+            $tempMaterialArray = array();
+            foreach ($materials as $material) {
+              foreach ($material as $value) {
+                $qty = $value["qty"]==''? 0:str_replace(',','',$value["qty"]);
+                $cost = $value["cost"]==''? 0:str_replace(',','',$value["cost"]);
+                $mat_types = $value["tipe"];
+                $mat_type = isset($mat_types) ? $mat_types : '';
+                if ($value["material_name"] != '') {
+                  if (isset($materialArray[$value["material_name"]])) {
+                      $materialArray[$value["material_name"]] += $qty;
+                  } else {
+                      $materialArray[$value["material_name"]] = $qty;
+                      $thisArray = array('material_name'=>$value["material_name"],
+                                          'product_variant_id'=>$value["product_variant_id"],
+                                          'tipe'=>$mat_type,
+                                          'jp'=>$value["jp"],
+                                          'qty'=>$value["qty"],
+                                          'unit'=>$value["unit"],
+                                          'cost'=>$cost,
+                                          'unit'=>$value["unit"]);
+                      array_push($tempMaterialArray,$thisArray);
+                  }
+                }
+              }
+            }
             $job_typ = array('FA','FB','FC');
             $totalMat = 0;
             $totalColor = 0;
             $polyArray = array();
-              foreach ($invoice_lines as $line) {
-                if ($line->in_poly_size != '') {
-                  $in_poly_cont = $line->in_poly_cont!=''?$line->in_poly_cont:0;
-                  $quantity = $line->quantity!=''?$line->quantity:0;
-                  if (isset($polyArray[$line->in_poly_size])) {
-                      $polyArray[$line->in_poly_size] += ($in_poly_cont*$line->quantity);
-                  } else {
-                      $polyArray[$line->in_poly_size] = $in_poly_cont;
-                  }
+            foreach ($invoice_lines as $line) {
+              if ($line->in_poly_size != '') {
+                $in_poly_cont = $line->in_poly_cont!=''?$line->in_poly_cont:0;
+                $quantity = $line->quantity!=''?$line->quantity:0;
+                if (isset($polyArray[$line->in_poly_size])) {
+                    $polyArray[$line->in_poly_size] += ($in_poly_cont*$line->quantity);
+                } else {
+                    $polyArray[$line->in_poly_size] = $in_poly_cont;
                 }
-                echo '<tr>
-                      <td class="tbl-pad" colspan="5">Material Type: Materials</td>
-                    </tr>';
-                  for ($i=0; $i < count($job_typ); $i++) {
-                      $x=0;
-                      foreach ($materials as $material) {
+              }
+            }
+            echo '<tr>
+                  <td class="tbl-pad" colspan="5">Material Type: Materials</td>
+                </tr>';
+            for ($i=0; $i < count($job_typ); $i++) {
+                $x=0;
+                      // foreach ($tempMaterialArray as $material) {
                         $totalAmountMat = 0;
-                          foreach ($material as $values => $value) {
-                              if ($line->product_id==$value["product_variant_id"]) {
-                                if ($value["type"] == 'material') {
+                          foreach ($tempMaterialArray as $values => $value) {
+                              // if ($line->product_id==$value["product_variant_id"]) {
+                                if ($value["tipe"] == "material") {
                                   if ($job_typ[$i]==$value["jp"]) {
                                       if ($x==0) { ?>
                                         <tr>
                                           <td class="tbl-pad" colspan="5">** Job Process: <?php echo $job_typ[$i]; ?></td>
                                         </tr>
                                   <?php $x++; }
+                                  $value["qty"] = $materialArray[$value["material_name"]];
                                   $qty = $value["qty"]==''? 0:str_replace(',','',$value["qty"]);
                                   $qtyValue = 0;
                                       switch ($value["unit"]) {
@@ -179,7 +207,11 @@
                                       $cost = $value["cost"]==''? 0:str_replace(',','',$value["cost"]);
                                       $amount = number_format($cost * $qtyValue,2);
                                       $totalAmountMat += ($cost * $qtyValue);
-                                      // var_dump($value['product_variant_id'].'='.$value['material_name'].'='.$value['jp'].'<br>');?>
+                                      // var_dump($value['product_variant_id'].'='.$value['material_name'].'='.$value['jp'].'<br>');
+
+                                      // var_dump($materialArray);
+                                      //var_dump($tempMaterialArray);
+                                      ?>
                                     <tr>
                                       <td class="tbl-pad"><?php echo $value["material_name"]; ?></td>
                                       <td class="tbl-pad text-right"><?php echo $cost; ?></td>
@@ -190,32 +222,43 @@
             <?php
                                   }
                                   }
-                                }
-                              }
-                              if ($values === array_key_last($material) && $x>0){
-                                echo '<tr><td class="tbl-pad" colspan="5">** Subtotal **</td></tr>';
-                                echo '<tr><td class="tbl-pad" colspan="2"></td>
-                                      <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalAmountMat,2).'</div></td></tr>';
-                                $totalMat = $totalMat + $totalAmountMat;
+                                // }
+                              // }
+                            if ($values === array_key_last($material) && $x>0){
+                              echo '<tr><td class="tbl-pad" colspan="5">** Subtotal **</td></tr>';
+                              echo '<tr><td class="tbl-pad" colspan="2"></td>
+                                    <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalAmountMat,2).'</div></td></tr>';
+                              $totalMat = $totalMat + $totalAmountMat;
                           }
                       }
-                  }
-                  echo '<tr>
-                        <td class="tbl-pad" colspan="5">Material Type: Color Composition</td>
-                      </tr>';
+                  // }
+              // }
+            //}
+          }
+            echo '<tr><td class="tbl-pad" colspan="5">** Total Materials **</td></tr>';
+            echo '<tr><td class="tbl-pad" colspan="2"></td>
+                  <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalMat,2).'</div></td></tr>';
+
+            // this is for color composition
+            echo '<tr>
+                    <td class="tbl-pad" colspan="5">Material Type: Color Composition</td>
+                  </tr>';
+              // foreach ($invoice_lines as $line) {
+
                   for ($i=0; $i < count($job_typ); $i++) {
                       $x=0;
-                      foreach ($materials as $material) {
+                      // foreach ($tempMaterialArray as $material) {
                         $totalAmount = 0;
-                          foreach ($material as $values => $value) {
-                              if ($line->product_id==$value["product_variant_id"]) {
-                                if ($value["type"] == 'color') {
+                          foreach ($tempMaterialArray as $values => $value) {
+                              // if ($line->product_id==$value["product_variant_id"]) {
+                                if ($value['tipe'] == 'color') {
                                   if ($job_typ[$i]==$value["jp"]) {
                                       if ($x==0) { ?>
                                         <tr>
                                           <td class="tbl-pad" colspan="5">** Job Process: <?php echo $job_typ[$i]; ?></td>
                                         </tr>
                                   <?php $x++; }
+                                  $value["qty"] = $materialArray[$value["material_name"]];
                                   $qty = $value["qty"]==''? 0:str_replace(',','',$value["qty"]);
                                   $qtyValue = 0;
                                       switch ($value["unit"]) {
@@ -293,13 +336,11 @@
                                       <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalAmount,2).'</div></td></tr>';
                                 $totalColor = $totalColor + $totalAmount;
                               }
-                          }
+                          // }
                       }
-                  }
-              }
-              echo '<tr><td class="tbl-pad" colspan="5">** Total Materials **</td></tr>';
-              echo '<tr><td class="tbl-pad" colspan="2"></td>
-                    <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalMat,2).'</div></td></tr>';
+                  // }
+              // }
+            // }
               echo '<tr><td class="tbl-pad" colspan="5">** Total Color Composition **</td></tr>';
               echo '<tr><td class="tbl-pad" colspan="2"></td>
                     <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalColor,2).'</div></td></tr>';
