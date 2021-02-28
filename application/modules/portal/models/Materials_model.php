@@ -52,7 +52,7 @@ class Materials_model extends CI_Model {
                 
                 $data["id"] = $this->id;
                 $data = json_encode($data);
-                $this->logs->log = "Updated materials - ID:". $this->id .", materials name: ".$this->name ;
+                $this->logs->log = "Updated materials - ID:". $this->id .", materials name: ".$this->material_name ;
                 $this->logs->details = json_encode($data);
                 $this->logs->module = "materials";
 
