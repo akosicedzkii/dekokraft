@@ -34,7 +34,7 @@ class Invoices_model extends CI_Model {
                 $data2["invoice_id"] = $id;
                 $data2["date_created"] = date("Y-m-d H:i:s A");
                 $data2["created_by"] =  $this->session->userdata("USERID");
-                $data2["status"] = 0;
+                $data2["status"] = 1;
                 $this->db->insert("marketing_order",$data2);
                 $insertId = $this->db->insert_id();
                 $this->logs->log = "Created Marketing Order - ID: ". $insertId  ;

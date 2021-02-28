@@ -37,7 +37,7 @@ class Invoices extends CI_Controller {
             'date_created' => date("Y-m-d h:i:s a"),
             'created_by' => $this->session->userdata("USERID"),
             'pdf_due' => $this->input->post('pdf_due'),
-            'status' => 0,
+            'status' => 1,
             
         );
         $invoice_items = json_decode($this->input->post("invoice_items"));    
