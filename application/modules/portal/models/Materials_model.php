@@ -25,7 +25,7 @@ class Materials_model extends CI_Model {
                         $insertId = $this->db->insert_id();
                         $data["id"] = $insertId;
                         $data = json_encode($data);
-                        $this->logs->log = "Created materials - ID:". $insertId .", materials name: ".$this->name ;
+                        $this->logs->log = "Created materials - ID:". $insertId .", materials name: ".$this->material_name ;
                         $this->logs->details = json_encode($data);
                         $this->logs->module = "materials";
         
