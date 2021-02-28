@@ -131,9 +131,9 @@
                 }
               }
             }
-            echo '<tr>
-                  <td class="tbl-pad" colspan="5">Material Type: Materials</td>
-                </tr>';
+            // echo '<tr>
+            //       <td class="tbl-pad" colspan="5">Material Type: Materials</td>
+            //     </tr>';
             for ($i=0; $i < count($job_typ); $i++) {
                 $x=0;
                       // foreach ($tempMaterialArray as $material) {
@@ -235,14 +235,14 @@
               // }
             //}
           }
-            echo '<tr><td class="tbl-pad" colspan="5">** Total Materials **</td></tr>';
-            echo '<tr><td class="tbl-pad" colspan="2"></td>
-                  <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalMat,2).'</div></td></tr>';
+            // echo '<tr><td class="tbl-pad" colspan="5">** Total Materials **</td></tr>';
+            // echo '<tr><td class="tbl-pad" colspan="2"></td>
+            //       <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalMat,2).'</div></td></tr>';
 
             // this is for color composition
-            echo '<tr>
-                    <td class="tbl-pad" colspan="5">Material Type: Color Composition</td>
-                  </tr>';
+            // echo '<tr>
+            //         <td class="tbl-pad" colspan="5">Material Type: Color Composition</td>
+            //       </tr>';
               // foreach ($invoice_lines as $line) {
 
                   for ($i=0; $i < count($job_typ); $i++) {
@@ -342,9 +342,9 @@
                   // }
               // }
             // }
-              echo '<tr><td class="tbl-pad" colspan="5">** Total Color Composition **</td></tr>';
-              echo '<tr><td class="tbl-pad" colspan="2"></td>
-                    <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalColor,2).'</div></td></tr>';
+              // echo '<tr><td class="tbl-pad" colspan="5">** Total Color Composition **</td></tr>';
+              // echo '<tr><td class="tbl-pad" colspan="2"></td>
+              //       <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalColor,2).'</div></td></tr>';
              ?>
           </tbody>
         </table>

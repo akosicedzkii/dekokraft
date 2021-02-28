@@ -209,14 +209,15 @@ class Main extends CI_Controller
           $this->db->join("product_variants", " product_variants.id=invoice_lines.product_id");
           $this->db->join("products", " products.id=product_variants.product_id");
           $this->db->join("product_profiles", " product_profiles.product_variant_id=product_variants.id");
-          $this->db->where("invoice_id", $invoice_id);
+          $this->db->where("invoice_lines.invoice_id", $invoice_id);
           $this->db->order_by("products.description", "asc");
           $module["invoice_lines"]= $this->db->get("invoice_lines")->result();
           $arr=array();
           foreach ($module["invoice_lines"] as $mat) {
               $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,ppm.qty,ppm.product_variant_id");
               $this->db->join("materials", "ppm.material_id=materials.id");
-              $this->db->where("ppm.product_variant_id", $mat->product_id);
+              $this->db->join("product_profiles", " product_profiles.id=ppm.product_profile_id");
+              $this->db->where("product_profiles.product_variant_id", $mat->product_id);
               $material_list =  $this->db->order_by("materials.jp", "asc")->get("product_profile_materials as ppm")->result_array();
               array_push($arr, $material_list);
           }
