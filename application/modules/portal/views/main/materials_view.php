@@ -369,6 +369,13 @@
                          $("#materialsModal").modal("hide"); 
                          $('#uploadBoxMain').html('');          
                     }
+                }).error(function(error){
+                    btn.button("reset");
+                    table.draw();
+                    toastr.error(error );
+                    $("#materialsForm").validator('destroy');
+                    $("#materialsModal").modal("hide"); 
+                    $('#uploadBoxMain').html('');  
                 });
             }
                return false;
