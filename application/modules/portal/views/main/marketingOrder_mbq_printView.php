@@ -91,7 +91,8 @@
             <?php
             // $job_typ=$job_orders->job_type=='resin'?array('M','R'):array('FA','FB','FC');
             $job_typ = array('FA','FB','FC');
-            $totalTotal = 0;
+            $totalMat = 0;
+            $totalColor = 0;
             $polyArray = array();
               foreach ($invoice_lines as $line) {
                 if ($line->in_poly_size != '') {
@@ -103,17 +104,117 @@
                       $polyArray[$line->in_poly_size] = $in_poly_cont;
                   }
                 }
+                echo '<tr>
+                      <td class="tbl-pad" colspan="5">Material Type: Materials</td>
+                    </tr>';
+                  for ($i=0; $i < count($job_typ); $i++) {
+                      $x=0;
+                      foreach ($materials as $material) {
+                        $totalAmountMat = 0;
+                          foreach ($material as $values => $value) {
+                              if ($line->product_id==$value["product_variant_id"]) {
+                                if ($value["type"] == 'material') {
+                                  if ($job_typ[$i]==$value["jp"]) {
+                                      if ($x==0) { ?>
+                                        <tr>
+                                          <td class="tbl-pad" colspan="5">** Job Process: <?php echo $job_typ[$i]; ?></td>
+                                        </tr>
+                                  <?php $x++; }
+                                  $qty = $value["qty"]==''? 0:str_replace(',','',$value["qty"]);
+                                  $qtyValue = 0;
+                                      switch ($value["unit"]) {
+                                        case 'GM':
+                                          if($qty>=1000){
+                                            $qtyValue = str_replace(',','',number_format($qty / 1000,3));
+                                            $unit = 'KG';
+                                          } else {
+                                            $qtyValue = str_replace(',','',number_format($qty,3));
+                                            $unit = 'GM';
+                                          }
+                                          break;
+                                        case 'ML':
+                                          if($qty>=1000){
+                                            $qtyValue = str_replace(',','',number_format($qty / 1000,3));
+                                            $unit = 'LI';
+                                          }else{
+                                            $qtyValue = str_replace(',','',number_format($qty,3));
+                                            $unit = 'ML';
+                                          }
+                                          break;
+                                        case 'IN':
+                                          if($qty>=36){
+                                            $qtyValue = str_replace(',','',number_format($qty / 36,3));
+                                            $unit = 'ROLL';
+                                          }else {
+                                            $qtyValue = str_replace(',','',number_format($qty,3));
+                                            $unit = 'IN';
+                                          }
+                                          break;
+                                        case 'PC':
+                                          $qtyValue = str_replace(',','',number_format($qty,3));
+                                          $unit = 'PC';
+                                          break;
+                                        case 'GAL':
+                                          $qtyValue = str_replace(',','',number_format($qty,3));
+                                          $unit = 'GAL';
+                                          break;
+                                        case 'LI.':
+                                          if($qty>=3.785){
+                                            $qtyValue = str_replace(',','',number_format($qty / 3.785,3));
+                                            $unit = 'GAL';
+                                          } else {
+                                            $qtyValue = str_replace(',','',number_format($qty,3));
+                                            $unit = 'LI.';
+                                          }
+                                          break;
+                                        case 'RL':
+                                          $qtyValue = str_replace(',','',number_format($qty,3));
+                                          $unit = 'RL';
+                                          break;
+                                        default:
+                                          $qtyValue = str_replace(',','',number_format($qty,3));
+                                          $unit = $value["unit"];
+                                          break;
+                                      }
+                                      $cost = $value["cost"]==''? 0:str_replace(',','',$value["cost"]);
+                                      $amount = number_format($cost * $qtyValue,2);
+                                      $totalAmountMat += ($cost * $qtyValue);
+                                      // var_dump($value['product_variant_id'].'='.$value['material_name'].'='.$value['jp'].'<br>');?>
+                                    <tr>
+                                      <td class="tbl-pad"><?php echo $value["material_name"]; ?></td>
+                                      <td class="tbl-pad text-right"><?php echo $cost; ?></td>
+                                      <td class="tbl-pad text-right"><div style="width:90%"><?php echo $amount; ?></div></td>
+                                      <td class="tbl-pad text-center"><div style="width:90%"><?php echo $qtyValue.' '.$unit; ?></div></td>
+                                      <td class="tbl-pad text-center"><div class="bb" style="width:90%">&nbsp;</div></td>
+                                    </tr>
+            <?php
+                                  }
+                                  }
+                                }
+                              }
+                              if ($values === array_key_last($material) && $x>0){
+                                echo '<tr><td class="tbl-pad" colspan="5">** Subtotal **</td></tr>';
+                                echo '<tr><td class="tbl-pad" colspan="2"></td>
+                                      <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalAmountMat,2).'</div></td></tr>';
+                                $totalMat = $totalMat + $totalAmountMat;
+                          }
+                      }
+                  }
+                  echo '<tr>
+                        <td class="tbl-pad" colspan="5">Material Type: Color Composition</td>
+                      </tr>';
                   for ($i=0; $i < count($job_typ); $i++) {
                       $x=0;
                       foreach ($materials as $material) {
                         $totalAmount = 0;
                           foreach ($material as $values => $value) {
                               if ($line->product_id==$value["product_variant_id"]) {
+                                if ($value["type"] == 'color') {
                                   if ($job_typ[$i]==$value["jp"]) {
                                       if ($x==0) { ?>
-                                      <tr>
-                                        <td class="tbl-pad" colspan="5">** Job Process: <?php echo $job_typ[$i]; ?></td>
-                                      </tr>
+                                        <tr>
+                                          <td class="tbl-pad" colspan="5">** Job Process: <?php echo $job_typ[$i]; ?></td>
+                                        </tr>
                                   <?php $x++; }
                                   $qty = $value["qty"]==''? 0:str_replace(',','',$value["qty"]);
                                   $qtyValue = 0;
@@ -184,24 +285,24 @@
                                     </tr>
             <?php
                                   }
-                                  if ($values === array_key_last($material)){
-                                    echo '<tr><td class="tbl-pad" colspan="5">** Subtotal **</td></tr>';
-                                    echo '<tr><td class="tbl-pad" colspan="2"></td>
-                                          <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalAmount,2).'</div></td></tr>';
-                                    $totalTotal = $totalTotal + $totalAmount;
-                                  }
+                                }
+                              }
+                              if ($values === array_key_last($material) && $x>0){
+                                echo '<tr><td class="tbl-pad" colspan="5">** Subtotal **</td></tr>';
+                                echo '<tr><td class="tbl-pad" colspan="2"></td>
+                                      <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalAmount,2).'</div></td></tr>';
+                                $totalColor = $totalColor + $totalAmount;
                               }
                           }
-                          // echo '<tr><td class="tbl-pad" colspan="5">** Subtotal **</td></tr>';
-                          // echo '<tr><td class="tbl-pad" colspan="2"></td>
-                          //       <td class="tbl-pad text-right">'.number_format($totalAmount,2).'</td></tr>';
-                          // $totalTotal = $totalTotal + $totalAmount;
                       }
                   }
               }
-              echo '<tr><td class="tbl-pad" colspan="5">** Total **</td></tr>';
+              echo '<tr><td class="tbl-pad" colspan="5">** Total Materials **</td></tr>';
               echo '<tr><td class="tbl-pad" colspan="2"></td>
-                    <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalTotal,2).'</div></td></tr>';
+                    <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalMat,2).'</div></td></tr>';
+              echo '<tr><td class="tbl-pad" colspan="5">** Total Color Composition **</td></tr>';
+              echo '<tr><td class="tbl-pad" colspan="2"></td>
+                    <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalColor,2).'</div></td></tr>';
              ?>
           </tbody>
         </table>
