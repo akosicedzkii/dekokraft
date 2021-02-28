@@ -91,7 +91,7 @@ class Materials extends CI_Controller {
         $select_columns = array("id","material_name","unit","cost","jp","status","date_created","created_by","date_modified","modified_by","type");  
         $this->dt_model->table = "materials AS t1 LEFT JOIN user_accounts AS t2 ON t2.id = t1.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t1.modified_by ";  
         $this->dt_model->index_column = "t1.id";
-        $this->dt_model->staticWhere = "t1.status != 3"; 
+        //$this->dt_model->staticWhere = "t1.status != 3"; 
         $result = $this->dt_model->get_table_list();
         $output = $result["output"];
         $rResult = $result["rResult"];
