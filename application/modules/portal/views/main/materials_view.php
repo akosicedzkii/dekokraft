@@ -348,7 +348,7 @@
                     mimeType:"multipart/form-data"
                 }).done(function(data){ 
                     console.log(data)
-                    if(!data)
+                    if(data!="")
                     {
                         btn.button("reset");
                         toastr.error(data);
