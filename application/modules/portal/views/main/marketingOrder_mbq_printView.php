@@ -62,7 +62,7 @@
            <center>
                 <p class="text-uppercase m-b"><strong><?php echo SITE_NAME;?></strong></p>
                 <p class="m-b">CLIENT: <?php echo $customer_address->company_name; ?> </p>
-                <p>MO# <?php echo $mo->id; ?> Date: <?php echo date("y.m.d"); ?></p>
+                <p>Inv # <?php echo $invoice->id; ?>  MO# <?php echo $mo->id; ?> Date: <?php echo date("y.m.d"); ?></p>
          </center>
 
             <div class="row">
@@ -90,9 +90,19 @@
           <tbody>
             <?php
             // $job_typ=$job_orders->job_type=='resin'?array('M','R'):array('FA','FB','FC');
-            $job_typ=array('FA','FB','FC');
+            $job_typ = array('FA','FB','FC');
             $totalTotal = 0;
+            $polyArray = array();
               foreach ($invoice_lines as $line) {
+                if ($line->in_poly_size != '') {
+                  $in_poly_cont = $line->in_poly_cont!=''?$line->in_poly_cont:0;
+                  $quantity = $line->quantity!=''?$line->quantity:0;
+                  if (isset($polyArray[$line->in_poly_size])) {
+                      $polyArray[$line->in_poly_size] += ($in_poly_cont*$line->quantity);
+                  } else {
+                      $polyArray[$line->in_poly_size] = $in_poly_cont;
+                  }
+                }
                   for ($i=0; $i < count($job_typ); $i++) {
                       $x=0;
                       foreach ($materials as $material) {
@@ -118,7 +128,7 @@
                                           }
                                           break;
                                         case 'ML':
-                                          if($qty<=1000){
+                                          if($qty>=1000){
                                             $qtyValue = str_replace(',','',number_format($qty / 1000,3));
                                             $unit = 'LI';
                                           }else{
@@ -191,13 +201,37 @@
               }
               echo '<tr><td class="tbl-pad" colspan="5">** Total **</td></tr>';
               echo '<tr><td class="tbl-pad" colspan="2"></td>
-                    <td class="tbl-pad text-right">'.number_format($totalTotal,2).'</td></tr>';
+                    <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalTotal,2).'</div></td></tr>';
              ?>
           </tbody>
         </table>
       </div>
     </div>
     <!-- /.row -->
+
+    <!-- Table row -->
+    <div class="row">
+      <div class="col-sm-12 table-responsive">
+          <table class="table table-condensed" style="font-size:1.2rem;width:50%;margin-left: auto;margin-right: auto;">
+            <thead>
+              <tr>
+                <th class="text-center tbl-pad"><div class="bb" style="width:90%">Polly Inner</div></th>
+                <th class="text-center tbl-pad"><div class="bb" style="width:90%">PCS</div></th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+                foreach ($polyArray as $key => $value) {
+                  echo '<tr>
+                    <th class="text-center tbl-pad"><div style="width:90%">'.$key.'</div></th>
+                    <th class="text-center tbl-pad"><div style="width:90%">'.$value.'</div></th>
+                  </tr>';
+                }
+               ?>
+            </tbody>
+          </table>
+      </div>
+    </div>
 
   </section>
   <!-- /.content -->
