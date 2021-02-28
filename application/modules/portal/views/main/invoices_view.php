@@ -257,7 +257,7 @@
                             btn.button("reset");
                             table.draw("page");
                             $("#CreateMOInvoiceModal").modal("hide");
-                            toastr.error('Marketing order for ' + moItem + ' successfully crated');
+                            toastr.success('Marketing order for ' + id + ' successfully crated');
                         },
                         error: function (request, status, error) {
                             alert(request.responseText);
