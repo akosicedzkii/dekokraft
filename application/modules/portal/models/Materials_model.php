@@ -19,16 +19,21 @@ class Materials_model extends CI_Model {
                 $data["date_created"] = date("Y-m-d H:i:s A");
                 $data["status"] = $this->status;
                 $data["created_by"] =  $this->session->userdata("USERID");
-                echo $result = $this->db->insert('materials', $data);
-                $insertId = $this->db->insert_id();
-                $data["id"] = $insertId;
-                $data = json_encode($data);
-                $this->logs->log = "Created materials - ID:". $insertId .", materials name: ".$this->name ;
-                $this->logs->details = json_encode($data);
-                $this->logs->module = "materials";
-
-                $this->logs->created_by = $this->session->userdata("USERID");
-                $this->logs->insert_log();
+                $result = $this->db->insert('materials', $data);
+                if( $result)
+                {
+                        $insertId = $this->db->insert_id();
+                        $data["id"] = $insertId;
+                        $data = json_encode($data);
+                        $this->logs->log = "Created materials - ID:". $insertId .", materials name: ".$this->name ;
+                        $this->logs->details = json_encode($data);
+                        $this->logs->module = "materials";
+        
+                        $this->logs->created_by = $this->session->userdata("USERID");
+                        $this->logs->insert_log();
+                }else{
+                        echo $this->db->error()["message"];
+                  }
         }
 
         public function update_materials()
