@@ -95,6 +95,14 @@
             foreach ($materials as $material) {
               foreach ($material as $value) {
                 $qty = $value["qty"]==''? 0:str_replace(',','',$value["qty"]);
+                foreach ($invoice_lines as $line) {
+                  if ($line->product_id==$value["product_variant_id"]) {
+                    if($line->quantity!=''){
+                      $qty *= $line->quantity;
+                    }
+                  }
+                }
+
                 $cost = $value["cost"]==''? 0:str_replace(',','',$value["cost"]);
                 $mat_types = $value["tipe"];
                 $mat_type = isset($mat_types) ? $mat_types : '';

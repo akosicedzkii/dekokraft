@@ -214,7 +214,7 @@ class Main extends CI_Controller
           $module["invoice_lines"]= $this->db->get("invoice_lines")->result();
           $arr=array();
           foreach ($module["invoice_lines"] as $mat) {
-              $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,ppm.qty,ppm.product_variant_id");
+              $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,ppm.qty,product_profiles.product_variant_id,ppm.product_profile_id");
               $this->db->join("materials", "ppm.material_id=materials.id");
               $this->db->join("product_profiles", " product_profiles.id=ppm.product_profile_id");
               $this->db->where("product_profiles.product_variant_id", $mat->product_id);
