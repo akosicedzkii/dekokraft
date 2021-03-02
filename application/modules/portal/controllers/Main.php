@@ -213,15 +213,28 @@ class Main extends CI_Controller
           $this->db->order_by("products.description", "asc");
           $module["invoice_lines"]= $this->db->get("invoice_lines")->result();
           $arr=array();
+          $color_arr=array();
           foreach ($module["invoice_lines"] as $mat) {
-              $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,ppm.qty,product_profiles.product_variant_id,ppm.product_profile_id");
+              $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,ppm.qty,product_profiles.product_variant_id,ppm.product_profile_id,invoice_lines.id as invoice_id");
               $this->db->join("materials", "ppm.material_id=materials.id");
               $this->db->join("product_profiles", " product_profiles.id=ppm.product_profile_id");
-              $this->db->where("product_profiles.product_variant_id", $mat->product_id);
+              $this->db->join("invoice_lines", " product_profiles.product_variant_id=invoice_lines.product_id");
+              // $this->db->where("product_profiles.product_variant_id", $mat->product_id);
+              $this->db->where("invoice_lines.id", $mat->id);
               $material_list =  $this->db->order_by("materials.jp", "asc")->get("product_profile_materials as ppm")->result_array();
               array_push($arr, $material_list);
+              $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,product_profiles.product_variant_id,color_materials.qty,invoice_lines.quantity,ppm.qty as ppm_count");
+              $this->db->join("color_materials", "ppm.material_id=color_materials.color_id");
+              $this->db->join("materials", "color_materials.material_id=materials.id");
+              $this->db->join("product_profiles", " product_profiles.id=ppm.product_profile_id");
+              $this->db->join("invoice_lines", " product_profiles.product_variant_id=invoice_lines.product_id");
+              //$this->db->where("product_profiles.product_variant_id", $mat->product_id);
+              $this->db->where("invoice_lines.id", $mat->id);
+              $colorMaterial_list =  $this->db->order_by("materials.jp", "asc")->get("product_profile_materials as ppm")->result_array();
+              array_push($color_arr, $colorMaterial_list);
           }
           $module["materials"]=$arr;
+          $module["colorMaterials"]=$color_arr;
           $this->load->view('main/marketingOrder_mbq_printView', $module);
         } elseif ($page == "view") {
             $module["module_name"] = $this->router->fetch_method();
