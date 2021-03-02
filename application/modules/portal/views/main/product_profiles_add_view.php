@@ -508,7 +508,17 @@
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label for="color_composition" class="col-sm-2 control-label">Material Type</label>
 
+                                <div class="col-sm-10">
+                                <select class="form-control" id="color_composition" placeholder="Content" style="resize:none" required>
+                                    <option value="material">Material</option>
+                                    <option value="color">Color Composition</option>
+                                </select>
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="inputStatus" class="col-sm-2 control-label">Status</label>
 
@@ -664,6 +674,7 @@ var image_correct = true;
                 var jp = $("#jp").val();
                 var status = $("#inputStatus").val();
                 var materials_id = $("#materialsID").val();
+                var type = $("#color_composition").val();
 
                 if(material_name == "" || cost == "")
                 {
@@ -678,6 +689,7 @@ var image_correct = true;
                 formData.append('unit', unit);
                 formData.append('status', status);
                 formData.append('jp', jp);
+                formData.append('type', type);
                 // Attach file
                  //fromthis
                  var url = "<?php echo base_url()."portal/materials/add_materials";?>";
