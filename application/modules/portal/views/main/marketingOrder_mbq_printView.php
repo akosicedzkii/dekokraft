@@ -93,17 +93,20 @@
             $materialArray = array();
             $tempMaterialArray = array();
             foreach ($materials as $material) {
+              $qty=0;
               foreach ($material as $value) {
                 $qty = $value["qty"]==''? 0:str_replace(',','',$value["qty"]);
+                $cost = $value["cost"]==''? 0:str_replace(',','',$value["cost"]);
                 foreach ($invoice_lines as $line) {
                   if ($line->product_id==$value["product_variant_id"]) {
                     if($line->quantity!=''){
-                      $qty *= $line->quantity;
+                      if($line->id==$value["invoice_id"]){
+                        $qty *= $line->quantity;
+                        $cost *= $line->quantity;
+                      }
                     }
                   }
                 }
-
-                $cost = $value["cost"]==''? 0:str_replace(',','',$value["cost"]);
                 $mat_types = $value["tipe"];
                 $mat_type = isset($mat_types) ? $mat_types : '';
                 if ($value["material_name"] != '') {
@@ -119,6 +122,35 @@
                                           'unit'=>$value["unit"],
                                           'cost'=>$cost,
                                           'unit'=>$value["unit"]);
+                      array_push($tempMaterialArray,$thisArray);
+                  }
+                }
+              }
+            }
+            foreach ($colorMaterials as $colorMaterial) {
+              $qty = 0;
+              foreach ($colorMaterial as $thisMaterial) {
+                $qty = $thisMaterial["qty"]==''? 0:str_replace(',','',$thisMaterial["qty"]);
+                $colorQty = $thisMaterial["ppm_count"]==''? 0:str_replace(',','',$thisMaterial["ppm_count"]);
+                $moQty = $thisMaterial["quantity"]==''? 0:str_replace(',','',$thisMaterial["quantity"]);
+                $cost = $thisMaterial["cost"]==''? 0:str_replace(',','',$thisMaterial["cost"]);
+                $totalQty = $qty * $colorQty * $moQty;
+                $totalCost = $cost * $colorQty * $moQty;
+                $mat_types = $thisMaterial["tipe"];
+                $mat_type = isset($mat_types) ? $mat_types : '';
+                if ($thisMaterial["material_name"] != '') {
+                  if (isset($materialArray[$thisMaterial["material_name"]])) {
+                      $materialArray[$thisMaterial["material_name"]] += $totalQty;
+                  } else {
+                      $materialArray[$thisMaterial["material_name"]] = $totalQty;
+                      $thisArray = array('material_name'=>$thisMaterial["material_name"],
+                                          'product_variant_id'=>$thisMaterial["product_variant_id"],
+                                          'tipe'=>$mat_type,
+                                          'jp'=>$thisMaterial["jp"],
+                                          'qty'=>$thisMaterial["qty"],
+                                          'unit'=>$thisMaterial["unit"],
+                                          'cost'=>$totalCost,
+                                          'unit'=>$thisMaterial["unit"]);
                       array_push($tempMaterialArray,$thisArray);
                   }
                 }
