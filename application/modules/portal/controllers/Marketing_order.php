@@ -100,7 +100,7 @@ class Marketing_order extends CI_Controller {
     public function get_marketing_order_list()
     {
         $this->load->model("portal/data_table_model","dt_model");
-        $this->dt_model->select_columns = array("t1.id","t1.id","t1.invoice_id","t5.customer_name","IF(t1.status=1,'Active','Inactive') as status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");
+        $this->dt_model->select_columns = array("t1.id","t1.id","t1.invoice_id","t5.customer_name","IF(t1.status=1,'Done','New') as status","t1.date_created","t2.username as created_by","t1.date_modified","t3.username as modified_by");
         $this->dt_model->where  = array("t1.id","t1.id","t1.invoice_id","t1.customer_name","t1.status","t1.date_created","t2.username","t1.date_modified","t3.username");
         $select_columns = array("id","id","invoice_id","customer_name","status","date_created","created_by","date_modified","modified_by");
         $this->dt_model->table = "marketing_order AS t1 LEFT JOIN user_accounts AS t2 ON t2.id = t1.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t1.modified_by LEFT JOIN invoices AS t4 ON t4.id = t1.invoice_id LEFT JOIN customers AS t5 ON t5.id = t4.customer_id ";
@@ -119,11 +119,11 @@ class Marketing_order extends CI_Controller {
                     }
                     else if($col == "status")
                     {
-                        if($aRow[$col] == "Inactive")
+                        if($aRow[$col] == "New")
                         {
                             $row[] = '<center><small class="label bg-gray">'.$aRow[$col].'</small></center>';
                         }
-                        else if($aRow[$col] == "Active")
+                        else if($aRow[$col] == "Done")
                         {
                             $row[] = '<center><small class="label bg-green">'.$aRow[$col].'</small></center>';
                         }

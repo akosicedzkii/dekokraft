@@ -178,11 +178,11 @@ class Invoices extends CI_Controller {
                     {
                         if($aRow[$col] == "0")
                         {
-                            $row[] = '<center><small class="label bg-gray">Inactive</small></center>';
+                            $row[] = '<center><small class="label bg-gray">New</small></center>';
                         }
                         else if($aRow[$col] == "1")
                         {
-                            $row[] = '<center><small class="label bg-green">Active</small></center>';
+                            $row[] = '<center><small class="label bg-green">Done</small></center>';
                         }
                         else if($aRow[$col] == "4")
                         {
