@@ -730,7 +730,7 @@ var image_correct = true;
                     },
                     mimeType:"multipart/form-data"
                 }).done(function(data){
-                    if(!data)
+                    if(data!=1)
                     {
                         btn.button("reset");
                         toastr.error(data);
