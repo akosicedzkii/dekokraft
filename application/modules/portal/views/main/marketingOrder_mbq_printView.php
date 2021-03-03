@@ -102,7 +102,7 @@
                     if($line->quantity!=''){
                       if($line->id==$value["invoice_id"]){
                         $qty *= $line->quantity;
-                        $cost *= $line->quantity;
+                        //$cost *= $line->quantity;
                       }
                     }
                   }
@@ -135,7 +135,8 @@
                 $moQty = $thisMaterial["quantity"]==''? 0:str_replace(',','',$thisMaterial["quantity"]);
                 $cost = $thisMaterial["cost"]==''? 0:str_replace(',','',$thisMaterial["cost"]);
                 $totalQty = $qty * $colorQty * $moQty;
-                $totalCost = $cost * $colorQty * $moQty;
+                //$totalCost = $cost * $colorQty * $moQty;
+                $totalCost = $cost;
                 $mat_types = $thisMaterial["tipe"];
                 $mat_type = isset($mat_types) ? $mat_types : '';
                 if ($thisMaterial["material_name"] != '') {
@@ -178,6 +179,7 @@
                 $x=0;
                       // foreach ($tempMaterialArray as $material) {
                         $totalAmountMat = 0;
+                        $partialCost = 0;
                           foreach ($tempMaterialArray as $values => $value) {
                               // if ($line->product_id==$value["product_variant_id"]) {
                                 if ($value["tipe"] == "material") {
@@ -190,11 +192,13 @@
                                   $value["qty"] = $materialArray[$value["material_name"]];
                                   $qty = $value["qty"]==''? 0:str_replace(',','',$value["qty"]);
                                   $qtyValue = 0;
+                                  $partialCost = $value["cost"]==''? 0:str_replace(',','',$value["cost"]);
                                       switch ($value["unit"]) {
                                         case 'GM':
                                           if($qty>=1000){
                                             $qtyValue = str_replace(',','',number_format($qty / 1000,3));
                                             $unit = 'KG';
+                                            $partialCost *= 1000;
                                           } else {
                                             $qtyValue = str_replace(',','',number_format($qty,3));
                                             $unit = 'GM';
@@ -204,6 +208,7 @@
                                           if($qty>=1000){
                                             $qtyValue = str_replace(',','',number_format($qty / 1000,3));
                                             $unit = 'LI';
+                                            $partialCost *= 1000;
                                           }else{
                                             $qtyValue = str_replace(',','',number_format($qty,3));
                                             $unit = 'ML';
@@ -213,6 +218,7 @@
                                           if($qty>=36){
                                             $qtyValue = str_replace(',','',number_format($qty / 36,3));
                                             $unit = 'ROLL';
+                                            $partialCost *= 36;
                                           }else {
                                             $qtyValue = str_replace(',','',number_format($qty,3));
                                             $unit = 'IN';
@@ -230,6 +236,7 @@
                                           if($qty>=3.785){
                                             $qtyValue = str_replace(',','',number_format($qty / 3.785,3));
                                             $unit = 'GAL';
+                                            $partialCost *= 3.785;
                                           } else {
                                             $qtyValue = str_replace(',','',number_format($qty,3));
                                             $unit = 'LI.';
@@ -244,7 +251,7 @@
                                           $unit = $value["unit"];
                                           break;
                                       }
-                                      $cost = $value["cost"]==''? 0:str_replace(',','',$value["cost"]);
+                                      $cost = $partialCost;
                                       $amount = number_format($cost * $qtyValue,2);
                                       $totalAmountMat += ($cost * $qtyValue);
                                       // var_dump($value['product_variant_id'].'='.$value['material_name'].'='.$value['jp'].'<br>');
