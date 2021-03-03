@@ -261,7 +261,7 @@
                                       ?>
                                     <tr>
                                       <td class="tbl-pad"><?php echo $value["material_name"]; ?></td>
-                                      <td class="tbl-pad text-right"><?php echo $cost; ?></td>
+                                      <td class="tbl-pad text-right"><?php echo number_format($cost,2); ?></td>
                                       <td class="tbl-pad text-right"><div style="width:90%"><?php echo $amount; ?></div></td>
                                       <td class="tbl-pad text-center"><div style="width:90%"><?php echo $qtyValue.' '.$unit; ?></div></td>
                                       <td class="tbl-pad text-center"><div class="bb" style="width:90%">&nbsp;</div></td>
