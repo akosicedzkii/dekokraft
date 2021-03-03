@@ -215,10 +215,10 @@
                                           }
                                           break;
                                         case 'IN':
-                                          if($qty>=36){
-                                            $qtyValue = str_replace(',','',number_format($qty / 36,3));
+                                          if($qty>=1100){
+                                            $qtyValue = str_replace(',','',number_format($qty / 1100,3));
                                             $unit = 'ROLL';
-                                            $partialCost *= 36;
+                                            $partialCost *= 1100;
                                           }else {
                                             $qtyValue = str_replace(',','',number_format($qty,3));
                                             $unit = 'IN';
@@ -233,10 +233,10 @@
                                           $unit = 'GAL';
                                           break;
                                         case 'LI.':
-                                          if($qty>=3.785){
-                                            $qtyValue = str_replace(',','',number_format($qty / 3.785,3));
+                                          if($qty>=4){
+                                            $qtyValue = str_replace(',','',number_format($qty / 4,3));
                                             $unit = 'GAL';
-                                            $partialCost *= 3.785;
+                                            $partialCost *= 4;
                                           } else {
                                             $qtyValue = str_replace(',','',number_format($qty,3));
                                             $unit = 'LI.';
