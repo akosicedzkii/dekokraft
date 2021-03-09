@@ -133,7 +133,8 @@
                 $colorQty = $thisMaterial["ppm_count"]==''? 0:str_replace(',','',$thisMaterial["ppm_count"]);
                 $moQty = $thisMaterial["quantity"]==''? 0:str_replace(',','',$thisMaterial["quantity"]);
                 $cost = $thisMaterial["cost"]==''? 0:str_replace(',','',$thisMaterial["cost"]);
-                $totalQty = $qty * $colorQty * $moQty;
+                $totalQty = $qty * 1 * $moQty;
+                //$totalQty = $qty * $colorQty * $moQty;
                 //$totalCost = $cost * $colorQty * $moQty;
                 $totalCost = $cost;
                 $mat_types = $thisMaterial["tipe"];
@@ -903,9 +904,9 @@
               // }
             //}
           }
-            // echo '<tr><td class="tbl-pad" colspan="5">** Total Materials **</td></tr>';
-            // echo '<tr><td class="tbl-pad" colspan="2"></td>
-            //       <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalMat,2).'</div></td></tr>';
+            echo '<tr><td class="tbl-pad" colspan="5">** Total Materials **</td></tr>';
+            echo '<tr><td class="tbl-pad" colspan="2"></td>
+                  <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalMat,2).'</div></td></tr>';
 
             // this is for color composition
             // echo '<tr>
@@ -1635,7 +1636,7 @@
                               echo '<tr><td class="tbl-pad" colspan="5">** Subtotal **</td></tr>';
                               echo '<tr><td class="tbl-pad" colspan="2"></td>
                                     <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalAmountMat,2).'</div></td></tr>';
-                              $totalMat = $totalMat + $totalAmountMat;
+                              $totalColor = $totalColor + $totalAmountMat;
                           }
                       }
                           // }
@@ -1643,9 +1644,9 @@
                   // }
               // }
             // }
-              // echo '<tr><td class="tbl-pad" colspan="5">** Total Color Composition **</td></tr>';
-              // echo '<tr><td class="tbl-pad" colspan="2"></td>
-              //       <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalColor,2).'</div></td></tr>';
+              echo '<tr><td class="tbl-pad" colspan="5">** Total Color Composition **</td></tr>';
+              echo '<tr><td class="tbl-pad" colspan="2"></td>
+                    <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalColor,2).'</div></td></tr>';
              ?>
           </tbody>
         </table>
