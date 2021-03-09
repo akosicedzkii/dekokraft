@@ -81,9 +81,9 @@
           <thead>
             <tr>
               <th class="text-center tbl-pad"><div class="bb" style="width:90%">Item Name</div></th>
-              <th class="text-center tbl-pad"><div class="bb" style="width:90%">U. Cost</div></th>
-              <th class="text-center tbl-pad"><div class="bb" style="width:90%">Amount</div></th>
-              <th class="text-center tbl-pad"><div class="bb" style="width:90%">QTY. 2-B Purchase</div></th>
+              <th class="text-right tbl-pad"><div class="bb" style="width:90%">U. Cost</div></th>
+              <th class="text-right tbl-pad"><div class="bb" style="width:90%">Amount</div></th>
+              <th class="text-right tbl-pad"><div class="bb" style="width:90%">QTY. 2-B Purchase</div></th>
               <th class="text-center tbl-pad" style="width:25%"></th>
             </tr>
           </thead>
@@ -170,6 +170,7 @@
                 }
               }
             }
+            asort($tempMaterialArray);
             // echo '<tr>
             //       <td class="tbl-pad" colspan="5">Material Type: Materials</td>
             //     </tr>';
@@ -883,7 +884,7 @@
                                       <td class="tbl-pad"><?php echo $value["material_name"]; ?></td>
                                       <td class="tbl-pad text-right"><?php echo number_format($cost,2); ?></td>
                                       <td class="tbl-pad text-right"><div style="width:90%"><?php echo $amount; ?></div></td>
-                                      <td class="tbl-pad text-center"><div style="width:90%"><?php echo $qtyValue.' '.$unit; ?></div></td>
+                                      <td class="tbl-pad text-right"><div style="width:90%"><?php echo $qtyValue.' '.$unit; ?></div></td>
                                       <td class="tbl-pad text-center"><div class="bb" style="width:90%">&nbsp;</div></td>
                                     </tr>
             <?php
@@ -1622,7 +1623,7 @@
                                       <td class="tbl-pad"><?php echo $value["material_name"]; ?></td>
                                       <td class="tbl-pad text-right"><?php echo number_format($cost,2); ?></td>
                                       <td class="tbl-pad text-right"><div style="width:90%"><?php echo $amount; ?></div></td>
-                                      <td class="tbl-pad text-center"><div style="width:90%"><?php echo $qtyValue.' '.$unit; ?></div></td>
+                                      <td class="tbl-pad text-right"><div style="width:90%"><?php echo $qtyValue.' '.$unit; ?></div></td>
                                       <td class="tbl-pad text-center"><div class="bb" style="width:90%">&nbsp;</div></td>
                                     </tr>
             <?php
