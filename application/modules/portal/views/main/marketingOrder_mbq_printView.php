@@ -133,7 +133,7 @@
                 $colorQty = $thisMaterial["ppm_count"]==''? 0:str_replace(',','',$thisMaterial["ppm_count"]);
                 $moQty = $thisMaterial["quantity"]==''? 0:str_replace(',','',$thisMaterial["quantity"]);
                 $cost = $thisMaterial["cost"]==''? 0:str_replace(',','',$thisMaterial["cost"]);
-                $totalQty = $qty * 1 * $moQty;
+                $totalQty = $qty * (1000/$colorQty) * $moQty;
                 //$totalQty = $qty * $colorQty * $moQty;
                 //$totalCost = $cost * $colorQty * $moQty;
                 $totalCost = $cost;
@@ -244,7 +244,7 @@
                                         }
                                       break;
                                     case 'PC':
-                                      if(strpos($value["material_name"], 'LONG FEATHER WHITE- BALAKANG') !== FALSE) {
+                                      if(strpos($value["material_name"], 'LONG FEATHER WHITE-BALAKANG') !== FALSE) {
                                         if($qty>=500) {
                                           $qtyValue = str_replace(',','',number_format($qty / 500,3));
                                           $unit = 'YARDS';
@@ -983,7 +983,7 @@
                                         }
                                       break;
                                     case 'PC':
-                                      if(strpos($value["material_name"], 'LONG FEATHER WHITE- BALAKANG') !== FALSE) {
+                                      if(strpos($value["material_name"], 'LONG FEATHER WHITE-BALAKANG') !== FALSE) {
                                         if($qty>=500) {
                                           $qtyValue = str_replace(',','',number_format($qty / 500,3));
                                           $unit = 'YARDS';
