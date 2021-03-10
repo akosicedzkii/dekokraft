@@ -133,7 +133,7 @@
                 $colorQty = $thisMaterial["ppm_count"]==''? 0:str_replace(',','',$thisMaterial["ppm_count"]);
                 $moQty = $thisMaterial["quantity"]==''? 0:str_replace(',','',$thisMaterial["quantity"]);
                 $cost = $thisMaterial["cost"]==''? 0:str_replace(',','',$thisMaterial["cost"]);
-                $totalQty = $qty * (1000/$colorQty) * $moQty;
+                $totalQty = 1 * $qty/(1000/$colorQty) * $moQty;
                 //$totalQty = $qty * $colorQty * $moQty;
                 //$totalCost = $cost * $colorQty * $moQty;
                 $totalCost = $cost;
@@ -217,8 +217,14 @@
                                     case 'ML':
                                       if($qty>=1000){
                                         $qtyValue = str_replace(',','',number_format($qty / 1000,3));
-                                        $unit = 'LI';
-                                        $partialCost *= 1000;
+                                        if($qtyValue>=4){
+                                          $qtyValue = str_replace(',','',number_format($qtyValue / 4,3));
+                                          $unit = 'GAL';
+                                          $partialCost *= 4;
+                                        } else {
+                                          $unit = 'LI';
+                                          $partialCost *= 1000;
+                                        }
                                       }else{
                                         $qtyValue = str_replace(',','',number_format($qty,3));
                                         $unit = 'ML';
@@ -249,6 +255,15 @@
                                           $qtyValue = str_replace(',','',number_format($qty / 500,3));
                                           $unit = 'YARDS';
                                           $partialCost *= 500;
+                                        } else {
+                                          $qtyValue = str_replace(',','',number_format($qty,3));
+                                          $unit = 'PC';
+                                        }
+                                      } elseif (strpos($value["material_name"], 'GOLD CORD') !== FALSE) {
+                                        if($qty>=1100) {
+                                          $qtyValue = str_replace(',','',number_format($qty / 1100,3));
+                                          $unit = 'ROLL';
+                                          $partialCost *= 1100;
                                         } else {
                                           $qtyValue = str_replace(',','',number_format($qty,3));
                                           $unit = 'PC';
@@ -956,8 +971,14 @@
                                     case 'ML':
                                       if($qty>=1000){
                                         $qtyValue = str_replace(',','',number_format($qty / 1000,3));
-                                        $unit = 'LI';
-                                        $partialCost *= 1000;
+                                        if($qtyValue>=4){
+                                          $qtyValue = str_replace(',','',number_format($qtyValue / 4,3));
+                                          $unit = 'GAL';
+                                          $partialCost *= 4;
+                                        } else {
+                                          $unit = 'LI';
+                                          $partialCost *= 1000;
+                                        }
                                       }else{
                                         $qtyValue = str_replace(',','',number_format($qty,3));
                                         $unit = 'ML';
@@ -988,6 +1009,15 @@
                                           $qtyValue = str_replace(',','',number_format($qty / 500,3));
                                           $unit = 'YARDS';
                                           $partialCost *= 500;
+                                        } else {
+                                          $qtyValue = str_replace(',','',number_format($qty,3));
+                                          $unit = 'PC';
+                                        }
+                                      } elseif (strpos($value["material_name"], 'GOLD CORD') !== FALSE) {
+                                        if($qty>=1100) {
+                                          $qtyValue = str_replace(',','',number_format($qty / 1100,3));
+                                          $unit = 'ROLL';
+                                          $partialCost *= 1100;
                                         } else {
                                           $qtyValue = str_replace(',','',number_format($qty,3));
                                           $unit = 'PC';
