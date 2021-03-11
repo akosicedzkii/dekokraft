@@ -218,6 +218,7 @@
                                       if($qty>=1000){
                                         $qtyValue = str_replace(',','',number_format($qty / 1000,3));
                                         if($qtyValue>=4){
+                                          $partialCost *= 1000;
                                           $qtyValue = str_replace(',','',number_format($qtyValue / 4,3));
                                           $unit = 'GAL';
                                           $partialCost *= 4;
@@ -972,6 +973,7 @@
                                       if($qty>=1000){
                                         $qtyValue = str_replace(',','',number_format($qty / 1000,3));
                                         if($qtyValue>=4){
+                                          $partialCost *= 1000;
                                           $qtyValue = str_replace(',','',number_format($qtyValue / 4,3));
                                           $unit = 'GAL';
                                           $partialCost *= 4;
