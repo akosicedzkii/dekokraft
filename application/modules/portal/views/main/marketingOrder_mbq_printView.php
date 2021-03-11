@@ -274,7 +274,7 @@
                                             if($qty>=280) {
                                               $qtyValue = str_replace(',','',number_format($qty / 280,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.06;
+                                              $partialCost = 280 * 0.06;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -283,7 +283,7 @@
                                             if($qty>=280) {
                                               $qtyValue = str_replace(',','',number_format($qty / 280,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.06;
+                                              $partialCost = 280 * 0.06;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -292,7 +292,7 @@
                                             if($qty>=234) {
                                               $qtyValue = str_replace(',','',number_format($qty / 234,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.07;
+                                              $partialCost = 234 * 0.07;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -301,7 +301,7 @@
                                             if($qty>=108) {
                                               $qtyValue = str_replace(',','',number_format($qty / 108,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.15;
+                                              $partialCost = 108 * 0.15;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -310,7 +310,7 @@
                                             if($qty>=88) {
                                               $qtyValue = str_replace(',','',number_format($qty / 88,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.19;
+                                              $partialCost = 88 * 0.19;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -319,7 +319,7 @@
                                             if($qty>=70) {
                                               $qtyValue = str_replace(',','',number_format($qty / 70,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.23;
+                                              $partialCost = 70 * 0.23;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -333,7 +333,7 @@
                                             if($qty>=280) {
                                               $qtyValue = str_replace(',','',number_format($qty / 280,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.06;
+                                              $partialCost = 280 * 0.06;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -342,7 +342,7 @@
                                             if($qty>=180) {
                                               $qtyValue = str_replace(',','',number_format($qty / 180,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.09;
+                                              $partialCost = 180 * 0.09;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -351,7 +351,7 @@
                                             if($qty>=80) {
                                               $qtyValue = str_replace(',','',number_format($qty / 80,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.20;
+                                              $partialCost = 80 * 0.20;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -360,7 +360,7 @@
                                             if($qty>=63) {
                                               $qtyValue = str_replace(',','',number_format($qty / 63,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.25;
+                                              $partialCost = 63 * 0.25;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -374,7 +374,7 @@
                                             if($qty>=104) {
                                               $qtyValue = str_replace(',','',number_format($qty / 104,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.16;
+                                              $partialCost = 104 * 0.16;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -383,7 +383,7 @@
                                             if($qty>=56) {
                                               $qtyValue = str_replace(',','',number_format($qty / 56,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.29;
+                                              $partialCost = 56 * 0.29;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -392,7 +392,7 @@
                                             if($qty>=48) {
                                               $qtyValue = str_replace(',','',number_format($qty / 48,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.33;
+                                              $partialCost = 48 * 0.33;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -401,7 +401,7 @@
                                             if($qty>=56) {
                                               $qtyValue = str_replace(',','',number_format($qty / 56,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.29;
+                                              $partialCost = 56 * 0.29;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -410,7 +410,7 @@
                                             if($qty>=42) {
                                               $qtyValue = str_replace(',','',number_format($qty / 42,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.38;
+                                              $partialCost = 42 * 0.38;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -419,7 +419,7 @@
                                             if($qty>=35) {
                                               $qtyValue = str_replace(',','',number_format($qty / 35,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.46;
+                                              $partialCost = 35 * 0.46;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -428,7 +428,7 @@
                                             if($qty>=20) {
                                               $qtyValue = str_replace(',','',number_format($qty / 20,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.80;
+                                              $partialCost = 20 * 0.80;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -437,7 +437,7 @@
                                             if($qty>=20) {
                                               $qtyValue = str_replace(',','',number_format($qty / 20,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.80;
+                                              $partialCost = 20 * 0.80;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -451,7 +451,7 @@
                                             if($qty>=108) {
                                               $qtyValue = str_replace(',','',number_format($qty / 108,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.15;
+                                              $partialCost = 108 * 0.15;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -460,7 +460,7 @@
                                             if($qty>=56) {
                                               $qtyValue = str_replace(',','',number_format($qty / 56,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.29;
+                                              $partialCost = 56 * 0.29;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -469,7 +469,7 @@
                                             if($qty>=108) {
                                               $qtyValue = str_replace(',','',number_format($qty / 108,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.15;
+                                              $partialCost = 108 * 0.15;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -478,7 +478,7 @@
                                             if($qty>=63) {
                                               $qtyValue = str_replace(',','',number_format($qty / 63,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.25;
+                                              $partialCost = 63 * 0.25;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -492,7 +492,7 @@
                                             if($qty>=154) {
                                               $qtyValue = str_replace(',','',number_format($qty / 154,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.10;
+                                              $partialCost = 154 * 0.10;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -501,7 +501,7 @@
                                             if($qty>=88) {
                                               $qtyValue = str_replace(',','',number_format($qty / 88,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.18;
+                                              $partialCost = 88 * 0.18;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -510,7 +510,7 @@
                                             if($qty>=56) {
                                               $qtyValue = str_replace(',','',number_format($qty / 56,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.29;
+                                              $partialCost = 56 * 0.29;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -519,7 +519,7 @@
                                             if($qty>=30) {
                                               $qtyValue = str_replace(',','',number_format($qty / 30,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.53;
+                                              $partialCost = 30 * 0.53;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -533,7 +533,7 @@
                                             if($qty>=80) {
                                               $qtyValue = str_replace(',','',number_format($qty / 80,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.20;
+                                              $partialCost = 80 * 0.20;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -542,7 +542,7 @@
                                             if($qty>=70) {
                                               $qtyValue = str_replace(',','',number_format($qty / 70,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.23;
+                                              $partialCost = 70 * 0.23;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -551,7 +551,7 @@
                                             if($qty>=63) {
                                               $qtyValue = str_replace(',','',number_format($qty / 63,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.25;
+                                              $partialCost = 63 * 0.25;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -560,7 +560,7 @@
                                             if($qty>=63) {
                                               $qtyValue = str_replace(',','',number_format($qty / 63,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.25;
+                                              $partialCost = 63 * 0.25;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -569,7 +569,7 @@
                                             if($qty>=56) {
                                               $qtyValue = str_replace(',','',number_format($qty / 56,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.29;
+                                              $partialCost = 56 * 0.29;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -578,7 +578,7 @@
                                             if($qty>=35) {
                                               $qtyValue = str_replace(',','',number_format($qty / 35,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.46;
+                                              $partialCost = 35 * 0.46;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -587,7 +587,7 @@
                                             if($qty>=42) {
                                               $qtyValue = str_replace(',','',number_format($qty / 42,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.38;
+                                              $partialCost = 42 * 0.38;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -596,7 +596,7 @@
                                             if($qty>=20) {
                                               $qtyValue = str_replace(',','',number_format($qty / 20,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.80;
+                                              $partialCost = 20 * 0.80;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -610,7 +610,7 @@
                                             if($qty>=56) {
                                               $qtyValue = str_replace(',','',number_format($qty / 56,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.29;
+                                              $partialCost = 56 * 0.29;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -619,7 +619,7 @@
                                             if($qty>=42) {
                                               $qtyValue = str_replace(',','',number_format($qty / 42,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.38;
+                                              $partialCost = 42 * 0.38;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -633,7 +633,7 @@
                                             if($qty>=374) {
                                               $qtyValue = str_replace(',','',number_format($qty / 374,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.04;
+                                              $partialCost = 374 * 0.04;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -642,7 +642,7 @@
                                             if($qty>=221) {
                                               $qtyValue = str_replace(',','',number_format($qty / 221,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.07;
+                                              $partialCost = 221 * 0.07;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -651,7 +651,7 @@
                                             if($qty>=108) {
                                               $qtyValue = str_replace(',','',number_format($qty / 108,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.15;
+                                              $partialCost = 108 * 0.15;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -660,7 +660,7 @@
                                             if($qty>=88) {
                                               $qtyValue = str_replace(',','',number_format($qty / 88,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.18;
+                                              $partialCost = 88 * 0.18;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -674,7 +674,7 @@
                                             if($qty>=374) {
                                               $qtyValue = str_replace(',','',number_format($qty / 374,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.04;
+                                              $partialCost = 374 * 0.04;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -683,7 +683,7 @@
                                             if($qty>=221) {
                                               $qtyValue = str_replace(',','',number_format($qty / 221,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.07;
+                                              $partialCost = 221 * 0.07;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -692,7 +692,7 @@
                                             if($qty>=130) {
                                               $qtyValue = str_replace(',','',number_format($qty / 130,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.12;
+                                              $partialCost = 130 * 0.12;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -701,7 +701,7 @@
                                             if($qty>=108) {
                                               $qtyValue = str_replace(',','',number_format($qty / 108,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.15;
+                                              $partialCost = 108 * 0.15;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -715,7 +715,7 @@
                                             if($qty>=300) {
                                               $qtyValue = str_replace(',','',number_format($qty / 300,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.05;
+                                              $partialCost = 300 * 0.05;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -724,7 +724,7 @@
                                             if($qty>=266) {
                                               $qtyValue = str_replace(',','',number_format($qty / 266,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.06;
+                                              $partialCost = 266 * 0.06;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -733,7 +733,7 @@
                                             if($qty>=130) {
                                               $qtyValue = str_replace(',','',number_format($qty / 130,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.12;
+                                              $partialCost = 130 * 0.12;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -742,7 +742,7 @@
                                             if($qty>=70) {
                                               $qtyValue = str_replace(',','',number_format($qty / 70,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.23;
+                                              $partialCost = 70 * 0.23;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -756,7 +756,7 @@
                                             if($qty>=300) {
                                               $qtyValue = str_replace(',','',number_format($qty / 300,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.05;
+                                              $partialCost = 300 * 0.05;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -765,7 +765,7 @@
                                             if($qty>=216) {
                                               $qtyValue = str_replace(',','',number_format($qty / 216,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.07;
+                                              $partialCost = 216 * 0.07;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -774,7 +774,7 @@
                                             if($qty>=247) {
                                               $qtyValue = str_replace(',','',number_format($qty / 247,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.06;
+                                              $partialCost = 247 * 0.06;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -783,7 +783,7 @@
                                             if($qty>=63) {
                                               $qtyValue = str_replace(',','',number_format($qty / 63,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.25;
+                                              $partialCost = 63 * 0.25;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -792,7 +792,7 @@
                                             if($qty>=48) {
                                               $qtyValue = str_replace(',','',number_format($qty / 48,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.33;
+                                              $partialCost = 48 * 0.33;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -806,7 +806,7 @@
                                             if($qty>=130) {
                                               $qtyValue = str_replace(',','',number_format($qty / 130,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.12;
+                                              $partialCost = 130 * 0.12;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -815,7 +815,7 @@
                                             if($qty>=108) {
                                               $qtyValue = str_replace(',','',number_format($qty / 108,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.15;
+                                              $partialCost = 108 * 0.15;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -829,7 +829,7 @@
                                             if($qty>=300) {
                                               $qtyValue = str_replace(',','',number_format($qty / 300,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.05;
+                                              $partialCost = 300 * 0.05;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -838,7 +838,7 @@
                                             if($qty>=108) {
                                               $qtyValue = str_replace(',','',number_format($qty / 108,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.15;
+                                              $partialCost = 108 * 0.15;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -847,7 +847,7 @@
                                             if($qty>=63) {
                                               $qtyValue = str_replace(',','',number_format($qty / 63,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.25;
+                                              $partialCost = 63 * 0.25;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1028,7 +1028,7 @@
                                             if($qty>=280) {
                                               $qtyValue = str_replace(',','',number_format($qty / 280,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.06;
+                                              $partialCost = 280 * 0.06;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1037,7 +1037,7 @@
                                             if($qty>=280) {
                                               $qtyValue = str_replace(',','',number_format($qty / 280,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.06;
+                                              $partialCost = 280 * 0.06;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1046,7 +1046,7 @@
                                             if($qty>=234) {
                                               $qtyValue = str_replace(',','',number_format($qty / 234,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.07;
+                                              $partialCost = 234 * 0.07;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1055,7 +1055,7 @@
                                             if($qty>=108) {
                                               $qtyValue = str_replace(',','',number_format($qty / 108,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.15;
+                                              $partialCost = 108 * 0.15;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1064,7 +1064,7 @@
                                             if($qty>=88) {
                                               $qtyValue = str_replace(',','',number_format($qty / 88,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.19;
+                                              $partialCost = 88 * 0.19;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1073,7 +1073,7 @@
                                             if($qty>=70) {
                                               $qtyValue = str_replace(',','',number_format($qty / 70,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.23;
+                                              $partialCost = 70 * 0.23;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1087,7 +1087,7 @@
                                             if($qty>=280) {
                                               $qtyValue = str_replace(',','',number_format($qty / 280,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.06;
+                                              $partialCost = 280 * 0.06;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1096,7 +1096,7 @@
                                             if($qty>=180) {
                                               $qtyValue = str_replace(',','',number_format($qty / 180,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.09;
+                                              $partialCost = 180 * 0.09;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1105,7 +1105,7 @@
                                             if($qty>=80) {
                                               $qtyValue = str_replace(',','',number_format($qty / 80,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.20;
+                                              $partialCost = 80 * 0.20;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1114,7 +1114,7 @@
                                             if($qty>=63) {
                                               $qtyValue = str_replace(',','',number_format($qty / 63,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.25;
+                                              $partialCost = 63 * 0.25;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1128,7 +1128,7 @@
                                             if($qty>=104) {
                                               $qtyValue = str_replace(',','',number_format($qty / 104,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.16;
+                                              $partialCost = 104 * 0.16;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1137,7 +1137,7 @@
                                             if($qty>=56) {
                                               $qtyValue = str_replace(',','',number_format($qty / 56,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.29;
+                                              $partialCost = 56 * 0.29;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1146,7 +1146,7 @@
                                             if($qty>=48) {
                                               $qtyValue = str_replace(',','',number_format($qty / 48,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.33;
+                                              $partialCost = 48 * 0.33;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1155,7 +1155,7 @@
                                             if($qty>=56) {
                                               $qtyValue = str_replace(',','',number_format($qty / 56,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.29;
+                                              $partialCost = 56 * 0.29;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1164,7 +1164,7 @@
                                             if($qty>=42) {
                                               $qtyValue = str_replace(',','',number_format($qty / 42,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.38;
+                                              $partialCost = 42 * 0.38;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1173,7 +1173,7 @@
                                             if($qty>=35) {
                                               $qtyValue = str_replace(',','',number_format($qty / 35,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.46;
+                                              $partialCost = 35 * 0.46;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1182,7 +1182,7 @@
                                             if($qty>=20) {
                                               $qtyValue = str_replace(',','',number_format($qty / 20,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.80;
+                                              $partialCost = 20 * 0.80;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1191,7 +1191,7 @@
                                             if($qty>=20) {
                                               $qtyValue = str_replace(',','',number_format($qty / 20,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.80;
+                                              $partialCost = 20 * 0.80;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1205,7 +1205,7 @@
                                             if($qty>=108) {
                                               $qtyValue = str_replace(',','',number_format($qty / 108,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.15;
+                                              $partialCost = 108 * 0.15;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1214,7 +1214,7 @@
                                             if($qty>=56) {
                                               $qtyValue = str_replace(',','',number_format($qty / 56,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.29;
+                                              $partialCost = 56 * 0.29;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1223,7 +1223,7 @@
                                             if($qty>=108) {
                                               $qtyValue = str_replace(',','',number_format($qty / 108,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.15;
+                                              $partialCost = 108 * 0.15;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1232,7 +1232,7 @@
                                             if($qty>=63) {
                                               $qtyValue = str_replace(',','',number_format($qty / 63,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.25;
+                                              $partialCost = 63 * 0.25;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1246,7 +1246,7 @@
                                             if($qty>=154) {
                                               $qtyValue = str_replace(',','',number_format($qty / 154,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.10;
+                                              $partialCost = 154 * 0.10;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1255,7 +1255,7 @@
                                             if($qty>=88) {
                                               $qtyValue = str_replace(',','',number_format($qty / 88,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.18;
+                                              $partialCost = 88 * 0.18;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1264,7 +1264,7 @@
                                             if($qty>=56) {
                                               $qtyValue = str_replace(',','',number_format($qty / 56,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.29;
+                                              $partialCost = 56 * 0.29;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1273,7 +1273,7 @@
                                             if($qty>=30) {
                                               $qtyValue = str_replace(',','',number_format($qty / 30,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.53;
+                                              $partialCost = 30 * 0.53;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1287,7 +1287,7 @@
                                             if($qty>=80) {
                                               $qtyValue = str_replace(',','',number_format($qty / 80,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.20;
+                                              $partialCost = 80 * 0.20;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1296,7 +1296,7 @@
                                             if($qty>=70) {
                                               $qtyValue = str_replace(',','',number_format($qty / 70,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.23;
+                                              $partialCost = 70 * 0.23;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1305,7 +1305,7 @@
                                             if($qty>=63) {
                                               $qtyValue = str_replace(',','',number_format($qty / 63,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.25;
+                                              $partialCost = 63 * 0.25;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1314,7 +1314,7 @@
                                             if($qty>=63) {
                                               $qtyValue = str_replace(',','',number_format($qty / 63,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.25;
+                                              $partialCost = 63 * 0.25;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1323,7 +1323,7 @@
                                             if($qty>=56) {
                                               $qtyValue = str_replace(',','',number_format($qty / 56,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.29;
+                                              $partialCost = 56 * 0.29;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1332,7 +1332,7 @@
                                             if($qty>=35) {
                                               $qtyValue = str_replace(',','',number_format($qty / 35,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.46;
+                                              $partialCost = 35 * 0.46;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1341,7 +1341,7 @@
                                             if($qty>=42) {
                                               $qtyValue = str_replace(',','',number_format($qty / 42,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.38;
+                                              $partialCost = 42 * 0.38;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1350,7 +1350,7 @@
                                             if($qty>=20) {
                                               $qtyValue = str_replace(',','',number_format($qty / 20,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.80;
+                                              $partialCost = 20 * 0.80;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1364,7 +1364,7 @@
                                             if($qty>=56) {
                                               $qtyValue = str_replace(',','',number_format($qty / 56,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.29;
+                                              $partialCost = 56 * 0.29;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1373,7 +1373,7 @@
                                             if($qty>=42) {
                                               $qtyValue = str_replace(',','',number_format($qty / 42,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.38;
+                                              $partialCost = 42 * 0.38;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1387,7 +1387,7 @@
                                             if($qty>=374) {
                                               $qtyValue = str_replace(',','',number_format($qty / 374,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.04;
+                                              $partialCost = 374 * 0.04;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1396,7 +1396,7 @@
                                             if($qty>=221) {
                                               $qtyValue = str_replace(',','',number_format($qty / 221,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.07;
+                                              $partialCost = 221 * 0.07;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1405,7 +1405,7 @@
                                             if($qty>=108) {
                                               $qtyValue = str_replace(',','',number_format($qty / 108,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.15;
+                                              $partialCost = 108 * 0.15;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1414,7 +1414,7 @@
                                             if($qty>=88) {
                                               $qtyValue = str_replace(',','',number_format($qty / 88,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.18;
+                                              $partialCost = 88 * 0.18;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1428,7 +1428,7 @@
                                             if($qty>=374) {
                                               $qtyValue = str_replace(',','',number_format($qty / 374,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.04;
+                                              $partialCost = 374 * 0.04;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1437,7 +1437,7 @@
                                             if($qty>=221) {
                                               $qtyValue = str_replace(',','',number_format($qty / 221,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.07;
+                                              $partialCost = 221 * 0.07;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1446,7 +1446,7 @@
                                             if($qty>=130) {
                                               $qtyValue = str_replace(',','',number_format($qty / 130,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.12;
+                                              $partialCost = 130 * 0.12;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1455,7 +1455,7 @@
                                             if($qty>=108) {
                                               $qtyValue = str_replace(',','',number_format($qty / 108,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.15;
+                                              $partialCost = 108 * 0.15;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1469,7 +1469,7 @@
                                             if($qty>=300) {
                                               $qtyValue = str_replace(',','',number_format($qty / 300,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.05;
+                                              $partialCost = 300 * 0.05;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1478,7 +1478,7 @@
                                             if($qty>=266) {
                                               $qtyValue = str_replace(',','',number_format($qty / 266,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.06;
+                                              $partialCost = 266 * 0.06;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1487,7 +1487,7 @@
                                             if($qty>=130) {
                                               $qtyValue = str_replace(',','',number_format($qty / 130,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.12;
+                                              $partialCost = 130 * 0.12;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1496,7 +1496,7 @@
                                             if($qty>=70) {
                                               $qtyValue = str_replace(',','',number_format($qty / 70,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.23;
+                                              $partialCost = 70 * 0.23;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1510,7 +1510,7 @@
                                             if($qty>=300) {
                                               $qtyValue = str_replace(',','',number_format($qty / 300,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.05;
+                                              $partialCost = 300 * 0.05;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1519,7 +1519,7 @@
                                             if($qty>=216) {
                                               $qtyValue = str_replace(',','',number_format($qty / 216,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.07;
+                                              $partialCost = 216 * 0.07;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1528,7 +1528,7 @@
                                             if($qty>=247) {
                                               $qtyValue = str_replace(',','',number_format($qty / 247,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.06;
+                                              $partialCost = 247 * 0.06;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1537,7 +1537,7 @@
                                             if($qty>=63) {
                                               $qtyValue = str_replace(',','',number_format($qty / 63,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.25;
+                                              $partialCost = 63 * 0.25;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1546,7 +1546,7 @@
                                             if($qty>=48) {
                                               $qtyValue = str_replace(',','',number_format($qty / 48,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.33;
+                                              $partialCost = 48 * 0.33;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1560,7 +1560,7 @@
                                             if($qty>=130) {
                                               $qtyValue = str_replace(',','',number_format($qty / 130,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.12;
+                                              $partialCost = 130 * 0.12;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1569,7 +1569,7 @@
                                             if($qty>=108) {
                                               $qtyValue = str_replace(',','',number_format($qty / 108,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.15;
+                                              $partialCost = 108 * 0.15;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1583,7 +1583,7 @@
                                             if($qty>=300) {
                                               $qtyValue = str_replace(',','',number_format($qty / 300,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.05;
+                                              $partialCost = 300 * 0.05;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1592,7 +1592,7 @@
                                             if($qty>=108) {
                                               $qtyValue = str_replace(',','',number_format($qty / 108,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.15;
+                                              $partialCost = 108 * 0.15;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
@@ -1601,7 +1601,7 @@
                                             if($qty>=63) {
                                               $qtyValue = str_replace(',','',number_format($qty / 63,3));
                                               $unit = 'SHEET';
-                                              $partialCost = 16 * 0.25;
+                                              $partialCost = 63 * 0.25;
                                             } else {
                                               $qtyValue = str_replace(',','',number_format($qty,3));
                                               $unit = 'PC';
