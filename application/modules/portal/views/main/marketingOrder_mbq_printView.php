@@ -370,7 +370,7 @@
                                             $qtyValue = str_replace(',','',number_format($qty,3));
                                             $unit = 'PC';
                                           }
-                                        } elseif (strpos($value["material_name"], 'CONETREE W/ R.BALL BASE') !== FALSE) {
+                                        } elseif (strpos($value["material_name"], 'CONETREE W/ R. BALL BASE') !== FALSE) {
                                           if (strpos($value["material_name"], '7"') !== FALSE) {
                                             if($qty>=104) {
                                               $qtyValue = str_replace(',','',number_format($qty / 104,3));
@@ -488,7 +488,7 @@
                                             $qtyValue = str_replace(',','',number_format($qty,3));
                                             $unit = 'PC';
                                           }
-                                        } elseif (strpos($value["material_name"], 'NEO RIBBED BASE') !== FALSE) {
+                                        } elseif (strpos($value["material_name"], 'NEO R. BASE') !== FALSE) {
                                           if (strpos($value["material_name"], '7"') !== FALSE) {
                                             if($qty>=154) {
                                               $qtyValue = str_replace(',','',number_format($qty / 154,3));
@@ -529,7 +529,7 @@
                                             $qtyValue = str_replace(',','',number_format($qty,3));
                                             $unit = 'PC';
                                           }
-                                        } elseif (strpos($value["material_name"], 'CONETREE W/ RIBBED BASE') !== FALSE) {
+                                        } elseif (strpos($value["material_name"], 'CONETREE W/ R. BASE') !== FALSE) {
                                           if (strpos($value["material_name"], '7"') !== FALSE) {
                                             if($qty>=80) {
                                               $qtyValue = str_replace(',','',number_format($qty / 80,3));
@@ -1125,7 +1125,7 @@
                                             $qtyValue = str_replace(',','',number_format($qty,3));
                                             $unit = 'PC';
                                           }
-                                        } elseif (strpos($value["material_name"], 'CONETREE W/ R.BALL BASE') !== FALSE) {
+                                        } elseif (strpos($value["material_name"], 'CONETREE W/ R. BALL BASE') !== FALSE) {
                                           if (strpos($value["material_name"], '7"') !== FALSE) {
                                             if($qty>=104) {
                                               $qtyValue = str_replace(',','',number_format($qty / 104,3));
@@ -1243,7 +1243,7 @@
                                             $qtyValue = str_replace(',','',number_format($qty,3));
                                             $unit = 'PC';
                                           }
-                                        } elseif (strpos($value["material_name"], 'NEO RIBBED BASE') !== FALSE) {
+                                        } elseif (strpos($value["material_name"], 'NEO R. BASE') !== FALSE) {
                                           if (strpos($value["material_name"], '7"') !== FALSE) {
                                             if($qty>=154) {
                                               $qtyValue = str_replace(',','',number_format($qty / 154,3));
@@ -1284,7 +1284,7 @@
                                             $qtyValue = str_replace(',','',number_format($qty,3));
                                             $unit = 'PC';
                                           }
-                                        } elseif (strpos($value["material_name"], 'CONETREE W/ RIBBED BASE') !== FALSE) {
+                                        } elseif (strpos($value["material_name"], 'CONETREE W/ R. BASE') !== FALSE) {
                                           if (strpos($value["material_name"], '7"') !== FALSE) {
                                             if($qty>=80) {
                                               $qtyValue = str_replace(',','',number_format($qty / 80,3));
