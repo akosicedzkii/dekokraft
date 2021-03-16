@@ -1718,13 +1718,19 @@
             </thead>
             <tbody>
               <?php
+              $polyTotal = 0;
                 foreach ($polyArray as $key => $value) {
+                  $polyTotal += $value;
                   echo '<tr>
                     <th class="text-center tbl-pad"><div style="width:90%">'.$key.'</div></th>
                     <th class="text-center tbl-pad"><div style="width:90%">'.$value.'</div></th>
                   </tr>';
                 }
                ?>
+               <tr>
+                 <td class="text-center tbl-pad"><div style="width:90%"></td>
+                 <td class="text-center tbl-pad"><div style="width:90%"><?php echo $polyTotal; ?></td>
+               </tr>
             </tbody>
           </table>
       </div>
