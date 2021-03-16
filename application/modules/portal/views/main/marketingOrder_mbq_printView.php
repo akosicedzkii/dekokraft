@@ -244,7 +244,7 @@
                                         } elseif (strpos($value["material_name"], 'GLUE STICK') !== FALSE) {
                                           if($qty>=9) {
                                             $qtyValue = str_replace(',','',number_format($qty / 9,3));
-                                            $unit = 'ROLL';
+                                            $unit = 'PC';
                                             $partialCost *= 9;
                                           } else {
                                             $qtyValue = str_replace(',','',number_format($qty,3));
@@ -1009,7 +1009,7 @@
                                         } elseif (strpos($value["material_name"], 'GLUE STICK') !== FALSE) {
                                           if($qty>=9) {
                                             $qtyValue = str_replace(',','',number_format($qty / 9,3));
-                                            $unit = 'ROLL';
+                                            $unit = 'PC';
                                             $partialCost *= 9;
                                           } else {
                                             $qtyValue = str_replace(',','',number_format($qty,3));
