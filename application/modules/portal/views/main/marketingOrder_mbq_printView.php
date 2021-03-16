@@ -241,7 +241,16 @@
                                             $qtyValue = str_replace(',','',number_format($qty,3));
                                             $unit = 'IN';
                                           }
-                                        } elseif($qty>=1100) {
+                                        } elseif (strpos($value["material_name"], 'GLUE STICK') !== FALSE) {
+                                          if($qty>=9) {
+                                            $qtyValue = str_replace(',','',number_format($qty / 9,3));
+                                            $unit = 'ROLL';
+                                            $partialCost *= 9;
+                                          } else {
+                                            $qtyValue = str_replace(',','',number_format($qty,3));
+                                            $unit = 'IN';
+                                          }
+                                        } elseif ($qty>=1100) {
                                           $qtyValue = str_replace(',','',number_format($qty / 1100,3));
                                           $unit = 'ROLL';
                                           $partialCost *= 1100;
@@ -997,7 +1006,16 @@
                                             $qtyValue = str_replace(',','',number_format($qty,3));
                                             $unit = 'IN';
                                           }
-                                        } elseif($qty>=1100) {
+                                        } elseif (strpos($value["material_name"], 'GLUE STICK') !== FALSE) {
+                                          if($qty>=9) {
+                                            $qtyValue = str_replace(',','',number_format($qty / 9,3));
+                                            $unit = 'ROLL';
+                                            $partialCost *= 9;
+                                          } else {
+                                            $qtyValue = str_replace(',','',number_format($qty,3));
+                                            $unit = 'IN';
+                                          }
+                                        } elseif ($qty>=1100) {
                                           $qtyValue = str_replace(',','',number_format($qty / 1100,3));
                                           $unit = 'ROLL';
                                           $partialCost *= 1100;
