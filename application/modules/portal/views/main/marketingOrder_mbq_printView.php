@@ -165,9 +165,9 @@
                 $in_poly_cont = $line->in_poly_cont!=''?$line->in_poly_cont:0;
                 $quantity = $line->quantity!=''?$line->quantity:0;
                 if (isset($polyArray[$line->in_poly_size])) {
-                    $polyArray[$line->in_poly_size] += ($in_poly_cont*$line->quantity);
+                    $polyArray[$line->in_poly_size] += ($in_poly_cont*$quantity);
                 } else {
-                    $polyArray[$line->in_poly_size] = $in_poly_cont;
+                    $polyArray[$line->in_poly_size] = ($in_poly_cont*$quantity);
                 }
               }
             }
