@@ -24,6 +24,8 @@ class Product_profiles extends CI_Controller {
         $this->product_profiles_model->net_weight = $this->input->get("net_weight");
         $this->product_profiles_model->resin_unit_price = $this->input->get("resin_unit_price_add");
         $this->product_profiles_model->finishing_unit_price = $this->input->get("finishing_unit_price_add");
+        $this->product_profiles_model->spray_unit_price = $this->input->get("spray_unit_price_add");
+        $this->product_profiles_model->hand_paint_unit_price = $this->input->get("hand_paint_unit_price_add");
         $this->product_profiles_model->provided_resin_cast =	$this->input->get("provided_resin_cast_add");
         $this->product_profiles_model->provided_resin_clean =	$this->input->get("provided_resin_clean_add");
         $this->product_profiles_model->provided_finishing =	 	 $this->input->get("provided_finishing_add");
@@ -59,6 +61,9 @@ class Product_profiles extends CI_Controller {
         $this->product_profiles_model->net_weight = $this->input->get("net_weight_edit");
         $this->product_profiles_model->resin_unit_price = $this->input->get("resin_unit_price_edit");
         $this->product_profiles_model->finishing_unit_price = $this->input->get("finishing_unit_price_edit");
+
+        $this->product_profiles_model->spray_unit_price = $this->input->get("spray_unit_price_edit");
+        $this->product_profiles_model->hand_paint_unit_price = $this->input->get("hand_paint_unit_price_edit");
         $this->product_profiles_model->provided_resin_cast =	$this->input->get("provided_resin_cast_edit");
         $this->product_profiles_model->provided_resin_clean =	$this->input->get("provided_resin_clean_edit");
         $this->product_profiles_model->provided_finishing =	 	 $this->input->get("provided_finishing_edit");
@@ -117,6 +122,9 @@ class Product_profiles extends CI_Controller {
         
         $this->product_profiles_model->resin_unit_price = $this->input->post("resin_unit_price");
         $this->product_profiles_model->finishing_unit_price = $this->input->post("finishing_unit_price");
+
+        $this->product_profiles_model->spray_unit_price = $this->input->get("spray_unit_price");
+        $this->product_profiles_model->hand_paint_unit_price = $this->input->get("hand_paint_unit_price");
         echo $this->product_profiles_model->update_details();
     }
 
@@ -219,21 +227,21 @@ class Product_profiles extends CI_Controller {
     {
         $this->load->model("portal/data_table_model","dt_model");
 
-        $this->dt_model->select_columns = array("t7.id","t1.class","t1.code","t1.description","t7.color","t6.id as product_profile_id","t6.net_weight","t6.resin_unit_price","t6.finishing_unit_price");
+        $this->dt_model->select_columns = array("t7.id","t1.class","t1.code","t1.description","t7.color","t6.id as product_profile_id","t6.net_weight","t6.resin_unit_price","t6.finishing_unit_price","t6.spray_unit_price","t6.hand_paint_unit_price");
         if($this->session->userdata("USERTYPE") ==1)
         {
-            $this->dt_model->select_columns = array("t7.id","t1.class","t1.code","t1.description","t7.color","t6.id as product_profile_id","t6.net_weight","t6.resin_unit_price","t6.finishing_unit_price","t6.date_created","t2.username as created_by","t6.date_modified","t3.username as modified_by");
+            $this->dt_model->select_columns = array("t7.id","t1.class","t1.code","t1.description","t7.color","t6.id as product_profile_id","t6.net_weight","t6.resin_unit_price","t6.finishing_unit_price","t6.spray_unit_price","t6.hand_paint_unit_price","t6.date_created","t2.username as created_by","t6.date_modified","t3.username as modified_by");
         }
 
-        $this->dt_model->where  = array("t1.class","t1.code","t1.description","t7.color","t6.net_weight","t6.resin_unit_price","t6.finishing_unit_price");
+        $this->dt_model->where  = array("t1.class","t1.code","t1.description","t7.color","t6.net_weight","t6.resin_unit_price","t6.finishing_unit_price","t6.spray_unit_price","t6.hand_paint_unit_price");
         if($this->session->userdata("USERTYPE") ==1)
         {
-            $this->dt_model->where  = array("t1.class","t1.code","t1.description","t7.color","t6.net_weight","t6.resin_unit_price","t6.finishing_unit_price","t6.date_created","t2.username","t6.date_modified","t3.username");
+            $this->dt_model->where  = array("t1.class","t1.code","t1.description","t7.color","t6.net_weight","t6.resin_unit_price","t6.finishing_unit_price","t6.spray_unit_price","t6.hand_paint_unit_price","t6.date_created","t2.username","t6.date_modified","t3.username");
         }
 
-        $select_columns = array("id","class","code","description","color","product_profile_id","net_weight","resin_unit_price","finishing_unit_price");
+        $select_columns = array("id","class","code","description","color","product_profile_id","net_weight","resin_unit_price","finishing_unit_price","spray_unit_price","hand_paint_unit_price");
         if($this->session->userdata("USERTYPE") ==1){
-            $select_columns = array("id","class","code","description","color","product_profile_id","net_weight","resin_unit_price","finishing_unit_price","date_created","created_by","date_modified","modified_by");
+            $select_columns = array("id","class","code","description","color","product_profile_id","net_weight","resin_unit_price","finishing_unit_price","spray_unit_price","hand_paint_unit_price","date_created","created_by","date_modified","modified_by");
         }
         $this->dt_model->table = "product_variants AS t7  LEFT JOIN products as t1 ON t1.id = t7.product_id LEFT JOIN product_profiles as t6 ON t6.product_variant_id = t7.id LEFT JOIN user_accounts AS t2 ON t2.id = t6.created_by LEFT JOIN user_accounts AS t3 ON t3.id = t6.modified_by";
         $this->dt_model->index_column = "t1.id";

@@ -288,6 +288,8 @@ class Main extends CI_Controller
             $module["net_weight"] = "";
             $module["resin_unit_price"] = "";
             $module["finishing_unit_price"] = "";
+            $module["spray_unit_price"] = "";
+            $module["hand_paint_unit_price"] = "";
             $total_r=0;
             $total_m=0;
             $total_f=0;
@@ -298,6 +300,8 @@ class Main extends CI_Controller
                 $module["net_weight"] = $product_profile_id->net_weight;
                 $module["resin_unit_price"] = $product_profile_id->resin_unit_price;
                 $module["finishing_unit_price"] = $product_profile_id->finishing_unit_price;
+                $module["spray_unit_price"] = $product_profile_id->spray_unit_price;
+                $module["hand_paint_unit_price"] = $product_profile_id->hand_paint_unit_price;
 
                 $module["prod_profile_details"] = $product_profile_id;
                 if ($result != null) {

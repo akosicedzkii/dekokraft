@@ -26,6 +26,8 @@ class Product_profiles_model extends CI_Model {
         public $material_group_id;
         public $resin_unit_price;
         public $finishing_unit_price;
+        public $spray_unit_price;
+        public $hand_paint_unit_price;
         public function insert_product_profiles()
         {
             $insertId = "";
@@ -64,6 +66,8 @@ class Product_profiles_model extends CI_Model {
                 $data["mstr_poly_size"] = $this->mstr_poly_size;
                 $data["resin_unit_price"] = $this->resin_unit_price;
                 $data["finishing_unit_price"] = $this->finishing_unit_price;
+                $data["spray_unit_price"] = $this->spray_unit_price;
+                $data["hand_paint_unit_price"] = $this->hand_paint_unit_price;
                 $this->db->insert("product_profiles",$data);
                 $insertId = $this->db->insert_id();
                 $this->id = $insertId;
@@ -97,6 +101,8 @@ class Product_profiles_model extends CI_Model {
                 $data4["mstr_poly_size"] = $this->mstr_poly_size;
                 $data4["resin_unit_price"] = $this->resin_unit_price;
                 $data4["finishing_unit_price"] = $this->finishing_unit_price;
+                $data["spray_unit_price"] = $this->spray_unit_price;
+                $data["hand_paint_unit_price"] = $this->hand_paint_unit_price;
 
                 $this->db->where("id",$this->id);
                 $this->db->update("product_profiles",$data4);
@@ -156,6 +162,9 @@ class Product_profiles_model extends CI_Model {
             $data4["net_weight"] = $this->net_weight;
             $data4["resin_unit_price"] = $this->resin_unit_price;
             $data4["finishing_unit_price"] = $this->finishing_unit_price;
+
+            $data4["spray_unit_price"] = $this->spray_unit_price;
+            $data4["hand_paint_unit_price"] = $this->hand_paint_unit_price;
             $data4["provided_resin_cast"] = $this->provided_resin_cast;
             $data4["provided_resin_clean"] = $this->provided_resin_clean;
             $data4["provided_finishing"] = $this->provided_finishing;
@@ -194,6 +203,9 @@ class Product_profiles_model extends CI_Model {
             $data4["net_weight"] = $this->net_weight;
             $data4["resin_unit_price"] = $this->resin_unit_price;
             $data4["finishing_unit_price"] = $this->finishing_unit_price;
+
+            $data4["spray_unit_price"] = $this->spray_unit_price;
+            $data4["hand_paint_unit_price"] = $this->hand_paint_unit_price;
             $data4["provided_resin_cast"] = $this->provided_resin_cast;
             $data4["provided_resin_clean"] = $this->provided_resin_clean;
             $data4["provided_finishing"] = $this->provided_finishing;
