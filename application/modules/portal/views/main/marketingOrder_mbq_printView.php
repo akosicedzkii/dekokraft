@@ -1719,17 +1719,28 @@
             <tbody>
               <?php
               $polyTotal = 0;
+              $bubbleTotal = 0;
+              ksort($polyArray);
                 foreach ($polyArray as $key => $value) {
-                  $polyTotal += $value;
+                  if (strpos($key, 'POLYBAG') !== FALSE) {
+                    $polyTotal += $value;
+                  } elseif (strpos($key, 'BUBBLE BAG') !== FALSE) {
+                    $bubbleTotal += $value;
+                  }
+
                   echo '<tr>
-                    <th class="text-center tbl-pad"><div style="width:90%">'.$key.'</div></th>
-                    <th class="text-center tbl-pad"><div style="width:90%">'.$value.'</div></th>
+                    <td class="text-center tbl-pad"><div style="width:90%">'.$key.'</div></td>
+                    <td class="text-center tbl-pad"><div style="width:90%">'.$value.'</div></td>
                   </tr>';
                 }
                ?>
                <tr>
-                 <td class="text-center tbl-pad"><div style="width:90%"></td>
-                 <td class="text-center tbl-pad"><div style="width:90%"><?php echo $polyTotal; ?></td>
+                 <td class="text-center tbl-pad"><div style="width:90%" class="text-left"><b>TOTAL BUBBLE BAG</b></td>
+                 <td class="text-center tbl-pad"><div style="width:90%"><b><?php echo $bubbleTotal; ?></b></td>
+               </tr>
+               <tr>
+                 <td class="text-center tbl-pad"><div style="width:90%" class="text-left"><b>TOTAL POLYBAG</b></td>
+                 <td class="text-center tbl-pad"><div style="width:90%"><b><?php echo $polyTotal; ?></b></td>
                </tr>
             </tbody>
           </table>
