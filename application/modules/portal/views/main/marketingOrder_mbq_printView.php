@@ -1666,7 +1666,7 @@
                                   }
                                       $cost = $partialCost;
                                       $amount = number_format($cost * $qtyValue,2);
-                                      $totalAmountMat += ($cost * $qtyValue);
+                                      $totalAmount += ($cost * $qtyValue);
                                       // var_dump($value['product_variant_id'].'='.$value['material_name'].'='.$value['jp'].'<br>');
 
                                       // var_dump($materialArray);
@@ -1687,8 +1687,8 @@
                             if ($values === array_key_last($tempMaterialArray) && $x>0){
                               echo '<tr><td class="tbl-pad" colspan="5">** Subtotal **</td></tr>';
                               echo '<tr><td class="tbl-pad" colspan="2"></td>
-                                    <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalAmountMat,2).'</div></td></tr>';
-                              $totalColor = $totalColor + $totalAmountMat;
+                                    <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalAmount,2).'</div></td></tr>';
+                              $totalColor = $totalColor + $totalAmount;
                           }
                       }
                           // }

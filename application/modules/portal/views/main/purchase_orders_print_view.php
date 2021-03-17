@@ -152,8 +152,23 @@
             $total_quntity=0;
             $total_price=0;
               foreach ($p_o as $po_line) {
+                $poPrice = 0;
+                switch ($detail[0]->job_type) {
+                  case 'resin':
+                    $poPrice = $po_line->resinp == '' ? 0 : $po_line->resinp ;
+                    break;
+                  case 'finishing':
+                    $poPrice = $po_line->finishp == '' ? 0 : $po_line->finishp ;
+                    break;
+                  case 'hand paint':
+                    $poPrice = $po_line->handp == '' ? 0 : $po_line->handp ;
+                    break;
+                  case 'spray':
+                    $poPrice = $po_line->spray == '' ? 0 : $po_line->spray ;
+                    break;
+                }
                 $total_quntity=$total_quntity+$po_line->po_count;
-                $total_price=$total_price+($po_line->po_count * $po_line->product_price);
+                $total_price=$total_price+($po_line->po_count * $poPrice);
             ?>
             <tr>
               <td class="tbl-pad br"><?php echo $no++; ?></td>
@@ -161,8 +176,8 @@
               <td class="tbl-pad br"><?php echo $po_line->description; ?></td>
               <td class="tbl-pad br"><?php echo $po_line->po_count; ?></td>
               <td class="tbl-pad br">PCS</td>
-              <td class="tbl-pad br"><?php echo $po_line->product_price; ?></td>
-              <td class="tbl-pad"><?php echo number_format($po_line->po_count * $po_line->product_price, 2); ?></td>
+              <td class="tbl-pad br"><?php echo number_format($poPrice,2); ?></td>
+              <td class="tbl-pad"><?php echo number_format($po_line->po_count * $poPrice, 2); ?></td>
             </tr>
             <?php
               }
