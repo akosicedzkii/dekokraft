@@ -669,6 +669,8 @@
                 if( $("#mega_total").html() == "")
                 {  
                     toastr.error("Please add a product");
+
+                    $("#save_invoice").button("reset");
                     e.preventDefault();
                     return false;
                 }

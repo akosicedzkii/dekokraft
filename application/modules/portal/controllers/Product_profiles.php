@@ -123,8 +123,8 @@ class Product_profiles extends CI_Controller {
         $this->product_profiles_model->resin_unit_price = $this->input->post("resin_unit_price");
         $this->product_profiles_model->finishing_unit_price = $this->input->post("finishing_unit_price");
 
-        $this->product_profiles_model->spray_unit_price = $this->input->get("spray_unit_price");
-        $this->product_profiles_model->hand_paint_unit_price = $this->input->get("hand_paint_unit_price");
+        $this->product_profiles_model->spray_unit_price = $this->input->post("spray_unit_price");
+        $this->product_profiles_model->hand_paint_unit_price = $this->input->post("hand_paint_unit_price");
         echo $this->product_profiles_model->update_details();
     }
 
