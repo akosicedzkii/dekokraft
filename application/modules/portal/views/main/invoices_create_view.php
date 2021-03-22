@@ -364,15 +364,15 @@
                     $row.find('input[name="addColor[]"]').attr("data",data.id)
                     $row.find('input[name="addColor[]"]').attr("data-description",data.description)
                     //alert( $row.find("#quantity").val()*$row.find("#base_amount").val())
-                    $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(12) )
-                    $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(12) )
+                    $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(2))
+                    $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
                     $row.find(".quantity").on('input',function (e) {
                         var $row = $(this).closest("tr");
                         $row.find('input[name="total_amount[]"]').val($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val())
                         $row.find('input[name="total_quantity[]"]').val($row.find(".quantity").val())
                         $row.find('input[name="total_discount[]"]').val($row.find(".discount").val())
-                        $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(12) )
-                        $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(12) )
+                        $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(2))
+                        $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
                         get_total(total)
                         get_total_quantity(total_quantity)
                         get_total_discount(total_discount)
@@ -382,8 +382,8 @@
                         var $row = $(this).closest("tr");
                         $row.find('input[name="total_discount[]"]').val($row.find(".discount").val())
                         $row.find('input[name="total_quantity[]"]').val($row.find(".quantity").val())
-                        $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(12) )
-                        $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(12) )
+                        $row.find(".total_price").html(($row.find(".quantity").val()*$row.find('input[name="base_amount[]"]').val()).toFixed(2))
+                        $row.find(".discounted_price").html(($row.find('input[name="base_amount[]"]').val()*$row.find(".quantity").val() - (($row.find(".discount").val()/100)*$row.find('input[name="base_amount[]"]').val())).toFixed(2))
                         get_total(total)
                         get_total_quantity(total_quantity)
                         get_total_discount(total_discount)
@@ -408,9 +408,9 @@
             $( 'input[name^="total_amount"]' ).each( function( i , e ) {
                 var v = parseInt( $( e ).val() );
                     if ( !isNaN( v ) )
-                        total += v;
+                        total += parseFloat(v);
                 } );
-                $("#mega_total").html(total.toFixed(12) );
+                $("#mega_total").html(total.toFixed(2));
             }
             function get_total_quantity(total_quantity){
             $( 'input[name^="total_quantity"]' ).each( function( i , e ) {
@@ -424,9 +424,9 @@
             $(".discounted_price").each( function( i , e ) {
                 var v = parseInt( $( e ).html() );
                     if ( !isNaN( v ) )
-                    total_discount += v;
+                    total_discount += parseFloat(v);
                 } );
-                $("#mega_discounted_total").html(total_discount.toFixed(12) );
+                $("#mega_discounted_total").html(total_discount.toFixed(2));
             }
             $("#product_table").on("click", "#DeleteButton", function() {
                 $(this).closest("tr").remove();
