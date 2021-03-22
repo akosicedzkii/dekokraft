@@ -406,7 +406,7 @@
             }); 
             function get_total(total){
             $( 'input[name^="total_amount"]' ).each( function( i , e ) {
-                var v = parseInt( $( e ).val() );
+                var v = parseFloat( $( e ).val() );
                     if ( !isNaN( v ) )
                         total += parseFloat(v);
                 } );
@@ -414,7 +414,7 @@
             }
             function get_total_quantity(total_quantity){
             $( 'input[name^="total_quantity"]' ).each( function( i , e ) {
-                var v = parseInt( $( e ).val() );
+                var v = parseFloat( $( e ).val() );
                     if ( !isNaN( v ) )
                     total_quantity += v;
                 } );
@@ -422,7 +422,7 @@
             }
             function get_total_discount(total_discount){
             $(".discounted_price").each( function( i , e ) {
-                var v = parseInt( $( e ).html() );
+                var v = parseFloat( $( e ).html() );
                     if ( !isNaN( v ) )
                     total_discount += parseFloat(v);
                 } );
