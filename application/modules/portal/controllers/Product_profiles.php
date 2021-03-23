@@ -123,8 +123,8 @@ class Product_profiles extends CI_Controller {
         $this->product_profiles_model->resin_unit_price = $this->input->post("resin_unit_price");
         $this->product_profiles_model->finishing_unit_price = $this->input->post("finishing_unit_price");
 
-        $this->product_profiles_model->spray_unit_price = $this->input->get("spray_unit_price");
-        $this->product_profiles_model->hand_paint_unit_price = $this->input->get("hand_paint_unit_price");
+        $this->product_profiles_model->spray_unit_price = $this->input->post("spray_unit_price");
+        $this->product_profiles_model->hand_paint_unit_price = $this->input->post("hand_paint_unit_price");
         echo $this->product_profiles_model->update_details();
     }
 
@@ -132,7 +132,7 @@ class Product_profiles extends CI_Controller {
     {
         $id = $this->input->post("id");
         $this->db->join("materials","materials.id=product_profile_materials.material_id");
-        $material_list["material_list"] =$this->db->where("product_material_group_id",$id)->order_by("product_profile_materials.id","desc")->get("product_profile_materials")->result();
+        $material_list["material_list"] =$this->db->where("product_material_group_id",$id)->order_by("FIELD(materials.jp, 'M', 'R', 'FA', 'FB', 'FC')")->get("product_profile_materials")->result();
         $this->db->where("id",$id);
         $material_list["material_group"] = $this->db->get("product_material_group")->row();
         echo json_encode($material_list);
