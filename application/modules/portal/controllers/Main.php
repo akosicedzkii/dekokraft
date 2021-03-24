@@ -608,6 +608,55 @@ class Main extends CI_Controller
         $module['detail'] = $this->db->get("purchase_orders as po")->result();
 
         $this->load->view('main/purchase_orders_print_view', $module);
+      } elseif ($page == "prints") {
+        $id = $this->input->get("po_id");
+
+        $this->db->select("s.name,po.id,po.job_type,mo.invoice_id,po.deadline,mo.id as mo_id,c.company_name,po.date_created");
+        $this->db->join('subcon as s', 'po.subcon_id=s.id', 'left');
+        $this->db->join('marketing_order as mo', 'po.mo_id=mo.id', 'left');
+        $this->db->join('invoices as i', 'mo.invoice_id=i.id', 'left');
+        $this->db->join('customers as c', 'i.customer_id=c.id', 'left');
+        $this->db->where("po.id", $id);
+        $module['detail'] = $this->db->get("purchase_orders as po")->result();
+
+        $this->db->select("pv.description,pv.color,pv.color_abb,p.class,p.code,il.quantity,il.discount,il.product_price,pol.po_count,po.resin_unit_price as resinp,po.finishing_unit_price as finishp,po.spray_unit_price as spray,po.hand_paint_unit_price as handp");
+        $this->db->join('invoice_lines as il', 'pol.invoice_line_id=il.id', 'left');
+        $this->db->join('product_profiles as po', 'il.product_id=po.product_variant_id', 'left');
+        $this->db->join('product_variants as pv', 'il.product_id=pv.id', 'left');
+        $this->db->join('products as p', 'pv.product_id=p.id', 'left');
+        $this->db->where("pol.po_id", $id);
+        $this->db->order_by("p.description", "asc");
+        $module['p_o'] = $this->db->get("purchase_order_lines as pol")->result();
+
+        $arr=array();
+        $color_arr=array();
+        foreach ($module["p_o"] as $mat) {
+            $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,ppm.qty,product_profiles.product_variant_id,ppm.product_profile_id,invoice_lines.id as invoice_id,pol.po_count");
+            $this->db->join("materials", "ppm.material_id=materials.id");
+            $this->db->join("product_profiles", " product_profiles.id=ppm.product_profile_id");
+            $this->db->join("invoice_lines", " product_profiles.product_variant_id=invoice_lines.product_id");
+            $this->db->join("purchase_order_lines as pol", " invoice_lines.id=pol.invoice_line_id");
+            // $this->db->where("product_profiles.product_variant_id", $mat->product_id);
+            //$this->db->where("invoice_lines.id", $mat->invoice_line_id);
+            $this->db->where("pol.po_id", $id);
+            $material_list =  $this->db->order_by("materials.material_name", "asc")->get("product_profile_materials as ppm")->result_array();
+            array_push($arr, $material_list);
+            $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,product_profiles.product_variant_id,color_materials.qty,invoice_lines.quantity,ppm.qty as ppm_count,pol.po_count");
+            $this->db->join("color_materials", "ppm.material_id=color_materials.color_id");
+            $this->db->join("materials", "color_materials.material_id=materials.id");
+            $this->db->join("product_profiles", " product_profiles.id=ppm.product_profile_id");
+            $this->db->join("invoice_lines", " product_profiles.product_variant_id=invoice_lines.product_id");
+            $this->db->join("purchase_order_lines as pol", " invoice_lines.id=pol.invoice_line_id");
+            //$this->db->where("product_profiles.product_variant_id", $mat->product_id);
+            //$this->db->where("invoice_lines.id", $mat->invoice_line_id);
+            $this->db->where("pol.po_id", $id);
+            $colorMaterial_list =  $this->db->order_by("materials.material_name", "asc")->get("product_profile_materials as ppm")->result_array();
+            array_push($color_arr, $colorMaterial_list);
+        }
+        $module["materials"]=$arr;
+        $module["colorMaterials"]=$color_arr;
+
+        $this->load->view('main/purchaseOrders-SubBQ-print', $module);
       }
     }
 }

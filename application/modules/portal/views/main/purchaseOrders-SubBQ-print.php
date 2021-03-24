@@ -1,7 +1,8 @@
+<!DOCTYPE html>
 <html><head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title><?php echo "JOB ORDER:#".$job_orders->job_type;?></title>
+  <title><?php echo "PURCHASE ORDER:#".$detail[0]->id;?></title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -39,211 +40,199 @@
       font-family: "Times New Roman", Times, serif;
   }
 }
-.tbl-pad{
-  padding:1px !important;
-}
 .m-b{
-  margin-bottom:0px;
+  margin-bottom: 0px;
 }
-.l-h{
-  line-height: 1 !important;
+.tbl-pad{
+  padding: 1px !important;
 }
 .bb{
   border-bottom: 1px solid black !important;
 }
 </style>
-<body onload="window.print();" style="font-size: 14px;" class="l-h">
+<body onload="window.print();" style="font-size: 1.4rem;line-height: 1;">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
-    <!-- Table row -->
+    <!-- title row -->
     <div class="row">
-      <div class="col-xs-3">
-        <p class="m-b">PROFORMA INVOICE# <?php echo $job_orders->invoice_id; ?></p>
-      </div>
-      <div class="col-xs-3">
-        <p class="m-b">J.O.# <?php echo $job_orders->id; ?></p>
-      </div>
-      <div class="col-xs-3">
-        <p class="m-b">M.O.# <?php echo $job_orders->mo_id; ?></p>
-      </div>
+      <div class="col-xs-12">
+        <!-- <div class="page-header"> -->
+           <!-- <i class="fa fa-globe"></i>-->
+           <center>
+                <p class="text-uppercase m-b"><strong><?php echo SITE_NAME;?></strong></p>
+                <p class="m-b">CLIENT: <?php echo $detail[0]->company_name; ?> </p>
+                <p>Inv # <?php echo $detail[0]->invoice_id; ?>  MO# <?php echo $detail[0]->mo_id; ?> Date: <?php echo date("y.m.d"); ?></p>
+         </center>
 
-    </div>
-    <br>
-    <div class="row">
-      <p class="text-center">*** JOB ORDER LIST ***</p>
-      <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:12px;">
-        <thead>
-          <tr>
-            <th class="tbl-pad bb">Stock #</th>
-            <th class="tbl-pad bb">Color</th>
-            <th class="tbl-pad bb">Description</th>
-            <th class="tbl-pad bb">Qty.</th>
-          </tr>
-          </thead>
-          <tbody>
-            <?php
-            $total_quantity=0;
-              foreach ($invoice_lines as $line) {
-                  $total_quantity=$total_quantity + $line->jo_count; ?>
-                <tr>
-                  <td class="tbl-pad text-left"><?php echo  $line->class. "-" . $line->code."-".$line->color_abb; ?></td>
-                  <td class="tbl-pad text-left"><?php echo  $line->color; ?></td>
-                  <td class="tbl-pad text-left"><?php echo  $line->description; ?></td>
-                  <td class="tbl-pad text-left"><?php echo  $line->jo_count; ?></td>
-                </tr>
-            <?php
-              }
-             ?>
-          <tr>
-            <td colspan="3" class="tbl-pad">*** TOTAL ***</td>
-            <td class="tbl-pad text-left"><?php echo number_format($total_quantity); ?></td>
-          </tr>
-          </tbody>
-        </table>
+            <div class="row">
+                <center><h4 style="letter-spacing: 3px;">*** PURCHASE ORDER SUB-BQ ( BILL OF QUANTITY ) ***</h4></center>
+            </div>
+        <!-- </div> -->
       </div>
       <!-- /.col -->
     </div>
-    <!-- /.row -->
-    <br>
+    <!-- info row -->
+
     <!-- Table row -->
     <div class="row">
-      <p class="text-center">*** SUB-BQ ( BILL OF QUANTITY ) ***</p>
-      <div class="col-xs-12 table-responsive">
-        <table class="table table-condensed" style="font-size:12px;">
-        <thead>
-          <tr>
-            <th class="bb text-center">Item Name</th>
-            <th class="bb text-center">Issuance Quantity</th>
-            <th class="bb text-center">Issued</th>
-          </tr>
+      <div class="col-sm-12 table-responsive">
+        <table class="table table-condensed" style="font-size:1.2rem;">
+          <thead>
+            <tr>
+              <tr>
+                <th class="bb text-center">Item Name</th>
+                <th class="bb text-center">Issuance Quantity</th>
+                <th class="bb text-center">Issued</th>
+              </tr>
+            </tr>
           </thead>
           <tbody>
             <?php
-            $materialArray = array();
-            $tempMaterialArray = array();
-            foreach ($materials as $material) {
-              $qty=0;
-              foreach ($material as $value) {
-                $qty = $value["qty"]==''? 0:str_replace(',','',$value["qty"]);
-                $jo_count = $value["jo_count"]==''? 0:str_replace(',','',$value["jo_count"]);
-                //$cost = $value["cost"]==''? 0:str_replace(',','',$value["cost"]);
-                // foreach ($invoice_lines as $line) {
-                //   if ($line->product_id==$value["product_variant_id"]) {
-                //     if($line->quantity!=''){
-                //       if($line->id==$value["invoice_id"]){
-                //         $qty *= $line->quantity;
-                //         //$cost *= $line->quantity;
-                //       }
-                //     }
-                //   }
-                // }
-                $qty *= $jo_count;
-                $mat_types = $value["tipe"];
-                $mat_type = isset($mat_types) ? $mat_types : '';
-                if ($value["material_name"] != '') {
-                  if (isset($materialArray[$value["material_name"]])) {
-                      $materialArray[$value["material_name"]] += $qty;
-                  } else {
-                      $materialArray[$value["material_name"]] = $qty;
-                      $thisArray = array('material_name'=>$value["material_name"],
-                                          'product_variant_id'=>$value["product_variant_id"],
-                                          'tipe'=>$mat_type,
-                                          'jp'=>$value["jp"],
-                                          'qty'=>$value["qty"],
-                                          'unit'=>$value["unit"],
-                                          // 'cost'=>$cost
-                                          );
-                      array_push($tempMaterialArray,$thisArray);
+              $materialArray = array();
+              $tempMaterialArray = array();
+              foreach ($materials as $material) {
+                $qty=0;
+                foreach ($material as $value) {
+                  $qty = $value["qty"]==''? 0:str_replace(',','',$value["qty"]);
+                  $po_count = $value["po_count"]==''? 0:str_replace(',','',$value["po_count"]);
+                  //$cost = $value["cost"]==''? 0:str_replace(',','',$value["cost"]);
+                  // foreach ($invoice_lines as $line) {
+                  //   if ($line->product_id==$value["product_variant_id"]) {
+                  //     if($line->quantity!=''){
+                  //       if($line->id==$value["invoice_id"]){
+                  //         $qty *= $line->quantity;
+                  //         //$cost *= $line->quantity;
+                  //       }
+                  //     }
+                  //   }
+                  // }
+                  $qty *= $po_count;
+                  $mat_types = $value["tipe"];
+                  $mat_type = isset($mat_types) ? $mat_types : '';
+                  if ($value["material_name"] != '') {
+                    if (isset($materialArray[$value["material_name"]])) {
+                        $materialArray[$value["material_name"]] += $qty;
+                    } else {
+                        $materialArray[$value["material_name"]] = $qty;
+                        $thisArray = array('material_name'=>$value["material_name"],
+                                            'product_variant_id'=>$value["product_variant_id"],
+                                            'tipe'=>$mat_type,
+                                            'jp'=>$value["jp"],
+                                            'qty'=>$value["qty"],
+                                            'unit'=>$value["unit"],
+                                            // 'cost'=>$cost
+                                            );
+                        array_push($tempMaterialArray,$thisArray);
+                    }
                   }
                 }
               }
-            }
-            foreach ($colorMaterials as $colorMaterial) {
-              $qty = 0;
-              foreach ($colorMaterial as $thisMaterial) {
-                $qty = $thisMaterial["qty"]==''? 0:str_replace(',','',$thisMaterial["qty"]);
-                $colorQty = $thisMaterial["ppm_count"]==''? 0:str_replace(',','',$thisMaterial["ppm_count"]);
-                //$moQty = $thisMaterial["quantity"]==''? 0:str_replace(',','',$thisMaterial["quantity"]);
-                // $cost = $thisMaterial["cost"]==''? 0:str_replace(',','',$thisMaterial["cost"]);
-                $jo_count = $value["jo_count"]==''? 0:str_replace(',','',$value["jo_count"]);
-                $totalQty = 1 * $qty/(1000/$colorQty) * $jo_count;
-                //$totalQty = $qty * $colorQty * $moQty;
-                //$totalCost = $cost * $colorQty * $moQty;
-                //$totalCost = $cost;
-                $mat_types = $thisMaterial["tipe"];
-                $mat_type = isset($mat_types) ? $mat_types : '';
-                if ($thisMaterial["material_name"] != '') {
-                  if (isset($materialArray[$thisMaterial["material_name"]])) {
-                      $materialArray[$thisMaterial["material_name"]] += $totalQty;
-                  } else {
-                      $materialArray[$thisMaterial["material_name"]] = $totalQty;
-                      $thisArray = array('material_name'=>$thisMaterial["material_name"],
-                                          'product_variant_id'=>$thisMaterial["product_variant_id"],
-                                          'tipe'=>$mat_type,
-                                          'jp'=>$thisMaterial["jp"],
-                                          'qty'=>$thisMaterial["qty"],
-                                          'unit'=>$thisMaterial["unit"],
-                                          // 'cost'=>$totalCost
-                                          );
-                      array_push($tempMaterialArray,$thisArray);
+              foreach ($colorMaterials as $colorMaterial) {
+                $qty = 0;
+                foreach ($colorMaterial as $thisMaterial) {
+                  $qty = $thisMaterial["qty"]==''? 0:str_replace(',','',$thisMaterial["qty"]);
+                  $colorQty = $thisMaterial["ppm_count"]==''? 0:str_replace(',','',$thisMaterial["ppm_count"]);
+                  //$moQty = $thisMaterial["quantity"]==''? 0:str_replace(',','',$thisMaterial["quantity"]);
+                  // $cost = $thisMaterial["cost"]==''? 0:str_replace(',','',$thisMaterial["cost"]);
+                  $po_count = $value["po_count"]==''? 0:str_replace(',','',$value["po_count"]);
+                  $totalQty = 1 * $qty/(1000/$colorQty) * $po_count;
+                  //$totalQty = $qty * $colorQty * $moQty;
+                  //$totalCost = $cost * $colorQty * $moQty;
+                  //$totalCost = $cost;
+                  $mat_types = $thisMaterial["tipe"];
+                  $mat_type = isset($mat_types) ? $mat_types : '';
+                  if ($thisMaterial["material_name"] != '') {
+                    if (isset($materialArray[$thisMaterial["material_name"]])) {
+                        $materialArray[$thisMaterial["material_name"]] += $totalQty;
+                    } else {
+                        $materialArray[$thisMaterial["material_name"]] = $totalQty;
+                        $thisArray = array('material_name'=>$thisMaterial["material_name"],
+                                            'product_variant_id'=>$thisMaterial["product_variant_id"],
+                                            'tipe'=>$mat_type,
+                                            'jp'=>$thisMaterial["jp"],
+                                            'qty'=>$thisMaterial["qty"],
+                                            'unit'=>$thisMaterial["unit"],
+                                            // 'cost'=>$totalCost
+                                            );
+                        array_push($tempMaterialArray,$thisArray);
+                    }
                   }
                 }
               }
-            }
 
-            asort($tempMaterialArray);
-            $job_typ=$job_orders->job_type=='resin'?array('M','R'):array('FA','FB','FC');
-              //foreach ($invoice_lines as $line) {
-                  for ($i=0; $i < count($job_typ); $i++) {
-                      $x=0;
-                      //foreach ($materials as $material) {
-                          foreach ($tempMaterialArray as $value) {
-                              //if ($line->product_id==$value["product_variant_id"]) {
-                              if ($value["tipe"] == "material") {
-                                  if ($job_typ[$i]==$value["jp"]) {
-                                      if ($x==0) { ?>
-                                      <tr>
-                                        <td class="tbl-pad" colspan="3">** Job Process: <?php echo $job_typ[$i]; ?></td>
-                                      </tr>
-                                  <?php $x++; }
-                                      // var_dump($value['product_variant_id'].'='.$value['material_name'].'='.$value['jp'].'<br>');
-                                      $value["qty"] = $materialArray[$value["material_name"]];
-                                      $qty = $value["qty"]==''? 0:str_replace(',','',$value["qty"]);
-                                      $converted = $job_orders->job_type=='resin'?resinConvert($value["unit"], $value["material_name"], $qty):convertMe($value["unit"], $value["material_name"], $qty);
-                                      $qtyValue = $converted['qtyValue'];
-                                      $unit = $converted['unit'];
-                                      ?>
-                                    <tr>
-                                      <td class="tbl-pad"><?php echo $value["material_name"]; ?></td>
-                                      <td class="tbl-pad text-right"><?php echo $qtyValue.' '.$unit; ?></td>
-                                      <td class="tbl-pad text-center">______________________:______________________:______________________</td>
-                                    </tr>
-            <?php
-                                  }
-                              }
-                          }
-                      //}
-                  }
-              //}
-              $jobType=$job_orders->job_type=='resin'?array():array('FA','FB');
-              for ($i=0; $i < count($jobType); $i++) {
+              asort($tempMaterialArray);
+              //$job_typ=$job_orders->job_type=='resin'?array('M','R'):array('FA','FB','FC');
+              switch ($detail[0]->job_type) {
+                case 'resin':
+                  $job_typ = array('M','R');
+                  $colJobType = array();
+                  break;
+                case 'finishing':
+                  $job_typ = array('FA','FB','FC');
+                  $colJobType = array('FA','FB');
+                  break;
+                case 'hand paint':
+                  $job_typ = array('FA');
+                  $colJobType = array('FA');
+                  break;
+                case 'spray':
+                  $job_typ = array('FA');
+                  $colJobType = array('FA');
+                  break;
+                default:
+                  $job_typ = array();
+                  $colJobType = array();
+                  break;
+              }
+
+              for ($i=0; $i < count($job_typ); $i++) {
                   $x=0;
                   //foreach ($materials as $material) {
                       foreach ($tempMaterialArray as $value) {
                           //if ($line->product_id==$value["product_variant_id"]) {
-                          if ($value["tipe"] == "color") {
-                              if ($jobType[$i]==$value["jp"]) {
+                          if ($value["tipe"] == "material") {
+                              if ($job_typ[$i]==$value["jp"]) {
                                   if ($x==0) { ?>
                                   <tr>
-                                    <td class="tbl-pad" colspan="3">** Job Process: <?php echo $jobType[$i]; ?></td>
+                                    <td class="tbl-pad" colspan="3">** Job Process: <?php echo $job_typ[$i]; ?></td>
                                   </tr>
                               <?php $x++; }
                                   // var_dump($value['product_variant_id'].'='.$value['material_name'].'='.$value['jp'].'<br>');
                                   $value["qty"] = $materialArray[$value["material_name"]];
                                   $qty = $value["qty"]==''? 0:str_replace(',','',$value["qty"]);
-                                  $converted = $job_orders->job_type=='resin'?resinConvert($value["unit"], $value["material_name"], $qty):convertMe($value["unit"], $value["material_name"], $qty);
+                                  $converted = $detail[0]->job_type=='resin'?resinConvert($value["unit"], $value["material_name"], $qty):convertMe($value["unit"], $value["material_name"], $qty);
+                                  $qtyValue = $converted['qtyValue'];
+                                  $unit = $converted['unit'];
+                                  ?>
+                                <tr>
+                                  <td class="tbl-pad"><?php echo $value["material_name"]; ?></td>
+                                  <td class="tbl-pad text-right"><?php echo $qtyValue.' '.$unit; ?></td>
+                                  <td class="tbl-pad text-center">______________________:______________________:______________________</td>
+                                </tr>
+        <?php
+                              }
+                          }
+                      }
+                  //}
+              }
+
+              for ($i=0; $i < count($colJobType); $i++) {
+                  $x=0;
+                  //foreach ($materials as $material) {
+                      foreach ($tempMaterialArray as $value) {
+                          //if ($line->product_id==$value["product_variant_id"]) {
+                          if ($value["tipe"] == "color") {
+                              if ($colJobType[$i]==$value["jp"]) {
+                                  if ($x==0) { ?>
+                                  <tr>
+                                    <td class="tbl-pad" colspan="3">** Job Process: <?php echo $colJobType[$i]; ?></td>
+                                  </tr>
+                              <?php $x++; }
+                                  // var_dump($value['product_variant_id'].'='.$value['material_name'].'='.$value['jp'].'<br>');
+                                  $value["qty"] = $materialArray[$value["material_name"]];
+                                  $qty = $value["qty"]==''? 0:str_replace(',','',$value["qty"]);
+                                  $converted = $detail[0]->job_type=='resin'?resinConvert($value["unit"], $value["material_name"], $qty):convertMe($value["unit"], $value["material_name"], $qty);
                                   $qtyValue = $converted['qtyValue'];
                                   $unit = $converted['unit'];
                                   ?>
@@ -262,7 +251,6 @@
           </tbody>
         </table>
       </div>
-      <!-- /.col -->
     </div>
     <!-- /.row -->
 

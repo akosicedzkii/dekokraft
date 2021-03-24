@@ -22,7 +22,7 @@ class Purchase_orders extends CI_Controller {
             echo "Please select an item!";
             die();
         }
-        $po_items = explode(",",$this->input->post("selected_items")); 
+        $po_items = explode(",",$this->input->post("selected_items"));
         $po_count = explode(",", $this->input->post("po_count_values"));
         $counter = 1;
         foreach($po_items as $item)
@@ -238,8 +238,9 @@ class Purchase_orders extends CI_Controller {
                     }
             }
 
-            $btns .= '<a href="'.base_url("portal/main/purchase_orders/print?po_id=".$aRow['id']).'" target=_blank class="glyphicon glyphicon-print text-orange" data-toggle="tooltip" name="Job Order Print"></a>';
-            $btns .= '<a href="#" onclick="_delete('.$aRow['id'].',\''.$aRow["id"].'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" name="Delete"></a>';
+            $btns .= ' <a href="'.base_url("portal/main/purchase_orders/print?po_id=".$aRow['id']).'" target=_blank class="glyphicon glyphicon-print text-orange" data-toggle="tooltip" name="Purchase Order Print"></a>';
+            $btns .= ' <a href="'.base_url("portal/main/purchase_orders/prints?po_id=".$aRow['id']).'" target=_blank class="glyphicon glyphicon-print" style="color:#674A40" data-toggle="tooltip" name="Purchase Order Sub BQ Print"></a>';
+            $btns .= ' <a href="#" onclick="_delete('.$aRow['id'].',\''.$aRow["id"].'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" name="Delete"></a>';
             array_push($row,$btns);
             $output['data'][] = $row;
         }

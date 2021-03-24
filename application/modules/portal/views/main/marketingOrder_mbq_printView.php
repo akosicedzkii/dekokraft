@@ -1735,12 +1735,12 @@
                 }
                ?>
                <tr>
-                 <td class="text-center tbl-pad"><div style="width:90%" class="text-left"><b>TOTAL BUBBLE BAG</b></td>
-                 <td class="text-center tbl-pad"><div style="width:90%"><b><?php echo $bubbleTotal; ?></b></td>
+                 <td class="text-center tbl-pad"><div style="width:90%" class="text-left"><b>TOTAL BUBBLE BAG</b></div></td>
+                 <td class="text-center tbl-pad"><div style="width:90%"><b><?php echo $bubbleTotal; ?></b></div></td>
                </tr>
                <tr>
-                 <td class="text-center tbl-pad"><div style="width:90%" class="text-left"><b>TOTAL POLYBAG</b></td>
-                 <td class="text-center tbl-pad"><div style="width:90%"><b><?php echo $polyTotal; ?></b></td>
+                 <td class="text-center tbl-pad"><div style="width:90%" class="text-left"><b>TOTAL POLYBAG</b></div></td>
+                 <td class="text-center tbl-pad"><div style="width:90%"><b><?php echo $polyTotal; ?></b></div></td>
                </tr>
             </tbody>
           </table>
