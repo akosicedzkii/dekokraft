@@ -29,7 +29,7 @@
                    
                     <option value="order">Proforma Invoice</option>
                     <option value="sample">Sample Invoice</option>
-                    <option value="photo qoutation">PQ Proforma Invoice</option>
+                    <option value="photo qoutation">PQ Invoice</option>
                 </select>
             </div>
             <!-- /.col -->
