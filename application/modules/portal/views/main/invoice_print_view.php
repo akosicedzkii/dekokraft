@@ -30,6 +30,15 @@
   body {
     height: auto;
   }
+  @page {
+      margin-top: 0;
+      margin-bottom: 0;
+  }
+  body {
+      padding-top: 10px;
+      padding-bottom: 10px ;
+      font-family: "Times New Roman", Times, serif;
+  }
 }
 .m-b{
   margin-bottom: 0px;
@@ -55,7 +64,21 @@
     </div>
     <!-- info row -->
     <div class="row">
-      <h4 class="text-center text-uppercase" style="letter-spacing: 3px;"><strong><?php echo $invoice->invoice_type;?> INVOICE</strong></h4>
+      <?php
+      $whatInvoice = '';
+        switch ($invoice->invoice_type) {
+          case 'order':
+            $whatInvoice = "PROFORMA";
+            break;
+          case 'sample':
+            $whatInvoice = "SAMPLE PROFORMA";
+            break;
+          case 'photo qoutation':
+            $whatInvoice = "PQ PROFORMA";
+            break;
+        }
+       ?>
+      <h4 class="text-center text-uppercase" style="letter-spacing: 3px;"><strong><?php echo $whatInvoice;?> INVOICE</strong></h4>
       <div class="col-sm-5 invoice-col">
         <p class="font-weight-bold m-b"><b>ID.#<?php echo $user->username; ?></b></p>
         <p class="m-b"><b>IQ.#<?php echo $invoice->iq;?></b></p>
@@ -73,7 +96,7 @@
 
       </div>
       <div class="col-sm-5 invoice-col">
-        <b>ORDER</b>
+        <b><?php echo strtoupper($invoice->invoice_type); ?></b>
         <p class="m-b"><b>M.O.#</b> <?php echo ($mo==null)?"":$mo->id;?></p>
         <p class="m-b"><b>Inv.#</b> <?php echo $invoice->id;?></p>
         <p><b>Remarks:</b> <?php echo $invoice->invoice_remarks;?></p>
@@ -143,7 +166,7 @@
             <td class="tbl-pad text-center"><?php echo  $line->in_."/".$line->mstr; ?></td>
             <td class="tbl-pad"><?php echo  number_format($res_mstr,4); ?></td>
             <td class="tbl-pad"><?php echo  $line->color; ?></td>
-            <td class="tbl-pad"><?php echo  $line->quantity; ?></td>
+            <td class="tbl-pad"><?php echo  number_format($line->quantity); ?></td>
             <td class="tbl-pad"><?php echo  $line->description; ?></td>
             <td class="tbl-pad"><?php echo  $line->product_price; ?></td>
             <td class="tbl-pad"><?php echo  number_format((float)($line->quantity * $line->product_price), 2, '.', '') ; ?></td>
@@ -159,7 +182,7 @@
               <td style="border-top: 1px solid black;" class="text-center tbl-pad"><?php echo number_format($total_quntity); ?></td>
               <td class="tbl-pad" style="border-top: 1px solid black;"></td>
               <!-- <td class="tbl-pad text-left" style="border-top: 1px solid black;"><?php echo number_format($total_prod_price,2); ?></td> -->
-              <td colspan="2" class="tbl-pad text-center" style="border-top: 1px solid black;">US$ <?php echo number_format($total_price,2); ?></td>
+              <td colspan="2" class="tbl-pad text-right" style="border-top: 1px solid black;">US$ <?php echo number_format($total_price,2); ?></td>
             </tr>
           </tbody>
         </table>

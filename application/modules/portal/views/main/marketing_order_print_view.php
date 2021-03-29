@@ -82,7 +82,21 @@
            </div>
 
             <div class="row">
-                <center><h4 style="letter-spacing: 3px;">MARKETING ORDER</h4></center>
+              <?php
+              $whatInvoice = '';
+                switch ($invoice->invoice_type) {
+                  case 'order':
+                    $whatInvoice = "MARKETING ORDER";
+                    break;
+                  case 'sample':
+                    $whatInvoice = "SAMPLE PROFORMA INVOICE";
+                    break;
+                  case 'photo qoutation':
+                    $whatInvoice = "PQ PROFORMA INVOICE";
+                    break;
+                }
+               ?>
+                <center><h4 style="letter-spacing: 3px;"><?php echo $whatInvoice; ?></h4></center>
             </div>
 
             <div class="row">

@@ -183,7 +183,7 @@ class Main extends CI_Controller
               $this->db->join("product_variants", " product_variants.id=invoice_lines.product_id");
               $this->db->join("products", " products.id=product_variants.product_id");
               $this->db->where("invoice_id", $invoice_id);
-              $this->db->order_by("products.description", "asc");
+              // $this->db->order_by("products.description", "asc");
               $module["invoice_lines"]= $this->db->get("invoice_lines")->result();
               $module["module_name"] = $this->router->fetch_method();
               $module["menu"] = $this->user_access;

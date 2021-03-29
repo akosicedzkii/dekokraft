@@ -207,7 +207,7 @@
                                   ?>
                                 <tr>
                                   <td class="tbl-pad"><?php echo $value["material_name"]; ?></td>
-                                  <td class="tbl-pad text-right"><?php echo $qtyValue.' '.$unit; ?></td>
+                                  <td class="tbl-pad text-right"><?php echo number_format($qtyValue,3).' '.$unit; ?></td>
                                   <td class="tbl-pad text-center">______________________:______________________:______________________</td>
                                 </tr>
         <?php
@@ -238,7 +238,7 @@
                                   ?>
                                 <tr>
                                   <td class="tbl-pad"><?php echo $value["material_name"]; ?></td>
-                                  <td class="tbl-pad text-right"><?php echo $qtyValue.' '.$unit; ?></td>
+                                  <td class="tbl-pad text-right"><?php echo number_format($qtyValue,3).' '.$unit; ?></td>
                                   <td class="tbl-pad text-center">______________________:______________________:______________________</td>
                                 </tr>
         <?php

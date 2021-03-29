@@ -36,7 +36,7 @@
   body {
       padding-top: 10px;
       padding-bottom: 10px ;
-      /* font-family: "Times New Roman", Times, serif; */
+      font-family: "Times New Roman", Times, serif;
   }
 }
 .tbl-pad{
@@ -149,7 +149,7 @@
                 <tr>
                   <td class="tbl-pad"><?php echo  $line->class. "-" . $line->code."-".$color_abb; ?></td>
                   <td class="tbl-pad"><?php echo  $job_orders->job_type=='resin'?'':$line->color; ?></td>
-                  <td class="tbl-pad"><?php echo  $line->jo_count; ?> pcs.</td>
+                  <td class="tbl-pad"><?php echo  number_format($line->jo_count); ?> pcs.</td>
                   <td class="tbl-pad"><?php echo  $line->description; ?></td>
                   <td class="tbl-pad"><?php echo $line->net_weight; ?></td>
                   <td class="tbl-pad">[<?php echo $jobType; ?> ]</td>
@@ -169,27 +169,30 @@
       </div>
       <!-- /.col -->
     </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="col-xs-2">
+
+        </div>
+        <div class="col-xs-6" style="font-size: 10px;">
+          <?php if ($job_orders->job_type=='resin') { ?>
+          <p class="m-b"><b>Note: Resin - Materials, Moulds & Labor</b></p>
+          <p>PRICES INCLUSIVE OF LABOR & MATLS.</p>
+          <p class="m-b">*** STAGGERED DELIVERY REQUIRED ***</p>
+        <?php } else { ?>
+          <p class="m-b"><b>Note: Finishing & Materials</b></p>
+          <p>NET OF SPRAY & HAND PAINT.</p>
+          <p class="m-b">*** UNIT PRICES ABOVE INCLUDE MATERIAL PRICE ***</p>
+          <p class="m-b">*** STAGGERED DELIVERY REQUIRED ***</p>
+        <?php } ?>
+        </div>
+      </div>
+    </div>
     <!-- /.row -->
+    <br><br><br><br><br><br><br><br><br><br>
     <div class="row">
       <!-- <div class="col-xs-6"> -->
-        <div class="col-xs-12">
-          <div class="col-xs-2">
-
-          </div>
-          <div class="col-xs-6" style="font-size: 10px;">
-            <?php if ($job_orders->job_type=='resin') { ?>
-            <p class="m-b"><b>Note: Resin - Materials, Moulds & Labor</b></p>
-            <p>PRICES INCLUSIVE OF LABOR & MATLS.</p>
-            <p class="m-b">*** STAGGERED DELIVERY REQUIRED ***</p>
-          <?php } else { ?>
-            <p class="m-b"><b>Note: Finishing & Materials</b></p>
-            <p>NET OF SPRAY & HAND PAINT.</p>
-            <p class="m-b">*** UNIT PRICES ABOVE INCLUDE MATERIAL PRICE ***</p>
-            <p class="m-b">*** STAGGERED DELIVERY REQUIRED ***</p>
-          <?php } ?>
-          </div>
-        </div>
-        <div class="col-xs-3">
+        <div class="col-xs-4">
           <p class="m-b">PROFORMA INVOICE# <?php echo $job_orders->invoice_id; ?></p>
         </div>
         <div class="col-xs-3">

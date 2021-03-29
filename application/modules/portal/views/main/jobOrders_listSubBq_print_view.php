@@ -91,7 +91,7 @@
                   <td class="tbl-pad text-left"><?php echo  $line->class. "-" . $line->code."-".$line->color_abb; ?></td>
                   <td class="tbl-pad text-left"><?php echo  $line->color; ?></td>
                   <td class="tbl-pad text-left"><?php echo  $line->description; ?></td>
-                  <td class="tbl-pad text-left"><?php echo  $line->jo_count; ?></td>
+                  <td class="tbl-pad text-left"><?php echo  number_format($line->jo_count); ?></td>
                 </tr>
             <?php
               }
@@ -217,7 +217,7 @@
                                       ?>
                                     <tr>
                                       <td class="tbl-pad"><?php echo $value["material_name"]; ?></td>
-                                      <td class="tbl-pad text-right"><?php echo $qtyValue.' '.$unit; ?></td>
+                                      <td class="tbl-pad text-right"><?php echo number_format($qtyValue,3).' '.$unit; ?></td>
                                       <td class="tbl-pad text-center">______________________:______________________:______________________</td>
                                     </tr>
             <?php
@@ -249,7 +249,7 @@
                                   ?>
                                 <tr>
                                   <td class="tbl-pad"><?php echo $value["material_name"]; ?></td>
-                                  <td class="tbl-pad text-right"><?php echo $qtyValue.' '.$unit; ?></td>
+                                  <td class="tbl-pad text-right"><?php echo number_format($qtyValue,3).' '.$unit; ?></td>
                                   <td class="tbl-pad text-center">______________________:______________________:______________________</td>
                                 </tr>
         <?php
