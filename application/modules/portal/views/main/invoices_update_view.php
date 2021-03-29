@@ -26,9 +26,10 @@
 
             </h2>
             <select id="invoice_type" style="width:200px;" class="form-control pull-left">
-                   <option value="proforma">Proforma Invoice</option>
+                   
+                    <option value="proforma">Proforma Invoice</option>
                     <option value="sample">Sample Invoice</option>
-                    <option value="sample">PQ Proforma Invoice</option>
+                    <option value="photo qoutation">PQ Proforma Invoice</option>
                 </select>
             </div>
             <!-- /.col -->
