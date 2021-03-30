@@ -166,10 +166,10 @@
             <td class="tbl-pad text-center"><?php echo  $line->in_."/".$line->mstr; ?></td>
             <td class="tbl-pad"><?php echo  number_format($res_mstr,4); ?></td>
             <td class="tbl-pad"><?php echo  $line->color; ?></td>
-            <td class="tbl-pad"><?php echo  number_format($line->quantity); ?></td>
+            <td class="tbl-pad text-right"><?php echo  number_format($line->quantity); ?></td>
             <td class="tbl-pad"><?php echo  $line->description; ?></td>
-            <td class="tbl-pad"><?php echo  $line->product_price; ?></td>
-            <td class="tbl-pad"><?php echo  number_format((float)($line->quantity * $line->product_price), 2, '.', '') ; ?></td>
+            <td class="tbl-pad text-right"><?php echo  $line->product_price; ?></td>
+            <td class="tbl-pad text-right"><?php echo  number_format((float)($line->quantity * $line->product_price), 2, '.', '') ; ?></td>
             <!-- <td><?php echo  number_format((float)(($line->quantity * $line->product_price) - (($line->quantity * $line->product_price)*($line->discount/100))), 2, '.', ''); ?></td> -->
           </tr>
           <?php
@@ -179,7 +179,7 @@
               <td style="border-top: 1px solid black;" class="text-center tbl-pad">EST. CTN:</td>
               <td style="border-top: 1px solid black;" class="text-center tbl-pad"><?php echo number_format($totalIn); ?>/<?php echo number_format($totalMstr); ?></td>
               <td colspan="2" style="border-top: 1px solid black;" class="text-left tbl-pad">EST CBM= <?php echo number_format($est_cbm,4); ?></td>
-              <td style="border-top: 1px solid black;" class="text-center tbl-pad"><?php echo number_format($total_quntity); ?></td>
+              <td style="border-top: 1px solid black;" class="text-right tbl-pad"><?php echo number_format($total_quntity); ?></td>
               <td class="tbl-pad" style="border-top: 1px solid black;"></td>
               <!-- <td class="tbl-pad text-left" style="border-top: 1px solid black;"><?php echo number_format($total_prod_price,2); ?></td> -->
               <td colspan="2" class="tbl-pad text-right" style="border-top: 1px solid black;">US$ <?php echo number_format($total_price,2); ?></td>

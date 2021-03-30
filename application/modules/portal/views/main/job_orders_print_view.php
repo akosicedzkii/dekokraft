@@ -109,13 +109,13 @@
                 <tr>
                 <th class="tbl-pad bb">Stock #</th>
                 <th class="tbl-pad bb">Color</th>
-                <th class="tbl-pad bb">Quantity</th>
-                <th class="tbl-pad bb">Description</th>
+                <th class="tbl-pad bb text-right">Quantity</th>
+                <th class="tbl-pad bb text-center">Description</th>
                 <th class="tbl-pad bb">Tgt. Wgt</th>
                 <!-- <th class="tbl-pad">Wgt</th> -->
                 <th class="tbl-pad bb">Job</th>
-                <th class="tbl-pad bb">U.Price</th>
-                <th class="tbl-pad bb">Amount</th>
+                <th class="tbl-pad bb text-right">U.Price</th>
+                <th class="tbl-pad bb text-right">Amount</th>
                 </tr>
                 </thead>
           <tbody>
@@ -149,18 +149,18 @@
                 <tr>
                   <td class="tbl-pad"><?php echo  $line->class. "-" . $line->code."-".$color_abb; ?></td>
                   <td class="tbl-pad"><?php echo  $job_orders->job_type=='resin'?'':$line->color; ?></td>
-                  <td class="tbl-pad"><?php echo  number_format($line->jo_count); ?> pcs.</td>
+                  <td class="tbl-pad text-right"><?php echo  number_format($line->jo_count); ?> pcs.</td>
                   <td class="tbl-pad"><?php echo  $line->description; ?></td>
                   <td class="tbl-pad"><?php echo $line->net_weight; ?></td>
                   <td class="tbl-pad">[<?php echo $jobType; ?> ]</td>
-                  <td class="tbl-pad"><?php echo  number_format($jobPrice, 2); ?></td>
+                  <td class="tbl-pad text-right"><?php echo  number_format($jobPrice, 2); ?></td>
                   <td class="tbl-pad text-right"><?php echo  number_format((float)($line->jo_count * $jobPrice), 2) ; ?></td>
                 </tr>
             <?php
               }
              ?>
             <td colspan="2" class="text-center tbl-pad">TOTAL</td>
-            <td class="tbl-pad"><?php echo number_format($total_quantity); ?> pcs.</td>
+            <td class="tbl-pad text-right"><?php echo number_format($total_quantity); ?> pcs.</td>
             <td colspan="4" class="tbl-pad"></td>
             <td class="tbl-pad text-right" style="border-top:1px solid black;border-bottom:1px solid black;"><div class="" style="border-bottom:1px solid black;">P <?php echo number_format($total_price, 2); ?></div></td>
           </tr>
