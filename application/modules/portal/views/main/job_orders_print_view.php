@@ -154,7 +154,7 @@
                   <td class="tbl-pad"><?php echo $line->net_weight; ?></td>
                   <td class="tbl-pad">[<?php echo $jobType; ?> ]</td>
                   <td class="tbl-pad"><?php echo  number_format($jobPrice, 2); ?></td>
-                  <td class="tbl-pad text-right"><?php echo  number_format((float)($line->jo_count * $jobPrice), 2, '.', '') ; ?></td>
+                  <td class="tbl-pad text-right"><?php echo  number_format((float)($line->jo_count * $jobPrice), 2) ; ?></td>
                 </tr>
             <?php
               }
