@@ -50,7 +50,7 @@
   border-bottom: 1px solid black !important;
 }
 </style>
-<body onload="window.print();" style="font-size: 1.4rem;line-height: 1;">
+<body onload="window.print();" style="font-size: 1.48rem;line-height: 1;">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
@@ -160,7 +160,7 @@
     <!-- Table row -->
     <div class="row">
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:0.905rem;border-bottom: 1px solid black;border-top: 4px double black;margin-bottom:10px">
+        <table class="table table-striped table-condensed" style="font-size:1.15rem;border-bottom: 1px solid black;border-top: 4px double black;margin-bottom:10px">
         <thead>
                 <tr>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">Item</div></th>
