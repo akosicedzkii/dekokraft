@@ -60,7 +60,7 @@
         <!-- <div class="page-header"> -->
            <!-- <i class="fa fa-globe"></i>-->
            <center>
-                <p class="text-uppercase m-b"><strong><?php echo SITE_NAME;?></strong></p>
+                <p class="text-uppercase m-b"><?php echo SITE_NAME;?></p>
                 <p><?php echo nl2br(COMPANY_ADDRESS);?></p>
          </center>
            <input type="hidden" value="<?php echo $invoice->id;?>" id="id">
