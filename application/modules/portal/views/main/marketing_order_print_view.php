@@ -37,7 +37,7 @@
   body {
       padding-top: 10px;
       padding-bottom: 10px ;
-      font-family: "Times New Roman", Times, serif;
+      /* font-family: "Times New Roman", Times, serif; */
   }
 }
 .m-b{
@@ -101,10 +101,10 @@
 
             <div class="row">
               <div class="col-xs-6">
-                <p><b>DATE: <?php echo date("d F Y", strtotime($invoice->invoice_date));?><b></p>
+                <p><b>DATE: <?php echo date("d F Y", strtotime($invoice->invoice_date));?></b></p>
               </div>
               <div class="col-xs-6">
-                <p class="pull-right"><b>Inv. #<?php echo $invoice->id;?><b></p>
+                <p class="pull-right"><b>Inv. #<?php echo $invoice->id;?></b></p>
               </div>
             </div>
         <!-- </div> -->
@@ -212,12 +212,12 @@
             <td class="text-center tbl-pad"><?php echo  number_format($res_mstr,4); ?></td>
             <td class="text-left tbl-pad"><?php echo  $line->color; ?></td>
             <td class="text-center tbl-pad"></td>
-            <td class="text-right tbl-pad"><?php echo  $line->quantity; ?></td>
+            <td class="text-right tbl-pad"><?php echo  number_format($line->quantity); ?></td>
             <td class="text-left tbl-pad"><?php echo  $line->description; ?></td>
             <td class="text-left tbl-pad"><div class="bb" style="width:85%"><?php echo  ($line->inner_carton=='')?'&nbsp;':$line->inner_carton; ?></div></td>
             <td class="text-left tbl-pad"><div class="bb" style="width:85%"><?php echo ($line->master_carton=='')?'&nbsp;':$line->master_carton; ?></div></td>
-            <td class="text-center tbl-pad"><?php echo  (isset($noPrice))?'':$line->product_price; ?></td>
-            <td class="text-right tbl-pad"><?php echo  (isset($noPrice))?'':number_format((float)($line->quantity * $line->product_price), 2, '.', '') ; ?></td>
+            <td class="text-right tbl-pad"><?php echo  (isset($noPrice))?'':number_format($line->product_price,2); ?></td>
+            <td class="text-right tbl-pad"><?php echo  (isset($noPrice))?'':number_format(number_format((float)($line->quantity * $line->product_price), 2, '.', ''),2) ; ?></td>
             <!-- <td><?php echo  number_format((float)$line->discount, 2, '.', ''); ?></td>
             <td><?php echo  number_format((float)(($line->quantity * $line->product_price) - (($line->quantity * $line->product_price)*($line->discount/100))), 2, '.', ''); ?></td> -->
           </tr>
@@ -256,7 +256,7 @@
     </div>
     <hr style="border-top: 1px dashed black;margin:5px 0 5px 0;">
     <div class="row">
-      <div class="col-xs-12">
+      <div class="col-sm-12">
         <p>All samples and products are of the exclusive ownership and use of DEKOKRAFT. INC., Unauthorized copying, distributing, selling, photocopying and use in any kind of form or demo, to represent other buyers, person, exhibitors, is strictly prohibited. The Company and its owners reserve the right to unilaterally rescind the contract or out-off the services of the client/s who violates the foregoing prohibition. The person/s who violates the prohibition shall be held liable and be penalized and/or be criminal charged of qualified theft, foregery of products, samples and documents and be held accountable as provided by law.</p>
       </div>
     </div>

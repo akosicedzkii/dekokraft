@@ -37,7 +37,7 @@
   body {
       padding-top: 10px;
       padding-bottom: 10px ;
-      font-family: "Times New Roman", Times, serif;
+      /* font-family: "Times New Roman", Times, serif; */
   }
 }
 .m-b{
@@ -168,8 +168,8 @@
             <td class="tbl-pad"><?php echo  $line->color; ?></td>
             <td class="tbl-pad text-right"><?php echo  number_format($line->quantity); ?></td>
             <td class="tbl-pad"><?php echo  $line->description; ?></td>
-            <td class="tbl-pad text-right"><?php echo  $line->product_price; ?></td>
-            <td class="tbl-pad text-right"><?php echo  number_format((float)($line->quantity * $line->product_price), 2, '.', '') ; ?></td>
+            <td class="tbl-pad text-right"><?php echo number_format($line->product_price,2); ?></td>
+            <td class="tbl-pad text-right"><?php echo number_format(number_format((float)($line->quantity * $line->product_price), 2, '.', ''),2) ; ?></td>
             <!-- <td><?php echo  number_format((float)(($line->quantity * $line->product_price) - (($line->quantity * $line->product_price)*($line->discount/100))), 2, '.', ''); ?></td> -->
           </tr>
           <?php
