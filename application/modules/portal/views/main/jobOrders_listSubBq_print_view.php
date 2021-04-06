@@ -91,14 +91,14 @@
                   <td class="tbl-pad text-left"><?php echo  $line->class. "-" . $line->code."-".$line->color_abb; ?></td>
                   <td class="tbl-pad text-left"><?php echo  $line->color; ?></td>
                   <td class="tbl-pad text-left"><?php echo  $line->description; ?></td>
-                  <td class="tbl-pad text-left"><?php echo  number_format($line->jo_count); ?></td>
+                  <td class="tbl-pad text-right"><?php echo  number_format($line->jo_count); ?></td>
                 </tr>
             <?php
               }
              ?>
           <tr>
             <td colspan="3" class="tbl-pad">*** TOTAL ***</td>
-            <td class="tbl-pad text-left"><?php echo number_format($total_quantity); ?></td>
+            <td class="tbl-pad text-right"><?php echo number_format($total_quantity); ?></td>
           </tr>
           </tbody>
         </table>
