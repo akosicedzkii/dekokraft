@@ -147,13 +147,13 @@ class Purchase_orders extends CI_Controller {
         $this->db->select("product_variants.color,invoice_lines.*,products.description,products.code,products.fob");
         $this->db->join("product_variants", " product_variants.id=invoice_lines.product_id");
         $this->db->join("products", " products.id=product_variants.product_id");
-        $this->db->order_by("products.description","asc");
+        //$this->db->order_by("products.description","asc");
         $this->db->where("invoice_lines.invoice_id", $return["marketing_order"]->invoice_id);
-        $return["invoice_lines"] = $this->db->order_by("id")->get("invoice_lines")->result();
+        $return["invoice_lines"] = $this->db->get("invoice_lines")->result();
         $this->db->where("po_id", $id);
         $this->db->where("job_type", $purchase_orders->job_type);
         $this->db->where("subcon_id", $purchase_orders->subcon_id);
-        $return["po_lines"] =  $this->db->order_by("id")->get("purchase_order_lines")->result();
+        $return["po_lines"] =  $this->db->order_by("invoice_line_id")->get("purchase_order_lines")->result();
         echo json_encode($return);
     }
 
