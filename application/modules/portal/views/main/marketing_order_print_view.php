@@ -49,6 +49,9 @@
 .bb{
   border-bottom: 1px solid black !important;
 }
+.bbd{
+  border-bottom: 1px dashed !important;
+}
 </style>
 <body onload="window.print();" style="font-size: 1.48rem;line-height: 1;">
 <div class="wrapper">
@@ -214,8 +217,8 @@
             <td class="text-center tbl-pad"></td>
             <td class="text-right tbl-pad"><?php echo  number_format($line->quantity); ?> &nbsp;</td>
             <td class="text-left tbl-pad"><?php echo  $line->description; ?></td>
-            <td class="text-left tbl-pad"><div class="bb" style="width:85%"><?php echo  ($line->inner_carton=='')?'&nbsp;':$line->inner_carton; ?></div></td>
-            <td class="text-left tbl-pad"><div class="bb" style="width:85%"><?php echo ($line->master_carton=='')?'&nbsp;':$line->master_carton; ?></div></td>
+            <td class="text-left tbl-pad"><div class="bbd" style="width:90%"><?php echo  ($line->inner_carton=='')?'&nbsp;':$line->inner_carton; ?></div></td>
+            <td class="text-left tbl-pad"><div class="bbd" style="width:90%"><?php echo ($line->master_carton=='')?'&nbsp;':$line->master_carton; ?></div></td>
             <td class="text-right tbl-pad"><?php echo  (isset($noPrice))?'':number_format($line->product_price,2); ?></td>
             <td class="text-right tbl-pad"><?php echo  (isset($noPrice))?'':number_format(number_format((float)($line->quantity * $line->product_price), 2, '.', ''),2) ; ?></td>
             <!-- <td><?php echo  number_format((float)$line->discount, 2, '.', ''); ?></td>
