@@ -170,14 +170,14 @@
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">Stock #</div></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">Article #</div></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">Packing<br>IN/MSTR</div></th>
-                <th class="text-center tbl-pad" style="width:9%"></th>
+                <th class="text-center tbl-pad" style="width:8%"></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">CBM</div></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">COLOR</div></th>
-                <th class="text-center tbl-pad" style="width:9%"></th>
+                <th class="text-center tbl-pad" style="width:4%"></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">QTY</div></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">DESCRIPTION</div></th>
-                <th class="text-center tbl-pad" style="width:11%"><div class="bb" style="width:90%">INNER BOX</div></th>
-                <th class="text-center tbl-pad" style="width:11%"><div class="bb" style="width:90%">MASTER BOX</div></th>
+                <th class="text-center tbl-pad" style="width:15%"><div class="bb" style="width:95%">INNER BOX</div></th>
+                <th class="text-center tbl-pad" style="width:15%"><div class="bb" style="width:93%">MASTER BOX</div></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">U. PRICE</div></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%"> TOTAL </div></th>
                 <!-- <th>DISCOUNT(%)</th>
@@ -217,8 +217,8 @@
             <td class="text-center tbl-pad"></td>
             <td class="text-right tbl-pad"><?php echo  number_format($line->quantity); ?> &nbsp;</td>
             <td class="text-left tbl-pad"><?php echo  $line->description; ?></td>
-            <td class="text-left tbl-pad"><div class="bbd" style="width:90%"><?php echo  ($line->inner_carton=='')?'&nbsp;':$line->inner_carton; ?></div></td>
-            <td class="text-left tbl-pad"><div class="bbd" style="width:90%"><?php echo ($line->master_carton=='')?'&nbsp;':$line->master_carton; ?></div></td>
+            <td class="text-left tbl-pad"><div class="bbd" style="width:93%"><?php echo  ($line->inner_carton=='')?'&nbsp;':$line->inner_carton; ?></div></td>
+            <td class="text-left tbl-pad"><div class="bbd" style="width:93%"><?php echo ($line->master_carton=='')?'&nbsp;':$line->master_carton; ?></div></td>
             <td class="text-right tbl-pad"><?php echo  (isset($noPrice))?'':number_format($line->product_price,2); ?></td>
             <td class="text-right tbl-pad"><?php echo  (isset($noPrice))?'':number_format(number_format((float)($line->quantity * $line->product_price), 2, '.', ''),2) ; ?></td>
             <!-- <td><?php echo  number_format((float)$line->discount, 2, '.', ''); ?></td>
