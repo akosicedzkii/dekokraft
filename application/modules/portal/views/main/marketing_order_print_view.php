@@ -173,8 +173,8 @@
                 <th class="text-center tbl-pad" style="width:9%"></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">QTY</div></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">DESCRIPTION</div></th>
-                <th class="text-center tbl-pad"><div class="bb" style="width:90%">INNER<br>BOX</div></th>
-                <th class="text-center tbl-pad"><div class="bb" style="width:90%">MASTER<br>BOX</div></th>
+                <th class="text-center tbl-pad" style="width:11%"><div class="bb" style="width:90%">INNER BOX</div></th>
+                <th class="text-center tbl-pad" style="width:11%"><div class="bb" style="width:90%">MASTER BOX</div></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%">U. PRICE</div></th>
                 <th class="text-center tbl-pad"><div class="bb" style="width:90%"> TOTAL </div></th>
                 <!-- <th>DISCOUNT(%)</th>
@@ -212,7 +212,7 @@
             <td class="text-center tbl-pad"><?php echo  number_format($res_mstr,4); ?></td>
             <td class="text-left tbl-pad"><?php echo  $line->color; ?></td>
             <td class="text-center tbl-pad"></td>
-            <td class="text-right tbl-pad"><?php echo  number_format($line->quantity); ?></td>
+            <td class="text-right tbl-pad"><?php echo  number_format($line->quantity); ?> &nbsp;</td>
             <td class="text-left tbl-pad"><?php echo  $line->description; ?></td>
             <td class="text-left tbl-pad"><div class="bb" style="width:85%"><?php echo  ($line->inner_carton=='')?'&nbsp;':$line->inner_carton; ?></div></td>
             <td class="text-left tbl-pad"><div class="bb" style="width:85%"><?php echo ($line->master_carton=='')?'&nbsp;':$line->master_carton; ?></div></td>
@@ -226,7 +226,7 @@
           <tr>
             <td colspan="2" class="tbl-pad" style="border-top: 1px solid black;">TOTAL</td>
             <td colspan="6" class="tbl-pad" style="border-top: 1px solid black;"></td>
-            <td style="border-top: 1px solid black;" class="text-right tbl-pad"><?php echo number_format($total_quntity); ?></td>
+            <td style="border-top: 1px solid black;" class="text-right tbl-pad"><?php echo number_format($total_quntity); ?> &nbsp;</td>
             <td colspan="4" class="tbl-pad" style="border-top: 1px solid black;"></td>
             <td class="tbl-pad text-right" style="border-top: 1px solid black;"><?php echo (isset($noPrice))?'':'P '.number_format($total_price,2); ?></td>
           </tr>
