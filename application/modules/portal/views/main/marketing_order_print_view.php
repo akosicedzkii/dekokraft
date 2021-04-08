@@ -230,8 +230,8 @@
             <td colspan="2" class="tbl-pad" style="border-top: 1px solid black;">TOTAL</td>
             <td colspan="6" class="tbl-pad" style="border-top: 1px solid black;"></td>
             <td style="border-top: 1px solid black;" class="text-right tbl-pad"><?php echo number_format($total_quntity); ?> &nbsp;</td>
-            <td colspan="4" class="tbl-pad" style="border-top: 1px solid black;"></td>
-            <td class="tbl-pad text-right" style="border-top: 1px solid black;"><?php echo (isset($noPrice))?'':'P '.number_format($total_price,2); ?></td>
+            <td colspan="3" class="tbl-pad" style="border-top: 1px solid black;"></td>
+            <td colspan="2" class="tbl-pad text-right" style="border-top: 1px solid black;"><b><?php echo (isset($noPrice))?'':'US$ '.number_format($total_price,2); ?></b></td>
           </tr>
           </tbody>
         </table>
@@ -243,6 +243,13 @@
     <div class="row" style="display:flex;">
         <div class="col-xs-3">
           <p>Other Instructions:<br> <?php echo $invoice->shipping_instruction;?></p>
+          <p>Banks:<br>
+            <?php echo $bank->name;?><br>
+            <?php echo $bank->address;?><br>
+            <?php echo $bank->bank_details;?><br>
+          </p>
+          <p>Swift Code:<?php echo $bank->code;?></p>
+          <p>Beneficiary Name:<?php echo $bank->beneficiary_name;?></p>
         </div>
         <div class="col-xs-3" style="border-left: 1px dashed black;border-right: 1px dashed black;">
           <p>Packing Instruction:<br> <?php echo $invoice->packing_instruction;?></p>
@@ -263,7 +270,21 @@
         <p>All samples and products are of the exclusive ownership and use of DEKOKRAFT. INC., Unauthorized copying, distributing, selling, photocopying and use in any kind of form or demo, to represent other buyers, person, exhibitors, is strictly prohibited. The Company and its owners reserve the right to unilaterally rescind the contract or out-off the services of the client/s who violates the foregoing prohibition. The person/s who violates the prohibition shall be held liable and be penalized and/or be criminal charged of qualified theft, foregery of products, samples and documents and be held accountable as provided by law.</p>
       </div>
     </div>
-
+    <hr style="border-top: 1px dashed black;margin:5px 0 5px 0;">
+    <div class="row">
+      <div class="col-sm-12">
+        <p class="m-b">Authorized Signature:</p>
+      </div>
+      <br><br><br>
+      <div class="col-xs-4">
+        <div class="col-sm-4 bbd" style="width:95%">
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <div class="col-sm-4 bbd" style="width:95%">
+        </div>
+      </div>
+    </div>
   </section>
   <!-- /.content -->
 </div>
