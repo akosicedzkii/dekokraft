@@ -409,7 +409,7 @@ class Main extends CI_Controller
             $this->db->join("product_profiles", "product_variants.id=product_profiles.product_variant_id","left");
             // $this->db->where("invoice_id", $module["job_orders"]->invoice_id);
             $this->db->where("job_order_lines.jo_id", $module["job_orders"]->id);
-            $this->db->order_by("products.description", "asc");
+            $this->db->order_by("invoice_lines.id", "asc");
             $module["invoice_lines"]= $this->db->get("invoice_lines")->result();
             $arr=array();
             foreach ($module["invoice_lines"] as $mat) {
@@ -440,7 +440,8 @@ class Main extends CI_Controller
             $this->db->join("product_profiles", "product_variants.id=product_profiles.product_variant_id", "left");
             // $this->db->where("invoice_id", $module["job_orders"]->invoice_id);
             $this->db->where("job_order_lines.jo_id", $module["job_orders"]->id);
-            $this->db->order_by("products.description", "asc");
+            // $this->db->order_by("products.description", "asc");
+            $this->db->order_by("invoice_lines.id", "asc");
             $module["invoice_lines"]= $this->db->get("invoice_lines")->result();
             // $arr=array();
             // foreach ($module["invoice_lines"] as $mat) {
@@ -596,7 +597,7 @@ class Main extends CI_Controller
         $this->db->join('product_variants as pv', 'il.product_id=pv.id', 'left');
         $this->db->join('products as p', 'pv.product_id=p.id', 'left');
         $this->db->where("pol.po_id", $id);
-        $this->db->order_by("p.description", "asc");
+        // $this->db->order_by("p.description", "asc");
         $module['p_o'] = $this->db->get("purchase_order_lines as pol")->result();
 
         $this->db->select("s.name,po.id,po.job_type,mo.invoice_id,po.deadline,mo.id as mo_id,c.company_name,po.date_created");
@@ -625,7 +626,7 @@ class Main extends CI_Controller
         $this->db->join('product_variants as pv', 'il.product_id=pv.id', 'left');
         $this->db->join('products as p', 'pv.product_id=p.id', 'left');
         $this->db->where("pol.po_id", $id);
-        $this->db->order_by("p.description", "asc");
+        // $this->db->order_by("p.description", "asc");
         $module['p_o'] = $this->db->get("purchase_order_lines as pol")->result();
 
         $arr=array();
