@@ -149,7 +149,7 @@
                 <tr>
                   <td class="tbl-pad"><?php echo  $line->class. "-" . $line->code."-".$color_abb; ?></td>
                   <td class="tbl-pad"><?php echo  $job_orders->job_type=='resin'?'':$line->color; ?></td>
-                  <td class="tbl-pad text-right"><?php echo  number_format($line->jo_count); ?> pcs.</td>
+                  <td class="tbl-pad text-right"><?php echo  number_format($line->jo_count); ?> pcs. &nbsp;</td>
                   <td class="tbl-pad"><?php echo  $line->description; ?></td>
                   <td class="tbl-pad"><?php echo $line->net_weight; ?></td>
                   <td class="tbl-pad">[<?php echo $jobType; ?> ]</td>
@@ -160,7 +160,7 @@
               }
              ?>
             <td colspan="2" class="text-center tbl-pad">TOTAL</td>
-            <td class="tbl-pad text-right"><?php echo number_format($total_quantity); ?> pcs.</td>
+            <td class="tbl-pad text-right"><?php echo number_format($total_quantity); ?> pcs. &nbsp;</td>
             <td colspan="4" class="tbl-pad"></td>
             <td class="tbl-pad text-right" style="border-top:1px solid black;border-bottom:1px solid black;"><div class="" style="border-bottom:1px solid black;">P <?php echo number_format($total_price, 2); ?></div></td>
           </tr>
