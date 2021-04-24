@@ -115,21 +115,30 @@
             <?php
             $totalPrice=0;
             foreach ($p_o as $po_line) {
-                $totalPrice = $totalPrice + ($po_line->po_count * $po_line->product_price);
+                //$totalPrice = $totalPrice + ($po_line->po_count * $po_line->product_price);
+              switch ($detail[0]->job_type) {
+                  case 'resin':
+                    $payResin = $po_line->resinp == '' ? 0 : $po_line->resinp ;
+                    $totalPrice = $totalPrice + ($po_line->po_count * $payResin);
+                    break;
+                  case 'finishing':
+                    $payFinish = $po_line->finishp == '' ? 0 : $po_line->finishp ;
+                    $totalPrice = $totalPrice + ($po_line->po_count * $payFinish);
+                    break;
+                  case 'hand paint':
+                    $payHandp = $po_line->handp == '' ? 0 : $po_line->handp ;
+                    $totalPrice = $totalPrice + ($po_line->po_count * $payHandp);
+                    break;
+                  case 'spray':
+                    $paySpray = $po_line->spray == '' ? 0 : $po_line->spray ;
+                    $totalPrice = $totalPrice + ($po_line->po_count * $paySpray);
+                    break;
+                  // default:
+                  //     $payTerms = 'Full Payment Upon Completion of Delivery.';
+                  //     break;
+              }
             }
-            switch ($detail[0]->job_type) {
-                case 'resin':
-                    $payTerms = $totalPrice < 10000 ? 'Full Payment Upon Completion of Delivery.' : '25% D/P Upon J.O. Issuance Balance upon completion of delivery.';
-                    break;
-
-                case 'finishing':
-                    $payTerms = $totalPrice < 10000 ? 'Full Payment Upon Completion of Delivery.' : '25% D/P Upon J.O. Issuance Balance upon completion of delivery.';
-                    break;
-
-                default:
-                    $payTerms = 'Full Payment Upon Completion of Delivery.';
-                    break;
-            }
+            $payTerms = $totalPrice < 10000 ? 'Full Payment Upon Completion of Delivery.' : '25% D/P Upon P.O. Issuance Balance upon completion of delivery.';
             ?>
             <div class="">Payment Terms : </div>
             <div class="underline" style="flex-grow: 1;border-bottom: 1px solid black;"> <?php echo $payTerms; ?></div>

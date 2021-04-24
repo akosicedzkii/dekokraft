@@ -90,7 +90,17 @@
         <?php
         $totalPrice=0;
           foreach ($invoice_lines as $line) {
-              $totalPrice = $totalPrice + ($line->jo_count* $line->product_price);
+              // $totalPrice = $totalPrice + ($line->jo_count* $line->product_price);
+              switch ($line->jo_type) {
+                      case 'resin':
+                        $joResin = $line->resin_unit_price == '' ? 0 : floatval($line->resin_unit_price);
+                        $totalPrice = $totalPrice + ($line->jo_count* $joResin);
+                        break;
+                      case 'finishing':
+                        $joFinish = $line->finishing_unit_price == '' ? 0 : floatval($line->finishing_unit_price);
+                        $totalPrice = $totalPrice + ($line->jo_count* $joFinish);
+                        break;
+                    }
           }
          ?>
         <dl class="row">
@@ -301,7 +311,7 @@
             <p>TR Date: _____________________</p>
             <p>App'd Ctrl Sample: _____________</p>
             <p>J.O. Recieved : ________________</p>
-            <p><?php echo ($job_orders->job_type=='resin')?'Resin Received : _______________':'Finising Received : _____________'; ?></p>
+            <p><?php echo ($job_orders->job_type=='resin')?'Resin Received : _______________':'Finishing Received : _____________'; ?></p>
             <p>M.O. Received : _______________</p>
           </div>
         </div>
