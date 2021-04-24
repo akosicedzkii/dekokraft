@@ -268,12 +268,16 @@
       <div class="col-xs-12">
         <p>*** <?php echo $job_orders->customer_name; ?> ***</p>
         <div class="col-xs-7" style="font-size:1.15rem;">
-          <div class="col-xs-3">
-            <p>25% D/P</p>
-            <p>25% D/P Add'l</p>
-            <p>Full Pay't</p>
+          <div class="col-xs-3" style="font-size:1rem;">
+            <p>1. 25% D/P</p>
+            <p>2. 25% D/P Add'l</p>
+            <p>3. Full Pay't</p>
+            <p>4. Other Charges</p>
           </div>
           <div class="col-xs-4">
+            <p>P____________</p>
+            <p>P____________</p>
+            <p>P____________</p>
             <p>P____________</p>
             <p>P____________</p>
             <p>P____________</p>
@@ -282,8 +286,14 @@
             <p>Check # _____________</p>
             <p>Check # _____________</p>
             <p>Check # _____________</p>
+            <p>_____________________</p>
+            <p>_____________________</p>
+            <p>_____________________</p>
           </div>
-          <p style="font-size:1.2rem;">*** J.O Saved ***</p>
+          <div class="row">
+            <br>
+            <p style="font-size:1.2rem;">*** J.O Saved ***</p>
+          </div>
         </div>
         <div class="col-xs-5" style="font-size:1.2rem;">
           <div class="col-xs-2">
