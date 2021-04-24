@@ -135,8 +135,9 @@
                   $colorQty = $thisMaterial["ppm_count"]==''? 0:str_replace(',','',$thisMaterial["ppm_count"]);
                   //$moQty = $thisMaterial["quantity"]==''? 0:str_replace(',','',$thisMaterial["quantity"]);
                   // $cost = $thisMaterial["cost"]==''? 0:str_replace(',','',$thisMaterial["cost"]);
+                  $fixQ = $colorQty == 0 ? 0 : $qty/(1000/$colorQty) ;
                   $po_count = $value["po_count"]==''? 0:str_replace(',','',$value["po_count"]);
-                  $totalQty = 1 * $qty/(1000/$colorQty) * $po_count;
+                  $totalQty = 1 * $fixQ * $po_count;
                   //$totalQty = $qty * $colorQty * $moQty;
                   //$totalCost = $cost * $colorQty * $moQty;
                   //$totalCost = $cost;
