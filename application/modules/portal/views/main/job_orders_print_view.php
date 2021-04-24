@@ -52,7 +52,7 @@
   border-bottom: 1px solid black !important;
 }
 </style>
-<body onload="window.print();" style="font-size: 14px;" class="l-h">
+<body onload="window.print();" style="font-size: 1.48rem;" class="l-h">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
@@ -290,7 +290,6 @@
             <p>_____________________</p>
             <p>_____________________</p>
           </div>
-          
           <div class="row">
             <p style="font-size:1.2rem;">*** J.O Saved ***</p>
           </div>
