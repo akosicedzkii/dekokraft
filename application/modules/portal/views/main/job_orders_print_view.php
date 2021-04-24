@@ -104,7 +104,7 @@
     <!-- Table row -->
     <div class="row">
       <div class="col-xs-12 table-responsive">
-        <table class="table table-striped table-condensed" style="font-size:1.15rem;border-top: 4px double black;">
+        <table class="table table-striped table-condensed" style="font-size:1.14rem;border-top: 4px double black;">
         <thead>
                 <tr>
                 <th class="tbl-pad bb">Stock #</th>
@@ -298,6 +298,7 @@
           <div class="col-xs-2">
           </div>
           <div class="col-xs-10">
+            <p>TR Date: _____________________</p>
             <p>App'd Ctrl Sample: _____________</p>
             <p>J.O. Recieved : ________________</p>
             <p><?php echo ($job_orders->job_type=='resin')?'Resin Received : _______________':'Finising Received : _____________'; ?></p>

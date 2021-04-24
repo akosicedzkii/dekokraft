@@ -60,7 +60,7 @@
   border-right: 1px solid black;
 }
 </style>
-<body onload="window.print();" style="font-size: 14px;" class="l-h">
+<body onload="window.print();" style="font-size: 1.48rem;" class="l-h">
 <div class="wrapper">
   <!-- Main content -->
   <section class="invoice">
