@@ -102,7 +102,8 @@
                     $line->quantity = $line->quantity==''? 0:str_replace(',','',$line->quantity);
                     if($line->quantity!=''){
                       if($line->id==$value["invoice_id"]){
-                        $qty *= $line->quantity;
+                        //$qty *= $line->quantity;
+                        var_dump($qty." = ".$line->quantity);
                         //$cost *= $line->quantity;
                       }
                     }
