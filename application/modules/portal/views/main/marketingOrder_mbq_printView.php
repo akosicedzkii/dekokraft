@@ -282,10 +282,10 @@
                                           $unit = 'PC';
                                         }
                                       } elseif (strpos($value["material_name"], 'GOLD CORD') !== FALSE) {
-                                        if($qty>=1100) {
-                                          $qtyValue = str_replace(',','',number_format($qty / 1100,3));
+                                        if($qty>=1000) {
+                                          $qtyValue = str_replace(',','',number_format($qty / 1000,3));
                                           $unit = 'ROLL';
-                                          $partialCost *= 1100;
+                                          $partialCost *= 1000;
                                         } else {
                                           $qtyValue = str_replace(',','',number_format($qty,3));
                                           $unit = 'PC';
@@ -1047,10 +1047,10 @@
                                           $unit = 'PC';
                                         }
                                       } elseif (strpos($value["material_name"], 'GOLD CORD') !== FALSE) {
-                                        if($qty>=1100) {
-                                          $qtyValue = str_replace(',','',number_format($qty / 1100,3));
+                                        if($qty>=1000) {
+                                          $qtyValue = str_replace(',','',number_format($qty / 1000,3));
                                           $unit = 'ROLL';
-                                          $partialCost *= 1100;
+                                          $partialCost *= 1000;
                                         } else {
                                           $qtyValue = str_replace(',','',number_format($qty,3));
                                           $unit = 'PC';
@@ -1724,8 +1724,8 @@
           <table class="table table-condensed" style="font-size:1.2rem;width:50%;margin-left: auto;margin-right: auto;">
             <thead>
               <tr>
-                <th class="text-center tbl-pad"><div class="bb" style="width:90%">Polly Inner</div></th>
-                <th class="text-center tbl-pad"><div class="bb" style="width:90%">PCS</div></th>
+                <th class="text-center tbl-pad" width="75%"><div class="bb" style="width:90%">Polly Inner</div></th>
+                <th class="text-center tbl-pad" width="25%"><div class="bb" style="width:90%">PCS</div></th>
               </tr>
             </thead>
             <tbody>
@@ -1759,8 +1759,8 @@
           <table class="table table-condensed" style="font-size:1.2rem;width:50%;margin-left: auto;margin-right: auto;">
             <thead>
               <tr>
-                <th class="text-center tbl-pad"><div class="bb" style="width:90%">Polly Master</div></th>
-                <th class="text-center tbl-pad"><div class="bb" style="width:90%">PCS</div></th>
+                <th class="text-center tbl-pad" width="75%"><div class="bb" style="width:90%">Polly Master</div></th>
+                <th class="text-center tbl-pad" width="25%"><div class="bb" style="width:90%">PCS</div></th>
               </tr>
             </thead>
             <tbody>
