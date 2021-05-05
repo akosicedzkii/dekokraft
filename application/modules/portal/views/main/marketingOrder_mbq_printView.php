@@ -162,6 +162,7 @@
             $totalMat = 0;
             $totalColor = 0;
             $polyArray = array();
+            $mstrPolyArray = array();
             foreach ($invoice_lines as $line) {
               if ($line->in_poly_size != '') {
                 $in_poly_cont = $line->in_poly_cont!=''?$line->in_poly_cont:0;
@@ -170,6 +171,15 @@
                     $polyArray[$line->in_poly_size] += ($in_poly_cont*$quantity);
                 } else {
                     $polyArray[$line->in_poly_size] = ($in_poly_cont*$quantity);
+                }
+              }
+              if ($line->mstr_poly_size != '') {
+                $mstr_poly_cont = $line->mstr_poly_cont!=''?$line->mstr_poly_cont:0;
+                $quantity = $line->quantity!=''?$line->quantity:0;
+                if (isset($mstrPolyArray[$line->mstr_poly_size])) {
+                    $mstrPolyArray[$line->mstr_poly_size] += ($mstr_poly_cont*$quantity);
+                } else {
+                    $mstrPolyArray[$line->mstr_poly_size] = ($mstr_poly_cont*$quantity);
                 }
               }
             }
@@ -1743,6 +1753,41 @@
                <tr>
                  <td class="text-center tbl-pad"><div style="width:90%" class="text-left"><b>TOTAL POLYBAG</b></div></td>
                  <td class="text-center tbl-pad"><div style="width:90%"><b><?php echo $polyTotal; ?></b></div></td>
+               </tr>
+            </tbody>
+          </table>
+          <table class="table table-condensed" style="font-size:1.2rem;width:50%;margin-left: auto;margin-right: auto;">
+            <thead>
+              <tr>
+                <th class="text-center tbl-pad"><div class="bb" style="width:90%">Polly Master</div></th>
+                <th class="text-center tbl-pad"><div class="bb" style="width:90%">PCS</div></th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+              $mstrPolyTotal = 0;
+              $mstrBubbleTotal = 0;
+              ksort($mstrPolyArray);
+                foreach ($mstrPolyArray as $key => $value) {
+                  if (strpos($key, 'POLYBAG') !== FALSE) {
+                    $mstrPolyTotal += $value;
+                  } elseif (strpos($key, 'BUBBLE BAG') !== FALSE) {
+                    $mstrBubbleTotal += $value;
+                  }
+
+                  echo '<tr>
+                    <td class="text-center tbl-pad"><div style="width:90%">'.$key.'</div></td>
+                    <td class="text-center tbl-pad"><div style="width:90%">'.$value.'</div></td>
+                  </tr>';
+                }
+               ?>
+               <tr>
+                 <td class="text-center tbl-pad"><div style="width:90%" class="text-left"><b>TOTAL BUBBLE BAG</b></div></td>
+                 <td class="text-center tbl-pad"><div style="width:90%"><b><?php echo $mstrBubbleTotal; ?></b></div></td>
+               </tr>
+               <tr>
+                 <td class="text-center tbl-pad"><div style="width:90%" class="text-left"><b>TOTAL POLYBAG</b></div></td>
+                 <td class="text-center tbl-pad"><div style="width:90%"><b><?php echo $mstrPolyTotal; ?></b></div></td>
                </tr>
             </tbody>
           </table>

@@ -205,7 +205,7 @@ class Main extends CI_Controller
           $module["mo"] = $this->db->where("invoice_id", $invoice_id)->get("marketing_order")->row();
           $module["invoice"] = $this->db->where("id", $invoice_id)->get("invoices")->row();
           $module["customer_address"] = $this->db->where("id", $module["invoice"]->customer_id)->get("customers")->row();
-          $this->db->select("products.weight_of_box,products.inner_carton,products.master_carton,products.class,product_variants.color_abb,product_variants.color,invoice_lines.*,products.description,products.code,products.fob,products.in_,products.mstr,product_profiles.in_poly_size,product_profiles.in_poly_cont");
+          $this->db->select("products.weight_of_box,products.inner_carton,products.master_carton,products.class,product_variants.color_abb,product_variants.color,invoice_lines.*,products.description,products.code,products.fob,products.in_,products.mstr,product_profiles.in_poly_size,product_profiles.in_poly_cont,product_profiles.mstr_poly_size,product_profiles.mstr_poly_cont");
           $this->db->join("product_variants", " product_variants.id=invoice_lines.product_id");
           $this->db->join("products", " products.id=product_variants.product_id");
           $this->db->join("product_profiles", " product_profiles.product_variant_id=product_variants.id");
