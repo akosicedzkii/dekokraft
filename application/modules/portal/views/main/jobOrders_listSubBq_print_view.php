@@ -57,6 +57,9 @@
   <!-- Main content -->
   <section class="invoice">
     <!-- Table row -->
+    <div class="row text-center">
+      <h4><b><?php echo $job_orders->customer_name; ?></b></h4>
+    </div>
     <div class="row">
       <div class="col-xs-3">
         <p class="m-b">PROFORMA INVOICE# <?php echo $job_orders->invoice_id; ?></p>
@@ -126,8 +129,8 @@
             foreach ($materials as $material) {
               $qty=0;
               foreach ($material as $value) {
-                $qty = $value["qty"]==''? 0:str_replace(',','',$value["qty"]);
-                $jo_count = $value["jo_count"]==''? 0:str_replace(',','',$value["jo_count"]);
+                $qty = $value["qty"]==''? 0:str_replace(',','',trim($value["qty"]));
+                $jo_count = $value["jo_count"]==''? 0:str_replace(',','',trim($value["jo_count"]));
                 //$cost = $value["cost"]==''? 0:str_replace(',','',$value["cost"]);
                 // foreach ($invoice_lines as $line) {
                 //   if ($line->product_id==$value["product_variant_id"]) {
