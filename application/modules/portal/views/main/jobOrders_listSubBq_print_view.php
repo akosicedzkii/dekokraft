@@ -129,7 +129,7 @@
             foreach ($materials as $material) {
               $qty=0;
               foreach ($material as $value) {
-                $qty = $value["qty"]==''? 0:str_replace(',','',trim($value["qty"]));
+                $qty = $value["qty"]==''? 0:floatval(str_replace(',','',trim($value["qty"])));
                 $jo_count = $value["jo_count"]==''? 0:str_replace(',','',trim($value["jo_count"]));
                 //$cost = $value["cost"]==''? 0:str_replace(',','',$value["cost"]);
                 // foreach ($invoice_lines as $line) {
