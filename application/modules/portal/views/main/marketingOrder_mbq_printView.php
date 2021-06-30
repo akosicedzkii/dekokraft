@@ -272,7 +272,7 @@
                                         }
                                       break;
                                     case 'PC':
-                                      if(strpos($value["material_name"], 'LONG FEATHER WHITE-BALAKANG') !== FALSE) {
+                                      if(strpos($value["material_name"], 'LONG FEATHER WHITE-BALAKANG') !== FALSE || strpos($value["material_name"], 'LONG FEATHER WHITE-FORTUNE') !== FALSE) {
                                         if($qty>=500) {
                                           $qtyValue = str_replace(',','',number_format($qty / 500,3));
                                           $unit = 'YARDS';
@@ -1037,7 +1037,7 @@
                                         }
                                       break;
                                     case 'PC':
-                                      if(strpos($value["material_name"], 'LONG FEATHER WHITE-BALAKANG') !== FALSE) {
+                                      if(strpos($value["material_name"], 'LONG FEATHER WHITE-BALAKANG') !== FALSE || strpos($value["material_name"], 'LONG FEATHER WHITE-FORTUNE') !== FALSE) {
                                         if($qty>=500) {
                                           $qtyValue = str_replace(',','',number_format($qty / 500,3));
                                           $unit = 'YARDS';
