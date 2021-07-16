@@ -105,6 +105,7 @@
                     if($line->quantity!=''){
                       if($line->id==$value["invoice_id"]){
                         $qty *= $line->quantity;
+                        var_dump($qty);
                         //$cost *= $line->quantity;
                       }
                     }
