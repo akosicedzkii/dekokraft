@@ -393,7 +393,7 @@ class Main extends CI_Controller
             $with = $this->input->get("with");
             $module["wClient"] = ($with==1)?'yes':'no';
 
-            $this->db->select('jo.*,sub.name,sub.subcon_details,sub.address,sub.code,pt.code as payment_code,mo.invoice_id,c.customer_name');
+            $this->db->select('jo.*,sub.name,sub.subcon_details,sub.address,sub.code,pt.code as payment_code,mo.invoice_id,c.customer_name,c.company_name');
             $this->db->join('subcon as sub', 'jo.subcon_id=sub.id');
             $this->db->join('marketing_order as mo', 'jo.mo_id=mo.id');
             $this->db->join('invoices as inv', 'mo.invoice_id=inv.id', 'left');

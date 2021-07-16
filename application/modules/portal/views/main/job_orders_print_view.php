@@ -276,7 +276,7 @@
       <?php //if ($job_orders->job_type=='resin') { ?>
         <?php if ($wClient == 'yes') { ?>
       <div class="col-xs-12">
-        <p>*** <?php echo $job_orders->customer_name; ?> ***</p>
+        <p>*** <?php echo $job_orders->company_name; ?> ***</p>
         <div class="col-xs-7" style="font-size:1.15rem;">
           <div class="col-xs-3" style="font-size:1rem;">
             <p>1. 25% D/P</p>

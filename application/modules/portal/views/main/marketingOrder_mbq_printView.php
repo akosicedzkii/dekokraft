@@ -104,7 +104,6 @@
                     $line->quantity = $line->quantity==''? 0:preg_replace('/[^0-9.]+/', '', $line->quantity);
                     if($line->quantity!=''){
                       if($line->id==$value["invoice_id"]){
-                        var_dump($qty." = ".$line->quantity);
                         $qty *= $line->quantity;
                         //$cost *= $line->quantity;
                       }
