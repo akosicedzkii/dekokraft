@@ -95,11 +95,13 @@
             foreach ($materials as $material) {
               $qty=0;
               foreach ($material as $value) {
-                $qty = $value["qty"]==''? 0:trim(str_replace(',','',$value["qty"]));
+                //$qty = $value["qty"]==''? 0:trim(str_replace(',','',$value["qty"]));
+                $qty = $value["qty"]==''? 0:preg_replace('/[^0-9.]+/', '', $value["qty"]);
                 $cost = $value["cost"]==''? 0:str_replace(',','',$value["cost"]);
                 foreach ($invoice_lines as $line) {
                   if ($line->product_id==$value["product_variant_id"]) {
-                    $line->quantity = $line->quantity==''? 0:str_replace(',','',$line->quantity);
+                    //$line->quantity = $line->quantity==''? 0:str_replace(',','',$line->quantity);
+                    $line->quantity = $line->quantity==''? 0:preg_replace('/[^0-9.]+/', '', $line->quantity);
                     if($line->quantity!=''){
                       if($line->id==$value["invoice_id"]){
                         $qty *= $line->quantity;
