@@ -427,10 +427,10 @@ function convertMe($thisValue, $thisMat, $qty) {
           $unit = 'PC';
         }
       } elseif (strpos($thisMat, 'GOLD CORD') !== FALSE) {
-        if($qty>=1100) {
-          $qtyValue = str_replace(',','',number_format($qty / 1100,3));
+        if($qty>=1000) {
+          $qtyValue = str_replace(',','',number_format($qty / 1000,3));
           $unit = 'ROLL';
-          $partialCost *= 1100;
+          $partialCost *= 1000;
         } else {
           $qtyValue = str_replace(',','',number_format($qty,3));
           $unit = 'PC';
