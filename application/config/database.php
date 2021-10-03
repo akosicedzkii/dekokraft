@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 $password = "";
-$ip_server = $_SERVER['SERVER_ADDR']; 
+$ip_server = "localhost"; 
 if($ip_server != "localhost" and $ip_server != "::1"){
 
 	$password = "";
@@ -12,14 +12,14 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
+	'hostname' => '127.0.0.1',
 	'username' => 'root',
 	'password' => $password,
 	'database' => 'main',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
-	'db_debug' => ((ENVIRONMENT == 'developement') ? TRUE : TRUE),
+	'db_debug' => ((ENVIRONMENT == 'developement') ? TRUE : FALSE),
 	'cache_on' => FALSE,
 	'cachedir' => '',
 	'char_set' => 'utf8',
