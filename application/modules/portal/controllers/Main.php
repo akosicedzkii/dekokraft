@@ -438,7 +438,7 @@ class Main extends CI_Controller
                     $jonum =  end($explosion);
                     print "There is already a print running for JO #$jonum.. Please return later<br><input value='close' type=button onclick=\"self.close();\">\n";
                    
-                    die();
+                    die(); 
             }
             $output = shell_exec("php /var/www/html/dekokraft/index.php portal printer job_orders prints $id >/dev/null 2>/dev/null &");
             //$content = $output;
