@@ -104,7 +104,7 @@
 
             <div class="row">
               <div class="col-xs-6">
-                <p><b>DATE: <?php echo date("d F Y", strtotime($mo->date_created));?></b></p>
+                <p><b>DATE: <?php echo $invoice->date_modified!=''?date("d F Y", strtotime($invoice->date_modified)):'';?></b></p>
               </div>
               <div class="col-xs-6">
                 <p class="pull-right"><b>Inv. #<?php echo $invoice->id;?></b></p>

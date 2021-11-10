@@ -220,6 +220,7 @@ class Job_orders extends CI_Controller
             <a href="'.base_url("portal/main/job_orders/print?job_id=".$aRow['id']).'&with=1" target=_blank class="glyphicon glyphicon-print text-orange" data-toggle="tooltip" title="Print Job Order"></a>
             <a href="'.base_url("portal/main/job_orders/print?job_id=".$aRow['id']).'&with=0" target=_blank class="glyphicon glyphicon-print" style="color:#F95335" data-toggle="tooltip" title="Print Job Order without Client"></a>
             <a href="'.base_url("portal/main/job_orders/prints?job_id=".$aRow['id']).'" target=_blank class="glyphicon glyphicon-print" style="color:#674A40" data-toggle="tooltip" title="Print Job Order List and Sub BQ"></a>
+            <a href="'.base_url("portal/main/delete_old_job?id=".$aRow['id']).'" target=_blank class="glyphicon glyphicon-remove" style="color:#674A40" data-toggle="tooltip" title="Delete old JOB List and Sub BQ"></a>
             <a href="#" onclick="_delete('.$aRow['id'].',\''.$aRow["id"].'\');return false;" class="glyphicon glyphicon-remove text-red" data-toggle="tooltip" name="Delete"></a>';
             array_push($row, $btns);
             $output['data'][] = $row;

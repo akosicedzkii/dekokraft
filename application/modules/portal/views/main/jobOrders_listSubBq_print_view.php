@@ -131,8 +131,10 @@
               foreach ($material as $value) {
                 //$qty = $value["qty"]==''? 0:floatval(str_replace(',','',trim($value["qty"])));
                 $qty = $value["qty"]==''? 0:preg_replace('/[^0-9.]+/', '', $value["qty"]);
+                $qty = trim($qty,'.');
                 //$jo_count = $value["jo_count"]==''? 0:str_replace(',','',trim($value["jo_count"]));
                 $jo_count = $value["jo_count"]==''? 0:preg_replace('/[^0-9.]+/', '', $value["jo_count"]);
+                $jo_count = trim($jo_count,'.');
                 //$cost = $value["cost"]==''? 0:str_replace(',','',$value["cost"]);
                 // foreach ($invoice_lines as $line) {
                 //   if ($line->product_id==$value["product_variant_id"]) {
