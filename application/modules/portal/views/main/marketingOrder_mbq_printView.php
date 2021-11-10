@@ -99,7 +99,6 @@
                 $qty = $value["qty"]==''? 0:preg_replace('/[^0-9.]+/', '', $value["qty"]);
                 $qty = trim($qty,'.');
                 $cost = $value["cost"]==''? 0:str_replace(',','',$value["cost"]);
-<<<<<<< HEAD
                 foreach ($invoice_lines as $line) {
                   if ($line->product_id==$value["product_variant_id"]) {
                     //$line->quantity = $line->quantity==''? 0:str_replace(',','',$line->quantity);
@@ -113,21 +112,6 @@
                     }
                   }
                 }
-=======
-                // foreach ($invoice_lines as $line) {
-                //   if ($line->product_id==$value["product_variant_id"]) {
-                //     //$line->quantity = $line->quantity==''? 0:str_replace(',','',$line->quantity);
-                //     $line->quantity = $line->quantity==''? 0:preg_replace('/[^0-9.]+/', '', $line->quantity);
-                //     if($line->quantity!=''){
-                //       if($line->id==$value["invoice_id"]){
-                //         $qty *= $line->quantity;
-                //         //$cost *= $line->quantity;
-                //       }
-                //     }
-                //   }
-                // }
-                $qty *= $value["quantity"]==''? 0:preg_replace('/[^0-9.]+/', '', $value["quantity"]);
->>>>>>> b1e3d7b3c2d58cdaeee6a27d8a26c4928f9b8871
                 $mat_types = $value["tipe"];
                 $mat_type = isset($mat_types) ? $mat_types : '';
                 if ($value["material_name"] != '') {
