@@ -215,7 +215,7 @@ class Main extends CI_Controller
           $arr=array();
           $color_arr=array();
           foreach ($module["invoice_lines"] as $mat) {
-              $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,ppm.qty,product_profiles.product_variant_id,ppm.product_profile_id,invoice_lines.id as invoice_id");
+              $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,ppm.qty,product_profiles.product_variant_id,ppm.product_profile_id,invoice_lines.id as invoice_id,invoice_lines.quantity");
               $this->db->join("materials", "ppm.material_id=materials.id");
               $this->db->join("product_profiles", " product_profiles.id=ppm.product_profile_id");
               $this->db->join("invoice_lines", " product_profiles.product_variant_id=invoice_lines.product_id");
@@ -424,12 +424,12 @@ class Main extends CI_Controller
         } elseif ($page == "prints") {
             $id = $this->input->get("job_id");
 
-            
+
 
             if(file_exists("/var/www/html/dekokraft/prints/". "$id.html"))
             {
                 echo $fp = file_get_contents("/var/www/html/dekokraft/prints/". "$id.html");
-                
+
                 die();
             }
             exec("ps aux | grep -i 'job_orders prints' | grep -v grep", $pids);
@@ -437,20 +437,20 @@ class Main extends CI_Controller
                     $explosion = explode(" ",$pids[0]);
                     $jonum =  end($explosion);
                     print "There is already a print running for JO #$jonum.. Please return later<br><input value='close' type=button onclick=\"self.close();\">\n";
-                   
-                    die(); 
+
+                    die();
             }
             $output = shell_exec("php /var/www/html/dekokraft/index.php portal printer job_orders prints $id >/dev/null 2>/dev/null &");
             //$content = $output;
             print "Print Queued for JO #$id.. Please return later<br><input value='close' type=button onclick=\"self.close();\">\n";
-                   
-            
+
+
         }
     }
 
     public function tasks()
     {
-       
+
     }
 
     public function prints()
