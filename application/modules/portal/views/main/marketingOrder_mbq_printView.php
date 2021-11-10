@@ -99,6 +99,7 @@
                 $qty = $value["qty"]==''? 0:preg_replace('/[^0-9.]+/', '', $value["qty"]);
                 $qty = trim($qty,'.');
                 $cost = $value["cost"]==''? 0:str_replace(',','',$value["cost"]);
+<<<<<<< HEAD
                 foreach ($invoice_lines as $line) {
                   if ($line->product_id==$value["product_variant_id"]) {
                     //$line->quantity = $line->quantity==''? 0:str_replace(',','',$line->quantity);
@@ -112,6 +113,21 @@
                     }
                   }
                 }
+=======
+                // foreach ($invoice_lines as $line) {
+                //   if ($line->product_id==$value["product_variant_id"]) {
+                //     //$line->quantity = $line->quantity==''? 0:str_replace(',','',$line->quantity);
+                //     $line->quantity = $line->quantity==''? 0:preg_replace('/[^0-9.]+/', '', $line->quantity);
+                //     if($line->quantity!=''){
+                //       if($line->id==$value["invoice_id"]){
+                //         $qty *= $line->quantity;
+                //         //$cost *= $line->quantity;
+                //       }
+                //     }
+                //   }
+                // }
+                $qty *= $value["quantity"]==''? 0:preg_replace('/[^0-9.]+/', '', $value["quantity"]);
+>>>>>>> b1e3d7b3c2d58cdaeee6a27d8a26c4928f9b8871
                 $mat_types = $value["tipe"];
                 $mat_type = isset($mat_types) ? $mat_types : '';
                 if ($value["material_name"] != '') {
@@ -191,20 +207,25 @@
             // echo '<tr>
             //       <td class="tbl-pad" colspan="5">Material Type: Materials</td>
             //     </tr>';
+            $html1 = '';
+            $html2 = '';
             for ($i=0; $i < count($job_typ); $i++) {
                 $x=0;
+                $xy=0;
                       // foreach ($tempMaterialArray as $material) {
                         $totalAmountMat = 0;
+                        $totalAmount = 0;
                         $partialCost = 0;
                           foreach ($tempMaterialArray as $values => $value) {
                               // if ($line->product_id==$value["product_variant_id"]) {
                                 if ($value["tipe"] == "material") {
                                   if ($job_typ[$i]==$value["jp"]) {
-                                      if ($x==0) { ?>
-                                        <tr>
-                                          <td class="tbl-pad" colspan="5">** Job Process: <?php echo $job_typ[$i]; ?></td>
-                                        </tr>
-                                  <?php $x++; }
+                                      if ($x==0) {
+                                        $html1 .='<tr>
+                                                    <td class="tbl-pad" colspan="5">** Job Process: '.$job_typ[$i].'</td>
+                                                  </tr>';
+                                        $x++;
+                                      }
                                   $value["qty"] = $materialArray[$value["material_name"]];
                                   $qty = $value["qty"]==''? 0:str_replace(',','',$value["qty"]);
                                   $qtyValue = 0;
@@ -922,30 +943,776 @@
 
                                       // var_dump($materialArray);
                                       //var_dump($tempMaterialArray);
-                                      ?>
-                                    <tr>
-                                      <td class="tbl-pad"><?php echo $value["material_name"]; ?></td>
-                                      <td class="tbl-pad text-right"><?php echo number_format($cost,2); ?></td>
-                                      <td class="tbl-pad text-right"><div style="width:90%"><?php echo $amount; ?></div></td>
-                                      <td class="tbl-pad text-right"><div style="width:90%"><?php echo $qtyValue.' '.$unit; ?></div></td>
+
+                                    $html1 .= '<tr>
+                                      <td class="tbl-pad">'.$value["material_name"].'</td>
+                                      <td class="tbl-pad text-right">'.number_format($cost,2).'</td>
+                                      <td class="tbl-pad text-right"><div style="width:90%">'.$amount.'</div></td>
+                                      <td class="tbl-pad text-right"><div style="width:90%">'.$qtyValue.' '.$unit.'</div></td>
                                       <td class="tbl-pad text-center"><div class="bb" style="width:90%">&nbsp;</div></td>
-                                    </tr>
-            <?php
+                                    </tr>';
+
                                   }
                                   }
                                 // }
                               // }
                             if ($values === array_key_last($tempMaterialArray) && $x>0){
-                              echo '<tr><td class="tbl-pad" colspan="5">** Subtotal **</td></tr>';
-                              echo '<tr><td class="tbl-pad" colspan="2"></td>
+                                $html1 .='<tr><td class="tbl-pad" colspan="5">** Subtotal **</td></tr>';
+                                $html1 .= '<tr><td class="tbl-pad" colspan="2"></td>
                                     <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalAmountMat,2).'</div></td></tr>';
                               $totalMat = $totalMat + $totalAmountMat;
                           }
+
+                          if ($value["tipe"] == "color") {
+                            if ($job_typ[$i]==$value["jp"]) {
+                                if ($xy==0) {
+                                  $html2 .='<tr>
+                                    <td class="tbl-pad" colspan="5">** Job Process: '.$job_typ[$i].'</td>
+                                  </tr>';
+                                  $xy++;
+                                }
+                            $value["qty"] = $materialArray[$value["material_name"]];
+                            $qty = $value["qty"]==''? 0:str_replace(',','',$value["qty"]);
+                            $qtyValue = 0;
+                            $partialCost = $value["cost"]==''? 0:str_replace(',','',$value["cost"]);
+                            $unit = '';
+                            switch ($value["unit"]) {
+                              case 'GM':
+                                if(strpos($value["material_name"], 'DURA') !== FALSE){
+                                  if($qty>=2){
+                                    $qtyValue = str_replace(',','',number_format($qty / 2,3));
+                                    $unit = 'PCS';
+                                    $partialCost *= 2;
+                                  } else {
+                                    $qtyValue = str_replace(',','',number_format($qty,3));
+                                    $unit = 'GM';
+                                  }
+                                } elseif($qty>=1000){
+                                  $qtyValue = str_replace(',','',number_format($qty / 1000,3));
+                                  $unit = 'KG';
+                                  $partialCost *= 1000;
+                                } else {
+                                  $qtyValue = str_replace(',','',number_format($qty,3));
+                                  $unit = 'GM';
+                                }
+                                break;
+                              case 'ML':
+                                if($qty>=1000){
+                                  $qtyValue = str_replace(',','',number_format($qty / 1000,3));
+                                  if($qtyValue>=4){
+                                    $partialCost *= 1000;
+                                    $qtyValue = str_replace(',','',number_format($qtyValue / 4,3));
+                                    $unit = 'GAL';
+                                    $partialCost *= 4;
+                                  } else {
+                                    $unit = 'LI';
+                                    $partialCost *= 1000;
+                                  }
+                                }else{
+                                  $qtyValue = str_replace(',','',number_format($qty,3));
+                                  $unit = 'ML';
+                                }
+                                break;
+                              case 'IN':
+                                  if(strpos($value["material_name"], 'GOLD LEAF') !== FALSE){
+                                    if($qty>=1800) {
+                                      $qtyValue = str_replace(',','',number_format($qty / 1800,3));
+                                      $unit = 'ROLL';
+                                      $partialCost *= 1800;
+                                    } else {
+                                      $qtyValue = str_replace(',','',number_format($qty,3));
+                                      $unit = 'IN';
+                                    }
+                                  } elseif (strpos($value["material_name"], 'GLUE STICK') !== FALSE) {
+                                    if($qty>=9) {
+                                      $qtyValue = str_replace(',','',number_format($qty / 9,3));
+                                      $unit = 'PC';
+                                      $partialCost *= 9;
+                                    } else {
+                                      $qtyValue = str_replace(',','',number_format($qty,3));
+                                      $unit = 'IN';
+                                    }
+                                  } elseif ($qty>=1100) {
+                                    $qtyValue = str_replace(',','',number_format($qty / 1100,3));
+                                    $unit = 'ROLL';
+                                    $partialCost *= 1100;
+                                  } else {
+                                    $qtyValue = str_replace(',','',number_format($qty,3));
+                                    $unit = 'IN';
+                                  }
+                                break;
+                              case 'PC':
+                                if(strpos($value["material_name"], 'LONG FEATHER WHITE-BALAKANG') !== FALSE || strpos($value["material_name"], 'LONG FEATHER WHITE-FORTUNE') !== FALSE) {
+                                  if($qty>=500) {
+                                    $qtyValue = str_replace(',','',number_format($qty / 500,3));
+                                    $unit = 'YARDS';
+                                    $partialCost *= 500;
+                                  } else {
+                                    $qtyValue = str_replace(',','',number_format($qty,3));
+                                    $unit = 'PC';
+                                  }
+                                } elseif (strpos($value["material_name"], 'GOLD CORD') !== FALSE) {
+                                  if($qty>=1000) {
+                                    $qtyValue = str_replace(',','',number_format($qty / 1000,3));
+                                    $unit = 'ROLL';
+                                    $partialCost *= 1000;
+                                  } else {
+                                    $qtyValue = str_replace(',','',number_format($qty,3));
+                                    $unit = 'PC';
+                                  }
+                                } elseif (strpos($value["material_name"], 'FELT PAPER') !== FALSE) {
+                                  preg_match_all('!\d+\.*\d*!', $value["material_name"], $matches);
+                                  if (strpos($value["material_name"], 'CONETREE W/ POT BASE') !== FALSE) {
+                                    if (strpos($value["material_name"], '5.5"') !== FALSE && in_array('5.5',$matches[0])) {
+                                      if($qty>=280) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 280,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 280;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '6.5"') !== FALSE && in_array('6.5',$matches[0])) {
+                                      if($qty>=280) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 280,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 280;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
+                                      if($qty>=234) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 234,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 234;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '9"') !== FALSE && in_array('9',$matches[0])) {
+                                      if($qty>=108) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 108,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 108;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
+                                      if($qty>=88) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 88,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 88;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '17"') !== FALSE && in_array('17',$matches[0])) {
+                                      if($qty>=70) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 70,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 70;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } else {
+                                      $qtyValue = str_replace(',','',number_format($qty,3));
+                                      $unit = 'PC';
+                                    }
+                                  } elseif (strpos($value["material_name"], 'NEO CONETREE W/ POT BASE') !== FALSE) {
+                                    if (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
+                                      if($qty>=280) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 280,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 280;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '9"') !== FALSE && in_array('9',$matches[0])) {
+                                      if($qty>=180) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 180,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 180;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
+                                      if($qty>=80) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 80,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 80;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '17"') !== FALSE && in_array('17',$matches[0])) {
+                                      if($qty>=63) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 63,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 63;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } else {
+                                      $qtyValue = str_replace(',','',number_format($qty,3));
+                                      $unit = 'PC';
+                                    }
+                                  } elseif (strpos($value["material_name"], 'CONETREE W/ R. BALL BASE') !== FALSE) {
+                                    if (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
+                                      if($qty>=104) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 104,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 104;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '9"') !== FALSE && in_array('9',$matches[0])) {
+                                      if($qty>=56) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 56,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 56;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '10.5"') !== FALSE && in_array('10.5',$matches[0])) {
+                                      if($qty>=48) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 48,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 48;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
+                                      if($qty>=56) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 56,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 56;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '14.5"') !== FALSE && in_array('14.5',$matches[0])) {
+                                      if($qty>=42) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 42,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 42;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '17"') !== FALSE && in_array('17',$matches[0])) {
+                                      if($qty>=35) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 35,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 35;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '20"') !== FALSE && in_array('20',$matches[0])) {
+                                      if($qty>=20) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 20,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 20;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '21"') !== FALSE && in_array('21',$matches[0])) {
+                                      if($qty>=20) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 20,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 20;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } else {
+                                      $qtyValue = str_replace(',','',number_format($qty,3));
+                                      $unit = 'PC';
+                                    }
+                                  } elseif (strpos($value["material_name"], 'PLAIN SCALLOPED SLIM TREE') !== FALSE) {
+                                    if (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
+                                      if($qty>=108) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 108,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 108;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
+                                      if($qty>=56) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 56,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 56;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '17"') !== FALSE && in_array('17',$matches[0])) {
+                                      if($qty>=108) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 108,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 108;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '27"') !== FALSE && in_array('27',$matches[0])) {
+                                      if($qty>=63) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 63,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 63;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } else {
+                                      $qtyValue = str_replace(',','',number_format($qty,3));
+                                      $unit = 'PC';
+                                    }
+                                  } elseif (strpos($value["material_name"], 'NEO R. BASE') !== FALSE) {
+                                    if (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
+                                      if($qty>=154) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 154,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 154;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '9"') !== FALSE && in_array('9',$matches[0])) {
+                                      if($qty>=88) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 88,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 88;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
+                                      if($qty>=56) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 56,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 56;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '17"') !== FALSE && in_array('17',$matches[0])) {
+                                      if($qty>=30) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 30,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 30;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } else {
+                                      $qtyValue = str_replace(',','',number_format($qty,3));
+                                      $unit = 'PC';
+                                    }
+                                  } elseif (strpos($value["material_name"], 'CONETREE W/ R. BASE') !== FALSE) {
+                                    if (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
+                                      if($qty>=80) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 80,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 80;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '8.5"') !== FALSE && in_array('8.5',$matches[0])) {
+                                      if($qty>=70) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 70,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 70;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '9"') !== FALSE && in_array('9',$matches[0])) {
+                                      if($qty>=63) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 63,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 63;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '10.5"') !== FALSE && in_array('10.5',$matches[0])) {
+                                      if($qty>=63) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 63,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 63;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
+                                      if($qty>=56) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 56,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 56;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '14.5"') !== FALSE && in_array('14.5',$matches[0])) {
+                                      if($qty>=35) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 35,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 35;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '17"') !== FALSE && in_array('17',$matches[0])) {
+                                      if($qty>=42) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 42,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 42;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '18.5"') !== FALSE && in_array('18.5',$matches[0])) {
+                                      if($qty>=20) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 20,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 20;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } else {
+                                      $qtyValue = str_replace(',','',number_format($qty,3));
+                                      $unit = 'PC';
+                                    }
+                                  } elseif (strpos($value["material_name"], 'SLIM ROUND TREE') !== FALSE) {
+                                    if (strpos($value["material_name"], '10"') !== FALSE && in_array('10',$matches[0])) {
+                                      if($qty>=56) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 56,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 56;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '14"') !== FALSE && in_array('14',$matches[0])) {
+                                      if($qty>=42) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 42,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 42;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } else {
+                                      $qtyValue = str_replace(',','',number_format($qty,3));
+                                      $unit = 'PC';
+                                    }
+                                  } elseif (strpos($value["material_name"], 'SLIM CONETREE W/ POT BASE') !== FALSE) {
+                                    if (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
+                                      if($qty>=374) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 374,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 374;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '9"') !== FALSE && in_array('9',$matches[0])) {
+                                      if($qty>=221) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 221,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 221;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
+                                      if($qty>=108) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 108,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 108;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '17"') !== FALSE && in_array('17',$matches[0])) {
+                                      if($qty>=88) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 88,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 88;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } else {
+                                      $qtyValue = str_replace(',','',number_format($qty,3));
+                                      $unit = 'PC';
+                                    }
+                                  } elseif (strpos($value["material_name"], 'STILLETO TREE') !== FALSE) {
+                                    if (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
+                                      if($qty>=374) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 374,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 374;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '9"') !== FALSE && in_array('9',$matches[0])) {
+                                      if($qty>=221) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 221,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 221;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
+                                      if($qty>=130) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 130,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 130;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '17"') !== FALSE && in_array('17',$matches[0])) {
+                                      if($qty>=108) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 108,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 108;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } else {
+                                      $qtyValue = str_replace(',','',number_format($qty,3));
+                                      $unit = 'PC';
+                                    }
+                                  } elseif (strpos($value["material_name"], 'NEO HOLLY STILLETO TREE') !== FALSE) {
+                                    if (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
+                                      if($qty>=300) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 300,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 300;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '9"') !== FALSE && in_array('9',$matches[0])) {
+                                      if($qty>=266) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 266,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 266;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
+                                      if($qty>=130) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 130,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 130;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '17"') !== FALSE && in_array('17',$matches[0])) {
+                                      if($qty>=70) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 70,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 70;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } else {
+                                      $qtyValue = str_replace(',','',number_format($qty,3));
+                                      $unit = 'PC';
+                                    }
+                                  } elseif (strpos($value["material_name"], 'NEO STILLETO TREE') !== FALSE) {
+                                    if (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
+                                      if($qty>=300) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 300,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 300;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '9"') !== FALSE && in_array('9',$matches[0])) {
+                                      if($qty>=216) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 216,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 216;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '10"') !== FALSE && in_array('10',$matches[0])) {
+                                      if($qty>=247) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 247,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 247;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
+                                      if($qty>=63) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 63,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 63;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '17"') !== FALSE && in_array('17',$matches[0])) {
+                                      if($qty>=48) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 48,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 48;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } else {
+                                      $qtyValue = str_replace(',','',number_format($qty,3));
+                                      $unit = 'PC';
+                                    }
+                                  } elseif (strpos($value["material_name"], 'NEO ELEGANT STILLETO TREE') !== FALSE) {
+                                    if (strpos($value["material_name"], '9"') !== FALSE && in_array('9',$matches[0])) {
+                                      if($qty>=130) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 130,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 130;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
+                                      if($qty>=108) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 108,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 108;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } else {
+                                      $qtyValue = str_replace(',','',number_format($qty,3));
+                                      $unit = 'PC';
+                                    }
+                                  } elseif (strpos($value["material_name"], 'NEO FLARED STILLETO TREE') !== FALSE) {
+                                    if (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
+                                      if($qty>=300) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 300,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 300;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '10"') !== FALSE && in_array('10',$matches[0])) {
+                                      if($qty>=108) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 108,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 108;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
+                                      if($qty>=63) {
+                                        $qtyValue = str_replace(',','',number_format($qty / 63,3));
+                                        $unit = 'SHEET';
+                                        $partialCost *= 63;
+                                      } else {
+                                        $qtyValue = str_replace(',','',number_format($qty,3));
+                                        $unit = 'PC';
+                                      }
+                                    } else {
+                                      $qtyValue = str_replace(',','',number_format($qty,3));
+                                      $unit = 'PC';
+                                    }
+                                  } else {
+                                    $qtyValue = str_replace(',','',number_format($qty,3));
+                                    $unit = 'PC';
+                                  }
+                                } else {
+                                  $qtyValue = str_replace(',','',number_format($qty,3));
+                                  $unit = 'PC';
+                                }
+                                break;
+                              case 'GAL':
+                                $qtyValue = str_replace(',','',number_format($qty,3));
+                                $unit = 'GAL';
+                                break;
+                              case 'LI.':
+                                if($qty>=4){
+                                  $qtyValue = str_replace(',','',number_format($qty / 4,3));
+                                  $unit = 'GAL';
+                                  $partialCost *= 4;
+                                } else {
+                                  $qtyValue = str_replace(',','',number_format($qty,3));
+                                  $unit = 'LI.';
+                                }
+                                break;
+                              case 'RL':
+                                $qtyValue = str_replace(',','',number_format($qty,3));
+                                $unit = 'RL';
+                                break;
+                              default:
+                                $qtyValue = str_replace(',','',number_format($qty,3));
+                                $unit = $value["unit"];
+                                break;
+                            }
+                                $cost = $partialCost;
+                                $amount = number_format($cost * $qtyValue,2);
+                                $totalAmount += ($cost * $qtyValue);
+                                // var_dump($value['product_variant_id'].'='.$value['material_name'].'='.$value['jp'].'<br>');
+
+                                // var_dump($materialArray);
+                                //var_dump($tempMaterialArray);
+
+                              $html2 .='<tr>
+                                          <td class="tbl-pad">'.$value["material_name"].'</td>
+                                          <td class="tbl-pad text-right">'.number_format($cost,2).'</td>
+                                          <td class="tbl-pad text-right"><div style="width:90%">'.$amount.'</div></td>
+                                          <td class="tbl-pad text-right"><div style="width:90%">'.$qtyValue.' '.$unit.'</div></td>
+                                          <td class="tbl-pad text-center"><div class="bb" style="width:90%">&nbsp;</div></td>
+                                        </tr>';
+
+                            }
+                            }
+                          // }
+                        // }
+                      if ($values === array_key_last($tempMaterialArray) && $xy>0){
+                        $html2 .='<tr><td class="tbl-pad" colspan="5">** Subtotal **</td></tr>';
+                        $html2 .='<tr><td class="tbl-pad" colspan="2"></td>
+                              <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalAmount,2).'</div></td></tr>';
+                        $totalColor = $totalColor + $totalAmount;
+                    }
                       }
                   // }
               // }
             //}
           }
+            echo $html1;
             echo '<tr><td class="tbl-pad" colspan="5">** Total Materials **</td></tr>';
             echo '<tr><td class="tbl-pad" colspan="2"></td>
                   <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalMat,2).'</div></td></tr>';
@@ -956,762 +1723,11 @@
             //       </tr>';
               // foreach ($invoice_lines as $line) {
 
-                  for ($i=0; $i < count($job_typ); $i++) {
-                      $x=0;
-                      // foreach ($tempMaterialArray as $material) {
-                        $totalAmount = 0;
-                        $partialCost = 0;
-                          foreach ($tempMaterialArray as $values => $value) {
-                              // if ($line->product_id==$value["product_variant_id"]) {
-                                if ($value["tipe"] == "color") {
-                                  if ($job_typ[$i]==$value["jp"]) {
-                                      if ($x==0) { ?>
-                                        <tr>
-                                          <td class="tbl-pad" colspan="5">** Job Process: <?php echo $job_typ[$i]; ?></td>
-                                        </tr>
-                                  <?php $x++; }
-                                  $value["qty"] = $materialArray[$value["material_name"]];
-                                  $qty = $value["qty"]==''? 0:str_replace(',','',$value["qty"]);
-                                  $qtyValue = 0;
-                                  $partialCost = $value["cost"]==''? 0:str_replace(',','',$value["cost"]);
-                                  $unit = '';
-                                  switch ($value["unit"]) {
-                                    case 'GM':
-                                      if(strpos($value["material_name"], 'DURA') !== FALSE){
-                                        if($qty>=2){
-                                          $qtyValue = str_replace(',','',number_format($qty / 2,3));
-                                          $unit = 'PCS';
-                                          $partialCost *= 2;
-                                        } else {
-                                          $qtyValue = str_replace(',','',number_format($qty,3));
-                                          $unit = 'GM';
-                                        }
-                                      } elseif($qty>=1000){
-                                        $qtyValue = str_replace(',','',number_format($qty / 1000,3));
-                                        $unit = 'KG';
-                                        $partialCost *= 1000;
-                                      } else {
-                                        $qtyValue = str_replace(',','',number_format($qty,3));
-                                        $unit = 'GM';
-                                      }
-                                      break;
-                                    case 'ML':
-                                      if($qty>=1000){
-                                        $qtyValue = str_replace(',','',number_format($qty / 1000,3));
-                                        if($qtyValue>=4){
-                                          $partialCost *= 1000;
-                                          $qtyValue = str_replace(',','',number_format($qtyValue / 4,3));
-                                          $unit = 'GAL';
-                                          $partialCost *= 4;
-                                        } else {
-                                          $unit = 'LI';
-                                          $partialCost *= 1000;
-                                        }
-                                      }else{
-                                        $qtyValue = str_replace(',','',number_format($qty,3));
-                                        $unit = 'ML';
-                                      }
-                                      break;
-                                    case 'IN':
-                                        if(strpos($value["material_name"], 'GOLD LEAF') !== FALSE){
-                                          if($qty>=1800) {
-                                            $qtyValue = str_replace(',','',number_format($qty / 1800,3));
-                                            $unit = 'ROLL';
-                                            $partialCost *= 1800;
-                                          } else {
-                                            $qtyValue = str_replace(',','',number_format($qty,3));
-                                            $unit = 'IN';
-                                          }
-                                        } elseif (strpos($value["material_name"], 'GLUE STICK') !== FALSE) {
-                                          if($qty>=9) {
-                                            $qtyValue = str_replace(',','',number_format($qty / 9,3));
-                                            $unit = 'PC';
-                                            $partialCost *= 9;
-                                          } else {
-                                            $qtyValue = str_replace(',','',number_format($qty,3));
-                                            $unit = 'IN';
-                                          }
-                                        } elseif ($qty>=1100) {
-                                          $qtyValue = str_replace(',','',number_format($qty / 1100,3));
-                                          $unit = 'ROLL';
-                                          $partialCost *= 1100;
-                                        } else {
-                                          $qtyValue = str_replace(',','',number_format($qty,3));
-                                          $unit = 'IN';
-                                        }
-                                      break;
-                                    case 'PC':
-                                      if(strpos($value["material_name"], 'LONG FEATHER WHITE-BALAKANG') !== FALSE || strpos($value["material_name"], 'LONG FEATHER WHITE-FORTUNE') !== FALSE) {
-                                        if($qty>=500) {
-                                          $qtyValue = str_replace(',','',number_format($qty / 500,3));
-                                          $unit = 'YARDS';
-                                          $partialCost *= 500;
-                                        } else {
-                                          $qtyValue = str_replace(',','',number_format($qty,3));
-                                          $unit = 'PC';
-                                        }
-                                      } elseif (strpos($value["material_name"], 'GOLD CORD') !== FALSE) {
-                                        if($qty>=1000) {
-                                          $qtyValue = str_replace(',','',number_format($qty / 1000,3));
-                                          $unit = 'ROLL';
-                                          $partialCost *= 1000;
-                                        } else {
-                                          $qtyValue = str_replace(',','',number_format($qty,3));
-                                          $unit = 'PC';
-                                        }
-                                      } elseif (strpos($value["material_name"], 'FELT PAPER') !== FALSE) {
-                                        preg_match_all('!\d+\.*\d*!', $value["material_name"], $matches);
-                                        if (strpos($value["material_name"], 'CONETREE W/ POT BASE') !== FALSE) {
-                                          if (strpos($value["material_name"], '5.5"') !== FALSE && in_array('5.5',$matches[0])) {
-                                            if($qty>=280) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 280,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 280;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '6.5"') !== FALSE && in_array('6.5',$matches[0])) {
-                                            if($qty>=280) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 280,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 280;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
-                                            if($qty>=234) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 234,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 234;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '9"') !== FALSE && in_array('9',$matches[0])) {
-                                            if($qty>=108) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 108,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 108;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
-                                            if($qty>=88) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 88,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 88;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '17"') !== FALSE && in_array('17',$matches[0])) {
-                                            if($qty>=70) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 70,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 70;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } else {
-                                            $qtyValue = str_replace(',','',number_format($qty,3));
-                                            $unit = 'PC';
-                                          }
-                                        } elseif (strpos($value["material_name"], 'NEO CONETREE W/ POT BASE') !== FALSE) {
-                                          if (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
-                                            if($qty>=280) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 280,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 280;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '9"') !== FALSE && in_array('9',$matches[0])) {
-                                            if($qty>=180) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 180,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 180;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
-                                            if($qty>=80) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 80,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 80;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '17"') !== FALSE && in_array('17',$matches[0])) {
-                                            if($qty>=63) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 63,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 63;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } else {
-                                            $qtyValue = str_replace(',','',number_format($qty,3));
-                                            $unit = 'PC';
-                                          }
-                                        } elseif (strpos($value["material_name"], 'CONETREE W/ R. BALL BASE') !== FALSE) {
-                                          if (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
-                                            if($qty>=104) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 104,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 104;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '9"') !== FALSE && in_array('9',$matches[0])) {
-                                            if($qty>=56) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 56,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 56;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '10.5"') !== FALSE && in_array('10.5',$matches[0])) {
-                                            if($qty>=48) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 48,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 48;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
-                                            if($qty>=56) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 56,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 56;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '14.5"') !== FALSE && in_array('14.5',$matches[0])) {
-                                            if($qty>=42) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 42,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 42;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '17"') !== FALSE && in_array('17',$matches[0])) {
-                                            if($qty>=35) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 35,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 35;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '20"') !== FALSE && in_array('20',$matches[0])) {
-                                            if($qty>=20) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 20,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 20;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '21"') !== FALSE && in_array('21',$matches[0])) {
-                                            if($qty>=20) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 20,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 20;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } else {
-                                            $qtyValue = str_replace(',','',number_format($qty,3));
-                                            $unit = 'PC';
-                                          }
-                                        } elseif (strpos($value["material_name"], 'PLAIN SCALLOPED SLIM TREE') !== FALSE) {
-                                          if (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
-                                            if($qty>=108) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 108,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 108;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
-                                            if($qty>=56) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 56,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 56;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '17"') !== FALSE && in_array('17',$matches[0])) {
-                                            if($qty>=108) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 108,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 108;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '27"') !== FALSE && in_array('27',$matches[0])) {
-                                            if($qty>=63) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 63,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 63;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } else {
-                                            $qtyValue = str_replace(',','',number_format($qty,3));
-                                            $unit = 'PC';
-                                          }
-                                        } elseif (strpos($value["material_name"], 'NEO R. BASE') !== FALSE) {
-                                          if (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
-                                            if($qty>=154) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 154,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 154;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '9"') !== FALSE && in_array('9',$matches[0])) {
-                                            if($qty>=88) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 88,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 88;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
-                                            if($qty>=56) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 56,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 56;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '17"') !== FALSE && in_array('17',$matches[0])) {
-                                            if($qty>=30) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 30,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 30;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } else {
-                                            $qtyValue = str_replace(',','',number_format($qty,3));
-                                            $unit = 'PC';
-                                          }
-                                        } elseif (strpos($value["material_name"], 'CONETREE W/ R. BASE') !== FALSE) {
-                                          if (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
-                                            if($qty>=80) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 80,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 80;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '8.5"') !== FALSE && in_array('8.5',$matches[0])) {
-                                            if($qty>=70) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 70,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 70;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '9"') !== FALSE && in_array('9',$matches[0])) {
-                                            if($qty>=63) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 63,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 63;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '10.5"') !== FALSE && in_array('10.5',$matches[0])) {
-                                            if($qty>=63) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 63,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 63;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
-                                            if($qty>=56) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 56,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 56;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '14.5"') !== FALSE && in_array('14.5',$matches[0])) {
-                                            if($qty>=35) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 35,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 35;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '17"') !== FALSE && in_array('17',$matches[0])) {
-                                            if($qty>=42) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 42,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 42;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '18.5"') !== FALSE && in_array('18.5',$matches[0])) {
-                                            if($qty>=20) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 20,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 20;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } else {
-                                            $qtyValue = str_replace(',','',number_format($qty,3));
-                                            $unit = 'PC';
-                                          }
-                                        } elseif (strpos($value["material_name"], 'SLIM ROUND TREE') !== FALSE) {
-                                          if (strpos($value["material_name"], '10"') !== FALSE && in_array('10',$matches[0])) {
-                                            if($qty>=56) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 56,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 56;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '14"') !== FALSE && in_array('14',$matches[0])) {
-                                            if($qty>=42) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 42,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 42;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } else {
-                                            $qtyValue = str_replace(',','',number_format($qty,3));
-                                            $unit = 'PC';
-                                          }
-                                        } elseif (strpos($value["material_name"], 'SLIM CONETREE W/ POT BASE') !== FALSE) {
-                                          if (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
-                                            if($qty>=374) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 374,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 374;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '9"') !== FALSE && in_array('9',$matches[0])) {
-                                            if($qty>=221) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 221,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 221;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
-                                            if($qty>=108) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 108,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 108;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '17"') !== FALSE && in_array('17',$matches[0])) {
-                                            if($qty>=88) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 88,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 88;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } else {
-                                            $qtyValue = str_replace(',','',number_format($qty,3));
-                                            $unit = 'PC';
-                                          }
-                                        } elseif (strpos($value["material_name"], 'STILLETO TREE') !== FALSE) {
-                                          if (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
-                                            if($qty>=374) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 374,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 374;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '9"') !== FALSE && in_array('9',$matches[0])) {
-                                            if($qty>=221) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 221,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 221;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
-                                            if($qty>=130) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 130,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 130;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '17"') !== FALSE && in_array('17',$matches[0])) {
-                                            if($qty>=108) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 108,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 108;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } else {
-                                            $qtyValue = str_replace(',','',number_format($qty,3));
-                                            $unit = 'PC';
-                                          }
-                                        } elseif (strpos($value["material_name"], 'NEO HOLLY STILLETO TREE') !== FALSE) {
-                                          if (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
-                                            if($qty>=300) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 300,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 300;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '9"') !== FALSE && in_array('9',$matches[0])) {
-                                            if($qty>=266) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 266,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 266;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
-                                            if($qty>=130) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 130,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 130;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '17"') !== FALSE && in_array('17',$matches[0])) {
-                                            if($qty>=70) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 70,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 70;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } else {
-                                            $qtyValue = str_replace(',','',number_format($qty,3));
-                                            $unit = 'PC';
-                                          }
-                                        } elseif (strpos($value["material_name"], 'NEO STILLETO TREE') !== FALSE) {
-                                          if (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
-                                            if($qty>=300) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 300,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 300;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '9"') !== FALSE && in_array('9',$matches[0])) {
-                                            if($qty>=216) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 216,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 216;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '10"') !== FALSE && in_array('10',$matches[0])) {
-                                            if($qty>=247) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 247,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 247;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
-                                            if($qty>=63) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 63,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 63;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '17"') !== FALSE && in_array('17',$matches[0])) {
-                                            if($qty>=48) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 48,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 48;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } else {
-                                            $qtyValue = str_replace(',','',number_format($qty,3));
-                                            $unit = 'PC';
-                                          }
-                                        } elseif (strpos($value["material_name"], 'NEO ELEGANT STILLETO TREE') !== FALSE) {
-                                          if (strpos($value["material_name"], '9"') !== FALSE && in_array('9',$matches[0])) {
-                                            if($qty>=130) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 130,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 130;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
-                                            if($qty>=108) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 108,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 108;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } else {
-                                            $qtyValue = str_replace(',','',number_format($qty,3));
-                                            $unit = 'PC';
-                                          }
-                                        } elseif (strpos($value["material_name"], 'NEO FLARED STILLETO TREE') !== FALSE) {
-                                          if (strpos($value["material_name"], '7"') !== FALSE && in_array('7',$matches[0])) {
-                                            if($qty>=300) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 300,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 300;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '10"') !== FALSE && in_array('10',$matches[0])) {
-                                            if($qty>=108) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 108,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 108;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } elseif (strpos($value["material_name"], '13"') !== FALSE && in_array('13',$matches[0])) {
-                                            if($qty>=63) {
-                                              $qtyValue = str_replace(',','',number_format($qty / 63,3));
-                                              $unit = 'SHEET';
-                                              $partialCost *= 63;
-                                            } else {
-                                              $qtyValue = str_replace(',','',number_format($qty,3));
-                                              $unit = 'PC';
-                                            }
-                                          } else {
-                                            $qtyValue = str_replace(',','',number_format($qty,3));
-                                            $unit = 'PC';
-                                          }
-                                        } else {
-                                          $qtyValue = str_replace(',','',number_format($qty,3));
-                                          $unit = 'PC';
-                                        }
-                                      } else {
-                                        $qtyValue = str_replace(',','',number_format($qty,3));
-                                        $unit = 'PC';
-                                      }
-                                      break;
-                                    case 'GAL':
-                                      $qtyValue = str_replace(',','',number_format($qty,3));
-                                      $unit = 'GAL';
-                                      break;
-                                    case 'LI.':
-                                      if($qty>=4){
-                                        $qtyValue = str_replace(',','',number_format($qty / 4,3));
-                                        $unit = 'GAL';
-                                        $partialCost *= 4;
-                                      } else {
-                                        $qtyValue = str_replace(',','',number_format($qty,3));
-                                        $unit = 'LI.';
-                                      }
-                                      break;
-                                    case 'RL':
-                                      $qtyValue = str_replace(',','',number_format($qty,3));
-                                      $unit = 'RL';
-                                      break;
-                                    default:
-                                      $qtyValue = str_replace(',','',number_format($qty,3));
-                                      $unit = $value["unit"];
-                                      break;
-                                  }
-                                      $cost = $partialCost;
-                                      $amount = number_format($cost * $qtyValue,2);
-                                      $totalAmount += ($cost * $qtyValue);
-                                      // var_dump($value['product_variant_id'].'='.$value['material_name'].'='.$value['jp'].'<br>');
 
-                                      // var_dump($materialArray);
-                                      //var_dump($tempMaterialArray);
-                                      ?>
-                                    <tr>
-                                      <td class="tbl-pad"><?php echo $value["material_name"]; ?></td>
-                                      <td class="tbl-pad text-right"><?php echo number_format($cost,2); ?></td>
-                                      <td class="tbl-pad text-right"><div style="width:90%"><?php echo $amount; ?></div></td>
-                                      <td class="tbl-pad text-right"><div style="width:90%"><?php echo $qtyValue.' '.$unit; ?></div></td>
-                                      <td class="tbl-pad text-center"><div class="bb" style="width:90%">&nbsp;</div></td>
-                                    </tr>
-            <?php
-                                  }
-                                  }
-                                // }
-                              // }
-                            if ($values === array_key_last($tempMaterialArray) && $x>0){
-                              echo '<tr><td class="tbl-pad" colspan="5">** Subtotal **</td></tr>';
-                              echo '<tr><td class="tbl-pad" colspan="2"></td>
-                                    <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalAmount,2).'</div></td></tr>';
-                              $totalColor = $totalColor + $totalAmount;
-                          }
-                      }
-                          // }
-                      }
                   // }
               // }
             // }
+            echo $html2;
               echo '<tr><td class="tbl-pad" colspan="5">** Total Color Composition **</td></tr>';
               echo '<tr><td class="tbl-pad" colspan="2"></td>
                     <td class="tbl-pad text-right"><div style="width:90%">'.number_format($totalColor,2).'</div></td></tr>';
