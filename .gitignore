@@ -1,6 +1,7 @@
 application/config/config.php
 application/config/config.php
 uploads/
+prints/
 application/config/config.php
 application/modules/portal/controllers/Main.php
 application/config/database.php

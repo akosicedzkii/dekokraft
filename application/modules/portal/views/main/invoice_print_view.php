@@ -82,7 +82,7 @@
       <div class="col-sm-5 invoice-col">
         <p class="font-weight-bold m-b"><b>ID.#<?php echo $user->username; ?></b></p>
         <p class="m-b"><b>IQ.#<?php echo $invoice->iq;?></b></p>
-        <p class="m-b"><b>DATE:</b> <?php echo date("d F Y", strtotime($invoice->invoice_date));?></p>
+        <p class="m-b"><b>DATE:</b> <?php echo $invoice->date_modified!=''?date("d F Y", strtotime($invoice->date_modified)):'';?></p>
         <dl class="row">
           <dt class="col-xs-2">TO:</dt>
           <dd class="col-xs-10"><?php echo $customer_address->company_name;?></dd>
