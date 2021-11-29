@@ -270,6 +270,15 @@
                                             $qtyValue = str_replace(',','',number_format($qty,3));
                                             $unit = 'IN';
                                           }
+                                        } elseif (strpos($value["material_name"], '3/8" GARTER') !== FALSE) {
+                                          if($qty>=5184) {
+                                            $qtyValue = str_replace(',','',number_format($qty / 5184,3));
+                                            $unit = 'ROLL';
+                                            $partialCost *= 5184;
+                                          } else {
+                                            $qtyValue = str_replace(',','',number_format($qty,3));
+                                            $unit = 'IN';
+                                          }
                                         } elseif ($qty>=1100) {
                                           $qtyValue = str_replace(',','',number_format($qty / 1100,3));
                                           $unit = 'ROLL';
@@ -1011,6 +1020,15 @@
                                       $qtyValue = str_replace(',','',number_format($qty / 9,3));
                                       $unit = 'PC';
                                       $partialCost *= 9;
+                                    } else {
+                                      $qtyValue = str_replace(',','',number_format($qty,3));
+                                      $unit = 'IN';
+                                    }
+                                  } elseif (strpos($value["material_name"], '3/8" GARTER') !== FALSE) {
+                                    if($qty>=5184) {
+                                      $qtyValue = str_replace(',','',number_format($qty / 5184,3));
+                                      $unit = 'ROLL';
+                                      $partialCost *= 5184;
                                     } else {
                                       $qtyValue = str_replace(',','',number_format($qty,3));
                                       $unit = 'IN';
