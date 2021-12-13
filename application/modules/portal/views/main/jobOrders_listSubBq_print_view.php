@@ -1064,7 +1064,7 @@ function convertMe($thisValue, $thisMat, $qty) {
       break;
     default:
       $qtyValue = str_replace(',','',number_format($qty,3));
-      $unit = $value["unit"];
+      $unit = $thisValue;
       break;
   }
   $converts['unit'] = $unit;
