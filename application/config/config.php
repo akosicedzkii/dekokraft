@@ -29,11 +29,11 @@ $config['modules_locations'] = array(
 $ip_server = "localhost"; 
 if($ip_server == "localhost" || $ip_server == "::1"){
 
-$config['base_url'] = 'http://192.168.100.100/dekokraft/';
+$config['base_url'] = 'http://localhost/dekokraft/';
 }else{
     
     //$config['base_url'] = 'http://DEKOKRAFT.local/dekokraft';
-    $config['base_url'] = 'http://192.168.100.100/dekokraft/';
+    $config['base_url'] = 'http://localhost/dekokraft/';
 }
 /*
 |--------------------------------------------------------------------------

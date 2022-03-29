@@ -1038,9 +1038,10 @@ $('.actionDone').on('click', function(){
             var action = $("#action").val();
             btn.button("loading");
             if (e.isDefaultPrevented()) {
-                btn.button("reset"); 
-            } else {
+                btn.button("reset");
                 e.preventDefault();
+            } else {
+               
                 var title = $("#inputProduct_variantsTitle").val();
                 var description = $("#inputDescription").val();
                 var status = $("#inputStatus").val();

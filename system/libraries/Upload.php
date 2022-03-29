@@ -563,7 +563,8 @@ class CI_Upload {
 		 * we'll use move_uploaded_file(). One of the two should
 		 * reliably work in most environments
 		 */
-		if ( ! @copy($this->file_temp, $this->upload_path.$this->file_name))
+		// deepcode ignore PT: codeigniter module
+  if ( ! @copy($this->file_temp, $this->upload_path.$this->file_name))
 		{
 			if ( ! @move_uploaded_file($this->file_temp, $this->upload_path.$this->file_name))
 			{

@@ -1,11 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-$password = "";
+$password = "password";
 $ip_server = "localhost"; 
 if($ip_server != "localhost" and $ip_server != "::1"){
 
-	$password = "";
+	$password = "password";
 }
 $active_group = 'default';
 $query_builder = TRUE;
@@ -13,9 +13,9 @@ $query_builder = TRUE;
 $db['default'] = array(
 	'dsn'	=> '',
 	'hostname' => '127.0.0.1',
-	'username' => 'root',
+	'username' => 'user',
 	'password' => $password,
-	'database' => 'main',
+	'database' => 'main_new',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,

@@ -625,6 +625,7 @@ $('.actionDone').on('click', function(){
                 $("#productsForm").submit();
             }else{
                 $("#productsForm").submit();
+                
             }
 
         });
@@ -632,13 +633,14 @@ $('.actionDone').on('click', function(){
         var image_correct = true;
         var image_error = "";
         $("#productsForm").validator().on('submit', function (e) {
+            console.log(e)
             var btn = $("#saveProducts");
             var action = $("#action").val();
             btn.button("loading");
             if (e.isDefaultPrevented()) {
                 btn.button("reset");
-            } else {
                 e.preventDefault();
+            } else {
                 var title = $("#inputProductsTitle").val();
                 var description =  $("#inputProductsTitle").val();
                 var status = $("#inputStatus").val();
