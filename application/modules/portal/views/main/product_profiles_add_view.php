@@ -495,13 +495,14 @@
                                 <div class="col-sm-10">
 
                                 <select class="form-control" id="unit" placeholder="Unit" style="resize:none" required>
-                                    <option value="GM">GM</option>
                                     <option value="ML">ML</option>
                                     <option value="IN">IN</option>
                                     <option value="PC">PC</option>
                                     <option value="GAL">GAL</option>
                                     <option value="LI.">LI.</option>
                                     <option value="RL">RL</option>
+                                    <option value="KG">KG</option>
+                                    <option value="SHEET">SHEET</option>
                                 </select>
                                 <div class="help-block with-errors"></div>
                                 </div>
@@ -512,9 +513,14 @@
                                 <div class="col-sm-5">
                                 
                                 <select class="form-control" id="conversion_unit" placeholder="Conversion Unit" style="resize:none" required>
-                                    <option value="KG">KG</option>
-                                    <option value="LI.">LI.</option>
+                                <option value="GM">GM</option>
+                                    <option value="ML">ML</option>
                                     <option value="IN">IN</option>
+                                    <option value="PC">PC</option>
+                                    <option value="GAL">GAL</option>
+                                    <option value="LI.">LI.</option>
+                                    <option value="RL">RL</option>
+                                    <option value="KG">KG</option>
                                     <option value="SHEET">SHEET</option>
                                 </select>
 
