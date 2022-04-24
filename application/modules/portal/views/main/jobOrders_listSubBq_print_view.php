@@ -438,10 +438,10 @@ function convertMe($thisValue, $thisMat, $qty) {
           $unit = 'PC';
         }
       } elseif (strpos($thisMat, 'GOLD CORD') !== FALSE) {
-        if($qty>=1100) {
-          $qtyValue = str_replace(',','',number_format($qty / 1100,3));
+        if($qty>=1000) {
+          $qtyValue = str_replace(',','',number_format($qty / 1000,3));
           $unit = 'ROLL';
-          $partialCost *= 1100;
+          $partialCost *= 1000;
         } else {
           $qtyValue = str_replace(',','',number_format($qty,3));
           $unit = 'PC';
@@ -507,8 +507,31 @@ function convertMe($thisValue, $thisMat, $qty) {
             $qtyValue = str_replace(',','',number_format($qty,3));
             $unit = 'PC';
           }
-        } elseif (strpos($thisMat, 'NEO CONETREE W/ POT BASE') !== FALSE) {
-          if (strpos($thisMat, '7"') !== FALSE && in_array('7',$matches[0])) {
+        } elseif (strpos($thisMat, 'RUFFLED BASE') !== FALSE) {
+          if (strpos($thisMat, '13"') !== FALSE && in_array('13',$matches[0])) {
+            if($qty>=23) {
+              $qtyValue = str_replace(',','',number_format($qty / 23,3));
+              $unit = 'SHEET';
+              $partialCost *= 23;
+            } else {
+              $qtyValue = str_replace(',','',number_format($qty,3));
+              $unit = 'PC';
+            }
+          } else {
+            $qtyValue = str_replace(',','',number_format($qty,3));
+            $unit = 'PC';
+          }
+        } elseif (strpos($thisMat, 'CONETREE W/ NEO POT BASE') !== FALSE) {
+          if (strpos($thisMat, '5.5"') !== FALSE && in_array('5.5',$matches[0])) {
+            if($qty>=269) {
+              $qtyValue = str_replace(',','',number_format($qty / 269,3));
+              $unit = 'SHEET';
+              $partialCost *= 269;
+            } else {
+              $qtyValue = str_replace(',','',number_format($qty,3));
+              $unit = 'PC';
+            }
+          } elseif (strpos($thisMat, '7"') !== FALSE && in_array('7',$matches[0])) {
             if($qty>=280) {
               $qtyValue = str_replace(',','',number_format($qty / 280,3));
               $unit = 'SHEET';
@@ -559,10 +582,10 @@ function convertMe($thisValue, $thisMat, $qty) {
               $unit = 'PC';
             }
           } elseif (strpos($thisMat, '9"') !== FALSE && in_array('9',$matches[0])) {
-            if($qty>=56) {
-              $qtyValue = str_replace(',','',number_format($qty / 56,3));
+            if($qty>=70) {
+              $qtyValue = str_replace(',','',number_format($qty / 70,3));
               $unit = 'SHEET';
-              $partialCost *= 56;
+              $partialCost *= 70;
             } else {
               $qtyValue = str_replace(',','',number_format($qty,3));
               $unit = 'PC';
@@ -577,10 +600,10 @@ function convertMe($thisValue, $thisMat, $qty) {
               $unit = 'PC';
             }
           } elseif (strpos($thisMat, '13"') !== FALSE && in_array('13',$matches[0])) {
-            if($qty>=56) {
-              $qtyValue = str_replace(',','',number_format($qty / 56,3));
+            if($qty>=63) {
+              $qtyValue = str_replace(',','',number_format($qty / 63,3));
               $unit = 'SHEET';
-              $partialCost *= 56;
+              $partialCost *= 63;
             } else {
               $qtyValue = str_replace(',','',number_format($qty,3));
               $unit = 'PC';
@@ -595,10 +618,10 @@ function convertMe($thisValue, $thisMat, $qty) {
               $unit = 'PC';
             }
           } elseif (strpos($thisMat, '17"') !== FALSE && in_array('17',$matches[0])) {
-            if($qty>=35) {
-              $qtyValue = str_replace(',','',number_format($qty / 35,3));
+            if($qty>=42) {
+              $qtyValue = str_replace(',','',number_format($qty / 42,3));
               $unit = 'SHEET';
-              $partialCost *= 35;
+              $partialCost *= 42;
             } else {
               $qtyValue = str_replace(',','',number_format($qty,3));
               $unit = 'PC';
@@ -617,6 +640,47 @@ function convertMe($thisValue, $thisMat, $qty) {
               $qtyValue = str_replace(',','',number_format($qty / 20,3));
               $unit = 'SHEET';
               $partialCost *= 20;
+            } else {
+              $qtyValue = str_replace(',','',number_format($qty,3));
+              $unit = 'PC';
+            }
+          } else {
+            $qtyValue = str_replace(',','',number_format($qty,3));
+            $unit = 'PC';
+          }
+        } elseif (strpos($thisMat, 'LOW BASE') !== FALSE) {
+          if (strpos($thisMat, '6"') !== FALSE && in_array('6',$matches[0])) {
+            if($qty>=98) {
+              $qtyValue = str_replace(',','',number_format($qty / 98,3));
+              $unit = 'SHEET';
+              $partialCost *= 98;
+            } else {
+              $qtyValue = str_replace(',','',number_format($qty,3));
+              $unit = 'PC';
+            }
+          } elseif (strpos($thisMat, '7.25"') !== FALSE && in_array('7.25',$matches[0])) {
+            if($qty>=79) {
+              $qtyValue = str_replace(',','',number_format($qty / 79,3));
+              $unit = 'SHEET';
+              $partialCost *= 79;
+            } else {
+              $qtyValue = str_replace(',','',number_format($qty,3));
+              $unit = 'PC';
+            }
+          } elseif (strpos($thisMat, '10.5"') !== FALSE && in_array('10.5',$matches[0])) {
+            if($qty>=41) {
+              $qtyValue = str_replace(',','',number_format($qty / 41,3));
+              $unit = 'SHEET';
+              $partialCost *= 41;
+            } else {
+              $qtyValue = str_replace(',','',number_format($qty,3));
+              $unit = 'PC';
+            }
+          } elseif (strpos($thisMat, '13.25"') !== FALSE && in_array('13.25',$matches[0])) {
+            if($qty>=29) {
+              $qtyValue = str_replace(',','',number_format($qty / 29,3));
+              $unit = 'SHEET';
+              $partialCost *= 29;
             } else {
               $qtyValue = str_replace(',','',number_format($qty,3));
               $unit = 'PC';
@@ -668,10 +732,10 @@ function convertMe($thisValue, $thisMat, $qty) {
           }
         } elseif (strpos($thisMat, 'NEO R. BASE') !== FALSE) {
           if (strpos($thisMat, '7"') !== FALSE && in_array('7',$matches[0])) {
-            if($qty>=154) {
-              $qtyValue = str_replace(',','',number_format($qty / 154,3));
+            if($qty>=238) {
+              $qtyValue = str_replace(',','',number_format($qty / 238,3));
               $unit = 'SHEET';
-              $partialCost *= 154;
+              $partialCost *= 238;
             } else {
               $qtyValue = str_replace(',','',number_format($qty,3));
               $unit = 'PC';
@@ -686,10 +750,10 @@ function convertMe($thisValue, $thisMat, $qty) {
               $unit = 'PC';
             }
           } elseif (strpos($thisMat, '13"') !== FALSE && in_array('13',$matches[0])) {
-            if($qty>=56) {
-              $qtyValue = str_replace(',','',number_format($qty / 56,3));
+            if($qty>=42) {
+              $qtyValue = str_replace(',','',number_format($qty / 42,3));
               $unit = 'SHEET';
-              $partialCost *= 56;
+              $partialCost *= 42;
             } else {
               $qtyValue = str_replace(',','',number_format($qty,3));
               $unit = 'PC';
@@ -708,7 +772,16 @@ function convertMe($thisValue, $thisMat, $qty) {
             $unit = 'PC';
           }
         } elseif (strpos($thisMat, 'CONETREE W/ R. BASE') !== FALSE) {
-          if (strpos($thisMat, '7"') !== FALSE && in_array('7',$matches[0])) {
+          if (strpos($thisMat, '5.5"') !== FALSE && in_array('5.5',$matches[0])) {
+            if($qty>=239) {
+              $qtyValue = str_replace(',','',number_format($qty / 239,3));
+              $unit = 'SHEET';
+              $partialCost *= 239;
+            } else {
+              $qtyValue = str_replace(',','',number_format($qty,3));
+              $unit = 'PC';
+            }
+          } elseif (strpos($thisMat, '7"') !== FALSE && in_array('7',$matches[0])) {
             if($qty>=80) {
               $qtyValue = str_replace(',','',number_format($qty / 80,3));
               $unit = 'SHEET';
@@ -727,10 +800,10 @@ function convertMe($thisValue, $thisMat, $qty) {
               $unit = 'PC';
             }
           } elseif (strpos($thisMat, '9"') !== FALSE && in_array('9',$matches[0])) {
-            if($qty>=63) {
-              $qtyValue = str_replace(',','',number_format($qty / 63,3));
+            if($qty>=70) {
+              $qtyValue = str_replace(',','',number_format($qty / 70,3));
               $unit = 'SHEET';
-              $partialCost *= 63;
+              $partialCost *= 70;
             } else {
               $qtyValue = str_replace(',','',number_format($qty,3));
               $unit = 'PC';
@@ -745,10 +818,10 @@ function convertMe($thisValue, $thisMat, $qty) {
               $unit = 'PC';
             }
           } elseif (strpos($thisMat, '13"') !== FALSE && in_array('13',$matches[0])) {
-            if($qty>=56) {
-              $qtyValue = str_replace(',','',number_format($qty / 56,3));
+            if($qty>=63) {
+              $qtyValue = str_replace(',','',number_format($qty / 63,3));
               $unit = 'SHEET';
-              $partialCost *= 56;
+              $partialCost *= 63;
             } else {
               $qtyValue = str_replace(',','',number_format($qty,3));
               $unit = 'PC';

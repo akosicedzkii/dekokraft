@@ -43,7 +43,7 @@ class Colors_model extends CI_Model {
                     $data3["date_created"] = date("Y-m-d H:i:s A");
                     $data3["created_by"] =  $this->session->userdata("USERID");
                     $this->db->insert("color_materials",$data3);
-                    $counter++;
+                    $counter++; 
                 }  
             }
             

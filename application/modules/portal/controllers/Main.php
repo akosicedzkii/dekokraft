@@ -437,7 +437,7 @@ class Main extends CI_Controller
             $this->db->where('jo.id', $id);
             $module["job_orders"]=$this->db->get("job_orders as jo")->row();
 
-            $this->db->select("product_variants.color,product_variants.color_abb,invoice_lines.*,products.description,products.weight_of_box,products.inner_carton,products.master_carton,products.class,products.code,products.fob,product_profiles.net_weight,job_order_lines.job_type as jo_type,job_order_lines.jo_count");
+            $this->db->select("product_variants.color,product_variants.color_abb,invoice_lines.*,products.description,products.weight_of_box,products.inner_carton,products.master_carton,products.class,products.code,products.fob,product_profiles.net_weight,job_order_lines.job_type as jo_type,job_order_lines.jo_count,job_order_lines.id as joid");
             $this->db->join("product_variants", "product_variants.id=invoice_lines.product_id", "left");
             $this->db->join("products", "products.id=product_variants.product_id", "left");
             $this->db->join("job_order_lines", "job_order_lines.invoice_line_id=invoice_lines.id", "left");
@@ -460,23 +460,23 @@ class Main extends CI_Controller
             $color_arr=array();
             foreach ($module["invoice_lines"] as $mat) {
                 $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,ppm.qty,product_profiles.product_variant_id,ppm.product_profile_id,invoice_lines.id as invoice_id,jol.jo_count");
+                $this->db->join("invoice_lines", "jol.invoice_line_id=invoice_lines.id");
+                $this->db->join("product_profiles", "invoice_lines.product_id=product_profiles.product_variant_id");
+                $this->db->join("product_profile_materials as ppm", "product_profiles.id=ppm.product_profile_id", "left");
                 $this->db->join("materials", "ppm.material_id=materials.id");
-                $this->db->join("product_profiles", " product_profiles.id=ppm.product_profile_id");
-                $this->db->join("invoice_lines", " product_profiles.product_variant_id=invoice_lines.product_id");
-                $this->db->join("job_order_lines as jol", "invoice_lines.id=jol.invoice_line_id", "left");
                 // $this->db->where("product_profiles.product_variant_id", $mat->product_id);
-                $this->db->where("invoice_lines.id", $mat->id);
-                $material_list =  $this->db->order_by("materials.material_name", "asc")->get("product_profile_materials as ppm")->result_array();
+                $this->db->where("jol.id", $mat->joid);
+                $material_list =  $this->db->order_by("materials.material_name", "asc")->get("job_order_lines as jol")->result_array();
                 array_push($arr, $material_list);
                 $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,product_profiles.product_variant_id,color_materials.qty,invoice_lines.quantity,ppm.qty as ppm_count,jol.jo_count");
+                $this->db->join("invoice_lines", "jol.invoice_line_id=invoice_lines.id");
+                $this->db->join("product_profiles", "invoice_lines.product_id=product_profiles.product_variant_id");
+                $this->db->join("product_profile_materials as ppm", "product_profiles.id=ppm.product_profile_id", "left");
                 $this->db->join("color_materials", "ppm.material_id=color_materials.color_id");
                 $this->db->join("materials", "color_materials.material_id=materials.id");
-                $this->db->join("product_profiles", " product_profiles.id=ppm.product_profile_id");
-                $this->db->join("invoice_lines", " product_profiles.product_variant_id=invoice_lines.product_id");
-                $this->db->join("job_order_lines as jol", "invoice_lines.id=jol.invoice_line_id", "left");
                 //$this->db->where("product_profiles.product_variant_id", $mat->product_id);
-                $this->db->where("invoice_lines.id", $mat->id);
-                $colorMaterial_list =  $this->db->order_by("materials.material_name", "asc")->get("product_profile_materials as ppm")->result_array();
+                $this->db->where("jol.id", $mat->joid);
+                $colorMaterial_list =  $this->db->order_by("materials.material_name", "asc")->get("job_order_lines as jol")->result_array();
                 array_push($color_arr, $colorMaterial_list);
             }
             $module["materials"]=$arr;
