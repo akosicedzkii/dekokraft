@@ -166,7 +166,7 @@
                             <div class="form-group">
                                 <label for="unit" class="col-sm-2 control-label">Unit</label>
 
-                                <div class="col-sm-10">
+                                <div class="col-sm-3">
                                 
                                 <select class="form-control" id="unit" placeholder="Unit" style="resize:none" required>
                                     <option value="GM">GM</option>
@@ -177,6 +177,26 @@
                                     <option value="LI.">LI.</option>
                                     <option value="RL">RL</option>
                                 </select>
+                                </div>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="cost" class="col-sm-2 control-label">Conversion Unit</label>
+
+                                <div class="col-sm-5">
+                                
+                                <select class="form-control" id="conversion_unit" placeholder="Conversion Unit" style="resize:none" required>
+                                    <option value="KG">KG</option>
+                                    <option value="LI.">LI.</option>
+                                    <option value="IN">IN</option>
+                                    <option value="SHEET">SHEET</option>
+                                </select>
+
+                                <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="col-sm-5">
+                                <input type="text" class="form-control" id="conversion_value" placeholder="Coversion Value">
+
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
@@ -290,6 +310,8 @@
                 var unit = $("#unit").val();
                 var jp = $("#jp").val();
                 var status = $("#inputStatus").val();
+                var conversion_unit = $("#conversion_unit").val();
+                var conversion_value = $("#conversion_value").val();
                 var materials_id = $("#materialsID").val();
                 var type = $("#color_composition").val();
 
@@ -304,6 +326,8 @@
                 formData.append('material_name', material_name);
                 formData.append('cost', cost);
                 formData.append('unit', unit);
+                formData.append('conversion_unit', conversion_unit);
+                formData.append('conversion_value', conversion_value);
                 formData.append('status', status);
                 formData.append('jp', jp);
                 formData.append('type', type);
@@ -440,8 +464,10 @@
                 success: function(data){
                     data = JSON.parse(data);
                     $("#material_name").val(data.materials.material_name);
+                    $("#conversion_value").val(data.materials.conversion_value);
                     $("#cost").val(data.materials.cost);
                     $("#unit").val(data.materials.unit).trigger('change');
+                    $("#conversion_unit").val(data.materials.conversion_unit).trigger('change');
                     $("#jp").val(data.materials.jp).trigger('change');
                     $("#inputStatus").val(data.materials.status).trigger('change');
                     $("#color_composition").val(data.materials.type).trigger('change');

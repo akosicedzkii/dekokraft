@@ -8,6 +8,8 @@ class Materials_model extends CI_Model {
         public $unit;
         public $status;
         public $type;
+        public $conversion_unit;
+        public $conversion_value;
 
         public function insert_materials()
         {
@@ -16,10 +18,12 @@ class Materials_model extends CI_Model {
                 $data["unit"] = $this->unit;
                 $data["jp"] = $this->jp;
                 $data["type"] = $this->type;
+                $data["conversion_value"] = $this->conversion_value;
+                $data["conversion_unit"] = $this->conversion_unit;
                 $data["date_created"] = date("Y-m-d H:i:s A");
                 $data["status"] = $this->status;
                 $data["created_by"] =  $this->session->userdata("USERID");
-                $result = $this->db->insert('materials', $data);
+                echo $result = $this->db->insert('materials', $data);
                 if( $result)
                 {
                         $insertId = $this->db->insert_id();
@@ -43,6 +47,9 @@ class Materials_model extends CI_Model {
                 $data["unit"] = $this->unit;
                 $data["jp"] = $this->jp;
                 $data["type"] = $this->type;
+                
+                $data["conversion_value"] = $this->conversion_value;
+                $data["conversion_unit"] = $this->conversion_unit;
                 $data["date_modified"] = date("Y-m-d H:i:s A");
                 $data["status"] = $this->status;
                 $data["modified_by"] =  $this->session->userdata("USERID");

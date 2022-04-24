@@ -223,6 +223,46 @@ class Product_profiles extends CI_Controller {
             'items' => $filteredValues
         ));
     }
+
+
+    public function get_product_in_poly_size()
+    {
+
+        $search = $this->input->get("term[term]");
+        $this->db->like("in_poly_size",$search);
+        //$this->db->where("status",1);
+        
+        $this->db->distinct('in_poly_size');
+        //$this->db->where("status",1);
+        $this->db->select("in_poly_size as text");
+        $this->db->select("in_poly_size as id");
+        $this->db->limit(10);
+        $filteredValues=$this->db->get("product_profiles")->result_array();
+
+        echo json_encode(array(
+            'items' => $filteredValues
+        ));
+    }
+
+    
+    public function get_product_inner_polybag()
+    {
+
+        $search = $this->input->get("term[term]");
+        $this->db->like("mstr_poly_size",$search);
+        //$this->db->where("status",1);
+        //$this->db->where("status",1);
+        $this->db->distinct('mstr_poly_size');
+        $this->db->select("mstr_poly_size as text");
+        $this->db->select("mstr_poly_size as id");
+        $this->db->limit(10);
+        $filteredValues=$this->db->get("product_profiles")->result_array();
+
+        echo json_encode(array(
+            'items' => $filteredValues
+        ));
+    }
+
     public function get_product_profiles_list()
     {
         $this->load->model("portal/data_table_model","dt_model");

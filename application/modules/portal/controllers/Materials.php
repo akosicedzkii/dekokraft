@@ -23,6 +23,8 @@ class Materials extends CI_Controller {
         $this->materials_model->cost = $this->input->post("cost");
         $this->materials_model->status = $this->input->post("status");
         $this->materials_model->type = $this->input->post("type");
+        $this->materials_model->conversion_value = $this->input->post("conversion_value");
+        $this->materials_model->conversion_unit = $this->input->post("conversion_unit");
         echo $this->materials_model->insert_materials();
 	}
 
@@ -35,6 +37,8 @@ class Materials extends CI_Controller {
         $this->materials_model->cost = $this->input->post("cost");
         $this->materials_model->status = $this->input->post("status");
         $this->materials_model->type = $this->input->post("type");
+        $this->materials_model->conversion_value = $this->input->post("conversion_value");
+        $this->materials_model->conversion_unit = $this->input->post("conversion_unit");
         $this->materials_model->id = $materials_id;
         echo $this->materials_model->update_materials();
 	}

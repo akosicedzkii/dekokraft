@@ -37,6 +37,10 @@ class Invoices_model extends CI_Model {
                 $data2["status"] = 0;
                 $this->db->insert("marketing_order",$data2);
                 $insertId = $this->db->insert_id();
+
+                $this->db->where("id",$id);
+                $data3["date_modified"] = date("Y-m-d H:i:s A");
+                $this->db->update("invoices",$data3);
                 $this->logs->log = "Created Marketing Order - ID: ". $insertId  ;
                 $this->logs->details =  " Marketing Order  Details: invoice id - ".$id;
                 $this->logs->module = "marketing_order";

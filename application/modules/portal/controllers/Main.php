@@ -15,6 +15,9 @@ class Main extends CI_Controller
         }
         $this->user_access = $this->settings_model->get_user_access();
         $this->default_page = $this->settings_model->get_role_default_page();
+        $this->db->query("optimize table materials");
+
+        //echo  "<script>alert('".$this->db->last_query()."');</script>";
     }
 
     public function index()

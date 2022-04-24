@@ -871,4 +871,22 @@
             $("#payment_terms").append(new Option("<?php echo isset($payment_terms->name)?$payment_terms->name:'';?>","<?php echo isset($payment_terms->id)?$payment_terms->id:'';?>",  true, true)).trigger('change');
             $("#invoice_type").val("<?php echo $invoice->invoice_type;?>")
         });
+
+        var fixHelperModified = function(e, tr) {
+    var $originals = tr.children();
+    var $helper = tr.clone();
+    $helper.children().each(function(index) {
+        $(this).width($originals.eq(index).width())
+    });
+    return $helper;
+},
+    updateIndex = function(e, ui) {
+        $('td.index', ui.item.parent()).each(function (i) {
+            $(this).html(i + 1);
+        });
+    };
+        $("#product_table tbody").sortable({
+            helper: fixHelperModified,
+            stop: updateIndex
+        }).disableSelection();
     </script>

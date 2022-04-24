@@ -132,13 +132,13 @@
                     </tr>
                   <tr>
                     <td>Inner Polybag</td>
-                    <td><input type='text' id="inner_poly_size" style="width:150px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_poly_size; }?>" class="form-control"></td>
+                    <td><select type='text' id="inner_poly_size" style="width:180px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_poly_size; }?>" class="form-control"></select></td>
                     <td><input type='text' id="inner_polybag" style="width:150px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_poly_cont; }?>" class="form-control"></td>
                     <td><input type='text' id="in_poly_cost" style="width:150px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_poly_cost; }?>" class="form-control"></td>
                   </tr>
                   <tr>
                     <td>Master Polybag</td>
-                    <td><input type='text' id="master_poly_size" style="width:150px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->mstr_poly_size; }?>" class="form-control"></td>
+                    <td><select type='text' id="master_poly_size" style="width:180px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->mstr_poly_size; }?>" class="form-control"></select></td>
                     <td><input type='text' id="master_polybag" style="width:150px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->mstr_poly_cont; }?>" class="form-control"></td>
                     <td><input type='text' id="mstr_poly_cost" style="width:150px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->mstr_poly_cost; }?>" class="form-control"></td>
                     </tr>
@@ -507,6 +507,26 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label for="cost" class="col-sm-2 control-label">Conversion Unit</label>
+
+                                <div class="col-sm-5">
+                                
+                                <select class="form-control" id="conversion_unit" placeholder="Conversion Unit" style="resize:none" required>
+                                    <option value="KG">KG</option>
+                                    <option value="LI.">LI.</option>
+                                    <option value="IN">IN</option>
+                                    <option value="SHEET">SHEET</option>
+                                </select>
+
+                                <div class="help-block with-errors"></div>
+                                </div>
+                                <div class="col-sm-5">
+                                <input type="text" class="form-control" id="conversion_value" placeholder="Coversion Value">
+
+                                <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label for="cost" class="col-sm-2 control-label">Cost</label>
 
                                 <div class="col-sm-10">
@@ -683,6 +703,9 @@ var image_correct = true;
                 var status = $("#inputStatus").val();
                 var materials_id = $("#materialsID").val();
                 var type = $("#color_composition").val();
+                
+                var conversion_unit = $("#conversion_unit").val();
+                var conversion_value = $("#conversion_value").val();
 
                 if(material_name == "" || cost == "")
                 {
@@ -696,6 +719,9 @@ var image_correct = true;
                 formData.append('cost', cost);
                 formData.append('unit', unit);
                 formData.append('status', status);
+                
+                formData.append('conversion_unit', conversion_unit);
+                formData.append('conversion_value', conversion_value);
                 formData.append('jp', jp);
                 formData.append('type', type);
                 // Attach file
@@ -1012,6 +1038,49 @@ $("#saveMaterials").click(function(){
 });
 });
 
+$("#inner_poly_size").select2({
+        minimumInputLength: 2,
+        ajax: {
+            url: "<?php echo base_url()."portal/product_profiles/get_product_in_poly_size";?>",
+            dataType: 'json',
+            type: "GET",
+            data: function (term) {
+                return {
+                    term: term
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: data.items
+                };
+            }
+
+        }
+    });
+$("#inner_poly_size").val('<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_poly_size; }?>').trigger('change');
+$("#inner_poly_size").append(new Option("<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_poly_size; }?>","<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_poly_size; }?>",  true, true)).trigger('change');
+
+$("#master_poly_size").select2({
+        minimumInputLength: 2,
+        ajax: {
+            url: "<?php echo base_url()."portal/product_profiles/get_product_inner_polybag";?>",
+            dataType: 'json',
+            type: "GET",
+            data: function (term) {
+                return {
+                    term: term
+                };
+            },
+            processResults: function (data) {
+                return {
+                    results: data.items
+                };
+            }
+
+        }
+    });
+$("#master_poly_size").val('<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->mstr_poly_size; }?>').trigger('change');
+$("#master_poly_size").append(new Option("<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->mstr_poly_size; }?>","<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->mstr_poly_size; }?>",  true, true)).trigger('change');
 
 
 $("#saveMaterials_edit").click(function(){
