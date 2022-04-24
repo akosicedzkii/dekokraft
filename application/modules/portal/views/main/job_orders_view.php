@@ -530,8 +530,10 @@
                     //console.log(data);
                         $("#table_body").html("");
                     $("#marketing_order").append(new Option(data.marketing_order.id,data.marketing_order.id,  true, true)).trigger('change');
-
-                    $("#subcon").append(new Option(data.subcon.name,data.subcon.id,  true, true)).trigger('change');
+                    if(data.subcon!=null){
+                        $("#subcon").append(new Option(data.subcon.name,data.subcon.id,  true, true)).trigger('change');
+                    }
+                   
                     $("#job_ordersID").val(data.job_orders.id);
                     $("#remarks").val(data.job_orders.remarks);
                     $("#deadline").val(data.job_orders.deadline);
