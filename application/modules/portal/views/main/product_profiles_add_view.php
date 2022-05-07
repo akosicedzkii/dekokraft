@@ -496,6 +496,7 @@
 
                                 <select class="form-control" id="unit" placeholder="Unit" style="resize:none" required>
                                     <option value="ML">ML</option>
+                                    <option value="GM">GM</option>
                                     <option value="IN">IN</option>
                                     <option value="PC">PC</option>
                                     <option value="GAL">GAL</option>
@@ -513,8 +514,8 @@
                                 <div class="col-sm-5">
                                 
                                 <select class="form-control" id="conversion_unit" placeholder="Conversion Unit" style="resize:none" required>
-                                <option value="GM">GM</option>
                                     <option value="ML">ML</option>
+                                    <option value="GM">GM</option>
                                     <option value="IN">IN</option>
                                     <option value="PC">PC</option>
                                     <option value="GAL">GAL</option>

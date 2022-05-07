@@ -218,7 +218,7 @@ class Main extends CI_Controller
           $arr=array();
           $color_arr=array();
           foreach ($module["invoice_lines"] as $mat) {
-              $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,ppm.qty,product_profiles.product_variant_id,ppm.product_profile_id,invoice_lines.id as invoice_id,invoice_lines.quantity");
+              $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,ppm.qty,product_profiles.product_variant_id,ppm.product_profile_id,invoice_lines.id as invoice_id,invoice_lines.quantity,materials.conversion_unit,materials.conversion_type,materials.conversion_value");
               $this->db->join("materials", "ppm.material_id=materials.id");
               $this->db->join("product_profiles", " product_profiles.id=ppm.product_profile_id");
               $this->db->join("invoice_lines", " product_profiles.product_variant_id=invoice_lines.product_id");
@@ -226,7 +226,7 @@ class Main extends CI_Controller
               $this->db->where("invoice_lines.id", $mat->id);
               $material_list =  $this->db->order_by("materials.material_name", "asc")->get("product_profile_materials as ppm")->result_array();
               array_push($arr, $material_list);
-              $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,product_profiles.product_variant_id,color_materials.qty,invoice_lines.quantity,ppm.qty as ppm_count");
+              $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,product_profiles.product_variant_id,color_materials.qty,invoice_lines.quantity,ppm.qty as ppm_count,materials.conversion_unit,materials.conversion_type,materials.conversion_value");
               $this->db->join("color_materials", "ppm.material_id=color_materials.color_id");
               $this->db->join("materials", "color_materials.material_id=materials.id");
               $this->db->join("product_profiles", " product_profiles.id=ppm.product_profile_id");
@@ -459,7 +459,7 @@ class Main extends CI_Controller
             $arr=array();
             $color_arr=array();
             foreach ($module["invoice_lines"] as $mat) {
-                $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,ppm.qty,product_profiles.product_variant_id,ppm.product_profile_id,invoice_lines.id as invoice_id,jol.jo_count");
+                $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,ppm.qty,product_profiles.product_variant_id,ppm.product_profile_id,invoice_lines.id as invoice_id,jol.jo_count,materials.conversion_unit,materials.conversion_type,materials.conversion_value");
                 $this->db->join("invoice_lines", "jol.invoice_line_id=invoice_lines.id");
                 $this->db->join("product_profiles", "invoice_lines.product_id=product_profiles.product_variant_id");
                 $this->db->join("product_profile_materials as ppm", "product_profiles.id=ppm.product_profile_id", "left");
@@ -468,7 +468,7 @@ class Main extends CI_Controller
                 $this->db->where("jol.id", $mat->joid);
                 $material_list =  $this->db->order_by("materials.material_name", "asc")->get("job_order_lines as jol")->result_array();
                 array_push($arr, $material_list);
-                $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,product_profiles.product_variant_id,color_materials.qty,invoice_lines.quantity,ppm.qty as ppm_count,jol.jo_count");
+                $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,product_profiles.product_variant_id,color_materials.qty,invoice_lines.quantity,ppm.qty as ppm_count,jol.jo_count,materials.conversion_unit,materials.conversion_type,materials.conversion_value");
                 $this->db->join("invoice_lines", "jol.invoice_line_id=invoice_lines.id");
                 $this->db->join("product_profiles", "invoice_lines.product_id=product_profiles.product_variant_id");
                 $this->db->join("product_profile_materials as ppm", "product_profiles.id=ppm.product_profile_id", "left");
@@ -653,7 +653,7 @@ class Main extends CI_Controller
         $arr=array();
         $color_arr=array();
         foreach ($module["p_o"] as $mat) {
-            $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,ppm.qty,product_profiles.product_variant_id,ppm.product_profile_id,invoice_lines.id as invoice_id,pol.po_count");
+            $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,ppm.qty,product_profiles.product_variant_id,ppm.product_profile_id,invoice_lines.id as invoice_id,pol.po_count,materials.conversion_unit,materials.conversion_type,materials.conversion_value");
             $this->db->join("materials", "ppm.material_id=materials.id");
             $this->db->join("product_profiles", " product_profiles.id=ppm.product_profile_id");
             $this->db->join("invoice_lines", " product_profiles.product_variant_id=invoice_lines.product_id");
@@ -663,7 +663,7 @@ class Main extends CI_Controller
             $this->db->where("pol.po_id", $id);
             $material_list =  $this->db->order_by("materials.material_name", "asc")->get("product_profile_materials as ppm")->result_array();
             array_push($arr, $material_list);
-            $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,product_profiles.product_variant_id,color_materials.qty,invoice_lines.quantity,ppm.qty as ppm_count,pol.po_count");
+            $this->db->select("materials.material_name,materials.unit,materials.cost,materials.jp,materials.type as tipe,product_profiles.product_variant_id,color_materials.qty,invoice_lines.quantity,ppm.qty as ppm_count,pol.po_count,materials.conversion_unit,materials.conversion_type,materials.conversion_value");
             $this->db->join("color_materials", "ppm.material_id=color_materials.color_id");
             $this->db->join("materials", "color_materials.material_id=materials.id");
             $this->db->join("product_profiles", " product_profiles.id=ppm.product_profile_id");
