@@ -132,7 +132,21 @@
                     </tr>
                   <tr>
                     <td>Inner Polybag</td>
-                    <td><select type='text' id="inner_poly_size" style="width:180px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_poly_size; }?>" class="form-control"></select></td>
+                    <!-- <td><select type='text' id="inner_poly_size" style="width:180px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_poly_size; }?>" class="form-control"></select></td> -->
+                    <td><select type='text' id="inner_poly_size" style="width:180px;" value="" class="form-control">
+                        <option>POLYBAG 04 X 12</option>
+                        <option>POLYBAG 05 X 16</option>
+                        <option>POLYBAG 05 X 08</option>
+                        <option>POLYBAG 06 X 08</option>
+                        <option>POLYBAG 07 X 10</option>
+                        <option>POLYBAG 08 X 14</option>
+                        <option>POLYBAG 10 X 15</option>
+                        <option>POLYBAG 10 X 25</option>
+                        <option>BUBBLE BAG 05 X 08</option>
+                        <option>BUBBLE BAG 06 X 08</option>
+                        <option>BUBBLE BAG 08 X 12</option>
+                        <option>BUBBLE BAG 10 X 16</option>
+                    </select></td>
                     <td><input type='text' id="inner_polybag" style="width:150px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_poly_cont; }?>" class="form-control"></td>
                     <td><input type='text' id="in_poly_cost" style="width:150px;" value="<?php if(!isset($prod_profile_details)){ }else{ echo $prod_profile_details->in_poly_cost; }?>" class="form-control"></td>
                   </tr>
